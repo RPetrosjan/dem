@@ -1,0 +1,1 @@
+;alert('Ruen');document.getElementById('rin');
