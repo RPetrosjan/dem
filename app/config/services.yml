@@ -29,6 +29,16 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    admin.users:
+        class: AppBundle\Admin\UsersAdmin
+        arguments:
+           - ~
+           - AppBundle\Entity\User
+           - ~
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Users, group : 'Admin' }
+        public: true
+
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:
