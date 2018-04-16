@@ -1,2 +1,12 @@
-{{ '/public/css/topMenu.html.css'|cssloader }}
-{{ '/public/js/topMenu.html.js'|jsloader }}
+{{ '/public/css/menu/topMenu.html.css'|cssloader }}
+{{ '/public/js/menu/topMenu.html.js'|jsloader }}
+<div class="header-white">
+    <header class="navbar">
+        {% spaceless %}
+            <li><a>Déménagement France</a></li>
+    {% for weight,menu in topmenu %}
+        <li><a href="{{ menu.url }}" title="{{ menu.title }}">{{ menu.name|trans }}</a></li>
+    {% endfor %}
+        {% endspaceless %}
+    </header>
+</div>

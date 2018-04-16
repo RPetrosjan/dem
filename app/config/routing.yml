@@ -11,6 +11,8 @@ _sonata_admin:
     type: sonata_admin
     prefix: /admin
 
+sonata_admin_user:
+    path: /admin/app/user/list
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
