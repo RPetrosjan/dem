@@ -23,6 +23,9 @@
     color: white;
 
 }
+.navbar li:first-child{
+    float: left;
+}
 .navbar li:first-child>a{
     background: #a72222;
     color: White;
