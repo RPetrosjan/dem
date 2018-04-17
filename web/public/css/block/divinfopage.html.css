@@ -1,5 +1,7 @@
 .divinfopage{
+    background-color: #dedede;
     height: 200px;
     width: 100%;
-    background-color: grey;
+    box-shadow: 0px -69px 71px -29px #ffffff;
+    margin-top: -18px;
 }
