@@ -25,6 +25,11 @@ h1, h2, h3, h4, h5, h6 {
     color: #a72222;
 }
 
+.websitebox{
+    width: 1000px;
+    margin: 0px auto;
+}
+
 .divbodyblock{
     text-align: center;
 }
