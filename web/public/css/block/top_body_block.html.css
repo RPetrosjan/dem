@@ -1,0 +1,26 @@
+.top_body_block{
+    background-image: url('/img/block/dem_top_block.png');
+    background-repeat: no-repeat;
+    background-position: 150px bottom;
+    height: 500px;
+    width: 100%;
+}
+.top_body_block>div{
+    padding-top: 25px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.top_body_block .sectionleft h2{
+    margin-top: 25px;
+}
+
+@media (max-width: 850px) {
+    .top_body_block
+    {
+        background-attachment: inherit;
+        padding-left: 10px;
+        background-position: 0px 0px ;
+    }
+}
+

@@ -40,3 +40,13 @@
     font-family: georgia;
     text-decoration: none;
 }
+
+@media (max-width: 850px) {
+    .top_sous_menu em{
+        min-width: 40%;
+    }
+    .top_sous_menu em a{
+        font-size: 1.41em;
+        line-height: 40px;
+    }
+}
