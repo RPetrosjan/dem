@@ -1,3 +1,4 @@
+{{ '/public/css/base.html.css'|cssloader }}
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,9 +7,12 @@
     {% block stylesheets %}{% endblock %}
     <link rel="stylesheet" href="/css/{{ cssFileName }}" />
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-
+<div class="divbodyblock">
+    <div>
 {% block body %}
     {% block topHeader %}
         {% block topMenu %}
@@ -23,6 +27,8 @@
     {% block footerPage %}
     {% endblock %}
 {% endblock %}
+    </div>
+</div>
 {% block javascripts %}{% endblock %}
 <script src="/js/{{ jsFileName }}"></script>
 
