@@ -1,26 +1,66 @@
 .top_body_block{
+    width: 100%;
+    position: relative;
     background-image: url('/img/block/dem_top_block.png');
     background-repeat: no-repeat;
-    background-position: 150px bottom;
-    height: 500px;
-    width: 100%;
+    background-position: left bottom;
 }
 .top_body_block>div{
     padding-top: 25px;
     display: inline-block;
     vertical-align: top;
 }
+.top_body_block .sectionleft{
+    height: 100%;
+    width: 50%;
+}
+.top_body_block .sectionright{
+    width: 45%;
+    text-align: right;
+}
 
 .top_body_block .sectionleft h2{
     margin-top: 25px;
 }
+
+.divform{
+    display: inline-block;
+    width: 320px;
+    height: 445px;
+    text-align: left;
+}
+.divform>div:active,.divform>div:hover{
+    border: 1px darkslategray solid;
+}
+.divform>div{
+    position: relative;
+
+    border-bottom: #E6E6E6 1px solid;
+    max-width: 800px;
+
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    margin-top: 10px;
+}
+
 
 @media (max-width: 850px) {
     .top_body_block
     {
         background-attachment: inherit;
         padding-left: 10px;
-        background-position: 0px 0px ;
+        background-position: right 0px ;
+    }
+    .top_body_block .sectionleft{
+        width: 100%;
+        margin-bottom: 150px;
+    }
+    .top_body_block .sectionright{
+        width: 100%;
+    }
+    .top_body_block .sectionright .divform{
+        width: 100%;
     }
 }
 

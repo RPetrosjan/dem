@@ -9,10 +9,13 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\CalculDevis;
 use AppBundle\Entity\OptimizerCss;
 use AppBundle\Entity\OptimizerJs;
+use AppBundle\Form\CalculDevisType;
 use Doctrine\Common\Annotations\Annotation;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -77,9 +80,14 @@ class WebController extends Controller
      */
     public function IndexPages(Request $request){
 
+        $caluldevis = new CalculDevis();
+        $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis);
+        $calculdevisform->add('submit',SubmitType::class,array(
+            'label' => 'envoyer',
+        ));
 
         $htmlRender = $this->render('Pages/homepage.html.twig', array(
-
+            'calculdevisform' => $calculdevisform->createView(),
         ));
 
         $this->LoadCssLoader($request);

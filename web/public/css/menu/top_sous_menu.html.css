@@ -49,4 +49,8 @@
         font-size: 1.41em;
         line-height: 40px;
     }
+    .navbar{
+        background-color: inherit;
+        box-shadow: none;
+    }
 }

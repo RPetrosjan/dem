@@ -46,6 +46,12 @@
 .navbar li:last-child>a{
     border-right: none;
 }
+.navbar li:first-child>a>span:first-of-type{
+    margin-top: 55px;
+}
+.navbar li:first-child>a>span{
+    display: block;
+}
 
 
 @media (max-width: 850px) {
@@ -53,7 +59,7 @@
         width: 100%;
     }
     .navbar li>a{
-        width: 100%;
+        display: block;
         border-bottom: 0.1em rgb(245, 242, 242) solid;
     }
     .navbar li:first-child {
@@ -62,7 +68,10 @@
         margin-bottom: 10px;
     }
     .navbar li:first-child>a{
-        height: 70px;
+        height: 119px;
 
+    }
+    .navbar li:first-child>a>span:first-of-type{
+        margin-top: 15px;
     }
  }
