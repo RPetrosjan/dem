@@ -36,9 +36,9 @@ class CalculDevis
     private $etage1;
 
     /**
-     * @var bool
+     * @var string
      *
-     * @ORM\Column(name="ascenseur1", type="boolean")
+     * @ORM\Column(name="ascenseur1", type="string", length=70)
      */
     private $ascenseur1;
 
@@ -59,7 +59,7 @@ class CalculDevis
     /**
      * @var bool
      *
-     * @ORM\Column(name="ascenseur2", type="boolean")
+     * @ORM\Column(name="ascenseur2", type="string", length=70)
      */
     private $ascenseur2;
 

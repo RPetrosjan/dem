@@ -1,8 +1,8 @@
-input{
+input,select{
     display: inline-block;
     width: 215px;
-    padding: 10px 0 10px 0px;
-    font-family: "Open Sans", sans;
+    padding: 10px 0 10px 15px;
+    font-family: 'Open Sans Condensed', sans-serif;
     font-weight: 700;
     color: #a72222;
     border: 0;
@@ -14,30 +14,102 @@ input{
     background-color: transparent;
     position: relative;
     z-index: 10;
-    width: 100%;
 }
 
-input:focus,
-input:active {
+.topformdiv{
+    width: 250px;
+}
+.topformdiv + label{
+    margin-left: -38px;
+    transform: rotate(-90deg);
+    transform-origin: left top 0;
+    position: absolute;
+    margin-top: -23px;
+    font-size: 1.7em;
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+.row .row{
+    position: relative;
+    display: inline-block;
+    margin: 10px 4px;
+}
+
+input.etage{
+    width: 70px;
+}
+select.ascenseur {
+    width: 135px;
+}
+
+input + label,select + label {
+    background-color: White;
+    border-radius: 3px;
+    color: #032429;
+    display: inline-block;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: bold;
+    left: 0;
+    line-height: 39px;
+    position: absolute;
+    text-indent: 15px;
+    text-shadow: 0 1px 0 rgba(19, 74, 70, 0);
+    text-transform: uppercase;
+    top: 0;
+    transition: all .3s ease-in-out;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-size: 15px;
+}
+
+input:hover,select:hover
+{
+    position: relative;
+    z-index: 10;
+}
+input:focus,select:focus
+input:active,select:active {
     color: #a72222;
     text-indent: 0;
     background: #fff;
 }
 
-label {
+input:focus + label,select:focus + label
+input:active + label,select:active + label {
+    background-color:  transparent;
+    transform: translateY(-27px);
+}
+
+button {
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 2em;
+    margin-left: 2px;
+    margin-top: 5px;
+    cursor: pointer;
     display: inline-block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #032429;
-    font-size: 16px;
+    color: #FFF;
+    font-size: 1.08em;
+    border: 1px solid #eee;
+    background: #eee;
+    border-radius: 4px;
+    font-family: "Open Sans", sans;
+    line-height: 2em;
+    border: 1px solid #aaa;
+    text-decoration: none;
+    -webkit-transition: all 0.3s linear;
+    -khtml-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+    background: #ff3019;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=0 );
+    letter-spacing: 0.05em;
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+    width: 177px;
+    text-align: center;
+    font-family: "Open Sans", sans;
     font-weight: bold;
     text-transform: uppercase;
-    text-shadow: 0 1px 0 rgba(19, 74, 70, 0);
-    transition: all .3s ease-in-out;
-    background-color: White;
-    width: 100%;
-    height: 100%;
-    border-radius: 3px;
-    font-family: 'Open Sans Condensed', sans-serif;
 }
