@@ -11,6 +11,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+{{ dump() }}
+{% if app.session.flashBag is defined %}
+    <div class="message_grays"></div>
+{% endif %}
+
+{% for label, messages in app.session.flashbag.all %}
+    ...
+{% endfor %}
+
 <div class="divbodyblock">
     <div>
 {% block body %}

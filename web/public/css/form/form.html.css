@@ -15,9 +15,12 @@ input,select{
     position: relative;
     z-index: 10;
 }
+select{
+    width: 230px;
+}
 
 .topformdiv{
-    width: 250px;
+    width: 260px;
 }
 .topformdiv + label{
     margin-left: -38px;
@@ -82,34 +85,28 @@ input:active + label,select:active + label {
 }
 
 button {
-    padding-left: 20px;
-    padding-right: 20px;
-    height: 2em;
-    margin-left: 2px;
-    margin-top: 5px;
-    cursor: pointer;
-    display: inline-block;
-    color: #FFF;
-    font-size: 1.08em;
-    border: 1px solid #eee;
-    background: #eee;
-    border-radius: 4px;
-    font-family: "Open Sans", sans;
-    line-height: 2em;
-    border: 1px solid #aaa;
-    text-decoration: none;
-    -webkit-transition: all 0.3s linear;
     -khtml-transition: all 0.3s linear;
     -moz-transition: all 0.3s linear;
     -o-transition: all 0.3s linear;
-    transition: all 0.3s linear;
-    background: #ff3019;
+    -webkit-transition: all 0.3s linear;
+    background: #a72222;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    color: #FFF;
+    cursor: pointer;
+    display: inline-block;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=0 );
-    letter-spacing: 0.05em;
-    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
-    width: 177px;
-    text-align: center;
-    font-family: "Open Sans", sans;
+    font-family: "Open Sans Condensed", sans;
+    font-size: 1.08em;
     font-weight: bold;
+    letter-spacing: 0.05em;
+    margin-left: 2px;
+    margin-top: 5px;
+    padding: 11px 15px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
     text-transform: uppercase;
+    transition: all 0.3s linear;
+    width: 230px;
 }

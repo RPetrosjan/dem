@@ -38,10 +38,6 @@ class WebController extends Controller
         $ArrayExtensions = $this->twig->getExtension('AppBundle\Twig\AppExtension');
 
 
-
-
-
-
         $csstext = '';
         $jstext = '';
         $kernel= $this->get('kernel');
@@ -82,9 +78,16 @@ class WebController extends Controller
 
         $caluldevis = new CalculDevis();
         $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis);
-        $calculdevisform->add('submit',SubmitType::class,array(
-            'label' => 'envoyer',
-        ));
+        $calculdevisform->handleRequest($request);
+        if ($calculdevisform->isSubmitted() && $calculdevisform->isValid()) {
+            $task = $calculdevisform->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($task);
+            $em->flush();
+            $this->addFlash('success', 'Votre message a été envoyé avec succès');
+            return $this->redirectToRoute('homepage');
+        };
+
 
         $htmlRender = $this->render('Pages/homepage.html.twig', array(
             'calculdevisform' => $calculdevisform->createView(),

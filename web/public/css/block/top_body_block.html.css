@@ -25,9 +25,10 @@
 
 .divform{
     display: inline-block;
-    width: 320px;
+    width: 260px;
     height: 445px;
     text-align: left;
+    margin-bottom: 45px;
 }
 
 .divform>div{

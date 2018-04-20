@@ -70,6 +70,13 @@ class CalculDevis
      */
     private $volume;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prestation", type="string", length=100)
+     */
+    private $prestation;
+
 
     /**
      * Get id
@@ -247,6 +254,22 @@ class CalculDevis
     public function getVolume()
     {
         return $this->volume;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrestation()
+    {
+        return $this->prestation;
+    }
+
+    /**
+     * @param string $prestation
+     */
+    public function setPrestation($prestation)
+    {
+        $this->prestation = $prestation;
     }
 }
 

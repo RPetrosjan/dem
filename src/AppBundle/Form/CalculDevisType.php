@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,17 +21,15 @@ class CalculDevisType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-
-
         $builder
             ->add(
             $builder->create('Depart', FormType::class, array(
                 'inherit_data' => true,
                  'attr' => array(
                      'class' => 'topformdiv',
-                 )
-                )
-            )
+                 ),
+                 'label' => 'Départ',
+               ))
                 ->add('cp1', TextType::class, array(
                     'label' => 'code postal ville',
                 ))
@@ -57,7 +56,8 @@ class CalculDevisType extends AbstractType
                     'inherit_data' => true,
                     'attr' => array(
                         'class' => 'topformdiv',
-                    )
+                    ),
+                    'label'=>'Arrivée',
                 ))
                     ->add('cp2', TextType::class, array(
                         'label' => 'code postal ville',
@@ -80,34 +80,34 @@ class CalculDevisType extends AbstractType
                         'label' => 'Ascenseur'
                     ))
             )
+            ->add(
+                $builder->create('General', FormType::class, array(
+                    'inherit_data' => true,
+                    'attr' => array(
+                        'class' => 'topformdiv',
+                    ),
+                    'label'=>'General',
+                ))
+                ->add('prestation','choice',array(
+                    'choices' => array(
+                        '' =>null,
+                        'Économique' => 'Économique',
+                        'Standard' => 'Standard',
+                        'Luxe' => 'Luxe',
+                    )
+
+                ))
+                ->add('volume',TextType::class,array(
+                    'label' => 'Volume',
+                ))
+            )
+            ->add('save', SubmitType::class, array(
+                'label'=>'Calculer le prix',
+            ))
 
         ;
 
 
-        /*
-
-        $builder
-            ->add('cp1',TextType::class,array(
-            'label'=>'Code Postal'
-             ))
-            ->add('etage1','text',array(
-                'attr' => array(
-                    'class' => 'balloon etage'
-                )
-            ))
-            ->add('ascenseur1','choice',array(
-                'choices'  => array(
-                    'Oui' => true,
-                    'No' => false,
-                ),
-                'attr' => array(
-                    'class' => 'balloon ascenseur'
-                )
-            ))
-            ->add('cp2')
-            ->add('etage2')
-            ->add('ascenseur2')
-            ->add('volume'); */
     }/**
      * {@inheritdoc}
      */
