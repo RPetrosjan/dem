@@ -1,4 +1,6 @@
 {{ '/public/css/form/form.html.css'|cssloader }}
+
 {% form_theme calculdevisform 'form/fields.html.twig' %}
-{{ form_start(calculdevisform) }}
+{{ form_start(calculdevisform,{'attr': {'class':'divform'}}) }}
 {{ form_end(calculdevisform) }}
+

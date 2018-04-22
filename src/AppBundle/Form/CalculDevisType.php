@@ -3,15 +3,12 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\CalculDevis;
-use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Choice;
 
 class CalculDevisType extends AbstractType
 {
@@ -20,7 +17,6 @@ class CalculDevisType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $builder
             ->add(
             $builder->create('Depart', FormType::class, array(
@@ -31,17 +27,19 @@ class CalculDevisType extends AbstractType
                  'label' => 'Départ',
                ))
                 ->add('cp1', TextType::class, array(
+                    'empty_data'  => '00000',
                     'label' => 'code postal ville',
                 ))
                 ->add('etage1', TextType::class, array(
                     'label' => 'Etage',
+                    'empty_data'  => '0',
                     'attr' => array(
                         'class' => 'etage'
                     ),
                 ))
                 ->add('ascenseur1', 'choice', array(
+                    'empty_data'  => true,
                     'choices'  => array(
-                        '' => null,
                         'Oui' => true,
                         'No' => false,
                     ),
@@ -60,17 +58,19 @@ class CalculDevisType extends AbstractType
                     'label'=>'Arrivée',
                 ))
                     ->add('cp2', TextType::class, array(
+                        'empty_data'  => '00000',
                         'label' => 'code postal ville',
                     ))
                     ->add('etage2', TextType::class, array(
                         'label' => 'Etage',
+                        'empty_data'  => '0',
                         'attr' => array(
                             'class' => 'etage'
                         ),
                     ))
                     ->add('ascenseur2', 'choice', array(
+                        'empty_data'  => false,
                         'choices'  => array(
-                            '' => null,
                             'Oui' => true,
                             'No' => false,
                         ),
@@ -89,6 +89,7 @@ class CalculDevisType extends AbstractType
                     'label'=>'General',
                 ))
                 ->add('prestation','choice',array(
+                    'empty_data'  => 'Économique',
                     'choices' => array(
                         '' =>null,
                         'Économique' => 'Économique',
@@ -98,6 +99,7 @@ class CalculDevisType extends AbstractType
 
                 ))
                 ->add('volume',TextType::class,array(
+                    'empty_data'  => '0',
                     'label' => 'Volume',
                 ))
             )
@@ -106,7 +108,6 @@ class CalculDevisType extends AbstractType
             ))
 
         ;
-
 
     }/**
      * {@inheritdoc}

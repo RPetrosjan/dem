@@ -10,12 +10,16 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\CalculDevis;
+use AppBundle\Entity\Contact;
 use AppBundle\Entity\OptimizerCss;
 use AppBundle\Entity\OptimizerJs;
 use AppBundle\Form\CalculDevisType;
 use Doctrine\Common\Annotations\Annotation;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -75,6 +79,9 @@ class WebController extends Controller
      * @Route("/", name="homepage")
      */
     public function IndexPages(Request $request){
+
+
+        $caluldevis = new CalculDevis();
 
         $caluldevis = new CalculDevis();
         $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis);
