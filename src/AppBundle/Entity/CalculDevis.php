@@ -78,22 +78,6 @@ class CalculDevis
     private $prestation;
 
     /**
-     * CalculDevis constructor.
-     */
-    public function __construct()
-    {
-        $this->ascenseur1=false;
-        $this->ascenseur2=false;
-        $this->cp1='00000';
-        $this->cp2='00000';
-        $this->etage1='0';
-        $this->etage2='0';
-        $this->prestation = 'Standard';
-        $this->volume='0';
-    }
-
-
-    /**
      * Get id
      *
      * @return int

@@ -29,6 +29,9 @@ class CalculDevisType extends AbstractType
                 ->add('cp1', TextType::class, array(
                     'empty_data'  => '00000',
                     'label' => 'code postal ville',
+                    'attr' => array(
+                        'class' => 'cp_ville',
+                    )
                 ))
                 ->add('etage1', TextType::class, array(
                     'label' => 'Etage',
@@ -60,6 +63,9 @@ class CalculDevisType extends AbstractType
                     ->add('cp2', TextType::class, array(
                         'empty_data'  => '00000',
                         'label' => 'code postal ville',
+                        'attr' => array(
+                            'class' => 'cp_ville',
+                        )
                     ))
                     ->add('etage2', TextType::class, array(
                         'label' => 'Etage',
@@ -91,7 +97,6 @@ class CalculDevisType extends AbstractType
                 ->add('prestation','choice',array(
                     'empty_data'  => 'Économique',
                     'choices' => array(
-                        '' =>null,
                         'Économique' => 'Économique',
                         'Standard' => 'Standard',
                         'Luxe' => 'Luxe',

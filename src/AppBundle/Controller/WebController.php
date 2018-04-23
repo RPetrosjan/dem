@@ -82,8 +82,6 @@ class WebController extends Controller
 
 
         $caluldevis = new CalculDevis();
-
-        $caluldevis = new CalculDevis();
         $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis);
         $calculdevisform->handleRequest($request);
         if ($calculdevisform->isSubmitted() && $calculdevisform->isValid()) {

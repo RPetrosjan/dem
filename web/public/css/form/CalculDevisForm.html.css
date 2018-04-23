@@ -67,22 +67,22 @@ input + label,select + label {
     font-size: 15px;
 }
 
-input:hover,select:hover
+input:hover,select:hover,input.active,select.active
 {
     position: relative;
     z-index: 10;
 }
 input:focus,select:focus
-input:active,select:active {
+input:active,select:active,input.active,select.active{
     color: #a72222;
     text-indent: 0;
     background: #fff;
 }
 
 input:focus + label,select:focus + label
-input:active + label,select:active + label {
+input:active + label,select:active + label,input.active + label,select.active + label {
     background-color:  transparent;
-    transform: translateY(-27px);
+    transform: translateY(-28px);
 }
 
 button {
