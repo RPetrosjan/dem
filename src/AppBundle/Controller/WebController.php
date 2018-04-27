@@ -11,18 +11,24 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\CalculDevis;
 use AppBundle\Entity\Contact;
+use AppBundle\Entity\CpVille;
 use AppBundle\Entity\OptimizerCss;
 use AppBundle\Entity\OptimizerJs;
 use AppBundle\Form\CalculDevisType;
 use Doctrine\Common\Annotations\Annotation;
+use Symfony\Component\Config\Loader\FileLoader;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use Twig_Environment;
 
 class WebController extends Controller
@@ -76,11 +82,65 @@ class WebController extends Controller
     }
 
     /**
+     * @Route("/get_cp_ville", name="getcpville")
+     */
+    public function GetCpVillePage(Request $request){
+
+        $result = [];
+        $getcp = $request->get('cp');
+
+        if(strlen($getcp)==5){
+
+            $product = $this->getDoctrine()
+                ->getRepository(CpVille::class)
+                ->findBy(array(
+                    'cp' => $getcp,
+                ));
+
+            foreach ($product as $index=>$value){
+                $result[] = [$value->getCp(),$value->getVille()];
+            }
+        }
+
+        /*
+        $ServerUrl = ($request->server->get('DOCUMENT_ROOT'));
+
+        $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
+        $csvdata = \file_get_contents($ServerUrl."/../laposte_hexasmal.csv");
+        $csvdata = $serializer->decode($csvdata,'csv');
+
+        $getcp = 65200;
+        $resultville = [];
+
+
+
+
+        $em = $this->getDoctrine()->getManager();
+        $arraycpville=[];
+        $vartxt = [];
+
+        foreach ($csvdata as $index=>$value){
+            $villecsv = explode(';',$value['Code_commune_INSEE;Nom_commune;Code_postal;Libelle_acheminement;Ligne_5;coordonnees_gps']);
+          ///
+            //  if($villecsv[2] == $getcp)
+            {
+                $cpville = new CpVille();
+                $cpville->setCp($villecsv[2])->setVille($villecsv[3]);
+                $em->persist($cpville);
+            }
+        }
+
+        $em->flush(); */
+
+
+        return  new JsonResponse($result);
+
+    }
+
+    /**
      * @Route("/", name="homepage")
      */
     public function IndexPages(Request $request){
-
-
         $caluldevis = new CalculDevis();
         $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis);
         $calculdevisform->handleRequest($request);

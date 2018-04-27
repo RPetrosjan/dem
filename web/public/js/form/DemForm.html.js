@@ -35,25 +35,6 @@ $('select').each(function (index,value) {
         InitilaeSelectElements();
     }
 
-
-    /*
-    obj.click(function () {
-///        $(this).next().next().show(50);
-        $(this).next().next().addClass('active');
-
-    });
-
-    obj.next().next().find('a').click(function () {
-        $(this).parent().prev().prev().val($(this).text());
-        console.log($(this).text());
-        CheckFormActiveClass();
-        $(this).parent().hide();
-    });
-
-    obj.focusout(function (event) {
-      //  $(this).next().next().hide(200);
-    }); */
-
 })
 
 function InitilaeSelectElements() {
@@ -87,5 +68,7 @@ function CheckFormActiveClass(){
         InputActiveClass($(this));
     });
 }
+
+CheckFormActiveClass();
 
 

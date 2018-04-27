@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use DateTimeZone;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -76,6 +77,41 @@ class CalculDevis
      * @ORM\Column(name="prestation", type="string", length=100)
      */
     private $prestation;
+
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="Created", type="datetime")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $CreatedDate;
+
+    /**
+     * CalculDevis constructor.
+     */
+    public function __construct()
+    {
+        $date = \DateTime::createFromFormat('d/m/Y', date('d/m/Y'));
+        $this->CreatedDate  = $date->setTimeZone(new DateTimeZone('Europe/Paris'));
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedDate()
+    {
+        return $this->CreatedDate;
+    }
+
+    /**
+     * @param \DateTime $CreatedDate
+     */
+    public function setCreatedDate($CreatedDate)
+    {
+        $this->CreatedDate = $CreatedDate;
+    }
+
 
     /**
      * Get id

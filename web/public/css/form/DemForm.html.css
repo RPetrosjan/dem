@@ -152,3 +152,12 @@ button {
     transition: all 0.3s linear;
     width: 230px;
 }
+
+
+.row .row >div.villediv{
+    display: block;
+}
+.villediv>a{
+    display: inline-block;
+    padding: 5px 1  5px;
+}

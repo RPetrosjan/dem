@@ -57,10 +57,36 @@ class Contact
      */
     private $readed;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="Created", type="datetime")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $CreatedDate;
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedDate()
+    {
+        return $this->CreatedDate;
+    }
+
+    /**
+     * @param \DateTime $CreatedDate
+     */
+    public function setCreatedDate($CreatedDate)
+    {
+        $this->CreatedDate = $CreatedDate;
+    }
+
 
     public function __construct()
     {
         $this->readed = false;
+        $date = \DateTime::createFromFormat('d/m/Y', date('d/m/Y'));
+        $this->CreatedDate  = $date->setTimeZone(new DateTimeZone('Europe/Paris'));
     }
 
     /**
