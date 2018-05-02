@@ -15,6 +15,8 @@ use AppBundle\Entity\CpVille;
 use AppBundle\Entity\OptimizerCss;
 use AppBundle\Entity\OptimizerJs;
 use AppBundle\Form\CalculDevisType;
+use AppBundle\Repository\BandeRepository;
+use AppBundle\Repository\CalculDevisRepository;
 use Doctrine\Common\Annotations\Annotation;
 use Symfony\Component\Config\Loader\FileLoader;
 use Symfony\Component\Filesystem\Filesystem;
@@ -87,10 +89,10 @@ class WebController extends Controller
     public function GetCpVillePage(Request $request){
 
         $result = [];
+
         $getcp = $request->get('cp');
 
         if(strlen($getcp)==5){
-
             $product = $this->getDoctrine()
                 ->getRepository(CpVille::class)
                 ->findBy(array(
@@ -137,6 +139,7 @@ class WebController extends Controller
 
     }
 
+
     /**
      * @Route("/", name="homepage")
      */
@@ -154,8 +157,12 @@ class WebController extends Controller
         };
 
 
+        $bande = $this->getDoctrine()->getManager()->getRepository('AppBundle:Bande');
+        $bande = $bande->findBy(array(),array('id' => 'DESC'),5);
+
         $htmlRender = $this->render('Pages/homepage.html.twig', array(
             'calculdevisform' => $calculdevisform->createView(),
+            'bande' => $bande,
         ));
 
         $this->LoadCssLoader($request);

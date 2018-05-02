@@ -24,12 +24,12 @@ select{
     width: 260px;
 }
 
-.topformdiv + label{
+.topformtoplabel{
     margin-left: -38px;
     transform: rotate(-90deg);
     transform-origin: left top 0;
     position: absolute;
-    margin-top: -23px;
+    margin-top: 90px;
     font-size: 1.7em;
     text-transform: uppercase;
     font-family: 'Open Sans Condensed', sans-serif;
@@ -159,5 +159,26 @@ button {
 }
 .villediv>a{
     display: inline-block;
-    padding: 5px 1  5px;
+    padding: 5px 15px;
+}
+
+@media (max-width: 850px) {
+    .row .row{
+        display: block;
+        margin-bottom: 24px;
+    }
+    input,input.etage,input.ascenseur,input.active,input:focus{
+        width: 100%;
+        padding: 9px 0 9px 0px;
+        text-indent: 12px;
+    }
+    .topformdiv{
+        width: auto;
+    }
+    .topformtoplabel{
+        margin-left: 10px;
+        position: relative;
+        transform: none;
+    }
+
 }

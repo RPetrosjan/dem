@@ -26,7 +26,6 @@
 .divform{
     display: inline-block;
     width: 260px;
-    height: 445px;
     text-align: left;
     margin-bottom: 45px;
 }
@@ -37,12 +36,14 @@
     .top_body_block
     {
         background-attachment: inherit;
-        padding-left: 10px;
         background-position: right 0px ;
     }
     .top_body_block .sectionleft{
         width: 100%;
         margin-bottom: 150px;
+    }
+    .top_body_block .sectionleft>h1{
+        overflow: hidden;
     }
     .top_body_block .sectionright{
         width: 100%;

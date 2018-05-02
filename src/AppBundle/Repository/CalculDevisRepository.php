@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class CalculDevisRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getcpville($getcp){
+        $query = $this->createQueryBuilder('cp')
+            ->select('cp.cp, cp.ville')
+            ->where('cp.cp LIKE :getcp')
+            ->setParameter('getcp','%'.$getcp.'%');
+        ;
+
+        return $query;
+    }
 }

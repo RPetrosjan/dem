@@ -1,4 +1,34 @@
 {{ '/public/css/block/divinfopage.html.css'|cssloader }}
 <div class="divinfopage">
 
+ <article>
+     <div class="addresscontent">
+
+        <span class="colred">Déménagement Service France</span>
+         <div>rue de la chabannerie</div>
+          <div>26500 Bourg les valence</div>
+        <div class="telephone">
+        <i class="fas fa-phone-square"></i>
+            <div>04 75 85 47 54</div>
+            <div>06 76 61 56 04</div>
+        </div>
+    </div>
+ </article>
+    {% for value in bande %}
+        <article>
+            <div>
+                {{ value.icon|raw }}
+                <h4>
+                    {{ value.title }}
+                </h4>
+                <span>
+                    {{ value.description|striptags|truncates(20)  }}
+            </span>
+                <div>
+                    <a class="lireplus" href="{{ value.url }}">lire plus</a>
+                </div>
+            </div>
+        </article>
+    {% endfor %}
+
 </div>

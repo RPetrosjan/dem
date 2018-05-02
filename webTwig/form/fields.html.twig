@@ -1,8 +1,16 @@
 {% block form_row %}
     {% spaceless %}
         <div class="row">
+
+
+            {% if form.vars.attr|first == 'topformdiv' %}
+                {{ form_label(form) }}
+            {% endif %}
             {{ form_widget(form) }}
-            {{ form_label(form) }}
+            {% if form.vars.attr|first != 'topformdiv' %}
+                {{ form_label(form) }}
+            {% endif %}
+
         </div>
     {% endspaceless %}
 {% endblock form_row %}

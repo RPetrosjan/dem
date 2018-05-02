@@ -25,6 +25,7 @@ class CalculDevisType extends AbstractType
                      'class' => 'topformdiv',
                  ),
                  'label' => 'Départ',
+                'label_attr' => array('class' => 'topformtoplabel'),
                ))
                 ->add('cp1', TextType::class, array(
                     'empty_data'  => '00000',
@@ -59,6 +60,7 @@ class CalculDevisType extends AbstractType
                         'class' => 'topformdiv',
                     ),
                     'label'=>'Arrivée',
+                    'label_attr' => array('class' => 'topformtoplabel'),
                 ))
                     ->add('cp2', TextType::class, array(
                         'empty_data'  => '00000',
@@ -93,6 +95,7 @@ class CalculDevisType extends AbstractType
                         'class' => 'topformdiv',
                     ),
                     'label'=>'General',
+                    'label_attr' => array('class' => 'topformtoplabel'),
                 ))
                 ->add('prestation','choice',array(
                     'empty_data'  => 'Économique',

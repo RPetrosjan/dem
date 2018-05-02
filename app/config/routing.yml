@@ -14,6 +14,9 @@ _sonata_admin:
 sonata_admin_user:
     path: /admin/app/user/list
 
+sonata_admin_bande:
+    path: /admin/app/bande/list
+
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

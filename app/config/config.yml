@@ -108,3 +108,8 @@ sonata_admin:
                     - route:        sonata_admin_user
                       label:        Users
                       roles:        [ROLE_ADMIN]
+
+                    - route:        sonata_admin_bande
+                      label:        Bande
+                      roles:        [ROLE_ADMIN]
+

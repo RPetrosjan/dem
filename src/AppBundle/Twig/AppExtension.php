@@ -15,6 +15,7 @@ class AppExtension extends \Twig_Extension
             new \Twig_SimpleFilter('cssloader',array($this,'cssloader')),
             new \Twig_SimpleFilter('jsloader',array($this,'jsloader')),
             new \Twig_SimpleFilter('kint', array($this, "kint")),
+            new \Twig_SimpleFilter('truncates', array($this, "truncateWhole")),
         );
 
     }
@@ -30,5 +31,11 @@ class AppExtension extends \Twig_Extension
         $array =  (array) $var;
         $array = json_decode(json_encode($var), true);
         return $array[$arrayname];
+    }
+    public function truncateWhole($string, $limit, $separator = '...')
+    {
+        $nwords = explode(' ',$string);
+        $returnString = array_slice($nwords,0,$limit);
+        return implode(' ',$returnString).$separator;
     }
 }
