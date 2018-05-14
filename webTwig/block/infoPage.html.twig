@@ -1,0 +1,38 @@
+{{ '/public/css/block/divinfopage.html.css'|cssloader }}
+<div class="divinfopage">
+
+ <article>
+     <div class="addresscontent">
+        <span class="colred">{{ societe.NAMESOCIETE }}</span>
+         <div>{{ societe.adresse }}</div>
+          <div>{{ societe.cpville.cp }} {{ societe.cpville.ville }}</div>
+        <div class="telephone">
+        <i class="fas fa-phone-square"></i>
+
+            {% for key,tel in societe.tel %}
+                {% if key <2 %}
+                    <div>{{ tel.tel }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+    </div>
+ </article>
+    {% for value in bande %}
+        <article>
+            <div>
+                {{ value.icon|raw }}
+                <h4>
+                    {{ value.title }}
+                </h4>
+                <span>
+                    {{ value.description|striptags|truncates(20)  }}
+            </span>
+                <div>
+                    <a class="lireplus" href="{{ value.url }}">lire plus</a>
+                </div>
+            </div>
+        </article>
+    {% endfor %}
+
+</div>

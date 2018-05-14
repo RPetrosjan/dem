@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: '@AppBundle/yml/menu/topmenu.yml' }
+    - { resource: '@AppBundle/yml/menu/top_sous_menu.yml' }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -40,11 +41,12 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
-    paths: ["%kernel.project_dir%/webTwig"]
+    paths: ["%kernel.project_dir%/webTwig/"]
     globals:
         cssFileName: '%cssFileName%'
         jsFileName: '%jsFileName%'
         topmenu: '%topmenu%'
+        top_sous_menu: '%topmenu_sous_menu%'
 
 
 # Doctrine Configuration
@@ -95,3 +97,45 @@ sonata_block:
         # enable the SonataAdminBundle block
         sonata.admin.block.admin_list:
             contexts: [admin]
+
+
+sonata_admin:
+    dashboard:
+        groups:
+            admin:
+                label:              Admin
+                label_catalogue:    SonataAdminBundle
+                items:
+                    - route:        sonata_admin_user
+                      label:        Users
+                      roles:        [ROLE_ADMIN]
+
+            web:
+                label: Web
+                label_catalogue:    SonataAdminBundle
+                items:
+                   - route:        sonata_admin_article
+                     label:        Web
+                     roles:        [ROLE_ADMIN]
+
+                   - route:        sonata_admin_bande
+                     label:        Bande
+                     roles:        [ROLE_ADMIN]
+
+                   - route:        sonata_societe
+                     label:        'Societe'
+                     roles:        [ROLE_ADMIN]
+
+                   - route:        sonata_admin_image_bande
+                     label:        'Image Bande'
+                     roles:        [ROLE_ADMIN]
+
+                   - route:        sonata_admin_prestation
+                     label:        'Prestation'
+                     roles:        [ROLE_ADMIN]
+
+                   - route:        sonata_admin_cp_ville
+                     label:        'Cp Ville'
+                     roles:        [ROLE_ADMIN]
+
+

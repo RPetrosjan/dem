@@ -39,6 +39,67 @@ services:
             - { name: sonata.admin, manager_type: orm, label: Users, group : 'Admin' }
         public: true
 
+
+    admin.societe:
+        class: AppBundle\Admin\SocieteAdmin
+        arguments:
+           - ~
+           - AppBundle\Entity\Societe
+           - ~
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Societe, group : 'Admin' }
+        public: true
+
+    admin.bande:
+        class: AppBundle\Admin\BandeAdmin
+        arguments:
+           - ~
+           - AppBundle\Entity\Bande
+           - ~
+        tags:
+            - { name: sonata.admin, manager_type: orm, route: '/bande', label: Bande, group : 'Admin' }
+        public: true
+
+    admin.article:
+        class: AppBundle\Admin\ArticlesAdmin
+        arguments:
+           - ~
+           - AppBundle\Entity\Articles
+           - ~
+        tags:
+            - { name: sonata.admin, manager_type: orm, route: '/articles', label: Article, group : 'Web' }
+        public: true
+
+    admin.imagebande:
+        class: AppBundle\Admin\ImageBandeAdmin
+        arguments:
+           - ~
+           - AppBundle\Entity\ImageBande
+           - ~
+        tags:
+            - { name: sonata.admin, manager_type: orm, route: '/imagebande', label: 'Image Bande', group : 'Web' }
+        public: true
+
+    admin.prestation:
+        class: AppBundle\Admin\PrestationAdmin
+        arguments:
+           - ~
+           - AppBundle\Entity\Prestation
+           - ~
+        tags:
+            - { name: sonata.admin, manager_type: orm, route: '/prestation', label: 'Prestation', group : 'Web' }
+        public: true
+
+    admin.cpville:
+        class: AppBundle\Admin\CpVilleAdmin
+        arguments:
+           - ~
+           - AppBundle\Entity\CpVille
+           - ~
+        tags:
+            - { name: sonata.admin, manager_type: orm, route: '/cpville', label: 'Cp Ville', group : 'Web' }
+        public: true
+
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:

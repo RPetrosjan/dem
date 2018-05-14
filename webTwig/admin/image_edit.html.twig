@@ -1,0 +1,24 @@
+{% extends 'SonataAdminBundle:Form:#' %}
+{% block header  %}
+sddasd
+{% endblock %}
+{%- block form_widget_simple -%}
+    {%- set type = type|default('text') -%}
+
+    {% if type =='file' %}
+        <input type="{{ type }}" {{ block('widget_attributes') }}
+                {% if value is not empty %}value="{{ value }}" {% endif %}/>
+
+    {% elseif type == 'hidden' %}
+
+
+    {% else %}
+
+        <input type="{{ type }}" {{ block('widget_attributes') }}
+                {% if value is not empty %}value="{{ value }}" {% endif %}/>
+
+    {% endif %}
+
+
+
+{%- endblock form_widget_simple -%}
