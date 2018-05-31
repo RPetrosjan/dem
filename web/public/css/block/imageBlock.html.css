@@ -1,0 +1,119 @@
+.imageBlock{
+    background-color: transparent;
+    max-width: 1100px;
+    margin: 0 auto;
+    margin-top: 1px;
+    overflow: hidden;
+}
+.topimageBlock{
+    padding-top: 0px;
+    padding-top: 0px;
+    box-shadow: 0px 0px 15px -4px black;
+    position: relative;
+}
+
+.slick-slide{
+    margin-right: 0px;
+    width: 250px;
+    display: inline-block;
+}
+
+.slickimageblock{
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.slickimageblock>div{
+    display: inline-block;
+    vertical-align: top;
+    width: 420px;
+    overflow: hidden;
+}
+.slickimageblock>div>img{
+    height: 281px;
+}
+.slickimageblock>div:nth-last-of-type(0){
+    overflow: hidden;
+    height: 205px;
+}
+.slickimageblock>div:nth-last-of-type(1){
+
+    padding-top: 45px;
+    padding-left: 15px;
+    overflow: hidden;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    -o-transition: 1s;
+    transition: 1s;
+    max-width: 500px;
+}
+.slick-active .slickimageblock>div:nth-last-of-type(1)>h2{
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    -o-transition: 1s;
+    transition: 1s;
+    margin-left: 0px;
+}
+.slickimageblock>div:nth-last-of-type(1)>h2{
+    margin-left: -164px;
+}
+
+.slickimageblock>div:nth-last-of-type(1)>h3{
+    -webkit-transition: 2s;
+    -moz-transition: 2s;
+    -o-transition: 2s;
+    transition: 2s;
+    margin-left: -164px;
+}
+.slick-active .slickimageblock>div:nth-last-of-type(1)>h3{
+    margin-left: 0px
+
+}
+.slickimageblock>div:nth-last-of-type(1)>h4{
+    -webkit-transition: 5.5s;
+    -moz-transition: 5.5s;
+    -o-transition: 5.5s;
+    transition: 5.5s;
+    opacity: 0;
+}
+.slick-active .slickimageblock>div:nth-last-of-type(1)>h4{
+    opacity: 1;
+}
+
+.slickimageblock>div:nth-last-of-type(1)>span{
+    -webkit-transition: 2.5s;
+    -moz-transition: 2.5s;
+    -o-transition: 2.5s;
+    transition: 2.5s;
+    font-size: 0px;
+    display: inline-block;
+    height: 100px;
+}
+.slick-active .slickimageblock>div:nth-last-of-type(1)>span{
+    font-size: 14px;
+}
+
+
+.slickimageblock>div>span{
+    text-shadow: 0px 0px 11px white;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+}
+.slickimageblock>img{
+    width: 100%;
+}
+
+.slickimageblock>div>h3{
+    display: inline-block;
+    font-size: 22px;
+}
+.slickimageblock>div>h4{
+    color: #08555f;
+    font-size: 20px;
+}
+.slickimageblock>div>h2{
+    color: #a72222;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 22px;
+}

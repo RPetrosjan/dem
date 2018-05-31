@@ -1,0 +1,13 @@
+{{ '/public/css/block/bodyPage.html.css'|cssloader }}
+<div class="bodyPage">
+
+            {% for article in articles %}
+        <div class="articlediv">
+
+                {{ article.articleHtml|raw }}
+
+        </div>
+            {%  endfor %}
+
+
+</div>
