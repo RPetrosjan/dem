@@ -26,6 +26,11 @@
 .slickimageblock>div{
     display: inline-block;
     vertical-align: top;
+    width: 420px;
+    overflow: hidden;
+}
+.slickimageblock>div>img{
+    height: 281px;
 }
 .slickimageblock>div:nth-last-of-type(0){
     overflow: hidden;

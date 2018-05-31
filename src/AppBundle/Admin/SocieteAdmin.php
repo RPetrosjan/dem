@@ -34,6 +34,7 @@ class SocieteAdmin extends AbstractAdmin
                     'cp','ville'
                 ),
             ))
+            ->add('email')
             ->add('tel',CollectionType::class,array(
                 'entry_type' => TelephoneType::class,
                 'allow_add' => true,
@@ -46,6 +47,7 @@ class SocieteAdmin extends AbstractAdmin
         $datagridMapper
             ->add('namesociete')
             ->add('cpville')
+            ->add('email')
         ;
     }
 
@@ -56,6 +58,7 @@ class SocieteAdmin extends AbstractAdmin
             ->add('siege')
             ->addIdentifier('namesociete')
             ->addIdentifier('cpville')
+            ->addIdentifier('email')
         ;
     }
 }

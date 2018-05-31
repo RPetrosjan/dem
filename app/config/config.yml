@@ -138,4 +138,8 @@ sonata_admin:
                      label:        'Cp Ville'
                      roles:        [ROLE_ADMIN]
 
+                   - route:        sonata_admin_social
+                     label:        'Social Buttons'
+                     roles:        [ROLE_ADMIN]
+
 

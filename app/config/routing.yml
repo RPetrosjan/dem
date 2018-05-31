@@ -32,6 +32,9 @@ sonata_admin_prestation:
 sonata_admin_cp_ville:
     path: /admin/app/cpville/list
 
+sonata_admin_social:
+    path: /admin/app/social/list
+
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

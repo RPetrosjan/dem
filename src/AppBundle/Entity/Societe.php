@@ -141,6 +141,22 @@ class Societe
     private $adresse;
 
     /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
      * @var string
      *
      * @ORM\Column(name="siege", type="boolean")
@@ -151,6 +167,13 @@ class Societe
      * @ORM\ManyToOne(targetEntity="CpVille", cascade={"all"}, fetch="EAGER")
      */
     private $cpville;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255)
+     */
+    private $email;
 
 
 }

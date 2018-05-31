@@ -142,20 +142,35 @@ class WebController extends Controller
 
 
     /**
-     * @Route("/", name="homepage")
+     * @Route("/prix", name="prixpage")
      */
-    public function IndexPages(Request $request){
+    public function PrixPages(Request $request){
+
+        $resultcalculdevis='';
         $caluldevis = new CalculDevis();
-        $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis);
+        $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis, array(
+            'form_step' => '1',
+        ));
         $calculdevisform->handleRequest($request);
         if ($calculdevisform->isSubmitted() && $calculdevisform->isValid()) {
+
             $task = $calculdevisform->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($task);
             $em->flush();
-            $this->addFlash('success', 'Votre message a été envoyé avec succès');
-            return $this->redirectToRoute('homepage');
-        };
+           /// $this->addFlash('success', 'Votre message a été envoyé avec succès');
+            $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis,array(
+                'form_step' => '2',
+            ));
+           /// $calculdevisform->handleRequest($request);
+            $resultcalculdevis = $calculdevisform;
+///            return $this->redirectToRoute('prixpage',array('calculdevisform' => $calculdevisform));
+        }
+        else{
+            $resultcalculdevis = $calculdevisform;
+        }
+
+
 
         $bande = $this->getDoctrine()->getManager()->getRepository('AppBundle:Bande');
         $bande = $bande->findBy(array(),array('id' => 'DESC'),3);
@@ -166,11 +181,59 @@ class WebController extends Controller
         $societe = $this->getDoctrine()->getManager()->getRepository('AppBundle:Societe');
         $societe = $societe->findOneBy(array('siege' => true));
 
+        $imagebande = $this->getDoctrine()->getManager()->getRepository('AppBundle:ImageBande');
+        $imagebande = $imagebande->findBy(array(),array('id' => 'DESC'),10);
+
+        $social = $this->getDoctrine()->getManager()->getRepository('AppBundle:Social');
+        $social =  $social->findAll();
+
+
+        $htmlRender = $this->render('Pages/homepage.html.twig', array(
+            'calculdevisform' => $resultcalculdevis->createView(),
+            'bande' => $bande,
+            'societe' => $societe,
+            'articles' => $articles,
+            'imagebandes' => $imagebande,
+            'social' => $social,
+        ));
+
+        $this->LoadCssLoader($request);
+        return $htmlRender;
+
+    }
+
+    /**
+     * @Route("/", name="homepage")
+     */
+    public function IndexPages(Request $request){
+        $caluldevis = new CalculDevis();
+        $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis,array(
+            'action' => $this->generateUrl('prixpage'),
+        ));
+
+
+        $bande = $this->getDoctrine()->getManager()->getRepository('AppBundle:Bande');
+        $bande = $bande->findBy(array(),array('id' => 'DESC'),3);
+
+        $articles = $this->getDoctrine()->getManager()->getRepository('AppBundle:Articles');
+        $articles = $articles->findBy(array('namePage' => 'homepage'));
+
+        $societe = $this->getDoctrine()->getManager()->getRepository('AppBundle:Societe');
+        $societe = $societe->findOneBy(array('siege' => true));
+
+        $imagebande = $this->getDoctrine()->getManager()->getRepository('AppBundle:ImageBande');
+        $imagebande = $imagebande->findBy(array(),array('id' => 'DESC'),10);
+
+        $social = $this->getDoctrine()->getManager()->getRepository('AppBundle:Social');
+        $social =  $social->findAll();
+
         $htmlRender = $this->render('Pages/homepage.html.twig', array(
             'calculdevisform' => $calculdevisform->createView(),
             'bande' => $bande,
             'societe' => $societe,
             'articles' => $articles,
+            'imagebandes' => $imagebande,
+            'social' => $social,
         ));
 
         $this->LoadCssLoader($request);

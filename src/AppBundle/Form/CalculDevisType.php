@@ -8,6 +8,8 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CalculDevisType extends AbstractType
@@ -17,6 +19,8 @@ class CalculDevisType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        if(!isset($options['form_step']) ||  $options['form_step'] == 1)
+        {
         $builder
             ->add(
             $builder->create('Depart', FormType::class, array(
@@ -114,16 +118,66 @@ class CalculDevisType extends AbstractType
             ->add('save', SubmitType::class, array(
                 'label'=>'Calculer le prix',
             ))
-
         ;
 
-    }/**
-     * {@inheritdoc}
+    }
+        else if($options['form_step'] == 2){
+            $builder
+                ->add(
+                    $builder->create('Coordonnes', FormType::class, array(
+                        'inherit_data' => true,
+                        'attr' => array(
+                            'class' => 'topformdiv',
+                        ),
+                        'label' => 'Coordonnes',
+                        'label_attr' => array('class' => 'topformtoplabel coordonees'),
+                    ))
+                        ->add('nom', TextType::class, array(
+                            'label' => 'Votre nom',
+                            'attr' => array(
+                                'class' => 'cp_ville',
+                            )
+                        ))
+                        ->add('prenom',TextType::class, array(
+                            'label' => 'Votre prenom',
+                            'attr' => array(
+                                'class' => 'cp_ville',
+                            )
+                        ))
+                        ->add('date',TextType::class, array(
+                            'label' => 'Date de demenagement',
+                            'attr' => array(
+                                'class' => 'cp_ville',
+                            )
+                        ))
+                        ->add('date',TextType::class, array(
+                            'label' => 'Telephone',
+                            'attr' => array(
+                                'class' => 'cp_ville',
+                            )
+                        ))
+                        ->add('email',TextType::class, array(
+                            'label' => 'E-mail',
+                            'attr' => array(
+                                'class' => 'cp_ville',
+                            )
+                        ))
+                        ->add('save', SubmitType::class, array(
+                            'label'=>'Valider',
+                        ))
+                );
+        }
+    }
+
+
+    /*
+    * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => CalculDevis::class,
+            'form_step' => 1,
         ));
     }
 

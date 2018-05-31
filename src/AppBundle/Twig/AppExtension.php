@@ -16,10 +16,15 @@ class AppExtension extends \Twig_Extension
             new \Twig_SimpleFilter('jsloader',array($this,'jsloader')),
             new \Twig_SimpleFilter('kint', array($this, "kint")),
             new \Twig_SimpleFilter('truncates', array($this, "truncateWhole")),
+            new \Twig_SimpleFilter('toArray', array($this, "toArray")),
         );
 
     }
 
+    public function toArray($array){
+        $newArray = (array) $array;
+        return $newArray;
+    }
     public function cssloader($cssname){
         $this->cssArray[] = $cssname;
     }

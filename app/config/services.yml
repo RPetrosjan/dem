@@ -78,6 +78,8 @@ services:
            - ~
         tags:
             - { name: sonata.admin, manager_type: orm, route: '/imagebande', label: 'Image Bande', group : 'Web' }
+        calls:
+            - [ setTemplate, [ edit, "admin/imagebande_edit.html.twig"]]
         public: true
 
     admin.prestation:
@@ -98,6 +100,17 @@ services:
            - ~
         tags:
             - { name: sonata.admin, manager_type: orm, route: '/cpville', label: 'Cp Ville', group : 'Web' }
+        public: true
+
+
+    admin.social:
+        class: AppBundle\Admin\SocialAdmin
+        arguments:
+           - ~
+           - AppBundle\Entity\Social
+           - ~
+        tags:
+            - { name: sonata.admin, manager_type: orm, route: '/social', label: 'Social Buttons', group : 'Web' }
         public: true
 
     # add more services, or override services that need manual wiring

@@ -88,12 +88,140 @@ class CalculDevis
     private $CreatedDate;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=50, nullable=true)
+     */
+    private $nom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prenom", type="string", length=50, nullable=true)
+     */
+    private $prenom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telephone", type="string", length=50, nullable=true)
+     */
+    private $telephone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=50, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @param string $nom
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrenom()
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * @param string $prenom
+     */
+    public function setPrenom($prenom)
+    {
+        $this->prenom = $prenom;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * @param string $telephone
+     */
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param string $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="date", type="string", length=50, nullable=true)
+     */
+    private $date;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="token", type="string", length=50, nullable=true)
+     */
+    private $token;
+
+    /**
      * CalculDevis constructor.
      */
     public function __construct()
     {
         $date = \DateTime::createFromFormat('d/m/Y', date('d/m/Y'));
         $this->CreatedDate  = $date->setTimeZone(new DateTimeZone('Europe/Paris'));
+
+        $this->nom=null;
+        $this->prenom = null;
+        $this->date= null;
+        $this->email = null;
+        $this->telephone=null;
     }
 
     /**

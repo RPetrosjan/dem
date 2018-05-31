@@ -2,9 +2,30 @@
 {{ '/public/css/slick/slick.css'|cssloader }}
 {{ '/public/js/slick/slick.min.js'|jsloader }}
 
+
 <div class="topimageBlock">
 <div class="imageBlock">
     <div class="dem-slick">
+       {% for imagebande in imagebandes %}
+
+
+           <div>
+               <div class="slickimageblock">
+                   <div>
+                       <img src="/img/{{ imagebande.imagebande[0].uploadPath }}/{{ imagebande.imagebande[0].filename }}" title="{{ imagebande.imagebande[0].title }}" alt="{{ imagebande.imagebande[0].altimage }}" />
+                   </div>
+                   <div>
+                       <h2>Demenagements</h2>
+                       <h3>{{ imagebande.villeDepart }} - </h3>
+                       <h3>{{ imagebande.villeArrivee }}</h3>
+                       <h4>Prix {{ imagebande.prix }} &euro;</h4>
+                       <span>{{ imagebande.description }}</span>
+                   </div>
+               </div>
+           </div>
+
+       {% endfor %}
+        {#
         <div>
             <div class="slickimageblock">
                 <div>
@@ -101,6 +122,7 @@
                 </div>
             </div>
         </div>
+        #}
     </div>
 
 </div>

@@ -71,6 +71,14 @@ trait Image
         {
             $fileName = uniqid().'.'.$file->guessExtension();
         }
+        else{
+            $fileName = substr($fileName, 0, strpos($fileName, "?"));
+        }
+
+        if(file_exists ($this->getUploadRootDir().'/'.$fileName) === true){
+            unlink($this->getUploadRootDir().'/'.$fileName);
+        }
+
         $file->move($this->getUploadRootDir(), $fileName);
         $this->path = $this->uploadPath;
         $this->filename = $fileName.'?'.uniqid();

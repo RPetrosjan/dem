@@ -1,4 +1,37 @@
 {{ '/public/css/block/footerPage.html.css'|cssloader }}
+{% spaceless %}
 <footer>
+    <div class="contact">
 
+        <h4>{{ 'Contactez nous'|trans }}</h4>
+                {% for key,tel in societe.tel %}
+                    {% if key <2 %}
+                        <span>Telephone : {{ tel.tel }}</span>
+                    {% endif %}
+                {% endfor %}
+
+                <span>E-Mail : {{ societe.email }}</span>
+        <h4>{{ societe.namesociete }}</h4>
+                <span>{{ societe.cpville.cp }} {{ societe.cpville.ville }}</span>
+                <span>{{ societe.adresse }}</span>
+    </div>
+    <div class="footersocial">
+        <h4>{{ 'Nos communautés'|trans }}</h4>
+
+        {% for key,value in social %}
+            <a target="_blank" rel="nofollow" href="{{ value.socialUrl }}">{{ value.socialIcon|raw }}  {{ value.socialName }}</a>
+        {% endfor %}
+    </div>
+    <div class="nosservices">
+        <h4>{{ 'Nos Services'|trans }}</h4>
+        <span>Devis déménagement sous 48h</span>
+        <span>Visite technique</span>
+        <span>Garde-Meuble</span>
+        <span>Carton déménagement</span>
+        <span>Déménagement National</span>
+    </div>
+    <div class="nospartenaires">
+        <h4>{{ 'Nos Partenaires'|trans }}</h4>
+    </div>
 </footer>
+{% endspaceless %}

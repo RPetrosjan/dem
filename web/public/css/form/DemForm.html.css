@@ -34,6 +34,9 @@ select{
     text-transform: uppercase;
     font-family: 'Open Sans Condensed', sans-serif;
 }
+.topformtoplabel.coordonees{
+    margin-top: 180px;
+}
 .row .row{
     position: relative;
     display: inline-block;

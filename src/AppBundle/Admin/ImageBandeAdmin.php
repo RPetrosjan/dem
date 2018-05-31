@@ -69,10 +69,10 @@ class ImageBandeAdmin extends AbstractAdmin
 
     public function getFormTheme()
     {
-            return array_merge(
-
+        return array_merge(
+            parent::getFormTheme(),
             array('/admin/image_edit.html.twig')
-        );
+           );
     }
 
 
