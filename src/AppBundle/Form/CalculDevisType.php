@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use AppBundle\Entity\CalculDevis;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,11 +15,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CalculDevisType extends AbstractType
 {
+    private $formstep = 2;
     /**
      * {@inheritdoc}
      */
+
+    public function GetMaxStep(){
+        return $this->formstep;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         if(!isset($options['form_step']) ||  $options['form_step'] == 1)
         {
         $builder
@@ -36,7 +44,8 @@ class CalculDevisType extends AbstractType
                     'label' => 'code postal ville',
                     'attr' => array(
                         'class' => 'cp_ville',
-                    )
+                    ),
+                    'data' => '67000 Strasbourg',
                 ))
                 ->add('etage1', TextType::class, array(
                     'label' => 'Etage',
@@ -44,6 +53,7 @@ class CalculDevisType extends AbstractType
                     'attr' => array(
                         'class' => 'etage'
                     ),
+                    'data' => '4',
                 ))
                 ->add('ascenseur1', 'choice', array(
                     'empty_data'  => true,
@@ -54,7 +64,7 @@ class CalculDevisType extends AbstractType
                     'attr' => array(
                         'class' => 'ascenseur'
                     ),
-                    'label' => 'Ascenseur'
+                    'label' => 'Ascenseur',
                 ))
             )
             ->add(
@@ -71,7 +81,8 @@ class CalculDevisType extends AbstractType
                         'label' => 'code postal ville',
                         'attr' => array(
                             'class' => 'cp_ville',
-                        )
+                        ),
+                        'data' => '69000 Lyon',
                     ))
                     ->add('etage2', TextType::class, array(
                         'label' => 'Etage',
@@ -79,6 +90,7 @@ class CalculDevisType extends AbstractType
                         'attr' => array(
                             'class' => 'etage'
                         ),
+                        'data' => '1',
                     ))
                     ->add('ascenseur2', 'choice', array(
                         'empty_data'  => false,
@@ -89,7 +101,7 @@ class CalculDevisType extends AbstractType
                         'attr' => array(
                             'class' => 'ascenseur'
                         ),
-                        'label' => 'Ascenseur'
+                        'label' => 'Ascenseur',
                     ))
             )
             ->add(
@@ -113,6 +125,7 @@ class CalculDevisType extends AbstractType
                 ->add('volume',TextType::class,array(
                     'empty_data'  => '0',
                     'label' => 'Volume',
+                    'data' => 15,
                 ))
             )
             ->add('save', SubmitType::class, array(
@@ -150,7 +163,7 @@ class CalculDevisType extends AbstractType
                                 'class' => 'cp_ville',
                             )
                         ))
-                        ->add('date',TextType::class, array(
+                        ->add('telephone',TextType::class, array(
                             'label' => 'Telephone',
                             'attr' => array(
                                 'class' => 'cp_ville',
@@ -167,8 +180,12 @@ class CalculDevisType extends AbstractType
                         ))
                 );
         }
-    }
 
+        $builder->add('form_step', HiddenType::class, array(
+            'data' => isset($options['form_step']) ?  1 : $options['form_step'],
+            'mapped' => false,
+        ));
+    }
 
     /*
     * {@inheritdoc}

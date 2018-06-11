@@ -25,6 +25,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -140,36 +141,196 @@ class WebController extends Controller
 
     }
 
+    public function MergeArrayObj($task, $formarray){
+
+
+        $getters = array_filter(get_class_methods(new CalculDevis()), function($method) {
+            return 'get' === substr($method, 0, 3);
+        });
+
+        foreach ($getters as $value){
+            //dump($formarray->{$value}());
+           /// dump($task->{$value}());
+        }
+
+        $obj_merged = array_merge((array) $task, (array) $formarray);
+
+//        dump($formarray->{'getNom'}());
+ //       dump($formarray);
+  //      dump($task);
+   //     dump($obj_merged);
+        foreach ($formarray as $key=>$value){
+     //       dump($key);
+        }
+
+      exit();
+    }
+
+    public function getFormStep(){
+        $form_step = 1;
+        if(!is_null($this->get('session')->get('form_step')))
+        {
+            $form_step = $this->get('session')->get('form_step');
+        }
+        return $form_step;
+    }
+
+    public function setFormStep($form_step){
+        $this->get('session')->set('form_step',$form_step);
+    }
+
+    public function removeFormStep(){
+        $this->get('session')->remove('form_step');
+        $this->get('session')->remove('tasktotal');
+
+    }
+
+    public function SaveStepValues(FormInterface $FormInterface,$class){
+
+        if(is_null(($tasktotal = $this->get('session')->get('tasktotal')))){
+            $this->get('session')->set('tasktotal',$FormInterface->getData());
+        }
+        else{
+           /// dump(get_class_methods($FormInterface->getConfig()->getDataClass()));
+            foreach (get_class_methods ($class) as $obj){
+                if(strpos($obj,'set') !== false || strpos($obj,'get') !== false)
+                {
+                    if( strpos($obj,'get') !== false){
+                        if(($taskval = $FormInterface->getData()->{$obj}()) != null ){
+                            $tasktotal->{str_replace('get','set',$obj)}($taskval);
+                        }
+                    }
+                }
+            }
+            $this->get('session')->set('tasktotal',$tasktotal);
+        }
+    }
+
+    public function SaveFormValues(){
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($this->get('session')->get('tasktotal'));
+        $em->flush();
+    }
+    public function CheckRemoveStep(){
+        $caluldevisType = new CalculDevisType();
+        if($caluldevisType->GetMaxStep() < $this->getFormStep())
+        {
+            //Enregistrer tout les values all steps
+            $this->SaveFormValues();
+            $this->removeFormStep();
+            $this->addFlash(
+                'notice',
+                'Your changes were saved!'
+            );
+            return true;
+        }
+        return false;
+    }
 
     /**
      * @Route("/prix", name="prixpage")
      */
     public function PrixPages(Request $request){
 
-        $resultcalculdevis='';
         $caluldevis = new CalculDevis();
+        $form_step = $this->getFormStep();
         $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis, array(
-            'form_step' => '1',
+            'form_step' => $form_step,
         ));
-        $calculdevisform->handleRequest($request);
-        if ($calculdevisform->isSubmitted() && $calculdevisform->isValid()) {
 
-            $task = $calculdevisform->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($task);
-            $em->flush();
-           /// $this->addFlash('success', 'Votre message a été envoyé avec succès');
+        $calculdevisform->handleRequest($request);
+        if($calculdevisform->isSubmitted() && $calculdevisform->isValid()) {
+
+            $this->SaveStepValues($calculdevisform, new CalculDevis());
+
+            $form_step++;
+            $this->setFormStep($form_step);
+            if($this->CheckRemoveStep()==true)
+            {
+                return $this->redirectToRoute('prixpage');
+            }
+
             $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis,array(
-                'form_step' => '2',
+                'form_step' => $form_step,
             ));
-           /// $calculdevisform->handleRequest($request);
-            $resultcalculdevis = $calculdevisform;
-///            return $this->redirectToRoute('prixpage',array('calculdevisform' => $calculdevisform));
+            $calculdevisform->handleRequest($request);
         }
+        else if($form_step>1)
+        {
+            $this->removeFormStep();
+            return $this->redirectToRoute('prixpage');
+        }
+
+        /*
+        $caluldevis = new CalculDevis();
+        $form_step = 1;
+        if(!is_null($this->get('session')->get('form_step')))
+        {
+            dump($this->get('session')->get('form_step'));
+            $form_step = $this->get('session')->get('form_step');
+        }
+
+        dump($this->get('session')->get('form_calcul'));
+ //       $this->MergeArrayObj([],$this->get('session')->get('form_calcul'));
+
+        $task = [];
+
+        $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis, array(
+            'form_step' => $form_step,
+        ));
+        $calculdevisform->setData(array('form_step' =>$form_step));
+        $calculdevisform->handleRequest($request);
+        if($calculdevisform->isSubmitted() && $calculdevisform->isValid()) {
+
+            if(!is_null($this->get('session')->get('form_calcul')))
+            {
+                $task = $this->get('session')->get('form_calcul');
+            }
+
+            dump($calculdevisform->getData());
+
+            if(count($task)>0)
+            {
+                $this->MergeArrayObj($task,$calculdevisform->getData());
+            }
+            exit();
+         ///   dump(array_merge($task,$calculdevisform->getData()));
+
+            $this->get('session')->set('form_calcul',$calculdevisform->getData());
+            $form_step ++;
+            dump($form_step);
+            $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis,array(
+                'form_step' => $form_step,
+            ));
+            $calculdevisform->handleRequest($request);
+
+        }
+        else{
+            if(!is_null($this->get('session')->get('form_calcul')) || !is_null($this->get('session')->get('form_step')))
+            {
+                $this->get('session')->remove('form_calcul');
+                $this->get('session')->remove('form_step');
+                return $this->redirectToRoute('prixpage');
+            }
+        }
+
+        $this->get('session')->set('form_step',$form_step);
+
+        /*
         else{
             $resultcalculdevis = $calculdevisform;
         }
 
+        if ($resultcalculdevis->isSubmitted() && $resultcalculdevis->isValid()) {
+            $task = $resultcalculdevis->getData();
+            dump($this->get('session')->get('form_calcul'));
+            dump($task);
+            exit();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($task);
+            $em->flush();
+        }*/
 
 
         $bande = $this->getDoctrine()->getManager()->getRepository('AppBundle:Bande');
@@ -189,7 +350,7 @@ class WebController extends Controller
 
 
         $htmlRender = $this->render('Pages/homepage.html.twig', array(
-            'calculdevisform' => $resultcalculdevis->createView(),
+            'calculdevisform' => $calculdevisform->createView(),
             'bande' => $bande,
             'societe' => $societe,
             'articles' => $articles,
