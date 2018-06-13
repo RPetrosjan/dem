@@ -3,36 +3,42 @@
 
  <article>
      <div class="addresscontent">
-        <span class="colred">{{ societe.NAMESOCIETE }}</span>
-         <div>{{ societe.adresse }}</div>
-          <div>{{ societe.cpville.cp }} {{ societe.cpville.ville }}</div>
+         {% if societe is defined %}
+            <span class="colred">{{ societe.NAMESOCIETE }}</span>
+             <div>{{ societe.adresse }}</div>
+              <div>{{ societe.cpville.cp }} {{ societe.cpville.ville }}</div>
+         {% endif %}
         <div class="telephone">
         <i class="fas fa-phone-square"></i>
 
-            {% for key,tel in societe.tel %}
-                {% if key <2 %}
-                    <div>{{ tel.tel }}</div>
-                {% endif %}
-            {% endfor %}
+            {% if societe is defined %}
+                {% for key,tel in societe.tel %}
+                    {% if key <2 %}
+                        <div>{{ tel.tel }}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
         </div>
 
     </div>
  </article>
-    {% for value in bande %}
-        <article>
-            <div>
-                {{ value.icon|raw }}
-                <h4>
-                    {{ value.title }}
-                </h4>
-                <span>
-                    {{ value.description|striptags|truncates(20)  }}
-            </span>
+    {% if bande is defined %}
+        {% for value in bande %}
+            <article>
                 <div>
-                    <a class="lireplus" href="{{ value.url }}">lire plus</a>
+                    {{ value.icon|raw }}
+                    <h4>
+                        {{ value.title }}
+                    </h4>
+                    <span>
+                        {{ value.description|striptags|truncates(20)  }}
+                </span>
+                    <div>
+                        <a class="lireplus" href="{{ value.url }}">lire plus</a>
+                    </div>
                 </div>
-            </div>
-        </article>
-    {% endfor %}
+            </article>
+        {% endfor %}
+    {% endif %}
 
 </div>

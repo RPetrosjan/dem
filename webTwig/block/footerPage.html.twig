@@ -1,8 +1,9 @@
-{{ '/public/css/block/footerPage.html.css'|cssloader }}
 {% spaceless %}
+    {{ '/public/css/block/footerPage.html.css'|cssloader }}
 <footer>
     <div class="contact">
 
+        {% if societe is defined %}
         <h4>{{ 'Contactez nous'|trans }}</h4>
                 {% for key,tel in societe.tel %}
                     {% if key <2 %}
@@ -14,13 +15,16 @@
         <h4>{{ societe.namesociete }}</h4>
                 <span>{{ societe.cpville.cp }} {{ societe.cpville.ville }}</span>
                 <span>{{ societe.adresse }}</span>
+            {% endif %}
     </div>
     <div class="footersocial">
         <h4>{{ 'Nos communautés'|trans }}</h4>
 
+    {% if social is defined %}
         {% for key,value in social %}
             <a target="_blank" rel="nofollow" href="{{ value.socialUrl }}">{{ value.socialIcon|raw }}  {{ value.socialName }}</a>
         {% endfor %}
+     {% endif %}
     </div>
     <div class="nosservices">
         <h4>{{ 'Nos Services'|trans }}</h4>

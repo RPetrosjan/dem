@@ -6,11 +6,13 @@
             <ul>
         {% spaceless %}
             <li><a>Déménagement France<span>Tel</span>
-                    {% for key,tel in societe.tel %}
-                        {% if key <2 %}
-                            <span>{{ tel.tel }}</span>
-                        {% endif %}
-                    {% endfor %}
+                    {% if societe is defined %}
+                        {% for key,tel in societe.tel %}
+                            {% if key <2 %}
+                                <span>{{ tel.tel }}</span>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
                 </a>
 
 

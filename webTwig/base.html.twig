@@ -1,5 +1,5 @@
-{{ '/public/css/base.html.css'|cssloader }}
 <!DOCTYPE html>
+{{ '/public/css/base.html.css'|cssloader }}
 <html>
 <head>
     <meta charset="UTF-8" />
@@ -13,6 +13,7 @@
 
 </head>
 <body>
+{{ dump() }}
 {% for message in app.flashes('success') %}
     <div class="flash-notice">
         {{ message }}

@@ -1,8 +1,10 @@
-{{ '/public/css/form/DemForm.html.css'|cssloader }}
-{{ '/public/js/form/DemForm.html.js'|jsloader }}
-{{ '/public/js/form/code_postal_ajax.js'|jsloader }}
-{{ '/public/css/form/code_postal_ajax.css'|jsloader }}
+{% if calculdevisform is defined %}
+    {{ '/public/css/form/DemForm.html.css'|cssloader }}
+    {{ '/public/js/form/DemForm.html.js'|jsloader }}
+    {{ '/public/js/form/code_postal_ajax.js'|jsloader }}
+    {{ '/public/css/form/code_postal_ajax.css'|jsloader }}
 
-{% form_theme calculdevisform 'form/fields.html.twig' %}
-{{ form_start(calculdevisform,{'attr': {'class':'divform'}}) }}
-{{ form_end(calculdevisform) }}
+    {% form_theme calculdevisform 'form/fields.html.twig' %}
+    {{ form_start(calculdevisform,{'attr': {'class':'divform'}}) }}
+    {{ form_end(calculdevisform) }}
+{% endif %}

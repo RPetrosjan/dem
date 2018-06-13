@@ -1,6 +1,8 @@
-{{ '/public/css/block/bodyPage.html.css'|cssloader }}
+{% spaceless %}
+    {{ '/public/css/block/bodyPage.html.css'|cssloader }}
 <div class="bodyPage">
 
+    {% if articles is defined %}
             {% for article in articles %}
         <div class="articlediv">
 
@@ -8,6 +10,7 @@
 
         </div>
             {%  endfor %}
-
+        {% endif %}
 
 </div>
+{% endspaceless %}

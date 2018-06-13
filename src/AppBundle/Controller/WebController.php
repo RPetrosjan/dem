@@ -229,6 +229,17 @@ class WebController extends Controller
     }
 
     /**
+     * @Route("/contact", name="contactpage")
+     */
+    public function ContactPage(Request $request){
+
+        $this->addFlash('info','Bonjour Ruben');
+        $this->redirectToRoute('prixpage');
+        return $this->render('Pages/homepage.html.twig', array(
+        ));
+    }
+
+    /**
      * @Route("/prix", name="prixpage")
      */
     public function PrixPages(Request $request){
@@ -348,6 +359,10 @@ class WebController extends Controller
         $social = $this->getDoctrine()->getManager()->getRepository('AppBundle:Social');
         $social =  $social->findAll();
 
+        $this->addFlash(
+            'notice',
+            'Your changes were saved!'
+        );
 
         $htmlRender = $this->render('Pages/homepage.html.twig', array(
             'calculdevisform' => $calculdevisform->createView(),
