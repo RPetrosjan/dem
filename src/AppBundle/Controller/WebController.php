@@ -93,49 +93,14 @@ class WebController extends Controller
         $result = [];
 
         $getcp = $request->get('cp');
+        $connection = $this->getDoctrine()->getManager()->getConnection();
 
-        if(strlen($getcp)==5){
-            $product = $this->getDoctrine()
-                ->getRepository(CpVille::class)
-                ->findBy(array(
-                    'cp' => $getcp,
-                ));
+        $query = "SELECT cp,ville FROM  cp_ville WHERE cp LIKE ?";
+        $newresult = $connection->executeQuery($query, array('%'.$getcp.'%'), array(\PDO::PARAM_STR))->fetchAll();
 
-            foreach ($product as $index=>$value){
-                $result[] = [$value->getCp(),$value->getVille()];
-            }
-        }
-
-        /*
-        $ServerUrl = ($request->server->get('DOCUMENT_ROOT'));
-
-        $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
-        $csvdata = \file_get_contents($ServerUrl."/../laposte_hexasmal.csv");
-        $csvdata = $serializer->decode($csvdata,'csv');
-
-        $getcp = 65200;
-        $resultville = [];
-
-
-
-
-        $em = $this->getDoctrine()->getManager();
-        $arraycpville=[];
-        $vartxt = [];
-
-        foreach ($csvdata as $index=>$value){
-            $villecsv = explode(';',$value['Code_commune_INSEE;Nom_commune;Code_postal;Libelle_acheminement;Ligne_5;coordonnees_gps']);
-          ///
-            //  if($villecsv[2] == $getcp)
-            {
-                $cpville = new CpVille();
-                $cpville->setCp($villecsv[2])->setVille($villecsv[3]);
-                $em->persist($cpville);
-            }
-        }
-
-        $em->flush(); */
-
+         foreach ($newresult as $index=>$value){
+               $result[] = [$value['cp'],$value['ville']];
+         }
 
         return  new JsonResponse($result);
 
@@ -234,9 +199,13 @@ class WebController extends Controller
     public function ContactPage(Request $request){
 
         $this->addFlash('info','Bonjour Ruben');
-        $this->redirectToRoute('prixpage');
-        return $this->render('Pages/homepage.html.twig', array(
+
+        $htmlRender = $this->render('Pages/homepage.html.twig', array(
         ));
+
+        $this->LoadCssLoader($request);
+        return $htmlRender;
+
     }
 
     /**
