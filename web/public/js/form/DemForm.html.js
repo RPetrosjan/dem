@@ -37,17 +37,21 @@ $('select').each(function (index,value) {
 
 })
 
+function InitialSelectA(objint) {
+    $('.selectorjs.active').find('a').click(function () {
+        $(objint).val($(this).text());
+        InputActiveClass(objint);
+    });
+}
+
 function InitilaeSelectElements() {
 
     var  selectObj = $('.selectorjs').parent();
 
     selectObj.find('input').click(function () {
         var objint = this;
-        $(this).parent().find('.selectorjs').addClass('active').find('a').click(function () {
-            $(objint).val($(this).text());
-            InputActiveClass(objint);
-        });
-
+        $(this).parent().find('.selectorjs').addClass('active');
+        InitialSelectA(objint);
         $(this).parent().unbind('focusout').focusout(function () {
             objelem = this;
             window.setTimeout(function() {

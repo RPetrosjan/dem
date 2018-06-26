@@ -111,6 +111,58 @@ input + label,select + label {
     font-size: 15px;
 }
 
+.top_body_block>div.toprow{
+    display: block;
+    text-align: left;
+}
+
+.topresultdiv{
+    margin-bottom: 250px;
+    margin-top: 25px;
+}
+.topresultdiv h1{
+    width: 380px;
+}
+.rows {
+    border-bottom: #E6E6E6 1px solid;
+    width: 250px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 15px;
+    padding-left: 70px;
+    margin-top: 10px;
+    display: inline-table;
+    text-align: left;
+}
+.rows.devisresult{
+    padding-left: 0px;
+}
+.rows .smallstrong {
+    margin-top: 52px;
+    width: 30px;
+}
+.rows strong {
+    float: left;
+    transform: rotate(-90deg);
+    transform-origin: left top 0;
+    font-family: times;
+    font-size: 1.7em;
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+.rows .smallbold {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 1.4em;
+}
+.rows .smallbold span:first-of-type{
+    display: block;
+    white-space: nowrap;
+}
+.rows .smallbold span {
+    color: rgb(18, 132, 0);
+}
+
 input:hover,select:hover,input.active,select.active
 {
     position: relative;

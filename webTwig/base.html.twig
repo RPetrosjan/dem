@@ -13,12 +13,7 @@
 
 </head>
 <body>
-{{ dump() }}
-{% for message in app.flashes('success') %}
-    <div class="flash-notice">
-        {{ message }}
-    </div>
-{% endfor %}
+{% include 'messagebox.html.twig' %}
 
 {% for label, messages in app.session.flashbag.all %}
 

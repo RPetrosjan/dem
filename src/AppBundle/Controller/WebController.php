@@ -91,7 +91,6 @@ class WebController extends Controller
     public function GetCpVillePage(Request $request){
 
         $result = [];
-
         $getcp = $request->get('cp');
         $connection = $this->getDoctrine()->getManager()->getConnection();
 
@@ -101,9 +100,7 @@ class WebController extends Controller
          foreach ($newresult as $index=>$value){
                $result[] = [$value['cp'],$value['ville']];
          }
-
         return  new JsonResponse($result);
-
     }
 
     public function MergeArrayObj($task, $formarray){
@@ -156,6 +153,7 @@ class WebController extends Controller
             $this->get('session')->set('tasktotal',$FormInterface->getData());
         }
         else{
+
            /// dump(get_class_methods($FormInterface->getConfig()->getDataClass()));
             foreach (get_class_methods ($class) as $obj){
                 if(strpos($obj,'set') !== false || strpos($obj,'get') !== false)
@@ -172,12 +170,11 @@ class WebController extends Controller
     }
 
     public function SaveFormValues(){
-
         $em = $this->getDoctrine()->getManager();
         $em->persist($this->get('session')->get('tasktotal'));
         $em->flush();
     }
-    public function CheckRemoveStep(){
+    public function CheckFiniStep(){
         $caluldevisType = new CalculDevisType();
         if($caluldevisType->GetMaxStep() < $this->getFormStep())
         {
@@ -185,7 +182,7 @@ class WebController extends Controller
             $this->SaveFormValues();
             $this->removeFormStep();
             $this->addFlash(
-                'notice',
+                'succes',
                 'Your changes were saved!'
             );
             return true;
@@ -198,8 +195,7 @@ class WebController extends Controller
      */
     public function ContactPage(Request $request){
 
-        $this->addFlash('info','Bonjour Ruben');
-
+        $this->addFlash('success','Bonjour Ruben');
         $htmlRender = $this->render('Pages/homepage.html.twig', array(
         ));
 
@@ -219,98 +215,34 @@ class WebController extends Controller
             'form_step' => $form_step,
         ));
 
+        $resultino = null;
+
         $calculdevisform->handleRequest($request);
-        if($calculdevisform->isSubmitted() && $calculdevisform->isValid()) {
+        if($calculdevisform->isSubmitted()) {
 
-            $this->SaveStepValues($calculdevisform, new CalculDevis());
-
-            $form_step++;
-            $this->setFormStep($form_step);
-            if($this->CheckRemoveStep()==true)
+            if($calculdevisform->isValid())
             {
-                return $this->redirectToRoute('prixpage');
+                $this->SaveStepValues($calculdevisform, new CalculDevis());
+                $form_step++;
+                $this->setFormStep($form_step);
+                if($this->CheckFiniStep()==true)
+                {
+                    $this->addFlash('success','Votre demande de devis a bien été prise en compte');
+                    return $this->redirectToRoute('prixpage');
+                }
             }
 
             $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis,array(
                 'form_step' => $form_step,
             ));
             $calculdevisform->handleRequest($request);
+            $resultino = $this->get('session')->get('tasktotal');
         }
         else if($form_step>1)
         {
             $this->removeFormStep();
             return $this->redirectToRoute('prixpage');
         }
-
-        /*
-        $caluldevis = new CalculDevis();
-        $form_step = 1;
-        if(!is_null($this->get('session')->get('form_step')))
-        {
-            dump($this->get('session')->get('form_step'));
-            $form_step = $this->get('session')->get('form_step');
-        }
-
-        dump($this->get('session')->get('form_calcul'));
- //       $this->MergeArrayObj([],$this->get('session')->get('form_calcul'));
-
-        $task = [];
-
-        $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis, array(
-            'form_step' => $form_step,
-        ));
-        $calculdevisform->setData(array('form_step' =>$form_step));
-        $calculdevisform->handleRequest($request);
-        if($calculdevisform->isSubmitted() && $calculdevisform->isValid()) {
-
-            if(!is_null($this->get('session')->get('form_calcul')))
-            {
-                $task = $this->get('session')->get('form_calcul');
-            }
-
-            dump($calculdevisform->getData());
-
-            if(count($task)>0)
-            {
-                $this->MergeArrayObj($task,$calculdevisform->getData());
-            }
-            exit();
-         ///   dump(array_merge($task,$calculdevisform->getData()));
-
-            $this->get('session')->set('form_calcul',$calculdevisform->getData());
-            $form_step ++;
-            dump($form_step);
-            $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis,array(
-                'form_step' => $form_step,
-            ));
-            $calculdevisform->handleRequest($request);
-
-        }
-        else{
-            if(!is_null($this->get('session')->get('form_calcul')) || !is_null($this->get('session')->get('form_step')))
-            {
-                $this->get('session')->remove('form_calcul');
-                $this->get('session')->remove('form_step');
-                return $this->redirectToRoute('prixpage');
-            }
-        }
-
-        $this->get('session')->set('form_step',$form_step);
-
-        /*
-        else{
-            $resultcalculdevis = $calculdevisform;
-        }
-
-        if ($resultcalculdevis->isSubmitted() && $resultcalculdevis->isValid()) {
-            $task = $resultcalculdevis->getData();
-            dump($this->get('session')->get('form_calcul'));
-            dump($task);
-            exit();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($task);
-            $em->flush();
-        }*/
 
 
         $bande = $this->getDoctrine()->getManager()->getRepository('AppBundle:Bande');
@@ -328,13 +260,9 @@ class WebController extends Controller
         $social = $this->getDoctrine()->getManager()->getRepository('AppBundle:Social');
         $social =  $social->findAll();
 
-        $this->addFlash(
-            'notice',
-            'Your changes were saved!'
-        );
-
         $htmlRender = $this->render('Pages/homepage.html.twig', array(
             'calculdevisform' => $calculdevisform->createView(),
+            'calculdevisresult' => $resultino,
             'bande' => $bande,
             'societe' => $societe,
             'articles' => $articles,
@@ -355,7 +283,6 @@ class WebController extends Controller
         $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis,array(
             'action' => $this->generateUrl('prixpage'),
         ));
-
 
         $bande = $this->getDoctrine()->getManager()->getRepository('AppBundle:Bande');
         $bande = $bande->findBy(array(),array('id' => 'DESC'),3);

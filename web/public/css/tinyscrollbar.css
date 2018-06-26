@@ -1,0 +1,42 @@
+#rtopscroll{
+    display: block;
+    box-shadow: 0px 5px 10px 1px rgb(69, 69, 69);
+}
+#scrollbar1 { width: auto; border: 0px red solid; display: block}
+#scrollbar1 .viewport { width: 210px; height: 200px; overflow: hidden; position: relative; }
+#scrollbar1 .overview { list-style: none; position: absolute; width: 100%; }
+#scrollbar1 .scrollbar{ background-color:  transparent; float: right; width: 20px; }
+#scrollbar1 .track {  background: rgb(234, 234, 234) no-repeat  0 100%; height: 100%; width:20px; position: relative; }
+#scrollbar1 .thumb {  background-color: #E1140C; height: 20px; width: 20px; cursor: pointer; overflow: hidden; position: absolute; }
+#scrollbar1 .thumb .end {  background-color: transparent; overflow: hidden; height: 5px; width: 20px; }
+#scrollbar1 .disable { display: none; }
+.noSelect { user-select: none; -o-user-select: none; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; }
+.villediv>a{
+    display: block;
+    text-decoration: none;
+    padding: 5px 10px 5px 10px;
+    border-bottom: 1px rgb(194, 194, 194) solid;
+    box-shadow: 0px 5px 10px 1px rgb(69, 69, 69);
+    border-top: 1px whitesmoke solid;
+    margin: 0;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    white-space: nowrap;
+    background-color: white;
+    font-family: 'Open Sans Condensed', sans-serif;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    position: relative;
+}
+
+.villediv>a:hover {
+    background-color: rgb(250, 250, 250);
+    text-indent: 15px;
+    color: #a72222;
+}
+.villediv>a:last-of-type{
+    border-bottom: none;
+}

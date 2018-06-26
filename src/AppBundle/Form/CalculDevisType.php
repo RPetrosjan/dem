@@ -45,7 +45,6 @@ class CalculDevisType extends AbstractType
                     'attr' => array(
                         'class' => 'cp_ville',
                     ),
-                    'data' => '67000 Strasbourg',
                 ))
                 ->add('etage1', TextType::class, array(
                     'label' => 'Etage',
@@ -53,7 +52,6 @@ class CalculDevisType extends AbstractType
                     'attr' => array(
                         'class' => 'etage'
                     ),
-                    'data' => '4',
                 ))
                 ->add('ascenseur1', 'choice', array(
                     'empty_data'  => true,
@@ -82,7 +80,6 @@ class CalculDevisType extends AbstractType
                         'attr' => array(
                             'class' => 'cp_ville',
                         ),
-                        'data' => '69000 Lyon',
                     ))
                     ->add('etage2', TextType::class, array(
                         'label' => 'Etage',
@@ -90,7 +87,6 @@ class CalculDevisType extends AbstractType
                         'attr' => array(
                             'class' => 'etage'
                         ),
-                        'data' => '1',
                     ))
                     ->add('ascenseur2', 'choice', array(
                         'empty_data'  => false,
@@ -125,7 +121,6 @@ class CalculDevisType extends AbstractType
                 ->add('volume',TextType::class,array(
                     'empty_data'  => '0',
                     'label' => 'Volume',
-                    'data' => 15,
                 ))
             )
             ->add('save', SubmitType::class, array(
@@ -176,7 +171,7 @@ class CalculDevisType extends AbstractType
                             )
                         ))
                         ->add('save', SubmitType::class, array(
-                            'label'=>'Valider',
+                            'label'=>'Devis Gratuit',
                         ))
                 );
         }

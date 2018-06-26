@@ -1,11 +1,17 @@
 function CreateDivPostVille(obj){
-    $(obj).next().after('<div class="villediv"></div>');
+    $(obj).next().after('' +
+        '<div id="rtopscroll">'+
+        '<div id="scrollbar1">'+
+        '<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>'+
+        '<div class="viewport">'+
+        '<div class="overview">'+
+        '<div class="villediv"></div></div>');
 }
 
 function SelectDivPostVille(){
     $('.villediv>a').unbind('click').click(function () {
-        $(this).parent().prev().prev().val($(this).text());
-        $(this).parent().remove();
+        $(this).closest('div.row').find('input').val($(this).text());
+        $('#rtopscroll').remove();
     });
 }
 
@@ -26,12 +32,20 @@ $('.cp_ville').keyup(function () {
                 });
                 $('.villediv').html(villeeponse);
 
+                SetMenuTextListboxadm(data);
+                $('#scrollbar1').tinyscrollbar();
                 SelectDivPostVille();
         });
     }
-    else if($(this).val().length<5){
-        if($('.villediv').length>0){
-            $('.villediv').remove();
-        }
+    else{
+        $('#rtopscroll').remove();
     }
 });
+
+
+$(document).ready(function(){
+    $('#scrollbar1').tinyscrollbar();
+});
+
+
+
