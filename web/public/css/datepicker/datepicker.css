@@ -1,0 +1,13 @@
+#ui-datepicker-div{
+    background-color: white;
+    padding: 10px 15px;
+    box-shadow: black 0px 0px 15px 0px;
+}
+a.ui-state-default{
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    padding: 0px 10px;
+    font-family: 'Open Sans Condensed', sans-serif;
+}

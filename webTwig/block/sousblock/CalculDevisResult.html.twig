@@ -1,0 +1,41 @@
+{{ '/public/js/datepicker/datepicker.js'|jsloader }}
+{{ '/public/css/datepicker/datepicker.css'|cssloader }}
+<div class="topresultdiv">
+    <div class="toprow">
+        <div class="rows devisresult">
+            <strong class="smallstrong">Départ </strong>
+            <b class="smallbold">
+                <span>{{ calculdevisresult.cp1 }}</span>
+                Etage : <span>{{ calculdevisresult.etage1 }}</span> Ascenseur : <span>{{ calculdevisresult.ascenseur1 }}</span>
+            </b>
+        </div>
+        <div class="rows devisresult">
+            <strong class="smallstrong">Départ </strong>
+            <b class="smallbold">
+                <span>{{ calculdevisresult.cp2 }}</span>
+                Etage : <span>{{ calculdevisresult.etage2 }}</span> Ascenseur : <span>{{ calculdevisresult.ascenseur2 }}</span>
+            </b>
+        </div>
+    </div>
+    <div class="toprow">
+        <div class="rows devisresult">
+            <strong class="smallstrong">General</strong>
+            <b class="smallbold">
+                <span></span>
+                Prestation : <span>{{ calculdevisresult.prestation }}</span><br />
+                Volume : <span>{{ calculdevisresult.volume }}</span>
+            </b>
+        </div>
+
+        <div class="rows devisresult">
+            <strong class="smallstrong">Résultat</strong>
+            <b class="smallbold">
+                <span></span>
+                Prix : <span>{{ calculdevisresult1.totalprice }} €</span><br />
+                Distance : <span>{{ calculdevisresult1.distance|round }} km</span>
+            </b>
+        </div>
+
+    </div>
+    <h1>Le prix me convient, je souhaite obtenir un <u>devis gratuit</u></h1>
+</div>

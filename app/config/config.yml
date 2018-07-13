@@ -142,4 +142,8 @@ sonata_admin:
                      label:        'Social Buttons'
                      roles:        [ROLE_ADMIN]
 
+                   - route:        sonata_admin_calculdevis
+                     label:        'Calcul Devis'
+                     roles:        [ROLE_ADMIN]
+
 

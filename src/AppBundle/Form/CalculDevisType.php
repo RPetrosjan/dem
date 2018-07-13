@@ -142,33 +142,21 @@ class CalculDevisType extends AbstractType
                     ))
                         ->add('nom', TextType::class, array(
                             'label' => 'Votre nom',
-                            'attr' => array(
-                                'class' => 'cp_ville',
-                            )
                         ))
                         ->add('prenom',TextType::class, array(
                             'label' => 'Votre prenom',
-                            'attr' => array(
-                                'class' => 'cp_ville',
-                            )
                         ))
                         ->add('date',TextType::class, array(
                             'label' => 'Date de demenagement',
                             'attr' => array(
-                                'class' => 'cp_ville',
-                            )
+                                'class' => 'datepicker',
+                            ),
                         ))
                         ->add('telephone',TextType::class, array(
                             'label' => 'Telephone',
-                            'attr' => array(
-                                'class' => 'cp_ville',
-                            )
                         ))
                         ->add('email',TextType::class, array(
                             'label' => 'E-mail',
-                            'attr' => array(
-                                'class' => 'cp_ville',
-                            )
                         ))
                         ->add('save', SubmitType::class, array(
                             'label'=>'Devis Gratuit',

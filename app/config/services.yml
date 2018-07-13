@@ -113,6 +113,17 @@ services:
             - { name: sonata.admin, manager_type: orm, route: '/social', label: 'Social Buttons', group : 'Web' }
         public: true
 
+
+    admin.calcul_devis:
+        class: AppBundle\Admin\CalculDevisAdmin
+        arguments:
+           - ~
+           - AppBundle\Entity\CalculDevis
+           - ~
+        tags:
+            - { name: sonata.admin, manager_type: orm, route: '/calculdevis', label: 'Calcul Devis', group : 'Web' }
+        public: true
+
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:

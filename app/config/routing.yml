@@ -17,6 +17,9 @@ sonata_societe:
 sonata_admin_user:
     path: /admin/app/user/list
 
+sonata_admin_calculdevis:
+    path: /admin/app/calculdevis/list
+
 sonata_admin_bande:
     path: /admin/app/bande/list
 

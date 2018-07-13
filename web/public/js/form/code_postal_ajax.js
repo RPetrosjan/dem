@@ -36,6 +36,14 @@ $('.cp_ville').keyup(function () {
                 $('#scrollbar1').tinyscrollbar();
                 SelectDivPostVille();
         });
+
+        $(this).unbind('focusout').focusout(function () {
+            $('body').click(function (event) {
+                if(($(event.target).parent().attr('class') != 'villediv' && $(event.target).parent().attr('class') != 'track' )){
+                    $('#rtopscroll').remove();
+                }
+            });
+        });
     }
     else{
         $('#rtopscroll').remove();

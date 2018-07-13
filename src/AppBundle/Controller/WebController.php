@@ -18,6 +18,8 @@ use AppBundle\Entity\OptimizerJs;
 use AppBundle\Form\CalculDevisType;
 use AppBundle\Repository\BandeRepository;
 use AppBundle\Repository\CalculDevisRepository;
+use AppBundle\Service\AddDevisBase;
+use AppBundle\Service\CalculPrixService;
 use Doctrine\Common\Annotations\Annotation;
 use Symfony\Component\Config\Loader\FileLoader;
 use Symfony\Component\Filesystem\Filesystem;
@@ -39,10 +41,45 @@ class WebController extends Controller
 {
 
     private $twig;
+    private $addDevisService;
+    private $calculPrixService;
 
-    public function __construct(Twig_Environment $twig)
+
+
+    public function __construct(Twig_Environment $twig, AddDevisBase $addDevisBase, CalculPrixService $calculPrixService)
     {
         $this->twig = $twig;
+        $this->addDevisService = $addDevisBase;
+        $this->calculPrixService = $calculPrixService;
+    }
+
+    /*
+     * Load All another elements of the web site
+     */
+    private function getWebElements(){
+
+        $bande = $this->getDoctrine()->getManager()->getRepository('AppBundle:Bande');
+        $bande = $bande->findBy(array(),array('id' => 'DESC'),3);
+
+        $articles = $this->getDoctrine()->getManager()->getRepository('AppBundle:Articles');
+        $articles = $articles->findBy(array('namePage' => 'homepage'));
+
+        $societe = $this->getDoctrine()->getManager()->getRepository('AppBundle:Societe');
+        $societe = $societe->findOneBy(array('siege' => true));
+
+        $imagebande = $this->getDoctrine()->getManager()->getRepository('AppBundle:ImageBande');
+        $imagebande = $imagebande->findBy(array(),array('id' => 'DESC'),10);
+
+        $social = $this->getDoctrine()->getManager()->getRepository('AppBundle:Social');
+        $social =  $social->findAll();
+
+        return array(
+            'bande' => $bande,
+            'societe' => $societe,
+            'articles' => $articles,
+            'imagebandes' => $imagebande,
+            'social' => $social,
+        );
     }
 
     /**
@@ -153,7 +190,6 @@ class WebController extends Controller
             $this->get('session')->set('tasktotal',$FormInterface->getData());
         }
         else{
-
            /// dump(get_class_methods($FormInterface->getConfig()->getDataClass()));
             foreach (get_class_methods ($class) as $obj){
                 if(strpos($obj,'set') !== false || strpos($obj,'get') !== false)
@@ -173,6 +209,8 @@ class WebController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($this->get('session')->get('tasktotal'));
         $em->flush();
+
+        $this->addDevisService->AddDevis($this->get('session')->get('tasktotal'),$this->getDoctrine()->getManager());
     }
     public function CheckFiniStep(){
         $caluldevisType = new CalculDevisType();
@@ -194,11 +232,7 @@ class WebController extends Controller
      * @Route("/contact", name="contactpage")
      */
     public function ContactPage(Request $request){
-
-        $this->addFlash('success','Bonjour Ruben');
-        $htmlRender = $this->render('Pages/homepage.html.twig', array(
-        ));
-
+        $htmlRender = $this->render('Pages/homepage.html.twig', $this->getWebElements());
         $this->LoadCssLoader($request);
         return $htmlRender;
 
@@ -209,6 +243,7 @@ class WebController extends Controller
      */
     public function PrixPages(Request $request){
 
+        $totalprix = null;
         $caluldevis = new CalculDevis();
         $form_step = $this->getFormStep();
         $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis, array(
@@ -231,12 +266,12 @@ class WebController extends Controller
                     return $this->redirectToRoute('prixpage');
                 }
             }
-
             $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis,array(
                 'form_step' => $form_step,
             ));
             $calculdevisform->handleRequest($request);
             $resultino = $this->get('session')->get('tasktotal');
+            $totalprix = $this->calculPrixService->GetCalculPrix($resultino);
         }
         else if($form_step>1)
         {
@@ -244,31 +279,11 @@ class WebController extends Controller
             return $this->redirectToRoute('prixpage');
         }
 
-
-        $bande = $this->getDoctrine()->getManager()->getRepository('AppBundle:Bande');
-        $bande = $bande->findBy(array(),array('id' => 'DESC'),3);
-
-        $articles = $this->getDoctrine()->getManager()->getRepository('AppBundle:Articles');
-        $articles = $articles->findBy(array('namePage' => 'homepage'));
-
-        $societe = $this->getDoctrine()->getManager()->getRepository('AppBundle:Societe');
-        $societe = $societe->findOneBy(array('siege' => true));
-
-        $imagebande = $this->getDoctrine()->getManager()->getRepository('AppBundle:ImageBande');
-        $imagebande = $imagebande->findBy(array(),array('id' => 'DESC'),10);
-
-        $social = $this->getDoctrine()->getManager()->getRepository('AppBundle:Social');
-        $social =  $social->findAll();
-
-        $htmlRender = $this->render('Pages/homepage.html.twig', array(
+        $htmlRender = $this->render('Pages/homepage.html.twig',array_merge( array(
             'calculdevisform' => $calculdevisform->createView(),
             'calculdevisresult' => $resultino,
-            'bande' => $bande,
-            'societe' => $societe,
-            'articles' => $articles,
-            'imagebandes' => $imagebande,
-            'social' => $social,
-        ));
+            'calculdevisresult1' => $totalprix,
+        ),$this->getWebElements()));
 
         $this->LoadCssLoader($request);
         return $htmlRender;
@@ -284,29 +299,9 @@ class WebController extends Controller
             'action' => $this->generateUrl('prixpage'),
         ));
 
-        $bande = $this->getDoctrine()->getManager()->getRepository('AppBundle:Bande');
-        $bande = $bande->findBy(array(),array('id' => 'DESC'),3);
-
-        $articles = $this->getDoctrine()->getManager()->getRepository('AppBundle:Articles');
-        $articles = $articles->findBy(array('namePage' => 'homepage'));
-
-        $societe = $this->getDoctrine()->getManager()->getRepository('AppBundle:Societe');
-        $societe = $societe->findOneBy(array('siege' => true));
-
-        $imagebande = $this->getDoctrine()->getManager()->getRepository('AppBundle:ImageBande');
-        $imagebande = $imagebande->findBy(array(),array('id' => 'DESC'),10);
-
-        $social = $this->getDoctrine()->getManager()->getRepository('AppBundle:Social');
-        $social =  $social->findAll();
-
-        $htmlRender = $this->render('Pages/homepage.html.twig', array(
+        $htmlRender = $this->render('Pages/homepage.html.twig', array_merge(array(
             'calculdevisform' => $calculdevisform->createView(),
-            'bande' => $bande,
-            'societe' => $societe,
-            'articles' => $articles,
-            'imagebandes' => $imagebande,
-            'social' => $social,
-        ));
+        ), $this->getWebElements()));
 
         $this->LoadCssLoader($request);
         return $htmlRender;

@@ -239,5 +239,7 @@ button {
         margin-left: 0px;
         width: 100%;
     }
-
+    .topresultdiv{
+        margin-top: 75px;
+    }
 }

@@ -30,15 +30,10 @@ $('select').each(function (index,value) {
     $(this).replaceWith(obj);
     obj.next().after('<div class="selectorjs">'+aoptions+'</div>');
 
-    if(index+1 == Totalelement){
-        console.log(index);
-        InitilaeSelectElements();
-    }
-
-})
+});
 
 function InitialSelectA(objint) {
-    $('.selectorjs.active').find('a').click(function () {
+    $('.selectorjs.active').find('a').unbind('click').click(function () {
         $(objint).val($(this).text());
         InputActiveClass(objint);
     });
@@ -59,7 +54,6 @@ function InitilaeSelectElements() {
             }, 100);
         });
     });
-
 }
 
 
@@ -72,7 +66,7 @@ function CheckFormActiveClass(){
         InputActiveClass($(this));
     });
 }
-
+InitilaeSelectElements();
 CheckFormActiveClass();
 
 
