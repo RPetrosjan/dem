@@ -1,4 +1,4 @@
-input,select{
+input,select,textarea{
     background-color: transparent;
     border: 0;
     border-radius: 3px;
@@ -19,11 +19,22 @@ input,select{
 select{
     width: 120px;
 }
-
-.topformdiv{
-    width: 260px;
+.row{
+    margin-bottom: 33px;
 }
 
+.row>textarea{
+    width: 456px;
+    height: 100px;
+    resize: none;
+}
+
+.topformtoplabel.devis{
+    margin-top: 155px;
+}
+.topformtoplabel.devis.general{
+    margin-top: 68px;
+}
 .topformtoplabel{
     margin-left: -38px;
     transform: rotate(-90deg);
@@ -90,7 +101,10 @@ select.ascenseur,.ascenseur {
     width: 120px;
 }
 
-input + label,select + label {
+.row > textarea + label{
+    height: 118px;
+}
+input + label,select + label, textarea + label {
     background-color: White;
     border-radius: 3px;
     color: #032429;
@@ -163,20 +177,21 @@ input + label,select + label {
     color: rgb(18, 132, 0);
 }
 
-input:hover,select:hover,input.active,select.active
+input:hover,select:hover,textarea:hover,input.active,select.active,textarea.active
 {
     position: relative;
     z-index: 10;
 }
-input:focus,select:focus
-input:active,select:active,input.active,select.active{
+
+input:focus,textarea:focus,select:focus
+input:active,select:active,input.active,select.active, textarea.active{
     color: #a72222;
     text-indent: 0;
     background: #fff;
 }
 
-input:focus + label,select:focus + label
-input:active + label,select:active + label,input.active + label,select.active + label {
+input:focus + label,textarea:focus + label,select:focus + label
+input:active + label,select:active + label,input.active + label,select.active + label, textarea.active + label {
     background-color:  transparent;
     transform: translateY(-28px);
 }
@@ -222,7 +237,7 @@ button {
         display: block;
         margin-bottom: 24px;
     }
-    input,input.etage,input.ascenseur,input.active,input:focus{
+    input,input.etage,input.ascenseur,input.active,input:focus,.row>textarea,.row>textarea:focus{
         width: 100%;
         padding: 9px 0 9px 0px;
         text-indent: 12px;

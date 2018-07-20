@@ -9,13 +9,16 @@
             {% endif %}
         </div>
         {% if calculdevisresult is defined and calculdevisresult is not null %}
-
             {% include 'block/sousblock/CalculDevisResult.html.twig' %}
+        {% endif %}
+        {% if devisform is defined and devisform is not null %}
 
         {% endif %}
 
-        <div class="sectionright">
-            {% include 'form/CalculDevisForm.html.twig' %}
-        </div>
+        {% if calculdevisform is defined %}
+            <div class="sectionright">
+                {% include 'form/CalculDevisForm.html.twig' %}
+            </div>
+        {% endif %}
     </div>
 </div>

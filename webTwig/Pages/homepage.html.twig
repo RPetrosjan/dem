@@ -5,7 +5,12 @@
 {% endblock %}
 
 {% block topBody %}
-    {% include 'block/top_body_block.html.twig' %}
+    {% if devisform is defined %}
+            {% include 'block/top_body_block_div.html.twig' %}
+        {% else %}
+            {% include 'block/top_body_block.html.twig' %}
+    {% endif %}
+
 {% endblock %}
 
  {% block infoPage %}

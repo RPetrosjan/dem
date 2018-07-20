@@ -109,6 +109,29 @@ class CalculDevis
     private $telephone;
 
     /**
+     * @return string
+     */
+    public function getPortable()
+    {
+        return $this->portable;
+    }
+
+    /**
+     * @param string $portable
+     */
+    public function setPortable($portable)
+    {
+        $this->portable = $portable;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="portable", type="string", length=50, nullable=true)
+     */
+    private $portable;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=50, nullable=true)
@@ -198,9 +221,193 @@ class CalculDevis
     /**
      * @var string
      *
+     * @ORM\Column(name="adresse1", type="string", length=50, nullable=true)
+     */
+    private $adresse1;
+
+    /**
+     * @return string
+     */
+    public function getAdresse1()
+    {
+        return $this->adresse1;
+    }
+
+    /**
+     * @param string $adresse1
+     */
+    public function setAdresse1($adresse1)
+    {
+        $this->adresse1 = $adresse1;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAdresse2()
+    {
+        return $this->adresse2;
+    }
+
+    /**
+     * @param string $adresse2
+     */
+    public function setAdresse2($adresse2)
+    {
+        $this->adresse2 = $adresse2;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="adresse2", type="string", length=50, nullable=true)
+     */
+    private $adresse2;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="date", type="string", length=50, nullable=true)
      */
     private $date;
+
+    /**
+     * @return string
+     */
+    public function getPays1()
+    {
+        return $this->pays1;
+    }
+
+    /**
+     * @param string $pays1
+     */
+    public function setPays1($pays1)
+    {
+        $this->pays1 = $pays1;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPays2()
+    {
+        return $this->pays2;
+    }
+
+    /**
+     * @param string $pays2
+     */
+    public function setPays2($pays2)
+    {
+        $this->pays2 = $pays2;
+    }
+
+    /**
+     * @return string
+     */
+    public function getComment1()
+    {
+        return $this->comment1;
+    }
+
+    /**
+     * @param string $comment1
+     */
+    public function setComment1($comment1)
+    {
+        $this->comment1 = $comment1;
+    }
+
+    /**
+     * @return string
+     */
+    public function getComment2()
+    {
+        return $this->comment2;
+    }
+
+    /**
+     * @param string $comment2
+     */
+    public function setComment2($comment2)
+    {
+        $this->comment2 = $comment2;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comment1", type="text", nullable=true)
+     */
+    private $comment1;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comment2", type="text", nullable=true)
+     */
+    private $comment2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pays1", type="string", length=50, nullable=true)
+     */
+    private $pays1;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pays2", type="string", length=50, nullable=true)
+     */
+    private $pays2;
+
+    /**
+     * @return string
+     */
+    public function getDate1()
+    {
+        return $this->date1;
+    }
+
+    /**
+     * @param string $date1
+     */
+    public function setDate1($date1)
+    {
+        $this->date1 = $date1;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDate2()
+    {
+        return $this->date2;
+    }
+
+    /**
+     * @param string $date2
+     */
+    public function setDate2($date2)
+    {
+        $this->date2 = $date2;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="date1", type="string", length=50, nullable=true)
+     */
+    private $date1;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="date2", type="string", length=50, nullable=true)
+     */
+    private $date2;
 
     /**
      * @var string
@@ -217,11 +424,15 @@ class CalculDevis
         $date = \DateTime::createFromFormat('d/m/Y', date('d/m/Y'));
         $this->CreatedDate  = $date->setTimeZone(new DateTimeZone('Europe/Paris'));
 
-        $this->nom=null;
+        $this->nom = null;
         $this->prenom = null;
-        $this->date= null;
+        $this->date = null;
         $this->email = null;
-        $this->telephone=null;
+        $this->telephone = null;
+        $this->date1 = null;
+        $this->date2 = null;
+        $this->comment1 = '';
+        $this->comment2 = '';
     }
 
     /**

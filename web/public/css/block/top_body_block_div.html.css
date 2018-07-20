@@ -1,7 +1,6 @@
 .top_body_block{
     width: 100%;
     position: relative;
-    background-image: url('/img/block/dem_top_block.png');
     background-repeat: no-repeat;
     background-position: left bottom;
 }
@@ -12,10 +11,12 @@
 }
 .top_body_block .sectionleft{
     height: 100%;
-    width: 50%;
+    min-width: 150px;
+    max-width: 400px;
+    width: 30%;
 }
 .top_body_block .sectionright{
-    width: 45%;
+    width: 60%;
     text-align: right;
 }
 
@@ -25,12 +26,12 @@
 
 .divform{
     display: inline-block;
-    width: 260px;
     text-align: left;
     margin-bottom: 45px;
+    max-width: 520px;
 }
+
 .topformdiv{
-    width: 260px;
 }
 
 

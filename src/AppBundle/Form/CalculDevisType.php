@@ -146,7 +146,7 @@ class CalculDevisType extends AbstractType
                         ->add('prenom',TextType::class, array(
                             'label' => 'Votre prenom',
                         ))
-                        ->add('date',TextType::class, array(
+                        ->add('date1',TextType::class, array(
                             'label' => 'Date de demenagement',
                             'attr' => array(
                                 'class' => 'datepicker',

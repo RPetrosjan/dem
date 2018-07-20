@@ -1,0 +1,26 @@
+{{ '/public/css/block/top_body_block_div.html.css'|cssloader }}
+<div class="websitebox">
+<div class="top_body_block">
+
+        <div class="sectionleft">
+            <div class="devisinfodiv">
+                <div><h2>Demandez gratuit</h2><h1>Devis déménagement</h1>
+                    <br>
+                    <span class="text">
+                        <p>Demandez un devis gratuit, pour obtenir une estimation du coût de votre déménagement. Un de nos conseillers vous contactera par téléphone afin de vous assister et de vous conseiller pour obtenir une estimation la plus juste possible du prix.</p>
+                        <p>Que vous déménagiez localement, régionalement, nationalement ou à l’international, nous pouvons vous proposer plusieurs devis de nos partenaires de déménagement dans votre ville ou votre région.</p>
+                        <p>Choisissez précisément la période ou la date de votre déménagement, ce qui pourra agir sur le coût de votre déménagement. Par exemple un déménagement le lundi vous coûtera moins cher qu’un déménagement le vendredi.</p>
+                        <p>Pour avoir immédiatement l’estimation du prix de votre déménagement nous vous proposons d’utiliser notre calculateur de <a href="/prix" target="_blank">prix de déménagement</a> en ligne.</p>
+                        <p>Complétez de formulaire devis déménagement le plus précisément possible. Si vous des interrogations n’hésitez pas à nous contacter.</p>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    {% if devisform is defined %}
+        <div class="sectionright">
+            {% include 'form/DevisForm.html.twig' %}
+        </div>
+    {% endif %}
+    </div>
+</div>

@@ -19,11 +19,9 @@ $('.cp_ville').keyup(function () {
     if($(this).val().length==5 ){
         $('.villediv').remove();
         var element = this;
-        $.post('/get_cp_ville',
-            {
+        $.post('/get_cp_ville', {
                 'cp':$(this).val().substring(0,5)
-            }
-            ,function (data) {
+            },function (data) {
 
                 CreateDivPostVille(element);
                 var villeeponse = '';
@@ -53,6 +51,10 @@ $('.cp_ville').keyup(function () {
 
 $(document).ready(function(){
     $('#scrollbar1').tinyscrollbar();
+
+    $('input,textarea,select').filter('[required]').each(function () {
+        console.log($(this).next('label').prepend('* '));
+    });
 });
 
 

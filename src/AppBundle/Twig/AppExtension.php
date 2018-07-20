@@ -29,7 +29,9 @@ class AppExtension extends \Twig_Extension
         $this->cssArray[] = $cssname;
     }
     public function jsloader($jsname){
-        $this->jsArray[] = $jsname;
+        if(!in_array($jsname,$this->jsArray)) {
+            $this->jsArray[] = $jsname;
+        }
     }
 
     public function kint($var,$arrayname){

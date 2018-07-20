@@ -16,6 +16,7 @@ use AppBundle\Entity\CpVille;
 use AppBundle\Entity\OptimizerCss;
 use AppBundle\Entity\OptimizerJs;
 use AppBundle\Form\CalculDevisType;
+use AppBundle\Form\DevisForm;
 use AppBundle\Repository\BandeRepository;
 use AppBundle\Repository\CalculDevisRepository;
 use AppBundle\Service\AddDevisBase;
@@ -235,7 +236,21 @@ class WebController extends Controller
         $htmlRender = $this->render('Pages/homepage.html.twig', $this->getWebElements());
         $this->LoadCssLoader($request);
         return $htmlRender;
+    }
 
+    /**
+     * @Route("/devis", name="devispage")
+     */
+    public function DevisPage(Request $request){
+
+        $caluldevis = new CalculDevis();
+        $devisform = $this->createForm(DevisForm::class,$caluldevis);
+
+        $htmlRender = $this->render('Pages/homepage.html.twig', array_merge([
+            'devisform' => $devisform->createView(),
+        ],$this->getWebElements()));
+        $this->LoadCssLoader($request);
+        return $htmlRender;
     }
 
     /**
