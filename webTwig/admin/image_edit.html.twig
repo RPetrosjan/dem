@@ -1,0 +1,39 @@
+{% extends 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
+
+{% block javascript %}
+    <script>
+        alert('ajaa');
+    </script>
+{% endblock %}
+
+{%- block form_widget_simple -%}
+
+    {%- set type = type|default('text') -%}
+
+    {% if type =='file' %}
+
+        {% set filename = form.parent.children.filename.vars.value %}
+        {% set filepath = form.parent.children.path.vars.value %}
+        {% set filealtimage = form.parent.children.altimage.vars.value %}
+        {% set filetitle = form.parent.children.title.vars.value %}
+
+        <div style="display: inline-block; float: left; margin-right: 20px">
+            {% if filename|length > 0 %}
+                 <img class="filepath" style="height: 150px" src="/img/{{ filepath ~ '/' ~ filename}}" />
+                {% else %}
+                <div class="filepath" style="height: 150px; width: 150px; display: inline-block; background-color:  grey"></div>
+            {% endif %}
+            <input style="display: none"  type="{{ type }}" {{ block('widget_attributes') }}
+                    {% if value is not empty %}value="{{ value }}" {% endif %}/>
+        </div>
+
+    {% else %}
+
+        <input type="{{ type }}" {{ block('widget_attributes') }}
+                {% if value is not empty %}value="{{ value }}" {% endif %}/>
+
+    {% endif %}
+
+
+
+{%- endblock form_widget_simple -%}

@@ -1,22 +1,22 @@
 parameters:
   topmenu:
     100:
-      name: Destionations
+      name: Prix
       title: Our destination with Armenia Travel
-      url: /destionations
+      url: /prix
     200:
-      name: inboundtours
+      name: Devis
       title: Detect Armenia inbound
-      url: /tours/inbound
+      url: /devis
     300:
-      name: outboundtours
+      name: Prestation
       title: Tours Europe/USA
-      url: /tours/outbound
+      url: /prestation
     400:
-      name: about
+      name: Assurance
       title: Aobout Company Armenia Travel
-      url: /about
+      url: /assurance
     500:
-      name: contact
+      name: Contact
       title: Make contact with us
       url: /contact

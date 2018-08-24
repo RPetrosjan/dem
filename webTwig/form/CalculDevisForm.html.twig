@@ -1,0 +1,11 @@
+    {{ '/public/css/form/DemForm.html.css'|cssloader }}
+    {{ '/public/css/form/code_postal_ajax.css'|cssloader }}
+    {{ '/public/css/tinyscrollbar.css'|cssloader }}
+    {{ '/public/js/form/DemForm.html.js'|jsloader }}
+    {{ '/public/js/form/code_postal_ajax.js'|jsloader }}
+    {{ '/public/js/jquery.tinyscrollbar.js'|jsloader }}
+
+    {% form_theme calculdevisform 'form/fields.html.twig' %}
+    {{ form_start(calculdevisform,{'attr': {'class':'divform'}}) }}
+    {{ form_end(calculdevisform) }}
+

@@ -1,4 +1,36 @@
 {% extends 'base.html.twig' %}
 {% block topMenu %}
     {% include 'menu/topMenu.html.twig'%}
+    {% include 'menu/top_sous_menu.html.twig' %}
+{% endblock %}
+
+{% block topBody %}
+    {% if devisform is defined %}
+            {% include 'block/top_body_block_div.html.twig' %}
+        {% else %}
+            {% include 'block/top_body_block.html.twig' %}
+    {% endif %}
+
+{% endblock %}
+
+ {% block infoPage %}
+    {% include 'block/infoPage.html.twig' %}
+ {%  endblock %}
+
+{% block imageBlock %}
+    {% include 'block/imageBlock.html.twig' %}
+{% endblock %}
+
+{% block bodyPage %}
+    {% if app.request.get('_route') == 'prestation' %}
+        {% include 'block/infoPagePrestation.html.twig' %}
+    {% elseif app.request.get('_route') == 'assurance' %}
+        {% include 'block/infoPageAssurance.html.twig' %}
+    {% else %}
+        {% include 'block/bodyPage.html.twig' %}
+    {% endif %}
+{% endblock %}
+
+{% block footerPage %}
+    {% include 'block/footerPage.html.twig' %}
 {% endblock %}
