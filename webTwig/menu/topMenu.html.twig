@@ -1,5 +1,6 @@
 {{ '/public/css/menu/topMenu.html.css'|cssloader }}
 {{ '/public/js/menu/topMenu.html.js'|jsloader }}
+{% spaceless %}
 <div class="header-white">
     <header class="navbar">
         <div class="websitebox">
@@ -14,15 +15,14 @@
                         {% endfor %}
                     {% endif %}
                 </a>
-
-
             </li>
 
     {% for weight,menu in topmenu %}
-        <li><a href="{{ menu.url }}" title="{{ menu.title }}">{{ menu.name|trans }}</a></li>
+        <li><a {% if app.request.pathInfo == menu.url %} class="active" {% endif %} href="{{ menu.url }}" title="{{ menu.title }}">{{ menu.name|trans }}</a></li>
     {% endfor %}
             </ul>
         {% endspaceless %}
         </div>
     </header>
 </div>
+{% endspaceless %}

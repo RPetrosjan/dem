@@ -55,7 +55,7 @@
     margin-left: 0px;
 }
 .slickimageblock>div:nth-last-of-type(1)>h2{
-    margin-left: -164px;
+    margin-left: 0px;
 }
 
 .slickimageblock>div:nth-last-of-type(1)>h3{
@@ -67,7 +67,6 @@
 }
 .slick-active .slickimageblock>div:nth-last-of-type(1)>h3{
     margin-left: 0px
-
 }
 .slickimageblock>div:nth-last-of-type(1)>h4{
     -webkit-transition: 5.5s;
@@ -81,13 +80,7 @@
 }
 
 .slickimageblock>div:nth-last-of-type(1)>span{
-    -webkit-transition: 2.5s;
-    -moz-transition: 2.5s;
-    -o-transition: 2.5s;
-    transition: 2.5s;
-    font-size: 0px;
-    display: inline-block;
-    height: 100px;
+
 }
 .slick-active .slickimageblock>div:nth-last-of-type(1)>span{
     font-size: 14px;

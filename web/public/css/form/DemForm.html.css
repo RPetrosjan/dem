@@ -97,8 +97,25 @@ select{
 input.etage{
     width: 70px;
 }
+
+.prestation, .prestation:focus,.prestation:focus, .prestation.active,.prestation.active{
+    background-image: url(/img/dpdown.png);
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+}
 select.ascenseur,.ascenseur {
     width: 120px;
+    background-image: url(/img/dpdown.png);
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+}
+
+select.ascenseur:focus,.ascenseur:focus, select.ascenseur.active,.ascenseur.active{
+    background-image: url(/img/dpdown.png);
+    background-repeat: no-repeat;
+    background-position: center right;
 }
 
 .row > textarea + label{

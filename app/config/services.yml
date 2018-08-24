@@ -124,6 +124,17 @@ services:
             - { name: sonata.admin, manager_type: orm, route: '/calculdevis', label: 'Calcul Devis', group : 'Web' }
         public: true
 
+
+    admin.contact:
+        class: AppBundle\Admin\ContactAdmin
+        arguments:
+           - ~
+           - AppBundle\Entity\Contact
+           - ~
+        tags:
+            - { name: sonata.admin, manager_type: orm, route: '/contact', label: 'Contact', group : 'Web' }
+        public: true
+
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:

@@ -5,10 +5,7 @@
     {% if articles is defined %}
             {% for article in articles %}
         <div class="articlediv">
-
                 {{ article.articleHtml|raw }}
-
-
         </div>
             {%  endfor %}
         {% endif %}

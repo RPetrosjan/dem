@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use DateTimeZone;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,11 +23,106 @@ class Contact
     private $id;
 
     /**
+     * @return string
+     */
+    public function getPrenom()
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * @param string $prenom
+     */
+    public function setPrenom($prenom)
+    {
+        $this->prenom = $prenom;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * @param string $telephone
+     */
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
+    }
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="nom", type="string", length=255)
      */
     private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prenom", type="string", length=255)
+     */
+    private $prenom;
+
+    /**
+     * @return string
+     */
+    public function getPortable()
+    {
+        return $this->portable;
+    }
+
+    /**
+     * @param string $portable
+     */
+    public function setPortable($portable)
+    {
+        $this->portable = $portable;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telephone", type="string", length=255)
+     */
+    private $telephone;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="portable", type="string", length=255)
+     */
+    private $portable;
+
+    /**
+     * @return string
+     */
+    public function getCommentaire()
+    {
+        return $this->commentaire;
+    }
+
+    /**
+     * @param string $commentaire
+     */
+    public function setCommentaire($commentaire)
+    {
+        $this->commentaire = $commentaire;
+    }
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentaire", type="text")
+     */
+    private $commentaire;
+
 
     /**
      * @var string
@@ -41,14 +137,6 @@ class Contact
      * @ORM\Column(name="subject", type="string", length=255)
      */
     private $subject;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="message", type="string", length=750)
-     */
-    private $message;
-
 
     /**
      * @var bool
@@ -188,28 +276,5 @@ class Contact
         return $this->subject;
     }
 
-    /**
-     * Set message
-     *
-     * @param string $message
-     *
-     * @return Contact
-     */
-    public function setMessage($message)
-    {
-        $this->message = $message;
-
-        return $this;
-    }
-
-    /**
-     * Get message
-     *
-     * @return string
-     */
-    public function getMessage()
-    {
-        return $this->message;
-    }
 }
 

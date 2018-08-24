@@ -38,6 +38,9 @@ class ImageBandeAdmin extends AbstractAdmin
                 'property' => array(
                     'cp','ville'
                 ),
+                'to_string_callback' => function($entity, $property) {
+                    return $entity->getVille().' (ID: '.$entity->getCp().')';
+                },
             ))
             ->add('prix')
             ->add('prestation',EntityType::class, array(

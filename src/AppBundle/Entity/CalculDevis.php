@@ -25,7 +25,7 @@ class CalculDevis
     /**
      * @var string
      *
-     * @ORM\Column(name="cp1", type="string", length=10)
+     * @ORM\Column(name="cp1", type="string", length=50)
      */
     private $cp1;
 
@@ -44,11 +44,57 @@ class CalculDevis
     private $ascenseur1;
 
     /**
+     * @return string
+     */
+    public function getVille1()
+    {
+        return $this->ville1;
+    }
+
+    /**
+     * @param string $ville1
+     */
+    public function setVille1($ville1)
+    {
+        $this->ville1 = $ville1;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVille2()
+    {
+        return $this->ville2;
+    }
+
+    /**
+     * @param string $ville2
+     */
+    public function setVille2($ville2)
+    {
+        $this->ville2 = $ville2;
+    }
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="cp2", type="string", length=10)
+     * @ORM\Column(name="cp2", type="string", length=50)
      */
     private $cp2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ville1", type="string", length=50, nullable=true)
+     */
+    private $ville1;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ville2", type="string", length=50, nullable=true)
+     */
+    private $ville2;
 
     /**
      * @var string

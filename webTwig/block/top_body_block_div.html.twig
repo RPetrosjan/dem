@@ -3,6 +3,7 @@
 <div class="top_body_block">
 
         <div class="sectionleft">
+            {% if app.request.get('_route') == 'devispage' %}
             <div class="devisinfodiv">
                 <div><h2>Demandez gratuit</h2><h1>Devis déménagement</h1>
                     <br>
@@ -15,6 +16,23 @@
                     </span>
                 </div>
             </div>
+                {% elseif app.request.get('_route') == 'contactpage' %}
+                <div class="devisinfodiv">
+                    <div><h1 class="colred">Contact déménagement</h1>
+                        <br>
+                        <div class="text">
+                            N'hésitez pas à nous contacter pour toutes vos questions concernant votre déménagement.<br><br>
+                            <h3> - Estimation devis gratuit<br> - Visite technique<br> - Organisation de votre déménagement<br> - Assurance...</h3>
+                            <br>
+                            Vous pouvez nous contacter avec notre formulaire, par téléphone  par courriel ou par courrier.
+                            <br><br>
+                            Nos conseiller sont a votre disposition.<br><br>
+                            <a href="#adresse" class="colred">Consultez nos adresses ici</a>
+                        </div>
+
+                    </div>
+                </div>
+            {% endif %}
         </div>
 
     {% if devisform is defined %}

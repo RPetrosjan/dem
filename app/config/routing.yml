@@ -38,6 +38,8 @@ sonata_admin_cp_ville:
 sonata_admin_social:
     path: /admin/app/social/list
 
+sonata_admin_contact:
+    path: /admin/app/contact/list
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

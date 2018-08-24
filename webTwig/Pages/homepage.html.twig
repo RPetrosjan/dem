@@ -14,7 +14,7 @@
 {% endblock %}
 
  {% block infoPage %}
-     {% include 'block/infoPage.html.twig' %}
+    {% include 'block/infoPage.html.twig' %}
  {%  endblock %}
 
 {% block imageBlock %}
@@ -22,7 +22,13 @@
 {% endblock %}
 
 {% block bodyPage %}
-    {% include 'block/bodyPage.html.twig' %}
+    {% if app.request.get('_route') == 'prestation' %}
+        {% include 'block/infoPagePrestation.html.twig' %}
+    {% elseif app.request.get('_route') == 'assurance' %}
+        {% include 'block/infoPageAssurance.html.twig' %}
+    {% else %}
+        {% include 'block/bodyPage.html.twig' %}
+    {% endif %}
 {% endblock %}
 
 {% block footerPage %}

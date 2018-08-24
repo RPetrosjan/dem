@@ -3,8 +3,8 @@
  */
 
 
-function InputActiveClass(obj){
-    if ($(obj).val().length>0){
+function InputActiveClass(obj) {
+    if ($(obj).val().length>0) {
         $(obj).addClass('active');
     }
     else {
@@ -12,15 +12,30 @@ function InputActiveClass(obj){
     }
 }
 
+(function(old) {
+    $.fn.attr = function() {
+        if(arguments.length === 0) {
+            if(this.length === 0) {
+                return null;
+            }
+
+            var obj = {};
+            $.each(this[0].attributes, function() {
+                if(this.specified) {
+                    obj[this.name] = this.value;
+                }
+            });
+            return obj;
+        }
+
+        return old.apply(this, arguments);
+    };
+})($.fn.attr);
 
 var Totalelement = $('select').length;
 $('select').each(function (index,value) {
     element  = document.createElement("input");
-    obj = $(element)
-        .addClass($(this).attr('class'))
-        .attr('name',$(this).attr('name'))
-        .attr('id',$(this).attr('id'))
-        .attr('required',$(this).attr('required'));
+    obj = $(element).attr($(this).attr());
 
     var aoptions = "";
     $(this).find('option').each(function () {
@@ -32,21 +47,21 @@ $('select').each(function (index,value) {
 
 });
 
-function InitialSelectA(objint) {
-    $('.selectorjs.active').find('a').unbind('click').click(function () {
-        $(objint).val($(this).text());
-        InputActiveClass(objint);
+function InitialSelectA1() {
+    $('.selectorjs').find('a').click(function () {
+        $(this).parent().parent().find('input').val($(this).text());
+        console.log($(this).text());
+        InputActiveClass($(this).parent().parent().find('input'));
     });
 }
 
 function InitilaeSelectElements() {
 
+    InitialSelectA1();
     var  selectObj = $('.selectorjs').parent();
-
     selectObj.find('input').click(function () {
         var objint = this;
         $(this).parent().find('.selectorjs').addClass('active');
-        InitialSelectA(objint);
         $(this).parent().unbind('focusout').focusout(function () {
             objelem = this;
             window.setTimeout(function() {

@@ -13,6 +13,7 @@ body {
 
 @import url("https://use.fontawesome.com/releases/v5.0.10/css/all.css?integrit=sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg&crossorigin=anonymous");
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700');
+@import url('https://fonts.googleapis.com/css?family=Six+Caps');
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Open Sans Condensed', sans-serif;
@@ -23,6 +24,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 .colred {
     color: #a72222;
+}
+.colblue {
+    color: #2274A7;
+}
+.colgreen {
+    color: rgb(18, 132, 0);
 }
 
 ul{
@@ -49,7 +56,6 @@ ul{
     float: left;
     color: #a72222;
     font-weight: bold;
-    font-family: 'Open Sans Condensed', sans-serif;
     font-size: 33px;
     line-height: 33px;
     text-transform: uppercase;

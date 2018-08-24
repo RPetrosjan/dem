@@ -51,7 +51,6 @@ $('.cp_ville').keyup(function () {
 
 $(document).ready(function(){
     $('#scrollbar1').tinyscrollbar();
-
     $('input,textarea,select').filter('[required]').each(function () {
         console.log($(this).next('label').prepend('* '));
     });

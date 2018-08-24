@@ -4,6 +4,8 @@
     background-image: url('/img/block/dem_top_block.png');
     background-repeat: no-repeat;
     background-position: left bottom;
+    padding-top: 35px;
+
 }
 .top_body_block>div{
     padding-top: 25px;
@@ -32,11 +34,35 @@
 .topformdiv{
     width: 260px;
 }
-
+.text.right {
+    text-align: right;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.text.right .colred{
+    display: block;
+}
+.text {
+    font-size: 1.1em;
+    letter-spacing: 0.01em;
+    line-height: 19px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+.prestattion_div{
+    margin-bottom: 300px;
+    margin-top: 33px;
+}
 
 @media (max-width: 850px) {
+    .prestattion_div{
+        margin-bottom: 0px;
+        margin-top: 0px;
+        padding: 15px;
+    }
     .top_body_block
     {
+        background-image: none;
         background-attachment: inherit;
         background-position: right 0px ;
     }

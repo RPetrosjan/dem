@@ -16,13 +16,16 @@ use AppBundle\Entity\CpVille;
 use AppBundle\Entity\OptimizerCss;
 use AppBundle\Entity\OptimizerJs;
 use AppBundle\Form\CalculDevisType;
+use AppBundle\Form\ContactForm;
 use AppBundle\Form\DevisForm;
+use AppBundle\Form\Type\TestCpForm;
 use AppBundle\Repository\BandeRepository;
 use AppBundle\Repository\CalculDevisRepository;
 use AppBundle\Service\AddDevisBase;
 use AppBundle\Service\CalculPrixService;
 use Doctrine\Common\Annotations\Annotation;
 use Symfony\Component\Config\Loader\FileLoader;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -211,7 +214,7 @@ class WebController extends Controller
         $em->persist($this->get('session')->get('tasktotal'));
         $em->flush();
 
-        $this->addDevisService->AddDevis($this->get('session')->get('tasktotal'),$this->getDoctrine()->getManager());
+///        $this->addDevisService->AddDevis($this->get('session')->get('tasktotal'),$this->getDoctrine()->getManager());
     }
     public function CheckFiniStep(){
         $caluldevisType = new CalculDevisType();
@@ -233,10 +236,49 @@ class WebController extends Controller
      * @Route("/contact", name="contactpage")
      */
     public function ContactPage(Request $request){
-        $htmlRender = $this->render('Pages/homepage.html.twig', $this->getWebElements());
+
+        $contact = new Contact();
+        $contactform = $this->createForm(ContactForm::class, $contact, [
+            'action' => $this->generateUrl('contactpage'),
+        ]);
+        $contactform->handleRequest($request);
+        if($contactform->isSubmitted() && $contactform->isSubmitted()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($contactform->getData());
+            $em->flush();
+
+            $this->addFlash('success','Votre message a bien été prise en compte');
+            return $this->redirectToRoute('contactpage');
+        }
+        $htmlRender = $this->render('Pages/homepage.html.twig', array_merge([
+            'devisform' => $contactform->createView(),
+        ],
+            $this->getWebElements()));
         $this->LoadCssLoader($request);
         return $htmlRender;
     }
+
+        /**
+     * @Route("/prestation", name="prestation")
+     * @Route("/assurance", name="assurance")
+     */
+    public function PrestationPage(Request $request){
+        $caluldevis = new CalculDevis();
+        $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis,array(
+            'action' => $this->generateUrl('prixpage'),
+        ));
+
+        $prestation_top_text = '';
+
+        $htmlRender = $this->render('Pages/homepage.html.twig', array_merge(array(
+            'calculdevisform' => $calculdevisform->createView(),
+            'prestation_top_text' => $prestation_top_text,
+        ), $this->getWebElements()));
+
+        $this->LoadCssLoader($request);
+        return $htmlRender;
+    }
+
 
     /**
      * @Route("/devis", name="devispage")
@@ -245,6 +287,22 @@ class WebController extends Controller
 
         $caluldevis = new CalculDevis();
         $devisform = $this->createForm(DevisForm::class,$caluldevis);
+        $devisform->handleRequest($request);;
+        if($devisform->isSubmitted() && $devisform->isSubmitted()){
+            $em = $this->getDoctrine()->getManager();
+
+            // Get Villes Depart et Arrive
+            $ville1 = substr( $devisform->getData()->getCp1(),6);
+            $ville2 = substr( $devisform->getData()->getCp2(),6);
+
+            // Set Villes in CsClass Array
+            $devisform->getData()->setVille1($ville1);
+            $devisform->getData()->setVille2($ville2);
+
+            $em->persist($devisform->getData());
+            $em->flush();
+        }
+
 
         $htmlRender = $this->render('Pages/homepage.html.twig', array_merge([
             'devisform' => $devisform->createView(),

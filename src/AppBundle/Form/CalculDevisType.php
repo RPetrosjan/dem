@@ -9,8 +9,6 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CalculDevisType extends AbstractType
@@ -52,6 +50,7 @@ class CalculDevisType extends AbstractType
                     'attr' => array(
                         'class' => 'etage'
                     ),
+                    'required' => false,
                 ))
                 ->add('ascenseur1', 'choice', array(
                     'empty_data'  => true,
@@ -60,7 +59,8 @@ class CalculDevisType extends AbstractType
                         'No' => 'No',
                     ),
                     'attr' => array(
-                        'class' => 'ascenseur'
+                        'class' => 'ascenseur',
+                        'readonly' => true,
                     ),
                     'label' => 'Ascenseur',
                 ))
@@ -87,6 +87,7 @@ class CalculDevisType extends AbstractType
                         'attr' => array(
                             'class' => 'etage'
                         ),
+                        'required' => false,
                     ))
                     ->add('ascenseur2', 'choice', array(
                         'empty_data'  => false,
@@ -95,7 +96,8 @@ class CalculDevisType extends AbstractType
                             'No' => 'No',
                         ),
                         'attr' => array(
-                            'class' => 'ascenseur'
+                            'class' => 'ascenseur',
+                            'readonly' => true,
                         ),
                         'label' => 'Ascenseur',
                     ))
@@ -115,12 +117,18 @@ class CalculDevisType extends AbstractType
                         'Économique' => 'Économique',
                         'Standard' => 'Standard',
                         'Luxe' => 'Luxe',
-                    )
+                    ),
+                    'attr' => [
+                        'class' => 'prestation',
+                        'readonly' => true,
+                    ]
+
 
                 ))
                 ->add('volume',TextType::class,array(
                     'empty_data'  => '0',
                     'label' => 'Volume',
+                    'required' => false,
                 ))
             )
             ->add('save', SubmitType::class, array(

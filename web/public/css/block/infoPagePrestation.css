@@ -1,0 +1,87 @@
+
+
+.contentbottom {
+    background-color: White;
+}
+
+.contentbottom>div {
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 25px;
+    background-image: url(/img/bacpap8.png);
+    background-position: center 0px;
+    padding-bottom: 25px;
+}
+.tips {
+    padding-left: 82px;
+    width: 180px;
+    display: inline-table;
+    padding-right: 10px;
+    text-align: left;
+}
+
+.text {
+    font-size: 1.1em;
+    letter-spacing: 0.01em;
+    line-height: 19px;
+    display: block;
+}
+.prestationspanlist {
+    display: block;
+    padding: 5px 0px 5px 5px;
+    margin-bottom: 11px;
+}
+.datetimediv span {
+    display: block;
+    font-size: 18px;
+    line-height: 18px;
+}
+.contentbottom>div>h1{
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+.contentbottom .datetimediv {
+    float: left;
+    color: #a72222;
+    font-weight: bold;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 33px;
+    text-transform: uppercase;
+    margin-right: 10px;
+    text-align: center;
+    text-shadow: 0px 0px 1px #898989;
+    padding-top: 0px;
+}
+
+.numbretip {
+    background: #a72222;
+    color: #ffffff;
+    font-size: 72px;
+    line-height: 72px;
+    text-align: center;
+    width: 72px;
+    display: block;
+    margin-right: 17px;
+    font-family: 'Six Caps', sans-serif;
+    float: left;
+    margin-left: -90px;
+}
+.tips h2 {
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.text .prestationspanlist:nth-child(even){
+    background-color: rgb(242, 242, 242);
+}
+
+@media (max-width: 850px) {
+    .tips{
+        width: 100%;
+    }
+    .contentbottom>div{
+        padding-left: 25px;
+        width: 70%;
+        margin: inherit ;
+    }
+}

@@ -39,6 +39,8 @@ framework:
 
 # Twig Configuration
 twig:
+    form_themes:
+        - 'TetranzSelect2EntityBundle:Form:fields.html.twig'
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     paths: ["%kernel.project_dir%/webTwig/"]
@@ -146,4 +148,7 @@ sonata_admin:
                      label:        'Calcul Devis'
                      roles:        [ROLE_ADMIN]
 
+                   - route:        sonata_admin_contact
+                     label:        'Contact'
+                     roles:        [ROLE_ADMIN]
 
