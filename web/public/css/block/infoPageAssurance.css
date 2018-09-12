@@ -1,0 +1,47 @@
+.contentbottom {
+    background-color: White;
+
+}
+
+.contentbottom>div {
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 25px;
+    background-image: url(/img/bacpap8.png);
+    background-position: center 0px;
+    padding-bottom: 55px;
+
+}
+
+.contentbottom>div>h1 {
+    margin-bottom: 50px;
+    margin-top: 30px;
+}
+.contentbottom>div h2{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.panel.normal img{
+    margin: 20px;
+}
+.panel.normal {
+    text-align: left;
+    width: 30%;
+    display: inline-block;
+    vertical-align: top;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+.panel.normal>div{
+    padding-left: 20px;
+}
+
+
+@media (max-width: 850px) {
+    .panel.normal {
+        width: 100%;
+    }
+    .panel.normal>div{
+        padding: 10px;
+    }
+}

@@ -1,2 +1,28 @@
-{{ '/public/css/topMenu.html.css'|cssloader }}
-{{ '/public/js/topMenu.html.js'|jsloader }}
+{{ '/public/css/menu/topMenu.html.css'|cssloader }}
+{{ '/public/js/menu/topMenu.html.js'|jsloader }}
+{% spaceless %}
+<div class="header-white">
+    <header class="navbar">
+        <div class="websitebox">
+            <ul>
+        {% spaceless %}
+            <li><a>Déménagement France<span>Tel</span>
+                    {% if societe is defined %}
+                        {% for key,tel in societe.tel %}
+                            {% if key <2 %}
+                                <span>{{ tel.tel }}</span>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </a>
+            </li>
+
+    {% for weight,menu in topmenu %}
+        <li><a {% if app.request.pathInfo == menu.url %} class="active" {% endif %} href="{{ menu.url }}" title="{{ menu.title }}">{{ menu.name|trans }}</a></li>
+    {% endfor %}
+            </ul>
+        {% endspaceless %}
+        </div>
+    </header>
+</div>
+{% endspaceless %}

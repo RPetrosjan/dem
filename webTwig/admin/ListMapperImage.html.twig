@@ -1,0 +1,5 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{% block field %}
+    <img style="height: 25px" src="/img/{{ object.getImageCarton()[0].getPath() }}/{{ object.getImageCarton()[0].getFileName() }}" />
+{% endblock %}

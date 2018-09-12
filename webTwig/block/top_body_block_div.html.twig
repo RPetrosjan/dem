@@ -1,0 +1,70 @@
+{{ '/public/css/block/top_body_block_div.html.css'|cssloader }}
+<div class="websitebox">
+<div class="top_body_block {% if(class_top_block is defined) %}{{ class_top_block }}{% endif %}">
+
+        <div class="sectionleft">
+            {% if app.request.get('_route') == 'devispage' %}
+            <div class="devisinfodiv">
+                <div><h2>Demandez gratuit</h2><h1>Devis déménagement</h1>
+                    <br>
+                    <span class="text">
+                        <p>Demandez un devis gratuit, pour obtenir une estimation du coût de votre déménagement. Un de nos conseillers vous contactera par téléphone afin de vous assister et de vous conseiller pour obtenir une estimation la plus juste possible du prix.</p>
+                        <p>Que vous déménagiez localement, régionalement, nationalement ou à l’international, nous pouvons vous proposer plusieurs devis de nos partenaires de déménagement dans votre ville ou votre région.</p>
+                        <p>Choisissez précisément la période ou la date de votre déménagement, ce qui pourra agir sur le coût de votre déménagement. Par exemple un déménagement le lundi vous coûtera moins cher qu’un déménagement le vendredi.</p>
+                        <p>Pour avoir immédiatement l’estimation du prix de votre déménagement nous vous proposons d’utiliser notre calculateur de <a href="/prix" target="_blank">prix de déménagement</a> en ligne.</p>
+                        <p>Complétez de formulaire devis déménagement le plus précisément possible. Si vous des interrogations n’hésitez pas à nous contacter.</p>
+                    </span>
+                </div>
+            </div>
+                {% elseif app.request.get('_route') == 'cartonstpage' %}
+                    <div class="backdem cartons">
+                        <h1>Cartons pour le déménagement</h1><br>
+                        <h2 class="colred">Déménagez facilement avec nous.<br></h2>
+                        <span><b>Tout ce dont vous besoin pour votre déménagement.</b> <br>Les cartons, le papier d‘emballage, rouleau debull, adhésif, housses etc...</span>
+                        <br><br>
+                        <h3>Pour savoir le nombre de cartons et le type de cartons<br> de déménagement dont vous aurez besoin, contactez<br> nous pour avoir  plus de  détail sur la quantité,<br> la mise à disposition ou la livraison, le reglement<br> par CB etc...</h3>
+                    </div>
+
+
+                {% elseif app.request.get('_route') == 'contactpage' %}
+                <div class="devisinfodiv">
+                    <div><h1 class="colred">Contact déménagement</h1>
+                        <br>
+                        <div class="text">
+                            N'hésitez pas à nous contacter pour toutes vos questions concernant votre déménagement.<br><br>
+                            <h3> - Estimation devis gratuit<br> - Visite technique<br> - Organisation de votre déménagement<br> - Assurance...</h3>
+                            <br>
+                            Vous pouvez nous contacter avec notre formulaire, par téléphone  par courriel ou par courrier.
+                            <br><br>
+                            Nos conseiller sont a votre disposition.<br><br>
+                            <a href="#adresse" class="colred">Consultez nos adresses ici</a>
+                        </div>
+
+                    </div>
+                </div>
+            {% elseif app.request.get('_route') == 'gardemeuble' %}
+                <div class="devisinfodiv">
+                    <div><h2>Demandez gratuit</h2><h1>Garde-Meuble</h1>
+                        <br>
+                        <span class="text">
+Notre société possède l'expérience pour vous garantir le service de garde-meubles.
+Nos boxes des stockages sont propres et surveillés pour vous offrir la meilleure  solution pour stocker vos meubles.<br><br>
+On vous propose l'emballage et le chargement de vos meubles jusqu’au garde-meubles.Sur votre ville ou dans la région. Nos services du garde-meubles sont partout en France.
+<br><br>
+Pour avoir un devis plus détaillé, n’hésitez pas de nous contacter ou tout simplement remplissez le formulaire pour un devis de garde-meubles.
+<br><br>
+Voici les <a href="#trucs" title="Trucs et astuces garde-meuble">trucs et astuces</a> pour une préparation de mise en Garde-Meubles.
+
+
+</span>
+                    </div></div>
+            {% endif %}
+        </div>
+
+    {% if devisform is defined %}
+        <div class="sectionright">
+            {% include 'form/DevisForm.html.twig' %}
+        </div>
+    {% endif %}
+    </div>
+</div>

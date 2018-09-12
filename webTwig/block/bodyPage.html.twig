@@ -1,0 +1,14 @@
+{% spaceless %}
+    {{ '/public/css/block/bodyPage.html.css'|cssloader }}
+<div class="bodyPage">
+
+    {% if articles is defined %}
+            {% for article in articles %}
+        <div class="articlediv">
+                {{ article.articleHtml|raw }}
+        </div>
+            {%  endfor %}
+        {% endif %}
+
+</div>
+{% endspaceless %}

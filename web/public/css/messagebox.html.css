@@ -1,0 +1,88 @@
+
+.screengray {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 20;
+    display: none;
+    background-color: #EDEDED;
+    background-image: url(/img/bacpap8.png);
+}
+.divmessagebox
+{
+    background-color: White;
+    display: inline-block;
+    padding: 16px;
+    text-align: left;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 23px;
+    position: absolute;
+    z-index: 100;
+    display: none;
+}
+.divmessagebox .button
+{
+    font-size: 1em;
+    width: auto;
+    float: right;
+    margin-top: 10px;
+}
+.divmessagebox .divfermeruser
+{
+    float: right;
+    background-color: rgb(167, 34, 34);
+    margin-right: -16px;
+    margin-top: -16px;
+    color: white;
+    padding: 2px 25px 2px 25px;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 1.5em;
+    cursor: pointer;
+    text-shadow: 0 0px 1px rgba(0,0,0,0.25);
+}
+.divmessagebox .divfermeruser:hover
+{
+    background-color: rgb(211, 51, 51);
+}
+
+.spanalert
+{
+
+    color: white;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 2px 8px 2px 10px;
+    font-size: 1.0em;
+    margin-left: -38px;
+    font-family: "Open Sans", sans;
+    border-top-right-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
+    webkit-box-shadow: 0 2px 7px -4px rgba(54, 54, 56, 0.88);
+    -moz-box-shadow: 0 2px 7px -4px rgba(54, 54, 56, 0.88);
+    box-shadow: 0 2px 7px -4px rgba(54, 54, 56, 0.88);
+}
+.spanalert.erreur
+{
+    background-color: rgb(228, 23, 13);
+}
+.spanalert.succes
+{
+    background-color: rgb(18, 132, 0);
+}
+.spanalert.info
+{
+    background-color: rgb(48, 67, 195);
+}
+
+.divmessagebox .button {
+    font-size: 1em;
+    width: auto;
+    float: right;
+    margin-top: 10px;
+}
+
+.messagetext > div
+{
+    padding:20px;
+    font-weight: bold;
+}

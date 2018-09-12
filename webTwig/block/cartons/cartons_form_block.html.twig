@@ -1,0 +1,36 @@
+{% spaceless %}
+
+    {% for carton in allCartons %}
+        <div class="divcarton">
+            <div class="divcartonimage">
+                <img src="/img/{{ carton.getImageCarton()[0].getPath() }}/{{ carton.getImageCarton()[0].getFileName() }}" alt="{{ carton.getImageCarton()[0].getAltimage() }}" title="{{ carton.getImageCarton()[0].getTitle() }}">
+            </div>
+            <div class="divcartondescript">
+
+                <span class="codecarton hiddenelement">{{ carton.getCodeCarton() }}</span>
+                <h3><u class="nomcarton">{{ carton.getNom() }}</u><span class="descriptcarton">{{ carton.getDimension() }}</span></h3>
+                <h2><b class="colblue">Prix TTC </b><span class="spanprixunite">{{ carton.getPrice() }}</span> €</h2>
+                <div class="divplusminus">
+                     <span class="spanplusadmin minus"><span onclick="SuprimCarton(this)"><i class="fas fa-minus-square"></i>
+                    <span class="spancombian"><span class="resultspanplusadmin">1</span></span>
+                    <span class="spanplusadmin"><span onclick="AddCarton(this)"><i class="fas fa-plus-square"></i>
+                </div>
+            </div>
+            <div class="divcartondescripttext">
+                <i class="fas fa-info-circle"></i>
+
+                <span class="text">{{ carton.getDescription() }}</span>
+            </div>
+
+            <div class="divcartonprice">
+                <div class="divplusminus">
+            <span onclick="AddListCarton(this)" class="spanplusadmin ajouter button"><i class="fas fa-shopping-cart"></i>
+
+Commander</span>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endspaceless %}

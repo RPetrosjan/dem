@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{{ '/public/css/base.html.css'|cssloader }}
 <html>
 <head>
     <meta charset="UTF-8" />
@@ -6,9 +7,20 @@
     {% block stylesheets %}{% endblock %}
     <link rel="stylesheet" href="/css/{{ cssFileName }}" />
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
 <body>
+{% include 'messagebox.html.twig' %}
 
+{% for label, messages in app.session.flashbag.all %}
+
+{% endfor %}
+
+<div class="divbodyblock">
+    <div>
 {% block body %}
     {% block topHeader %}
         {% block topMenu %}
@@ -18,14 +30,17 @@
     {% endblock  %}
     {% block infoPage %}
     {%  endblock %}
+    {% block imageBlock %}
+    {% endblock %}
     {% block bodyPage %}
     {% endblock %}
     {% block footerPage %}
     {% endblock %}
 {% endblock %}
+    </div>
+</div>
 {% block javascripts %}{% endblock %}
 <script src="/js/{{ jsFileName }}"></script>
-
 
 </body>
 </html>
