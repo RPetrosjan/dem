@@ -4,42 +4,54 @@ app:
 
 admin_area:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
-    prefix: /admin
+    prefix: %admin%
 
 _sonata_admin:
     resource: .
     type: sonata_admin
-    prefix: /admin
+    prefix: /%admin%
 
 sonata_societe:
-    path: /admin/app/societe/list
+    path: /%admin%/app/societe/list
 
 sonata_admin_user:
-    path: /admin/app/user/list
+    path: /%admin%/app/user/list
 
 sonata_admin_calculdevis:
-    path: /admin/app/calculdevis/list
+    path: /%admin%/app/calculdevis/list
 
 sonata_admin_bande:
-    path: /admin/app/bande/list
+    path: /%admin%/app/bande/list
 
 sonata_admin_article:
-    path: /admin/app/articles/list
+    path: /%admin%/app/articles/list
 
 sonata_admin_image_bande:
-    path: /admin/app/imagebande/list
+    path: /%admin%/app/imagebande/list
+
+sonata_admin_garde_meuble:
+    path: /%admin%/app/gardemeube/list
 
 sonata_admin_prestation:
-    path: /admin/app/prestation/list
+    path: /%admin%/app/prestation/list
 
 sonata_admin_cp_ville:
-    path: /admin/app/cpville/list
+    path: /%admin%/app/cpville/list
 
 sonata_admin_social:
-    path: /admin/app/social/list
+    path: /%admin%/app/social/list
 
 sonata_admin_contact:
-    path: /admin/app/contact/list
+    path: /%admin%/app/contact/list
+
+sonata_admin_garde_meuble:
+    path: /%admin%/app/gardemeuble/list
+
+sonata_admin_carton:
+    path: /%admin%/app/carton/list
+
+
+
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

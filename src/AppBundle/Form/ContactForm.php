@@ -47,6 +47,7 @@ class ContactForm extends AbstractType
                     ->add('email',EmailType::class, [
                         'label' => 'E-mail',
                     ])
+
         )
         ->add(
             $builder->create('Message', FormType::class, [
@@ -68,7 +69,6 @@ class ContactForm extends AbstractType
             'label'=>'Envoyer',
         ))
         ;
-
     }
 
     /*

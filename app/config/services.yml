@@ -131,9 +131,33 @@ services:
            - ~
            - AppBundle\Entity\Contact
            - ~
+           - "@doctrine.orm.default_entity_manager"
         tags:
             - { name: sonata.admin, manager_type: orm, route: '/contact', label: 'Contact', group : 'Web' }
         public: true
+
+    admin.gardemeuble:
+        class: AppBundle\Admin\GardeMeubleAdmin
+        arguments:
+           - ~
+           - AppBundle\Entity\GardeMeube
+           - ~
+           - "@doctrine.orm.default_entity_manager"
+        tags:
+            - { name: sonata.admin, manager_type: orm, route: '/gardemeuble', label: 'Garde Meuble', group : 'Web' }
+        public: true
+
+    admin.carton:
+        class: AppBundle\Admin\CartonAdmin
+        arguments:
+           - ~
+           - AppBundle\Entity\Carton
+           - ~
+           - "@doctrine.orm.default_entity_manager"
+        tags:
+            - { name: sonata.admin, manager_type: orm, route: '/carton', label: 'Carton', group : 'Web' }
+        public: true
+
 
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:

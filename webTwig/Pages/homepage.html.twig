@@ -18,7 +18,9 @@
  {%  endblock %}
 
 {% block imageBlock %}
-    {% include 'block/imageBlock.html.twig' %}
+        {% if imageBlockStop is not defined or imageBlockStop != true %}
+        {% include 'block/imageBlock.html.twig' %}
+    {% endif %}
 {% endblock %}
 
 {% block bodyPage %}
@@ -26,6 +28,8 @@
         {% include 'block/infoPagePrestation.html.twig' %}
     {% elseif app.request.get('_route') == 'assurance' %}
         {% include 'block/infoPageAssurance.html.twig' %}
+    {% elseif app.request.get('_route') == 'cartons' %}
+        {% include 'block/infoPageCartons.html.twig' %}
     {% else %}
         {% include 'block/bodyPage.html.twig' %}
     {% endif %}

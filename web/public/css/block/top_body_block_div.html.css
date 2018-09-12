@@ -5,6 +5,16 @@
     background-position: left bottom;
     padding-top: 35px;
 }
+.top_body_block.devis_page{
+    background-image: url(/img/block/demv.png);
+    background-position: left bottom;
+    background-repeat: no-repeat;
+}
+.top_body_block.cartons_page{
+    background-image: url(/img/block/demenagement-boxes.png);
+    background-position: left bottom;
+    background-repeat: no-repeat;
+}
 .top_body_block>div{
     padding-top: 25px;
     display: inline-block;
@@ -37,11 +47,14 @@
 
 
 @media (max-width: 850px) {
-    .top_body_block
-    {
+    .top_body_block {
         background-attachment: inherit;
-        background-position: right 0px ;
+        background-position: right 0px;
     }
+    .top_body_block.devis_page{
+        background-image: none;
+    }
+
     .top_body_block .sectionleft{
         width: 100%;
         margin-bottom: 150px;
@@ -51,6 +64,7 @@
     }
     .top_body_block .sectionright{
         width: 100%;
+        text-align: center;
     }
     .top_body_block .sectionright .divform{
         width: 100%;

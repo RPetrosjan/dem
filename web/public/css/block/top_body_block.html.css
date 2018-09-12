@@ -34,6 +34,10 @@
 .topformdiv{
     width: 260px;
 }
+.text.assurance__page{
+    display: inline-block;
+    width: 238px
+}
 .text.right {
     text-align: right;
     display: block;

@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Win10
- * Date: 24.08.2018
- * Time: 00:25
+ * Date: 05.09.2018
+ * Time: 01:27
  */
 
 namespace AppBundle\Admin;
@@ -14,10 +14,9 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use AppBundle\Repository\ContactRepository;
 
-
-class ContactAdmin extends AbstractAdmin {
+class GardeMeubleAdmin extends AbstractAdmin
+{
     // Creating Sort By DateTime ASC
     protected $datagridValues = [
         '_page' => 1,
@@ -27,58 +26,69 @@ class ContactAdmin extends AbstractAdmin {
 
     private $em;
 
-    public function __construct($code, $class, $baseControllerName, $em)
-    {
+    public function __construct($code, $class, $baseControllerName, $em) {
         parent::__construct($code, $class, $baseControllerName);
         $this->em = $em;
     }
 
-    // Show Result in the Page
-    protected function configureFormFields(FormMapper $formMapper){
-
-        // Modification valeur readed
-       // Appell service orm service.yml
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        //Modification valeur readed
+        //Appell service orm service.yml
         $contact = $this->getSubject();
         $contact->setReaded(true);
         $this->em->persist($contact);
         $this->em->flush();
 
         $formMapper
-            ->with('Info Date')
+            ->with('Info Date', [
+                'class' => 'col-md-6',
+            ])
             ->add('CreatedDate', 'sonata_type_date_picker', [
                 'label' => 'Date de demande',
                 'format'=>'dd/MM/yyyy'
             ])
             ->end()
-            ->with('Info Generale', [
+            ->with('General', [
                 'class' => 'col-md-6',
             ])
-            ->add('name')
+            ->add('prestation')
+            ->add('volume')
+            ->end()
+            ->with('Coordonnées', [
+                'class' => 'col-md-6',
+            ])
+            ->add('nom')
             ->add('prenom')
             ->add('email')
             ->add('telephone')
             ->add('portable')
-            ->add('subject')
             ->end()
-            ->with('Message', [
+            ->with('Info départ', [
                 'class' => 'col-md-6',
             ])
-            ->add('commentaire')
+            ->add('date1')
+            ->add('cp1')
+            ->add('adresse1')
+            ->add('pays1')
+            ->add('etage1')
+            ->add('ascenseur1')
+            ->add('comment1')
             ->end()
-
-            ;
+        ;
     }
-
     protected function configureDatagridFilters(DatagridMapper $datagridMapper){
-            $datagridMapper
-                ->add('readed')
-                ->add('name')
-                ->add('prenom')
-                ->add('email')
-                ->add('telephone')
-                ->add('portable')
-            ;
+        $datagridMapper
+            ->add('readed')
+            ->add('nom')
+            ->add('prenom')
+            ->add('email')
+            ->add('date1')
+            ->add('telephone')
+            ->add('portable')
+        ;
     }
+
     public function configureShowFields(ShowMapper $showMapper){
 
         // Modification valeur readed
@@ -89,26 +99,40 @@ class ContactAdmin extends AbstractAdmin {
         $this->em->flush();
 
         $showMapper
-            ->with('Info Date')
-                ->add('CreatedDate', 'date', [
-                    'format'=>'d/m/Y',
-                    'label' => 'Date Demande'
-                ])
-            ->end()
-            ->with('Info Generale', [
+            ->with('Info Date', [
                 'class' => 'col-md-6',
             ])
-                ->add('name')
-                ->add('prenom')
-                ->add('email')
-                ->add('telephone')
-                ->add('portable')
-                ->add('subject')
-            ->end()
-            ->with('Message', [
-                'class'       => 'col-md-6',
+            ->add('CreatedDate', 'date', [
+                'format'=>'d/m/Y',
+                'label' => 'Date Demande'
             ])
-            ->add('commentaire')
+            ->end()
+            ->with('General', [
+                'class' => 'col-md-6',
+            ])
+            ->add('prestation')
+            ->add('volume')
+            ->end()
+
+            ->with('Coordonnées', [
+                'class' => 'col-md-6',
+            ])
+            ->add('nom')
+            ->add('prenom')
+            ->add('email')
+            ->add('telephone')
+            ->add('portable')
+            ->end()
+            ->with('Info départ', [
+                'class' => 'col-md-6',
+            ])
+            ->add('date1')
+            ->add('cp1')
+            ->add('adresse1')
+            ->add('pays1')
+            ->add('etage1')
+            ->add('ascenseur1')
+            ->add('comment1')
             ->end()
         ;
     }
@@ -128,10 +152,10 @@ class ContactAdmin extends AbstractAdmin {
             ->add('CreatedDate', null, array(
                 'format' => 'd/m/Y H:i'
             ))
-            ->addIdentifier('name')
+            ->addIdentifier('nom')
             ->addIdentifier('prenom')
             ->addIdentifier('email')
-            ->addIdentifier('subject')
+            ->addIdentifier('date1')
             ->add('_action', 'actions', array(
                     'actions' => array(
                         'show' => array(),
@@ -141,5 +165,6 @@ class ContactAdmin extends AbstractAdmin {
             )
         ;
     }
+
 
 }

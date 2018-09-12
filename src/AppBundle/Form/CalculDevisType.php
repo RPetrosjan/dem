@@ -63,6 +63,7 @@ class CalculDevisType extends AbstractType
                         'readonly' => true,
                     ),
                     'label' => 'Ascenseur',
+                    'required' => false,
                 ))
             )
             ->add(
@@ -90,16 +91,16 @@ class CalculDevisType extends AbstractType
                         'required' => false,
                     ))
                     ->add('ascenseur2', 'choice', array(
-                        'empty_data'  => false,
+                        'empty_data'  => true,
                         'choices'  => array(
                             'Oui' => 'Oui',
                             'No' => 'No',
                         ),
                         'attr' => array(
-                            'class' => 'ascenseur',
-                            'readonly' => true,
+                            'class' => 'ascenseur'
                         ),
                         'label' => 'Ascenseur',
+                        'required' => false,
                     ))
             )
             ->add(
@@ -121,7 +122,8 @@ class CalculDevisType extends AbstractType
                     'attr' => [
                         'class' => 'prestation',
                         'readonly' => true,
-                    ]
+                    ],
+                    'required' => false,
 
 
                 ))

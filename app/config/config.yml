@@ -72,6 +72,7 @@ doctrine:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+        default_entity_manager: default
 
 
 
@@ -132,6 +133,10 @@ sonata_admin:
                      label:        'Image Bande'
                      roles:        [ROLE_ADMIN]
 
+                   - route:        sonata_admin_garde_meuble
+                     label:        'Garde Meuble'
+                     roles:        [ROLE_ADMIN]
+
                    - route:        sonata_admin_prestation
                      label:        'Prestation'
                      roles:        [ROLE_ADMIN]
@@ -151,4 +156,12 @@ sonata_admin:
                    - route:        sonata_admin_contact
                      label:        'Contact'
                      roles:        [ROLE_ADMIN]
+
+                   - route:        sonata_admin_carton
+                     label:        'Carton'
+                     roles:        [ROLE_ADMIN]
+
+
+
+
 

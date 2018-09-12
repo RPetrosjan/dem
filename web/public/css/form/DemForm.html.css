@@ -213,7 +213,7 @@ input:active + label,select:active + label,input.active + label,select.active + 
     transform: translateY(-28px);
 }
 
-button {
+button, .button{
     -khtml-transition: all 0.3s linear;
     -moz-transition: all 0.3s linear;
     -o-transition: all 0.3s linear;

@@ -1,0 +1,5 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{% block field %}
+ <div style="text-align: right; width: 50px;">{{ object.getPrice() }} &euro;</div>
+{% endblock %}

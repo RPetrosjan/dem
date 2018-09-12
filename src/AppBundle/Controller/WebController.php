@@ -11,13 +11,16 @@ namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
 use AppBundle\Entity\CalculDevis;
+use AppBundle\Entity\Carton;
 use AppBundle\Entity\Contact;
 use AppBundle\Entity\CpVille;
+use AppBundle\Entity\GardeMeube;
 use AppBundle\Entity\OptimizerCss;
 use AppBundle\Entity\OptimizerJs;
 use AppBundle\Form\CalculDevisType;
 use AppBundle\Form\ContactForm;
 use AppBundle\Form\DevisForm;
+use AppBundle\Form\GardeMeubleForm;
 use AppBundle\Form\Type\TestCpForm;
 use AppBundle\Repository\BandeRepository;
 use AppBundle\Repository\CalculDevisRepository;
@@ -233,6 +236,68 @@ class WebController extends Controller
     }
 
     /**
+     * @Route("/garde-meuble ", name="gardemeuble")
+     */
+    public function GardeMeulePage(Request $request) {
+        $garde_meuble = new GardeMeube();
+        $garde_meuble_form = $this->createForm(GardeMeubleForm::class, $garde_meuble, [
+            'action' => $this->generateUrl('gardemeuble'),
+        ]);
+
+        $garde_meuble_form->handleRequest($request);
+        if($garde_meuble_form->isSubmitted() && $garde_meuble_form->isSubmitted()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($garde_meuble_form->getData());
+            $em->flush();
+
+            $this->addFlash('success','Votre demande a bien été prise en compte');
+            return $this->redirectToRoute('gardemeuble');
+        }
+
+        $htmlRender = $this->render('Pages/homepage.html.twig', array_merge([
+            'devisform' => $garde_meuble_form->createView(),
+            'class_top_block' => 'devis_page',
+        ],
+        $this->getWebElements()));
+        $this->LoadCssLoader($request);
+        return $htmlRender;
+
+    }
+    /**
+     * @Route("/cartons", name="cartons")
+     */
+    public function CartonsPage(Request $request){
+        $contact = new Contact();
+        $contactform = $this->createForm(ContactForm::class, $contact, [
+            'action' => $this->generateUrl('cartons'),
+        ]);
+        $contactform->handleRequest($request);
+        if($contactform->isSubmitted() && $contactform->isSubmitted()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($contactform->getData());
+            $em->flush();
+
+            $this->addFlash('success','Votre message a bien été prise en compte');
+            return $this->redirectToRoute('cartons');
+        }
+
+        //Get all Cartons Docrtine
+        $allCartons = $this->getDoctrine()->getRepository(Carton::class)->findAll();
+
+        $htmlRender = $this->render('Pages/homepage.html.twig', array_merge([
+            'devisform' => $contactform->createView(),
+            'class_top_block' => 'cartons_page',
+            'allCartons' => $allCartons,
+            'imageBlockStop' => true,
+        ],
+
+
+
+        $this->getWebElements()));
+        $this->LoadCssLoader($request);
+        return $htmlRender;
+    }
+    /**
      * @Route("/contact", name="contactpage")
      */
     public function ContactPage(Request $request){
@@ -253,7 +318,7 @@ class WebController extends Controller
         $htmlRender = $this->render('Pages/homepage.html.twig', array_merge([
             'devisform' => $contactform->createView(),
         ],
-            $this->getWebElements()));
+        $this->getWebElements()));
         $this->LoadCssLoader($request);
         return $htmlRender;
     }
@@ -306,6 +371,7 @@ class WebController extends Controller
 
         $htmlRender = $this->render('Pages/homepage.html.twig', array_merge([
             'devisform' => $devisform->createView(),
+            'class_top_block' => 'devis_page',
         ],$this->getWebElements()));
         $this->LoadCssLoader($request);
         return $htmlRender;
