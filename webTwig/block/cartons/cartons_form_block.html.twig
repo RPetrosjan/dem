@@ -1,5 +1,22 @@
-{% spaceless %}
+{{ '/public/js/block/jquery-scrolltofixed-min.js'|jsloader }}
+{{ '/public/js/block/carton_form_block.js'|jsloader }}
 
+{% spaceless %}
+<div class="mon_panier_panel"><i class="fas fa-shopping-basket"></i> Mon Panier <span class="panier_count"></span></div>
+    <div class="panier_details">
+        <div>
+            <i class="fas fa-chevron-up"></i>
+            <span class="title"><i class="fas fa-shopping-cart"></i> Panier</span>
+            <div class="toppanelarticles"><span class="nom_carton">Description </span><span class="quantite_carton">Quantité</span><span class="prix_carton">Prix</span></div>
+            <div class="articles"></div>
+
+            {% form_theme cartonsform 'form/fields.html.twig' %}
+            {{ form_start(cartonsform,{'attr': {'class':'cartonform'}}) }}
+            {{ form_end(cartonsform) }}
+
+            <div class="button articles_valider">Valider</div>
+        </div>
+    </div>
     {% for carton in allCartons %}
         <div class="divcarton">
             <div class="divcartonimage">
@@ -11,9 +28,9 @@
                 <h3><u class="nomcarton">{{ carton.getNom() }}</u><span class="descriptcarton">{{ carton.getDimension() }}</span></h3>
                 <h2><b class="colblue">Prix TTC </b><span class="spanprixunite">{{ carton.getPrice() }}</span> €</h2>
                 <div class="divplusminus">
-                     <span class="spanplusadmin minus"><span onclick="SuprimCarton(this)"><i class="fas fa-minus-square"></i>
+                     <span class="spanplusadmin minus"><span><i class="fas fa-minus-square"></i>
                     <span class="spancombian"><span class="resultspanplusadmin">1</span></span>
-                    <span class="spanplusadmin"><span onclick="AddCarton(this)"><i class="fas fa-plus-square"></i>
+                    <span class="spanplusadmin"><span><i class="fas fa-plus-square"></i>
                 </div>
             </div>
             <div class="divcartondescripttext">
@@ -24,9 +41,9 @@
 
             <div class="divcartonprice">
                 <div class="divplusminus">
-            <span onclick="AddListCarton(this)" class="spanplusadmin ajouter button"><i class="fas fa-shopping-cart"></i>
+            <span class="spanplusadmin ajouter button"><i class="fas fa-cart-plus"></i>
 
-Commander</span>
+<span class="shopping">Ajouter</span></span>
                 </div>
             </div>
         </div>

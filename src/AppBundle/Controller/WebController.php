@@ -12,12 +12,14 @@ namespace AppBundle\Controller;
 use AppBundle\AppBundle;
 use AppBundle\Entity\CalculDevis;
 use AppBundle\Entity\Carton;
+use AppBundle\Entity\CartonsForm;
 use AppBundle\Entity\Contact;
 use AppBundle\Entity\CpVille;
 use AppBundle\Entity\GardeMeube;
 use AppBundle\Entity\OptimizerCss;
 use AppBundle\Entity\OptimizerJs;
 use AppBundle\Form\CalculDevisType;
+use AppBundle\Form\CartonForm;
 use AppBundle\Form\ContactForm;
 use AppBundle\Form\DevisForm;
 use AppBundle\Form\GardeMeubleForm;
@@ -158,13 +160,7 @@ class WebController extends Controller
             //dump($formarray->{$value}());
            /// dump($task->{$value}());
         }
-
         $obj_merged = array_merge((array) $task, (array) $formarray);
-
-//        dump($formarray->{'getNom'}());
- //       dump($formarray);
-  //      dump($task);
-   //     dump($obj_merged);
         foreach ($formarray as $key=>$value){
      //       dump($key);
         }
@@ -264,12 +260,12 @@ class WebController extends Controller
 
     }
     /**
-     * @Route("/cartons", name="cartons")
+     * @Route("/cartons", name="cartonspage")
      */
     public function CartonsPage(Request $request){
         $contact = new Contact();
         $contactform = $this->createForm(ContactForm::class, $contact, [
-            'action' => $this->generateUrl('cartons'),
+            'action' => $this->generateUrl('cartonspage'),
         ]);
         $contactform->handleRequest($request);
         if($contactform->isSubmitted() && $contactform->isSubmitted()){
@@ -278,7 +274,37 @@ class WebController extends Controller
             $em->flush();
 
             $this->addFlash('success','Votre message a bien été prise en compte');
-            return $this->redirectToRoute('cartons');
+            return $this->redirectToRoute('cartonspage');
+        }
+
+        $carton = new CartonsForm();
+        $cartonForm  = $this->createForm(CartonForm::class, $carton, [
+            'action' => $this->generateUrl('cartonspage')
+        ]);
+        $cartonForm->handleRequest($request);
+        if($cartonForm->isSubmitted() && $cartonForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            // Creating Key list for carton  reciving from Array
+            $carton_key = [];
+            // Get all Key from Json
+            foreach (json_decode($cartonForm->getData()->getCartonJson()) as $key=>$carton_array) {
+                $carton_key[] = $key;
+            }
+
+            // Make new Carton Array in Carton class
+            // Create query SQL
+            $cartonsPersist = $em->getRepository(Carton::class)
+                ->findBy(['code_carton' => $carton_key])
+            ;
+            // Make cartonPersist in to class
+            $cartonForm->getData()->setCarton($cartonsPersist);
+
+            // Save new Data Form
+            $em->persist($cartonForm->getData());
+            $em->flush();
+
+            $this->addFlash('success','Votre demande cartons pris en compte');
+            return $this->redirectToRoute('cartonspage');
         }
 
         //Get all Cartons Docrtine
@@ -286,12 +312,11 @@ class WebController extends Controller
 
         $htmlRender = $this->render('Pages/homepage.html.twig', array_merge([
             'devisform' => $contactform->createView(),
+            'cartonsform' => $cartonForm->createView(),
             'class_top_block' => 'cartons_page',
             'allCartons' => $allCartons,
             'imageBlockStop' => true,
         ],
-
-
 
         $this->getWebElements()));
         $this->LoadCssLoader($request);
@@ -326,6 +351,7 @@ class WebController extends Controller
         /**
      * @Route("/prestation", name="prestation")
      * @Route("/assurance", name="assurance")
+     * @Route("/location", name="locationpage")
      */
     public function PrestationPage(Request $request){
         $caluldevis = new CalculDevis();

@@ -1,0 +1,11 @@
+{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+{% block form  %}
+   {{ parent() }}
+
+ <script>
+    $('.panel_show_form').parent().append('{%  include  'admin/edit_carton_form_panel.html.twig' %}');
+    $("div[id*='carton']").hide();
+ </script>
+
+    {% include 'admin/edit_carton_form_panel.style.html.twig' %}
+{% endblock %}

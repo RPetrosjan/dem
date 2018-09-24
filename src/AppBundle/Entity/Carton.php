@@ -90,6 +90,29 @@ class Carton
     private $price;
 
     /**
+     * @return int
+     */
+    public function getNombreCarton()
+    {
+        return $this->nombre_carton;
+    }
+
+    /**
+     * @param int $nombre_carton
+     */
+    public function setNombreCarton($nombre_carton)
+    {
+        $this->nombre_carton = $nombre_carton;
+    }
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nombre_carton", type="integer")
+     */
+    private $nombre_carton;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="Description", type="string", length=255)
@@ -193,6 +216,7 @@ class Carton
         return $this;
     }
 
+
     /**
      * Get description
      *
@@ -207,6 +231,33 @@ class Carton
     {
         $this->image_carton = new ArrayCollection();
         $this->path = 'carton';
+        $this->cartonform = new ArrayCollection();
+        $this->nombre_carton = 0;
     }
+
+    public function __toString() {
+
+        // Genereting list of the table result Cartons
+       $arrayResult = [
+            $this->nom,
+            $this->dimension,
+            $this->price,
+           $this->image_carton[0]->getPath().'/'.$this->image_carton[0]->getFileName()
+
+        ];
+
+       dump($this->image_carton[0]->getPath().'/'.$this->image_carton[0]->getFileName());
+    ///   exit();
+
+
+        return implode('/*/',$arrayResult);
+    }
+
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="CartonsForm")
+     */
+    private $cartonform;
 }
 

@@ -30,6 +30,13 @@
     color: #b10909;
     margin-top: -2px;
 }
+.divplusminus .spanplusadmin >span.shopping {
+    margin-left: 5px;
+}
+.divplusminus .spanplusadmin >span.shopping, .divplusminus .spanplusadmin >.fa-shopping-cart{
+    display: inline-block;
+    font-size: 15px;
+}
 .divplusminus .spanplusadmin {
     cursor: pointer;
     font-size: 25px;
@@ -119,7 +126,11 @@
     padding-bottom: 55px;
 
 }
-
+.cartonform {
+    text-align: left;
+    width: 230px;
+    display: none;
+}
 .contentbottom>div>h1 {
     margin-bottom: 50px;
     margin-top: 30px;
@@ -129,6 +140,85 @@
     margin-bottom: 20px;
 }
 
+.mon_panier_panel {
+    text-align: center;
+    padding: 10px;
+    background-color: #a72222;
+    color: white;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 25px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.panier_details{
+    display: none;
+}
+.panier_details>div{
+    display: inline-block;
+    margin: 5px auto;
+    max-width: 400px;
+    background-color: white;
+    border: 1px #c7c6c6 solid;
+    padding: 6px 27px;
+    border-radius: 2px;
+    box-shadow: 0px 0px 15px -5px black;
+}
+.panier_details .title{
+    display: inline-block;
+    text-align: left;
+    font-size: 28px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #a72222;
+    font-weight: bold;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+.panier_details>div>div:first-of-type{
+    margin-bottom: 10px;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 16px;
+    border-bottom: 1px solid #c8c8c8;
+    text-align: left;
+}
+.panier_details .articles>div{
+    border-bottom: #c8c8c8 dotted 1px;
+    text-align: left;
+    font-size: 14px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    margin-bottom: 3px;
+}
+.panier_details>div .quantite_carton{
+    display: inline-block;
+    width: 45px;
+    text-align: right;
+}
+.panier_details>div>div:first-of-type{
+    font-weight: bold;
+}
+.panier_details>div .nom_carton{
+    display: inline-block;
+    width: 170px;
+
+}
+.panier_details>div .prix_carton{
+    display: inline-block;
+    width: 62px;
+    text-align: right;
+}
+.panier_details>div i{
+    padding-left: 15px;
+    cursor: pointer;
+}
+.panier_details>div i:hover{
+    color: #a72222;
+}
+.articles_valider {
+    padding: 5px 22px;
+    width: auto;
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 @media (max-width: 850px) {
     .top_body_block.cartons_page{

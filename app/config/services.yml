@@ -158,6 +158,19 @@ services:
             - { name: sonata.admin, manager_type: orm, route: '/carton', label: 'Carton', group : 'Web' }
         public: true
 
+    admin.carton_form:
+        class: AppBundle\Admin\CartonFormAdmin
+        arguments:
+           - ~
+           - AppBundle\Entity\CartonsForm
+           - ~
+           - "@doctrine.orm.default_entity_manager"
+        tags:
+            - { name: sonata.admin, manager_type: orm, route: '/cartonsform', label: 'Demande Carton', group : 'Web' }
+        calls:
+             - [ setTemplate, [edit, "admin/edit_carton_form.html.twig"]]
+        public: true
+
 
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:

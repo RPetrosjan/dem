@@ -28,8 +28,10 @@
         {% include 'block/infoPagePrestation.html.twig' %}
     {% elseif app.request.get('_route') == 'assurance' %}
         {% include 'block/infoPageAssurance.html.twig' %}
-    {% elseif app.request.get('_route') == 'cartons' %}
+    {% elseif app.request.get('_route') == 'cartonspage' %}
         {% include 'block/infoPageCartons.html.twig' %}
+    {% elseif app.request.get('_route') == 'locationpage' %}
+        {% include 'block/infoPageLocation.html.twig' %}
     {% else %}
         {% include 'block/bodyPage.html.twig' %}
     {% endif %}

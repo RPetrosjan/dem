@@ -6,6 +6,8 @@
          {% include 'block/top_body_block_prestation.html.twig' %}
     {% elseif app.request.attributes.get('_route') == 'assurance' %}
         {% include 'block/top_body_block_assurance.html.twig' %}
+    {% elseif app.request.attributes.get('_route') == 'locationpage' %}
+        {% include 'block/top_body_block_location.html.twig' %}
     {% else %}
         <div class="sectionleft">
             <h1>Demandez votre devis gratuit, et recevez une offre de prestation adaptée pour votre<br> déménagement par nos partenaires.</h1>

@@ -17,6 +17,7 @@ class AppExtension extends \Twig_Extension
             new \Twig_SimpleFilter('kint', array($this, "kint")),
             new \Twig_SimpleFilter('truncates', array($this, "truncateWhole")),
             new \Twig_SimpleFilter('toArray', array($this, "toArray")),
+            new \Twig_SimpleFilter( 'json_decode', [$this, "json_decode"]),
         );
 
     }
@@ -32,6 +33,10 @@ class AppExtension extends \Twig_Extension
         if(!in_array($jsname,$this->jsArray)) {
             $this->jsArray[] = $jsname;
         }
+    }
+
+    public function json_decode($JsonArrayText) {
+        return  json_decode($JsonArrayText, true);
     }
 
     public function kint($var,$arrayname){

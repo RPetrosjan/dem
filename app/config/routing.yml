@@ -50,6 +50,9 @@ sonata_admin_garde_meuble:
 sonata_admin_carton:
     path: /%admin%/app/carton/list
 
+sonata_admin_carton_form:
+    path: /%admin%/app/cartonsform/list
+
 
 
 

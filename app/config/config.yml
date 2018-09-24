@@ -118,11 +118,11 @@ sonata_admin:
                 label_catalogue:    SonataAdminBundle
                 items:
                    - route:        sonata_admin_article
-                     label:        Web
+                     label:        'Web'
                      roles:        [ROLE_ADMIN]
 
                    - route:        sonata_admin_bande
-                     label:        Bande
+                     label:        'Bande'
                      roles:        [ROLE_ADMIN]
 
                    - route:        sonata_societe
@@ -159,6 +159,11 @@ sonata_admin:
 
                    - route:        sonata_admin_carton
                      label:        'Carton'
+                     roles:        [ROLE_ADMIN]
+
+
+                   - route:        sonata_admin_carton_form
+                     label:        'Carton Form'
                      roles:        [ROLE_ADMIN]
 
 

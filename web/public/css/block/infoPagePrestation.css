@@ -40,6 +40,31 @@
     margin-top: 30px;
     margin-bottom: 50px;
 }
+.contentbottom>div>.panel.normal{
+    display: inline-block;
+    text-align: left;
+    width: 23%;
+    padding: 25px;
+    vertical-align: top;
+}
+.contentbottom>div>.panel.normal>.text {
+    margin-top: 15px;
+}
+.contentbottom>div>.panel.normal>.text>div{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.contentbottom>div>.panel.normal>.text>span {
+    display: block;
+}
+.contentbottom>div>.panel.normal>.panelicon {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #222222;
+}
+.contentbottom>div>.panel.normal>.panelicon>.fas{
+    font-size: 50px;
+}
 .contentbottom .datetimediv {
     float: left;
     color: #a72222;
@@ -83,5 +108,8 @@
         padding-left: 25px;
         width: 70%;
         margin: inherit ;
+    }
+    .contentbottom>div>.panel.normal{
+        width: 100%;
     }
 }
