@@ -6,10 +6,11 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_ADMIN
+
         ROLE_CLIENT:      ROLE_CLIENT
-        ROLSE_SOCIETE:    ROLSE_SOCIETE
-        ROLE_SUPER_ADMIN: [ROLE_CLIENT, ROLE_ADMIN, ROLSE_SOCIETE,ROLE_ALLOWED_TO_SWITCH]
+        ROLE_SOCIETE:     [ROLE_SOCIETE, ROLE_ADMIN, ]
+        ROLE_ADMIN:       ROLE_ADMIN
+        ROLE_SUPER_ADMIN: [ROLE_SUPER_ADMIN, ROLE_CLIENT, ROLE_ADMIN, ROLE_SOCIETE,ROLE_ALLOWED_TO_SWITCH]
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
@@ -28,6 +29,8 @@ security:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
+                csrf_token_generator: security.csrf.token_manager
+                default_target_path: page.espace_demenageur
             logout: true
             anonymous: true
            # activate different ways to authenticate
@@ -42,4 +45,4 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/%admin%/, role: ROLE_ADMIN }
+        - { path: ^/%admin%/, roles: ROLE_ADMIN }

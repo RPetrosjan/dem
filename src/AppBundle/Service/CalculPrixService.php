@@ -57,8 +57,9 @@ class CalculPrixService
     public function GetCalculPrix($form_step) {
 
         // Get Distance entre 2 villes
-        $distance = new GetDistance();
-        $distance = $distance->getDistance($form_step->getCp1(), $form_step->getCp2());
+        ///$distance = new GetDistance();
+        //$distance = $distance->getDistance($form_step->getCp1(), $form_step->getCp2());
+        $distance = 0;
 
         // Calculation Salaire Depart et Arrivee
         $salaire = self::SALAIRE_PRESTATION[$form_step->getPrestation()]['Salaire'];

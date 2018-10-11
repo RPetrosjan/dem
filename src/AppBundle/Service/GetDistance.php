@@ -24,8 +24,13 @@ class GetDistance
             $from = urlencode($cp1);
             $to = urlencode($cp2);
 
-            $data = file_get_contents("http://maps.googleapis.com/maps/api/distancematrix/json?origins=$from&destinations=$to&language=en-EN&sensor=false");
+            dump("http://maps.googleapis.com/maps/api/distancematrix/json?origins=$from&destinations=$to&language=en-EN&sensor=false&key=AIzaSyBOKzk4NAoUbVuOhjiwwhLq1aQpxxkAO-c");
+            $data = file_get_contents("http://maps.googleapis.com/maps/api/distancematrix/json?origins=$from&destinations=$to&language=en-EN&sensor=false&key=AIzaSyBOKzk4NAoUbVuOhjiwwhLq1aQpxxkAO-c");
+            dump($data);
             $data = json_decode($data);
+
+            dump($cp1);
+            dump($cp2);
 
             $time = 0;
             $distance = 0;

@@ -16,17 +16,12 @@ parameters:
         title: Location title mon
         url: /location
         icon: <i class="fas fa-address-book"></i>
-      400:
-        name: Emploi
-        title: Qui recherche emploi
-        url: /emploi
-        icon: <i class="fas fa-briefcase"></i>
     em_2:
       100:
-        name: Sociétés
-        title: Sociétés demenagement
-        url: /societes
-        icon: <i class="fas fa-truck"></i>
+        name: Avis Sociétés
+        title: avis-societes
+        url: /avis
+        icon: <i class="fas fa-comments"></i>
       200:
         name: Visite Technique
         title: Visite Technique demenagement
@@ -37,11 +32,6 @@ parameters:
         title: Déclaration de valeur de votre demenagement
         url: /declaration-de-valeur
         icon: <i class="fas fa-th-list"></i>
-      400:
-        name: Mentions Légales
-        title: Mentions Légales votre demenagement
-        url: /mentions-legales
-        icon: <i class="fas fa-graduation-cap"></i>
     em_3:
       100:
         name: Espace Déménageur
@@ -49,8 +39,8 @@ parameters:
         url: /espace-demenageur
         icon: <i class="fas fa-desktop"></i>
       200:
-        name: Avis Sociétés
-        title: avis-societes
-        url: /avis
-        icon: <i class="fas fa-comments"></i>
+        name: Mentions Légales
+        title: Mentions Légales votre demenagement
+        url: /mentions-legales
+        icon: <i class="fas fa-graduation-cap"></i>
 

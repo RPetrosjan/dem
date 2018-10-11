@@ -1,6 +1,8 @@
+.top_body_block{
+    background-image: url('/img/block/dem_top_block.png');
+}
 .contentbottom {
     background-color: White;
-
 }
 
 .contentbottom>div {

@@ -1,11 +1,9 @@
 .top_body_block{
     width: 100%;
     position: relative;
-    background-image: url('/img/block/dem_top_block.png');
     background-repeat: no-repeat;
     background-position: left bottom;
     padding-top: 35px;
-
 }
 .top_body_block>div{
     padding-top: 25px;

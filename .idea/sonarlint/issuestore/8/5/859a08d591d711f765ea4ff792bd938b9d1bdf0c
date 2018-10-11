@@ -1,0 +1,12 @@
+
+F	php:S1068\",Remove this unused "$decimal" private field.(úîäñûÿÿÿÿ
+C	php:S1068k".Remove this unused "$customFoo" private field.(Ïé­û
+E	php:S1068f"+Remove this unused "$binary" private field.(ÙÉˆ®ùÿÿÿÿ
+@	php:S1068p"+Remove this unused "$bigint" private field.(òŞ®µ
+C	php:S1068>")Remove this unused "$time" private field.(¾´áäûÿÿÿÿ
+G	php:S1068C"2Remove this unused "$timeImmutable" private field.(íŞç¶
+C	php:S1068M")Remove this unused "$json" private field.(öïÒéıÿÿÿÿ
+E	php:S1068R"0Remove this unused "$simpleArray" private field.(ƒşÛœ
+D	php:S1068W"*Remove this unused "$float" private field.(ÚÀæØûÿÿÿÿ
+K	php:S1068H"1Remove this unused "$dateInterval" private field.(¦…ªúÿÿÿÿ
+=	php:S1068a")Remove this unused "$bool" private field.(Çôˆ\

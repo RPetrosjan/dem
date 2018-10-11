@@ -9,12 +9,15 @@
 namespace AppBundle\Admin;
 
 
+use AppBundle\Service\GetFormClass;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -33,11 +36,27 @@ class CalculDevisAdmin extends AbstractAdmin
         '_sort_by' => 'CreatedDate',
     ];
 
+    protected function configureRoutes(RouteCollection $collection){
+
+        $collection->add('pdfdevis', $this->getRouterIdParameter().'/pdfdevis'); // Action gets added automatically
+        dump($collection);
+  //      $collection->add('view', $this->getRouterIdParameter().'/view');
+    }
+
     public function configure(){
 
        /// $this->setTemplate('list','@AppBundle/Admin/ContactList.html.twig');
         $this->setTemplate('edit','admin/calculDevisAdminEdit.html.twig');
         $this->setTemplate('show','admin/calculDevisAdminShow.html.twig');
+    }
+
+    public function configureActionButtons($action, $object = null)
+    {
+        $list = parent::configureActionButtons($action,$object);
+        $list['custom_action'] = array(
+            'template' =>  'admin/custom_button.html.twig',
+        );
+        return $list;
     }
 
     // Filtering list result for calcul devis en ligne
@@ -78,21 +97,7 @@ class CalculDevisAdmin extends AbstractAdmin
             ->with('Info Depart' ,[
                 'class'       => 'col-md-4'
             ])
-            ->add('cp1',Select2EntityType::class,[
-                'multiple' => true,
-                'remote_route' => 'listcp',
-                'class' => 'AppBundle\Entity\CpVille',
-                'primary_key' => 'id',
-                'text_property' => 'name',
-                'minimum_input_length' => 2,
-                'page_limit' => 10,
-                'allow_clear' => true,
-                'delay' => 250,
-                'cache' => true,
-                'cache_timeout' => 60000, // if 'cache' is true
-                'language' => 'en',
-                'placeholder' => 'Select a country',
-            ])
+            ->add('cp1')
             ->add('etage1')
             ->add('ascenseur1',ChoiceType::class,[
                 'empty_data'  => true,
@@ -145,9 +150,18 @@ class CalculDevisAdmin extends AbstractAdmin
         ;
     }
 
+    public function preUpdate($user)
+    {
+        dump($user);
+    }
+
+
     public function configureShowFields(ShowMapper $showMapper){
+
+
         $showMapper
 
+            ->tab($this->trans('Devis Info'))
             ->with('Info Date ')
             ->add('CreatedDate', null, [
                 'label' => 'Date de demande',
@@ -185,8 +199,25 @@ class CalculDevisAdmin extends AbstractAdmin
                 ],
             ])
             ->end()
+            ->end()
+            ->tab($this->trans('Envoyer Devis'))
 
+            ->with('Estimation Prix', [
+                'class'       => 'col-md-4'
+            ])
+                 ->add('prixform', 'string', [
+                       "template" => "admin/calculdevis/form.html.twig",
+                   ])
+            ->end()
+              ->with('Tous les documents', [
+                  'class' => 'col-md-8'
+              ])
+                ->add('listedoc', null, [
+                     "template" => "admin/calculdevis/listdoc.html.twig",
+                ])
+            ->end()
 
+            ->end()
         ;
     }
 
@@ -196,18 +227,46 @@ class CalculDevisAdmin extends AbstractAdmin
             ->add('CreatedDate', null, array(
                 'format' => 'd/m/Y H:i'
             ))
-            ->addIdentifier('nom', TextType::class,[])
-            ->addIdentifier('prenom')
-            ->addIdentifier('cp1')
-            ->addIdentifier('cp2')
-            ->addIdentifier('date')
-            ->addIdentifier('date1')
-            ->addIdentifier('date2')
+            ->addIdentifier('nom', null, [
+                'route' => [
+                    'name' => 'show',
+                ]
+            ])
+            ->addIdentifier('prenom', null, [
+                'route' => [
+                    'name' => 'show',
+                ]
+            ])
+            ->addIdentifier('cp1', null, [
+                'route' => [
+                    'name' => 'show',
+                ]
+            ])
+            ->addIdentifier('cp2', null, [
+                'route' => [
+                    'name' => 'show',
+                ]
+            ])
+            ->addIdentifier('date', null, [
+                'route' => [
+                    'name' => 'show',
+                ]
+            ])
+            ->addIdentifier('date1', null, [
+                'route' => [
+                    'name' => 'show',
+                ]
+            ])
+            ->addIdentifier('date2', null, [
+                'route' => [
+                    'name' => 'show',
+                ]
+            ])
             // add custom action links
             ->add('_action', 'actions', array(
                 'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
+                    'show' => [],
+                    'edit' => [],
                 ))
             )
         ;

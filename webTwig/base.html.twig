@@ -1,14 +1,21 @@
+{% spaceless %}
 <!DOCTYPE html>
 {{ '/public/css/base.html.css'|cssloader }}
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    {# SeT Seo page info #}
+    <title>{% block title %}{{ seo_page[0].title }}{% endblock %}</title>
+    <meta name="keywords" content="{{ seo_page[0].keywords }}" />
+    <meta name="description" content="{{ seo_page[0].description }}">
     {% block stylesheets %}{% endblock %}
     <link rel="stylesheet" href="/css/{{ cssFileName }}" />
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Déménagement 2018" />
+    <meta name="ROBOTS" content="INDEX,FOLLOW" />
+    <meta name="revisit-after" content="7 days" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </head>
@@ -44,3 +51,4 @@
 
 </body>
 </html>
+{% endspaceless %}

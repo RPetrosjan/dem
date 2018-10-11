@@ -1,0 +1,15 @@
+
+php:S138"yThis function "buildForm" has 175 lines, which is greater than the 150 lines authorized. Split it into smaller functions.(­¯Õ©şÿÿÿÿ
+[	php:S1192"HDefine a constant instead of duplicating this literal "choices" 3 times.(ãâı÷
+Z	php:S1192"GDefine a constant instead of duplicating this literal "choice" 3 times.(ùû»³
+c	php:S1192"KDefine a constant instead of duplicating this literal "label_attr" 4 times.(¢ğİ©üÿÿÿÿ
+_	php:S1192"MDefine a constant instead of duplicating this literal "inherit_data" 4 times.(¦ “z
+_	php:S1192"GDefine a constant instead of duplicating this literal "France" 4 times.(ïëŒµÿÿÿÿÿ
+Z	php:S1192"GDefine a constant instead of duplicating this literal "label" 25 times.(Âª‰
+6php:S125"Remove this commented out code.(À–è—ıÿÿÿÿ
+n	php:S1192"VDefine a constant instead of duplicating this literal "topformtoplabel devis" 3 times.(¢ğİ©üÿÿÿÿ
+_	php:S1192"LDefine a constant instead of duplicating this literal "Ã‰conomique" 3 times.(…µŞí
+_	php:S1192"LDefine a constant instead of duplicating this literal "empty_data" 12 times.(ÒÆÃÆ
+]	php:S1192"JDefine a constant instead of duplicating this literal "required" 14 times.(”öğ¿
+c	php:S1192"KDefine a constant instead of duplicating this literal "topformdiv" 4 times.(æ Áãüÿÿÿÿ
+_	php:S1192"GDefine a constant instead of duplicating this literal "class" 16 times.(æ Áãüÿÿÿÿ

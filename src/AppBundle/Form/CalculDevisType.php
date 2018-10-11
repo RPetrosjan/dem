@@ -42,13 +42,16 @@ class CalculDevisType extends AbstractType
                     'label' => 'code postal ville',
                     'attr' => array(
                         'class' => 'cp_ville',
+                        'autocomplete' => 'off',
                     ),
                 ))
                 ->add('etage1', TextType::class, array(
                     'label' => 'Etage',
                     'empty_data'  => '0',
                     'attr' => array(
-                        'class' => 'etage'
+                        'class' => 'etage',
+                        'autocomplete' => 'off',
+
                     ),
                     'required' => false,
                 ))
@@ -61,6 +64,7 @@ class CalculDevisType extends AbstractType
                     'attr' => array(
                         'class' => 'ascenseur',
                         'readonly' => true,
+                        'autocomplete' => 'off',
                     ),
                     'label' => 'Ascenseur',
                     'required' => false,
@@ -80,13 +84,15 @@ class CalculDevisType extends AbstractType
                         'label' => 'code postal ville',
                         'attr' => array(
                             'class' => 'cp_ville',
+                            'autocomplete' => 'off',
                         ),
                     ))
                     ->add('etage2', TextType::class, array(
                         'label' => 'Etage',
                         'empty_data'  => '0',
                         'attr' => array(
-                            'class' => 'etage'
+                            'class' => 'etage',
+                            'autocomplete' => 'off',
                         ),
                         'required' => false,
                     ))
@@ -97,7 +103,8 @@ class CalculDevisType extends AbstractType
                             'No' => 'No',
                         ),
                         'attr' => array(
-                            'class' => 'ascenseur'
+                            'class' => 'ascenseur',
+                            'autocomplete' => 'off',
                         ),
                         'label' => 'Ascenseur',
                         'required' => false,
@@ -122,6 +129,7 @@ class CalculDevisType extends AbstractType
                     'attr' => [
                         'class' => 'prestation',
                         'readonly' => true,
+                        'autocomplete' => 'off',
                     ],
                     'required' => false,
 
@@ -144,32 +152,50 @@ class CalculDevisType extends AbstractType
                 ->add(
                     $builder->create('Coordonnes', FormType::class, array(
                         'inherit_data' => true,
-                        'attr' => array(
+                        'attr' => [
                             'class' => 'topformdiv',
-                        ),
+                        ],
                         'label' => 'Coordonnes',
-                        'label_attr' => array('class' => 'topformtoplabel coordonees'),
+                        'label_attr' => [
+                            'class' => 'topformtoplabel coordonees'
+                        ],
                     ))
                         ->add('nom', TextType::class, array(
                             'label' => 'Votre nom',
+                            'attr' => [
+                                'autocomplete' => 'off',
+                            ]
                         ))
                         ->add('prenom',TextType::class, array(
                             'label' => 'Votre prenom',
+                            'attr' => [
+                                'autocomplete' => 'off',
+                            ]
                         ))
                         ->add('date1',TextType::class, array(
                             'label' => 'Date de demenagement',
                             'attr' => array(
                                 'class' => 'datepicker',
+                                'autocomplete' => 'off',
                             ),
                         ))
                         ->add('telephone',TextType::class, array(
                             'label' => 'Telephone',
+                            'attr' => [
+                                'autocomplete' => 'off',
+                            ]
                         ))
                         ->add('email',TextType::class, array(
                             'label' => 'E-mail',
+                            'attr' => [
+                                'autocomplete' => 'off',
+                            ]
                         ))
                         ->add('save', SubmitType::class, array(
                             'label'=>'Devis Gratuit',
+                            'attr' => [
+                                'autocomplete' => 'off',
+                            ]
                         ))
                 );
         }

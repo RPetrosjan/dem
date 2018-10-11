@@ -41,6 +41,7 @@ framework:
 twig:
     form_themes:
         - 'TetranzSelect2EntityBundle:Form:fields.html.twig'
+        - 'form/fields.html.twig'
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     paths: ["%kernel.project_dir%/webTwig/"]
@@ -101,17 +102,41 @@ sonata_block:
         sonata.admin.block.admin_list:
             contexts: [admin]
 
-
 sonata_admin:
+    title: 'Admin'
+    search: false
+    title_logo: favicon.ico
+    assets:
+        stylesheets:
+          - bundles/sonatacore/vendor/bootstrap/dist/css/bootstrap.min.css
+          - https://use.fontawesome.com/releases/v5.3.1/css/all.css
+          - bundles/sonatacore/vendor/ionicons/css/ionicons.min.css
+          - bundles/sonataadmin/vendor/admin-lte/dist/css/AdminLTE.min.css
+          - bundles/sonataadmin/vendor/admin-lte/dist/css/skins/skin-black.css
+          - bundles/sonataadmin/vendor/iCheck/skins/square/blue.css
+          - bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css
+          - bundles/sonataadmin/vendor/jqueryui/themes/base/jquery-ui.css
+          - bundles/sonatacore/vendor/select2/select2.css
+          - bundles/sonatacore/vendor/select2-bootstrap-css/select2-bootstrap.min.css
+          - bundles/sonataadmin/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css
+          - bundles/sonataadmin/css/styles.css
+          - bundles/sonataadmin/css/layout.css
+          - bundles/sonataadmin/css/tree.css
+          - bundles/sonataadmin/css/colors.css
     dashboard:
         groups:
             admin:
                 label:              Admin
                 label_catalogue:    SonataAdminBundle
+                icon:               '<i class="fa fa-users"></i>'
                 items:
                     - route:        sonata_admin_user
                       label:        Users
-                      roles:        [ROLE_ADMIN]
+                      roles:        [ROLE_SUPER_ADMIN]
+
+                    - route:        sonata_admin_seo
+                      label:        'SEO'
+                      roles:        [ROLE_SUPER_ADMIN]
 
             web:
                 label: Web
@@ -161,12 +186,17 @@ sonata_admin:
                      label:        'Carton'
                      roles:        [ROLE_ADMIN]
 
-
                    - route:        sonata_admin_carton_form
                      label:        'Carton Form'
                      roles:        [ROLE_ADMIN]
 
+                   - route:        sonata_admin_france_societe
+                     label:        'France Societe'
+                     roles:        [ROLE_ADMIN]
 
+                   - route:        sonata_admin_visiste_technique
+                     label:        'Visiste Technique'
+                     roles:        [ROLE_ADMIN]
 
 
 

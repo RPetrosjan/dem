@@ -53,8 +53,17 @@ sonata_admin_carton:
 sonata_admin_carton_form:
     path: /%admin%/app/cartonsform/list
 
+sonata_admin_france_societe:
+    path: /%admin%/app/francesociete/list
 
+sonata_admin_visiste_technique:
+    path: /%admin%/app/visitetechnique/list
 
+sonata_admin_seo:
+    path: /%admin%/app/seo/list
+
+page.espace_demenageur:
+    path: /espace-demenageur
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

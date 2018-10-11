@@ -29,6 +29,10 @@ class Telephone
         $this->fax = '';
     }
 
+    public function __toString(){
+        return $this->tel;
+    }
+
     /**
      * @return string
      */
@@ -84,6 +88,7 @@ class Telephone
 
         return $this;
     }
+
 
     /**
      * Get tel

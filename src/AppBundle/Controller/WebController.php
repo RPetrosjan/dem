@@ -10,6 +10,7 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\AppBundle;
+use AppBundle\Entity\AvisSociete;
 use AppBundle\Entity\CalculDevis;
 use AppBundle\Entity\Carton;
 use AppBundle\Entity\CartonsForm;
@@ -18,12 +19,18 @@ use AppBundle\Entity\CpVille;
 use AppBundle\Entity\GardeMeube;
 use AppBundle\Entity\OptimizerCss;
 use AppBundle\Entity\OptimizerJs;
+use AppBundle\Entity\SEO;
+use AppBundle\Entity\User;
+use AppBundle\Entity\VisiteTechnique;
+use AppBundle\Form\AvisFormType;
 use AppBundle\Form\CalculDevisType;
 use AppBundle\Form\CartonForm;
 use AppBundle\Form\ContactForm;
 use AppBundle\Form\DevisForm;
 use AppBundle\Form\GardeMeubleForm;
+use AppBundle\Form\LoginForm;
 use AppBundle\Form\Type\TestCpForm;
+use AppBundle\Form\VisiteTechniqueForm;
 use AppBundle\Repository\BandeRepository;
 use AppBundle\Repository\CalculDevisRepository;
 use AppBundle\Service\AddDevisBase;
@@ -41,6 +48,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -52,14 +64,15 @@ class WebController extends Controller
     private $twig;
     private $addDevisService;
     private $calculPrixService;
+    protected $requestStack;
 
 
-
-    public function __construct(Twig_Environment $twig, AddDevisBase $addDevisBase, CalculPrixService $calculPrixService)
+    public function __construct(Twig_Environment $twig, AddDevisBase $addDevisBase, CalculPrixService $calculPrixService, RequestStack $requestStack)
     {
         $this->twig = $twig;
         $this->addDevisService = $addDevisBase;
         $this->calculPrixService = $calculPrixService;
+        $this->requestStack = $requestStack;
     }
 
     /*
@@ -82,12 +95,20 @@ class WebController extends Controller
         $social = $this->getDoctrine()->getManager()->getRepository('AppBundle:Social');
         $social =  $social->findAll();
 
+        $seo = $this->getDoctrine()->getManager()->getRepository(SEO::class);
+
+        // We get INFO SEP Path of Url page
+        $seo_page = $seo->findBy([
+            'url' => $this->requestStack->getCurrentRequest()->getPathInfo(),
+        ]);
+
         return array(
             'bande' => $bande,
             'societe' => $societe,
             'articles' => $articles,
             'imagebandes' => $imagebande,
             'social' => $social,
+            'seo_page' => $seo_page,
         );
     }
 
@@ -232,6 +253,35 @@ class WebController extends Controller
     }
 
     /**
+     * @Route("/visite-technique ", name="visitetechniquepage")
+     */
+    public function VisiteTechniquePage(Request $request) {
+        $visite_technique = new VisiteTechnique();
+        $visite_technique_form = $this->createForm(VisiteTechniqueForm::class, $visite_technique, [
+            'action' => $this->generateUrl('visitetechniquepage'),
+        ]);
+
+        $visite_technique_form->handleRequest($request);
+        if($visite_technique_form->isSubmitted() && $visite_technique_form->isSubmitted()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($visite_technique_form->getData());
+            $em->flush();
+
+            $this->addFlash('success','Votre demande a bien été prise en compte');
+            return $this->redirectToRoute('visitetechniquepage');
+        }
+
+        $htmlRender = $this->render('Pages/homepage.html.twig', array_merge([
+            'devisform' => $visite_technique_form->createView(),
+            'class_top_block' => 'devis_page',
+        ],
+        $this->getWebElements()));
+        $this->LoadCssLoader($request);
+        return $htmlRender;
+    }
+
+
+    /**
      * @Route("/garde-meuble ", name="gardemeuble")
      */
     public function GardeMeulePage(Request $request) {
@@ -323,6 +373,28 @@ class WebController extends Controller
         return $htmlRender;
     }
     /**
+     * @Route("/avis", name="avispage")
+     */
+    public function AvisPage(Request $request) {
+        $caluldevis = new CalculDevis();
+        $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis,array(
+            'action' => $this->generateUrl('prixpage'),
+        ));
+
+        $prestation_top_text = '';
+
+        $htmlRender = $this->render('Pages/homepage.html.twig', array_merge(array(
+            'calculdevisform' => $calculdevisform->createView(),
+            'prestation_top_text' => $prestation_top_text,
+            'moyen_avis' => 4.8,
+            'imageBlockStop' => true,
+        ), $this->getWebElements()));
+
+        $this->LoadCssLoader($request);
+        return $htmlRender;
+    }
+
+    /**
      * @Route("/contact", name="contactpage")
      */
     public function ContactPage(Request $request){
@@ -348,7 +420,7 @@ class WebController extends Controller
         return $htmlRender;
     }
 
-        /**
+    /**
      * @Route("/prestation", name="prestation")
      * @Route("/assurance", name="assurance")
      * @Route("/location", name="locationpage")
@@ -372,13 +444,50 @@ class WebController extends Controller
 
 
     /**
+     * @Route("/espace-demenageur", name="espacedemenageurpage")
+     */
+    public function EspaceDemenageur(Request $request){
+
+        $csrf_token = $this->has('security.csrf.token_manager') ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue() : null;
+
+
+        $session = $request->getSession();
+
+        $authErrorKey = Security::AUTHENTICATION_ERROR;
+        $lastUsernameKey = Security::LAST_USERNAME;
+
+
+
+
+
+        $htmlRender = $this->render('Pages/homepage.html.twig', array_merge([
+            'imageBlockStop' => true,
+            "csrf_token" => $csrf_token,
+            "last_username" => $lastUsernameKey,
+        ],$this->getWebElements()));
+        $this->LoadCssLoader($request);
+        return $htmlRender;
+    }
+
+    /**
+     * @Route("/mentions-legales", name="mentionslegalespage")
+     */
+    public function MentionLegalesPage(Request $request){
+
+        $htmlRender = $this->render('Pages/homepage.html.twig', array_merge([
+
+        ],$this->getWebElements()));
+        $this->LoadCssLoader($request);
+        return $htmlRender;
+    }
+    /**
      * @Route("/devis", name="devispage")
      */
     public function DevisPage(Request $request){
 
         $caluldevis = new CalculDevis();
         $devisform = $this->createForm(DevisForm::class,$caluldevis);
-        $devisform->handleRequest($request);;
+        $devisform->handleRequest($request);
         if($devisform->isSubmitted() && $devisform->isSubmitted()){
             $em = $this->getDoctrine()->getManager();
 
@@ -403,8 +512,11 @@ class WebController extends Controller
         return $htmlRender;
     }
 
+
+
     /**
      * @Route("/prix", name="prixpage")
+     * @Route("/declaration-de-valeur", name="declarationdevaleurpage")
      */
     public function PrixPages(Request $request){
 

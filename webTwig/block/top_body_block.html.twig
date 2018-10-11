@@ -8,6 +8,16 @@
         {% include 'block/top_body_block_assurance.html.twig' %}
     {% elseif app.request.attributes.get('_route') == 'locationpage' %}
         {% include 'block/top_body_block_location.html.twig' %}
+    {% elseif app.request.attributes.get('_route') == 'avispage' %}
+        {% include 'block/top_body_block_avis.html.twig' %}
+    {% elseif app.request.get('_route') == 'declarationdevaleurpage' %}
+        {% include 'block/top_body_block_declaration_de_valeur.html.twig' %}
+    {% elseif app.request.get('_route') == 'mentionslegalespage' %}
+        {% include 'block/top_body_block_mention_legale.html.twig' %}
+    {% elseif app.request.get('_route') == 'espacedemenageurpage' %}
+        {% include 'block/top_body_block_espace_demenageur.html.twig' %}
+    {% elseif calculdevisresult1 is defined and calculdevisresult1 is not null %}
+
     {% else %}
         <div class="sectionleft">
             <h1>Demandez votre devis gratuit, et recevez une offre de prestation adaptée pour votre<br> déménagement par nos partenaires.</h1>

@@ -384,15 +384,15 @@ function SetMenuTextListboxadm(txt) {
    /// console.log(txt.length);
    /// count = (txt.match(new RegExp("<a>", "g")) || []).length;
     if (txt.length < 7) {
-        $("#scrollbar1").find(".viewport").css({"height": txt.length * 30 + "px", "width": "230px"});
+      ///  $("#scrollbar1").find(".viewport").css({"height": txt.length * 30 + "px", "width": "230px"});
 
        ///
-        console.log(txt);
+       // console.log(txt);
       //  var scrollbar5 = $('#scrollbar1').data("plugin_tinyscrollbar");
        // scrollbar5.update();
     }
     else {
-        $("#scrollbar1").find(".viewport").css({"height": "200px", "width" : "210px"});
+       /// $("#scrollbar1").find(".viewport").css({"height": "200px", "width" : "210px"});
        // var scrollbar5 = $('#scrollbar1').data("plugin_tinyscrollbar");
        // scrollbar5.update();
     }

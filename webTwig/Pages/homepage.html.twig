@@ -32,6 +32,17 @@
         {% include 'block/infoPageCartons.html.twig' %}
     {% elseif app.request.get('_route') == 'locationpage' %}
         {% include 'block/infoPageLocation.html.twig' %}
+    {% elseif app.request.get('_route') == 'visitetechniquepage' %}
+        {% include 'block/infoPageVisiteTechnique.html.twig' %}
+    {% elseif app.request.get('_route') == 'declarationdevaleurpage' %}
+        {% include 'block/infoPageDeclarationDeValeur.html.twig' %}
+    {% elseif app.request.get('_route') == 'avispage' %}
+        {% include 'block/infoPageAvis.html.twig' %}
+    {% elseif app.request.get('_route') == 'contactpage' %}
+        {% include 'block/infoPageContact.html.twig' %}
+    {% elseif app.request.get('_route') == 'mentionslegalespage' %}
+    {% elseif app.request.get('_route') == 'espacedemenageurpage' %}
+
     {% else %}
         {% include 'block/bodyPage.html.twig' %}
     {% endif %}

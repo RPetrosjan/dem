@@ -1,7 +1,8 @@
 {% block form_row %}
     {% spaceless %}
         {% if form.vars.attr.class is defined and form.vars.attr.class == 'cp_ville' %}
-            {{ '/public/js/form/cp_ville.js'|jsloader }}
+            {{ '/public/css/form/code_postal_ajax.css'|cssloader }}
+            {{ '/public/js/form/code_postal_ajax.js'|jsloader }}
         {% endif %}
         {% if form.vars.choices is defined %}
             {{ '/public/js/form/choices.js'|jsloader }}
@@ -9,6 +10,10 @@
         {% if form.vars.attr.class is defined and form.vars.attr.class == 'datepicker' %}
             {{ '/public/js/datepicker/datepicker.js'|jsloader }}
             {{ '/public/css/datepicker/datepicker.css'|cssloader }}
+        {% endif %}
+        {% if form.vars.attr.class is defined and form.vars.attr.class == 'societe_ajax' %}
+            {{ '/public/css/form/code_postal_ajax.css'|cssloader }}
+            {{ '/public/js/form/societe_ajax.js'|jsloader }}
         {% endif %}
 
         <div class="row">
