@@ -1,16 +1,0 @@
-
-­php:S101"“Rename class "__TwigTemplate_719e882f7b42f8d1096d32be56ff04e5346bd35b8482cf24cc1f514e9a298207" to match the regular expression ^[A-Z][a-zA-Z0-9]*$.(«²¿­øÿÿÿÿ
-]	php:S1192."IDefine a constant instead of duplicating this literal "template" 3 times.(¼Ù–^
-`	php:S1192I"FDefine a constant instead of duplicating this literal "admin" 8 times.(‡öĞéıÿÿÿÿ
-[	php:S1192"FDefine a constant instead of duplicating this literal "title" 4 times.(ƒ¾«Á
-\	php:S1192@"GDefine a constant instead of duplicating this literal "block" 10 times.(¿´Ó‡
-	php:S11920"tDefine a constant instead of duplicating this literal "Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension" 6 times.(–œõÿÿÿÿÿ
-™	php:S1192-"Define a constant instead of duplicating this literal "Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension" 6 times.(ñØ„òøÿÿÿÿ
-c	php:S1192I"IDefine a constant instead of duplicating this literal "objectId" 3 times.(‡öĞéıÿÿÿÿ
-^	php:S1192"IDefine a constant instead of duplicating this literal "tab_menu" 3 times.(Ã«°Ï
-a	php:S1192I"GDefine a constant instead of duplicating this literal "method" 4 times.(‡öĞéıÿÿÿÿ
-{	php:S1192
-"fDefine a constant instead of duplicating this literal "@SonataAdmin/CRUD/base_edit.html.twig" 7 times.(·« 
-b	php:S1192"MDefine a constant instead of duplicating this literal "navbar_title" 3 times.(›¸Ğ
-b	php:S1192"HDefine a constant instead of duplicating this literal "actions" 3 times.(ûÂ¶´úÿÿÿÿ
-a	php:S1192I"GDefine a constant instead of duplicating this literal "object" 6 times.(‡öĞéıÿÿÿÿ

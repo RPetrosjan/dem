@@ -26,6 +26,7 @@ class AppKernel extends Kernel
 
             new FOS\UserBundle\FOSUserBundle(),
             new Tetranz\Select2EntityBundle\TetranzSelect2EntityBundle(),
+            new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
 
         ];
 

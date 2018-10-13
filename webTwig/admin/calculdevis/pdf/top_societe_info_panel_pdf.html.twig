@@ -1,0 +1,16 @@
+<table class="topsocieteinfo">
+    <tr>
+        <td>
+            <div class="namesociete colred">{{ societe_info.namesociete }}</div>
+            <span>{{ societe_info.adresse }}</span>
+            <div>
+                <span>{{ societe_info.cpville.cp }} {{ societe_info.cpville.ville }}</span>
+            </div>
+        </td>
+        <td style="text-align: right">
+            <strong>N SIRET {{ societe_info.siret }}</strong><br/>
+            <span>{{ societe_info.email }}</span><br/>
+            <span>{{ societe_info.website }}</span>
+        </td>
+    </tr>
+</table>

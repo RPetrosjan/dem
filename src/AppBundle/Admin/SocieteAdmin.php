@@ -27,6 +27,9 @@ class SocieteAdmin extends AbstractAdmin
                 'label' => $this->trans('Sige Sociale')
             ))
             ->add('namesociete')
+            ->add('siret', null, [
+                'label' => 'N SIRET',
+            ])
             ->add('adresse')
             ->add('cpville',ModelAutocompleteType::class,array(
                 'property' => array(
@@ -39,6 +42,10 @@ class SocieteAdmin extends AbstractAdmin
                 'allow_add' => true,
                 'allow_delete' => true,
             ))
+            ->add('website', null, [
+                'label' => 'Web Site',
+                'required' => false,
+            ])
         ;
     }
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

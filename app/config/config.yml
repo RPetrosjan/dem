@@ -11,6 +11,7 @@ parameters:
     locale: en
     cssFileName: pages.css
     jsFileName: pages.js
+    admin: adminss
 
 framework:
     #esi: ~

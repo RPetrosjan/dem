@@ -157,6 +157,22 @@ class Societe
     }
 
     /**
+     * @return string
+     */
+    public function getSiret()
+    {
+        return $this->siret;
+    }
+
+    /**
+     * @param string $siret
+     */
+    public function setSiret($siret)
+    {
+        $this->siret = $siret;
+    }
+
+    /**
      * @var string
      *
      * @ORM\Column(name="siege", type="boolean")
@@ -169,11 +185,41 @@ class Societe
     private $cpville;
 
     /**
+     * @return string
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /**
+     * @param string $website
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+    }
+
+    /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="siret", type="string", length=255)
+     */
+    private $siret;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="website", type="string", length=255)
+     */
+    private $website;
 
 
 }
