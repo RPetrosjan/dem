@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class DocPDFRepository extends \Doctrine\ORM\EntityRepository
 {
+    function findByDevisId($devis_id){
+
+        $qb = $this->createQueryBuilder('a');
+        return $qb
+                ->select('a')
+                ->leftJoin('a.id_devis', 'c')
+                ->addSelect('c')
+                ->add('where', $qb->expr()->in('c', ':c') )
+            ->setParameter('c', $devis_id)
+            ->getQuery()
+            ->getResult();
+
+    }
 }

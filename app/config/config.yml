@@ -179,6 +179,10 @@ sonata_admin:
                      label:        'Calcul Devis'
                      roles:        [ROLE_ADMIN]
 
+                   - route:        sonata_admin_demande_devis
+                     label:        'Demande Devis'
+                     roles:        [ROLE_ADMIN]
+
                    - route:        sonata_admin_contact
                      label:        'Contact'
                      roles:        [ROLE_ADMIN]

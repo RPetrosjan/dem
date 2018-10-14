@@ -7,8 +7,11 @@
  */
 
 namespace AppBundle\Controller;
-use AppBundle\Entity\CalculDevis;
+
+use AppBundle\Entity\DemandeDevis;
+use AppBundle\Entity\DocPDF;
 use Sonata\AdminBundle\Controller\CRUDController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 /**
@@ -23,7 +26,7 @@ class SonataController extends CRUDController
 {
 
     // Generation du PDF
-    public function returnPDFResponseFromHTML($html){
+    public function returnPDFResponseFromHTML(){
 
         $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->AddPage();
@@ -44,7 +47,7 @@ class SonataController extends CRUDController
 
         \TCPDF_FONTS::addTTFfont($pdf_dir."admin/calculdevis/pdf/font/OpenSans.ttf", 'TrueTypeUnicode', "", 32);
 
-        $filename = '/ourcodeworld_pdf_demo';
+
         $img_file = $pdf_dir.'admin/calculdevis/pdf/image/bacpap8.png';
 
         $pdf->Image(
@@ -58,40 +61,98 @@ class SonataController extends CRUDController
 
 
 
-        $pdf->setPageMark();
-        $pdf->writeHTML($html, true, false, true, false, '');
 
 
-        $pdf->StartTransform();
-        $pdf->Rotate(-270);
-        $pdf->writeHTMLCell(100,0,20,80, '<strong style="font-size: 18px; color: #a72222; text-transform: uppercase;">Départ</strong>', 0);
-        $pdf->writeHTMLCell(100,0,18,178, '<strong style="font-size: 18px; color: #a72222; text-transform: uppercase;">Arrivée</strong>', 0);
-        $pdf->StopTransform();
+        return $pdf;
 
 
-        $pdf->Output($filename, 'I');
     }
 
 
-    // pdf Devis action pour affihser DEVIS
-    public function pdfdevisAction(){
+    public function sendpdfdevisAction() {
 
 
         // Get Id for Find Calcul Devis
-        $repository = $this->getDoctrine()->getRepository(CalculDevis::class);
+        $repository = $this->getDoctrine()->getRepository(DemandeDevis::class);
         $devis = $repository->findOneBy(['id' => $this->getRequest()->get('id')]);
 
         // Get Info of Societe pdf
         $societe = $this->getDoctrine()->getManager()->getRepository('AppBundle:Societe');
         $societe = $societe->findOneBy(array('siege' => true));
 
-        $htmlRender = $this->renderView('admin/calculdevis/pdf/devis_pdf.html.twig', [
+        $devis_priceht = $this->getRequest()->get('priceht');
+        if(is_numeric($devis_priceht) == false) {
+            $devis_priceht = 0;
+        }
+
+        $devis_tva = $this->getRequest()->get('tva');
+        if(is_numeric($devis_tva) == false) {
+            $devis_tva = 0;
+        }
+
+        $devis_accompte = $this->getRequest()->get('acompte');
+        if(is_numeric($devis_accompte) == false) {
+            $devis_accompte = 0;
+        }
+
+        $docpdf = new DocPDF();
+        $docpdf->setPrice($devis_priceht);
+        $docpdf->addIdDevis($devis);
+        $docpdf->setAcompte($devis_accompte);
+        $docpdf->setTva($devis_tva);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($docpdf);
+        $em->flush();
+
+        return new JsonResponse([
+            'status' => 'ok',
+        ]);
+    }
+
+    // pdf Devis action pour affihser DEVIS
+    public function pdfdevisAction(){
+
+        // Get Id for Find Calcul Devis
+        $repository = $this->getDoctrine()->getRepository(DemandeDevis::class);
+        $devis = $repository->findOneBy(['id' => $this->getRequest()->get('id')]);
+
+        // Get Info of Societe pdf
+        $societe = $this->getDoctrine()->getManager()->getRepository('AppBundle:Societe');
+        $societe = $societe->findOneBy(array('siege' => true));
+
+        $devis_priceht = $this->getRequest()->get('priceht');
+        if(is_numeric($devis_priceht) == false) {
+            $devis_priceht = 0;
+        }
+
+        $devis_tva = $this->getRequest()->get('tva');
+        if(is_numeric($devis_tva) == false) {
+            $devis_tva = 0;
+        }
+
+        $devis_accompte = $this->getRequest()->get('acompte');
+        if(is_numeric($devis_accompte) == false) {
+            $devis_accompte = 0;
+        }
+
+        $htmlRender = $this->renderView('admin/calculdevis/pdf/devis/devis_pdf_part1.html.twig', [
             'devis_num' => 'DEVIS-13-10-2018',
             'devis_info' => $devis,
-            'devis_price' =>   $this->getRequest()->get('price'),
+            'distance' => '25km',
+            'devis_priceht' => $devis_priceht,
+            'devis_tva' => $devis_tva,
+            'devis_accompte' => $devis_accompte,
             'societe_info' => $societe,
         ]);
 
-        return $this->returnPDFResponseFromHTML($htmlRender);
+        $pdf = $this->returnPDFResponseFromHTML();
+        $pdf->setPageMark();
+        $pdf->writeHTML($htmlRender, true, false, true, false, '');
+
+        //Arrivée
+        // Write HTML PDF page First
+        $filename = '/ourcodeworld_pdf_demo';
+        return $pdf->Output($filename, 'I');
     }
 }

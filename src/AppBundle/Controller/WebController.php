@@ -16,6 +16,7 @@ use AppBundle\Entity\Carton;
 use AppBundle\Entity\CartonsForm;
 use AppBundle\Entity\Contact;
 use AppBundle\Entity\CpVille;
+use AppBundle\Entity\DemandeDevis;
 use AppBundle\Entity\GardeMeube;
 use AppBundle\Entity\OptimizerCss;
 use AppBundle\Entity\OptimizerJs;
@@ -91,6 +92,8 @@ class WebController extends Controller
 
         $imagebande = $this->getDoctrine()->getManager()->getRepository('AppBundle:ImageBande');
         $imagebande = $imagebande->findBy(array(),array('id' => 'DESC'),10);
+
+        dump($imagebande);
 
         $social = $this->getDoctrine()->getManager()->getRepository('AppBundle:Social');
         $social =  $social->findAll();
@@ -485,8 +488,8 @@ class WebController extends Controller
      */
     public function DevisPage(Request $request){
 
-        $caluldevis = new CalculDevis();
-        $devisform = $this->createForm(DevisForm::class,$caluldevis);
+        $demandedevis = new DemandeDevis();
+        $devisform = $this->createForm(DevisForm::class,$demandedevis);
         $devisform->handleRequest($request);
         if($devisform->isSubmitted() && $devisform->isSubmitted()){
             $em = $this->getDoctrine()->getManager();
@@ -501,6 +504,10 @@ class WebController extends Controller
 
             $em->persist($devisform->getData());
             $em->flush();
+
+            $this->addFlash('success','Votre demande de devis a bien été prise en compte');
+            return $this->redirectToRoute('devispage');
+
         }
 
 

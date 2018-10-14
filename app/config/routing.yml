@@ -20,6 +20,9 @@ sonata_admin_user:
 sonata_admin_calculdevis:
     path: /%admin%/app/calculdevis/list
 
+sonata_admin_demande_devis:
+    path: /%admin%/app/demandedevis/list
+
 sonata_admin_bande:
     path: /%admin%/app/bande/list
 

@@ -1,7 +1,7 @@
 
+n	php:S3776E"TRefactor this function to reduce its Cognitive Complexity from 16 to the 15 allowed.(¦±ššùÿÿÿÿ
 <php:S108#")Either remove or fill this block of code.(¿ß¡Y
 bphp:S101"IRename class "jsmin" to match the regular expression ^[A-Z][a-zA-Z0-9]*$.(Ê¯íßüÿÿÿÿ
-n	php:S3776E"TRefactor this function to reduce its Cognitive Complexity from 16 to the 15 allowed.(¦±ššùÿÿÿÿ
 3php:S1255"Remove this commented out code.(…ÁÌÓ
 x	php:S1488A"cImmediately return this expression instead of assigning it to the temporary variable "$javascript".(„¯÷Ÿ
 y	php:S1488k"_Immediately return this expression instead of assigning it to the temporary variable "$buffer".(Ùòòÿÿÿÿÿ

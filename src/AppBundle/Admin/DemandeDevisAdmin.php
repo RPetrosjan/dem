@@ -1,32 +1,27 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Win10
- * Date: 27.06.2018
- * Time: 02:29
+ * User: rpetrosjan
+ * Date: 14/10/2018
+ * Time: 13:42
  */
 
 namespace AppBundle\Admin;
 
 
-use AppBundle\Service\GetFormClass;
+use AppBundle\Entity\DocPDF;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Validator\Constraints\DateTime;
-use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
-class CalculDevisAdmin extends AbstractAdmin
+
+class DemandeDevisAdmin extends AbstractAdmin
 {
 
     // Creating Sort By DateTime ASC
@@ -36,21 +31,23 @@ class CalculDevisAdmin extends AbstractAdmin
         '_sort_by' => 'CreatedDate',
     ];
 
-    protected function configureRoutes(RouteCollection $collection){
+    protected function configureRoutes(RouteCollection $collection) {
 
-        $collection->add('pdfdevis', $this->getRouterIdParameter().'/pdfdevis'); // Action gets added automatically
-  //      $collection->add('view', $this->getRouterIdParameter().'/view');
+        $collection
+            ->add('pdfdevis', $this->getRouterIdParameter().'/pdfdevis') // Action gets added automatically
+            ->add('sendpdfdevis', $this->getRouterIdParameter().'/sendpdfdevis') //Action for generated and sending Devis
+        ;
+        //      $collection->add('view', $this->getRouterIdParameter().'/view');
     }
 
-    public function configure(){
+    public function configure() {
 
-       /// $this->setTemplate('list','@AppBundle/Admin/ContactList.html.twig');
+        /// $this->setTemplate('list','@AppBundle/Admin/ContactList.html.twig');
         $this->setTemplate('edit','admin/calculDevisAdminEdit.html.twig');
         $this->setTemplate('show','admin/calculDevisAdminShow.html.twig');
     }
 
-    public function configureActionButtons($action, $object = null)
-    {
+    public function configureActionButtons($action, $object = null) {
         $list = parent::configureActionButtons($action,$object);
         $list['custom_action'] = array(
             'template' =>  'admin/custom_button.html.twig',
@@ -58,19 +55,32 @@ class CalculDevisAdmin extends AbstractAdmin
         return $list;
     }
 
-    // Filtering list result for calcul devis en ligne
-    public function createQuery($context = 'list')
-    {
-        $query = parent::createQuery($context);
-        $query->where(
-            $query->getRootAliases()[0].'.date IS NULL'
-        );
-        return $query;
+    private $em;
+
+    public function __construct($code, $class, $baseControllerName, $em) {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->em = $em;
     }
 
-    // Show Result in the Page
-        protected function configureFormFields(FormMapper $formMapper){
+    /*
+   // Filtering list result for calcul devis en ligne
+   public function createQuery($context = 'list') {
+      $query = parent::createQuery($context);
+       $query->where(
+           $query->getRootAliases()[0].'.date IS NULL'
+       );
+       return $query;
+    }*/
 
+    // Show Result in the Page
+    protected function configureFormFields(FormMapper $formMapper) {
+
+        // Modification valeur readed
+        // Appell service orm service.yml
+        $contact = $this->getSubject();
+        $contact->setReaded(true);
+        $this->em->persist($contact);
+        $this->em->flush();
 
         $formMapper
 
@@ -78,6 +88,97 @@ class CalculDevisAdmin extends AbstractAdmin
             ->add('CreatedDate', 'sonata_type_date_picker', [
                 'label' => 'Date de demande',
                 'format'=>'dd/MM/yyyy'
+            ])
+            ->add('date', TextType::class, [
+                'label' => 'Date de demenagement',
+            ])
+            ->end()
+            ->with('General', [
+                    'class'       => 'col-md-4']
+            )
+            ->add('nom')
+            ->add('prenom')
+            ->add('telephone')
+            ->add('email')
+
+            ->end()
+            ->with('Info Depart' ,[
+                'class'       => 'col-md-4'
+            ])
+            ->add('date1')
+            ->add('adresse1')
+            ->add('cp1')
+            ->add('etage1')
+            ->add('ascenseur1',ChoiceType::class,[
+                'empty_data'  => true,
+                'choices'  => array(
+                    'Oui' => 'Oui',
+                    'No' => 'No',
+                ),
+            ])
+            ->end()
+            ->with('Info Arrivee' ,[
+                'class'       => 'col-md-4'
+            ])
+            ->add('date2')
+            ->add('adresse2')
+            ->add('cp2')
+            ->add('etage2')
+            ->add('ascenseur2', ChoiceType::class,[
+                'empty_data'  => true,
+                'choices'  => array(
+                    'Oui' => 'Oui',
+                    'No' => 'No',
+                ),
+            ])
+            ->end()
+
+        ;
+
+    }
+
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
+        $datagridMapper
+            ->add('CreatedDate')
+            ->add('nom')
+            ->add('prenom')
+            ->add('cp1')
+            ->add('cp2')
+            ->add('date')
+        ;
+    }
+
+    public function preUpdate($user) {
+        dump($user);
+    }
+
+
+    public function configureShowFields(ShowMapper $showMapper) {
+
+        $container = $this->getConfigurationPool()->getContainer();
+        $em = $container->get('doctrine.orm.entity_manager');
+
+        $contact = $this->getSubject();
+        $contact->setReaded(true);
+        $em->persist($contact);
+        $em->flush();
+
+
+        $repository = $em->getRepository(DocPDF::class);
+        $devis = $repository->findByDevisId($this->getRequest()->get('id'));
+
+
+
+        dump($devis);
+
+
+        $showMapper
+
+            ->tab($this->trans('Devis Info'))
+            ->with('Info Date ')
+            ->add('CreatedDate', null, [
+                'label' => 'Date de demande',
+                'format' => 'd/m/Y',
             ])
             ->add('date', TextType::class, [
                 'label' => 'Date de demenagement',
@@ -96,80 +197,8 @@ class CalculDevisAdmin extends AbstractAdmin
             ->with('Info Depart' ,[
                 'class'       => 'col-md-4'
             ])
-            ->add('cp1')
-            ->add('etage1')
-            ->add('ascenseur1',ChoiceType::class,[
-                'empty_data'  => true,
-                'choices'  => array(
-                    'Oui' => 'Oui',
-                    'No' => 'No',
-                ),
-            ])
-            ->end()
-            ->with('Info Arrivee' ,[
-                'class'       => 'col-md-4'
-            ])
-            ->add('cp2')
-            ->add('etage2')
-            ->add('ascenseur2', ChoiceType::class,[
-                'empty_data'  => true,
-                'choices'  => array(
-                    'Oui' => 'Oui',
-                    'No' => 'No',
-                ),
-            ])
-            ->end()
-
-        ;
-
-    }
-
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add('CreatedDate')
-            ->add('nom')
-            ->add('prenom')
-            ->add('cp1')
-            ->add('cp2')
-            ->add('date')
-        ;
-    }
-
-    public function preUpdate($user)
-    {
-        dump($user);
-    }
-
-
-    public function configureShowFields(ShowMapper $showMapper){
-
-
-        $showMapper
-
-            ->tab($this->trans('Devis Info'))
-            ->with('Info Date ')
-            ->add('CreatedDate', null, [
-                'label' => 'Date de demande',
-                'format' => 'd/m/Y',
-            ])
-            ->add('date', TextType::class, [
-                'label' => 'Date de demenagement',
-            ])
-
-            ->end()
-            ->with('General', [
-                'class'       => 'col-md-4']
-            )
-            ->add('nom')
-            ->add('prenom')
-            ->add('telephone')
-            ->add('email')
-
-            ->end()
-            ->with('Info Depart' ,[
-                'class'       => 'col-md-4'
-            ])
+            ->add('date1')
+            ->add('adresse1')
             ->add('cp1')
             ->add('etage1')
             ->add('ascenseur1')
@@ -177,11 +206,13 @@ class CalculDevisAdmin extends AbstractAdmin
             ->with('Info Arrivee' ,[
                 'class'       => 'col-md-4'
             ])
+            ->add('date2')
+            ->add('adresse2')
             ->add('cp2')
             ->add('etage2')
             ->add('ascenseur2',ChoiceType::class,[
                 'attr' => [
-                  'class' => 'asc_selector2',
+                    'class' => 'asc_selector2',
                 ],
             ])
             ->end()
@@ -191,25 +222,34 @@ class CalculDevisAdmin extends AbstractAdmin
             ->with('Estimation Prix', [
                 'class'       => 'col-md-4'
             ])
-                 ->add('prixform', 'string', [
-                       "template" => "admin/calculdevis/form.html.twig",
-                   ])
+            ->add('prixform', 'string', [
+                "template" => "admin/calculdevis/form.html.twig",
+            ])
             ->end()
-              ->with('Tous les documents', [
-                  'class' => 'col-md-8'
-              ])
-                ->add('listedoc', null, [
-                     "template" => "admin/calculdevis/listdoc.html.twig",
-                ])
+            ->with('Tous les documents', [
+                'class' => 'col-md-8'
+            ])
+            ->add('listedoc', null, [
+                "template" => "admin/calculdevis/listdoc.html.twig",
+            ])
             ->end()
 
             ->end()
         ;
     }
 
-    protected function configureListFields(ListMapper $listMapper)
-    {
+    protected function configureListFields(ListMapper $listMapper) {
         $listMapper
+            ->add('readed','boolean', [
+                'template' => '/admin/boolean.html.twig',
+                'editable' => true,
+                'attr' => [
+                    'boolean_values' => [
+                        false => '<span class="label label-success">New</span>',
+                        true => '<span class="label label-danger">Old</span>',
+                    ]
+                ],
+            ])
             ->add('CreatedDate', null, array(
                 'format' => 'd/m/Y H:i'
             ))
@@ -250,10 +290,11 @@ class CalculDevisAdmin extends AbstractAdmin
             ])
             // add custom action links
             ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => [],
-                    'edit' => [],
-                ))
+                    'actions' => array(
+                        'show' => [],
+                        'edit' => [],
+                        'delete' => [],
+                    ))
             )
         ;
     }

@@ -9,7 +9,7 @@
 namespace AppBundle\Form;
 
 
-use AppBundle\Entity\CalculDevis;
+use AppBundle\Entity\DemandeDevis;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -205,7 +205,7 @@ class DevisForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => CalculDevis::class,
+            'data_class' => DemandeDevis::class,
         ));
     }
 }
