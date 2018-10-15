@@ -15,7 +15,11 @@
     </tr>
 </table>
 {{ include('admin/calculdevis/pdf/top_societe_info_panel_pdf.html.twig') }}
-<div></div><div></div>
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
 
     <table cellspacing="0" cellpadding="0" border="0">
         <tr>
@@ -27,7 +31,7 @@
             <td class="td_label">Transport </td><td class="td_label1">:</td><td>Special</td>
         </tr>
         <tr>
-            <td class="td_label">Adresse</td><td>:</td><td>{{ devis_info.cp1 }} {{ devis_info.adresse1 }}</td>
+            <td class="td_label">Adresse</td><td>:</td><td>{{ devis_info.cp1 }}<br/>{{ devis_info.adresse1 }}</td>
             <td class="td_label">Distance </td><td class="td_label1">:</td><td>{{ distance }}</td>
         </tr>
         <tr>

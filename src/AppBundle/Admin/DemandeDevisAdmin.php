@@ -165,11 +165,8 @@ class DemandeDevisAdmin extends AbstractAdmin
 
 
         $repository = $em->getRepository(DocPDF::class);
-        $devis = $repository->findByDevisId($this->getRequest()->get('id'));
+        $list_devis = $repository->findByDevisId($this->getRequest()->get('id'));
 
-
-
-        dump($devis);
 
 
         $showMapper
@@ -231,6 +228,7 @@ class DemandeDevisAdmin extends AbstractAdmin
             ])
             ->add('listedoc', null, [
                 "template" => "admin/calculdevis/listdoc.html.twig",
+                'list_devis' => $list_devis,
             ])
             ->end()
 
