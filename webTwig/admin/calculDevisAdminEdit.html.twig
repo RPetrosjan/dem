@@ -1,0 +1,44 @@
+{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+
+{% block javascripts %}
+        {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+           //// $('.select2-input').keyup(function(){
+
+
+                var markup = "<div class='select2-result-repository clearfix'>" +
+                    "<div class='select2-result-repository__avatar'>Avatar</div>" +
+                    "<div class='select2-result-repository__meta'>" +
+                    "<div class='select2-result-repository__title'>TRuen</div>";
+
+
+                    markup += "<div class='select2-result-repository__description'>Descriptzion</div>";
+
+
+                markup += "<div class='select2-result-repository__statistics'>" +
+                    "<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> Forks</div>" +
+                    "<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i>  Stars</div>" +
+                    "<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i>  Watchers</div>" +
+                    "</div>" +
+                    "</div></div>";
+
+
+                $('.select2entity').select2({
+                    placeholder: "Select a state",
+                    formatNoMatches: 'NOT FOUND Druben',
+                    allowClear: true
+                });
+
+
+///            });
+
+
+        });
+
+
+    </script>
+{% endblock %}
+

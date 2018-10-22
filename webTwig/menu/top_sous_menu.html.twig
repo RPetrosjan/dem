@@ -1,0 +1,25 @@
+{% spaceless %}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
+{{ '/public/css/menu/top_sous_menu.html.css'|cssloader }}
+<div class="top_sous_menu">
+
+{% for weight,emmenu in top_sous_menu %}
+        <em>
+        {% for weight,sous_menu in emmenu %}
+            {% if sous_menu.url == '/espace-demenageur' and  is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <a href="{{ path('fos_user_security_logout') }}">
+                    <span><i class="fas fa-unlock-alt"></i></span>Se déconnecter
+                </a>
+            {% else %}
+                <a title="{{ sous_menu.title }}" href="{{ sous_menu.url }}"><span>{{ sous_menu.icon|raw }}</span>{{ sous_menu.name }}</a>
+            {% endif %}
+
+        {% endfor %}
+        </em>
+{% endfor %}
+</div>
+    {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}
+
+
+

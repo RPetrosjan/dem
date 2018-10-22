@@ -1,0 +1,52 @@
+{% spaceless %}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
+{{ '/public/css/block/infoPageMentionLegales.html.css'|cssloader }}
+
+    <h1 class="colred">Mention Legales</h1>
+    <div>
+        
+        <div class="text">
+            <h3>Éditeur</h3>
+            <p>
+            Conformément aux dispositions des articles 6-III et 19 de la loi pour la Confiance dans l'Économie Numérique, nous vous informons que :
+            Le présent site web est édité modifie et cree par Petrosjan Ruben.
+            </p>
+            <p>
+            Adresse de courrier électronique : contact@demenagement-officiel.fr
+            Tél. : 06 44 85 17 19
+            Numéro Siret : 810 925 792 00014
+            </p>
+            <p>
+            <h3>Hebergement</h3>
+            Le site demenagement-officiel.fr est hébergé par la société PLANETHOSTER
+            4416 Rue Louis B Mayer, Laval, QC H7P 0G1, Canada
+            Tél : +33 892 55 66 77
+            </p>
+        </div>
+    </div>
+
+    <div>
+        <div class="text">
+            <h3>Traitement des données personnelles</h3>
+            Les données personnelles recueillies via nos formulaires de demandes de devis, contact, avis, carton, visite technique sont conservés par pour une durée indéterminée et sont exclusivement transmises a "Déménagement Service France" et notre partenaires, entreprises de déménagement.
+            <br><br>
+            Déménagement Service<br> Francerue de la chabannerie<br>
+            26500 Bourg les valence<br>
+            Numéro Siret : 790 113 187 RCS BOURGES
+            <br><br>
+            COORDINATEUR NATIONAL<br>
+            Noel Vanel<br>
+            04 75 85 47 54<br>
+            <br><br><br>
+
+            <h3>Données personnelles</h3>
+            Vous pouvez contacter le Responsable du traitement à tout moment, pour exercer vos droits d'accès, de rectification et d'opposition aux informations vous concernant tels que décrits par la Loi n°78-17du 6 janvier 1978 modifiée par la Loi n°2004-801 du 6 août 2004.
+            <br><br><br>
+
+
+
+        </div>
+    </div>
+
+    {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}

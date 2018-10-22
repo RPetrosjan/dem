@@ -1,0 +1,85 @@
+{% spaceless %}
+{% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
+{{ '/public/css/block/infoPagePrestation.css'|cssloader }}
+<div class="contentbottom">
+    <div>
+        
+
+
+        <div class="panel normal" id="location">
+            <div class="panelicon">
+                <i class="fas fa-truck"></i>
+            </div>
+            <h1 class="colred">Camion 40m3 + Chauffeur</h1>
+            <span class="text">Bonne solution pour avoir le camion et le chauffeur.
+                Vous avez tout par rapport assurance, service, sécurité.
+            </span>
+            <div class="text">
+                <h1 class="colblue">Tarif</h1>
+                <div>
+                    <b class="colred">450</b> € HT /jour (7h30 heures et distance max 50km)
+                </div>
+                <span>
+                    Heure supplémentaire : <b class="colred">100</b> € HT/heure
+                </span>
+                <span>
+                    Kilomètre supplémentaire : <b class="colred">1.10</b> € HT/km
+                </span>
+                <div>
+                    <u>Il faut savoir :</u> Le chauffeur ne  s’occupe que du chargement de son camion.
+                </div>
+            </div>
+        </div>
+
+        <div class="panel normal">
+            <div class="panelicon">
+                <i class="fas fa-box-open"></i>
+            </div>
+            <h1 class="colred">Service du déménageur</h1>
+            <span class="text">
+            <b>Pour 1 personne.</b>
+            Aide par un vrai professionnel déménageur. Il vous conseillera, guidera  et aidera pour l’emballage, le chargement, la manutention
+            </span>
+
+            <div class="text">
+                <h1 class="colblue">Tarif</h1>
+                <div>
+                    <b class="colred">250</b> € HT /jour (7h30 heures et distance max 50km)
+                </div>
+                <span>
+                    Heure supplémentaire : <b class="colred">40</b> € HT/heure
+                </span>
+                <span>
+                    Kilomètre supplémentaire : <b class="colred">0.6</b> € HT/km
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="panel normal">
+            <div class="panelicon">
+                <i class="fas fa-truck-loading"></i>
+            </div>
+            <h1 class="colred">Location du monte meuble.</h1>
+            <span class="text">
+                Bonne solution pour votre déménagement en cas de cage d'escalier étroite ou défaillance de l'ascenseur.
+                Votre déménagement se déroulera bien, plus efficacement, plus rapidement et dans la bonne humeur.
+            </span>
+            <div class="text">
+                <h1 class="colblue">Tarif</h1>
+                <div class="text">
+                    <div>
+                        <b class="colred">350</b> € HT ½ journe
+                    </div>
+                    <span>
+                        <b class="colred">500</b> € HT 1 journe
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}

@@ -1,0 +1,56 @@
+
+{% extends '@SonataAdmin/CRUD/Association/show_many_to_many.html.twig' %}
+
+{% block field %}
+    <ul class="sonata-ba-show-many-to-many">
+        <li>
+            <a class="atable">
+                <span>Carton Name</span>
+                <span class="dimension">Dimension</span>
+                <span class="count">Nombre</span>
+                <span class="prix">Unite</span>
+                <span class="prix">Prix</span>
+            </a>
+        </li>
+        {% set route_name = field_description.options.route.name %}
+        {# Get Array JsonCarton from CartonForm #}
+        {% set Totalprix = 0 %}
+        {% set array_code_carton = value.getOwner().getCartonJson()|json_decode %}
+        {% for element in value %}
+            <li>
+                {% if field_description.hasassociationadmin
+                    and field_description.associationadmin.hasRoute(route_name)
+                    and field_description.associationadmin.hasAccess(route_name, element) %}
+                    <a class="atable" href="{{ field_description.associationadmin.generateObjectUrl(route_name, element, field_description.options.route.parameters) }}">
+                        <img src="/img/{{ element.getImageCarton()[0].getPath() }}/{{  (element.getImageCarton()[0]).getFileName() }}" />
+                        <span>{{ element.getNom() }}</span>
+                        <span class="dimension">{{ element.getDimension() }}</span>
+                        <span class="count">{{ array_code_carton[element.getCodeCarton()].count }}</span>
+                        <span class="prix">{{ element.getPrice() }} &euro;</span>
+                        <span class="prix">{{ array_code_carton[element.getCodeCarton()].prix }} &euro;</span>
+
+                        {% set Totalprix = Totalprix + array_code_carton[element.getCodeCarton()].prix %}
+                    </a>
+                {% else %}
+                    {{ element|render_relation_element(field_description) }}
+                {% endif %}
+
+            </li>
+        {% endfor %}
+
+        <li>
+            <a class="atable">
+                <span></span>
+                <span class="dimension"></span>
+                <span class="count"></span>
+                <span class="prix">Total (ttc)</span>
+                <span class="prix">{{ Totalprix }} &euro;</span>
+            </a>
+        </li>
+    </ul>
+
+    {% include 'admin/edit_carton_form_panel.style.html.twig' %}
+
+
+{% endblock %}
+

@@ -1,0 +1,36 @@
+{% spaceless %}
+{{ '/public/css/block/infoAvis.css'|cssloader }}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
+    <div class="sectionleft">
+
+        <div class="prestattion_div">
+            <div>
+                <h1>Avis sur les sociétés de déménagement</h1>
+                <span class="text">Trouvez les meilleurs demenageurs sur votre ville.</span>
+                <h2>Total Avis <span class="colred">137</span> | Moyenne <span class="colgreen">{{ moyen_avis }}</span> / 5 </h2>
+                <div class="avispanel">
+                    {% for i in 1..5 %}
+                        {% if moyen_avis >= i %}
+                           <i class="fas fa-star"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
+
+                <h2><a class="colred" href="#alldevis">Voir tous les devis</a></h2>
+
+                <div class="simpletip">
+                    <h2 class="colred">Estimez vous meme le cout de votre déménagement avec l’aide notre calculateur <u>gratuit et en ligne</u>.</h2>
+                    <h2>Vous devez etre le plus précis possible</h2>
+
+                    <span class="text">
+		Mentionnez le code postal de la ville de départ ainsi que la ville d‘arrivée, les étages tant au chargement qu’a la livraison, ainsi que la prestation retenue pour votre déménagement.
+		</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}

@@ -1,0 +1,46 @@
+{% spaceless %}
+{% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}{{ '/public/css/block/top_body_block.html.css'|cssloader }}
+<div class="websitebox">
+<div class="top_body_block">
+
+    {% if app.request.attributes.get('_route') == 'prestation' %}
+         {% include 'block/top_body_block_prestation.html.twig' %}
+    {% elseif app.request.attributes.get('_route') == 'assurance' %}
+        {% include 'block/top_body_block_assurance.html.twig' %}
+    {% elseif app.request.attributes.get('_route') == 'locationpage' %}
+        {% include 'block/top_body_block_location.html.twig' %}
+    {% elseif app.request.attributes.get('_route') == 'avispage' %}
+        {% include 'block/top_body_block_avis.html.twig' %}
+    {% elseif app.request.get('_route') == 'declarationdevaleurpage' %}
+        {% include 'block/top_body_block_declaration_de_valeur.html.twig' %}
+    {% elseif app.request.get('_route') == 'mentionslegalespage' %}
+        {% include 'block/top_body_block_mention_legale.html.twig' %}
+    {% elseif app.request.get('_route') == 'espacedemenageurpage' %}
+        {% include 'block/top_body_block_espace_demenageur.html.twig' %}
+    {% elseif calculdevisresult1 is defined and calculdevisresult1 is not null %}
+
+    {% else %}
+        <div class="sectionleft">
+            <h1>Demandez votre devis gratuit, et recevez une offre de prestation adaptée pour votre<br> déménagement par nos partenaires.</h1>
+            {% if calculdevisresult is not defined and not null %}
+                <h2 class="colred">Estimer le cout de votre déménagement<br>par notre calculateur <u>gratuit et en ligne</u>.</h2>
+            {% endif %}
+        </div>
+    {% endif %}
+        {% if calculdevisresult is defined and calculdevisresult is not null %}
+            {% include 'block/sousblock/CalculDevisResult.html.twig' %}
+        {% endif %}
+        {% if devisform is defined and devisform is not null %}
+
+        {% endif %}
+
+        {% if calculdevisform is defined %}
+            <div class="sectionright">
+                {% include 'form/CalculDevisForm.html.twig' %}
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+{% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}

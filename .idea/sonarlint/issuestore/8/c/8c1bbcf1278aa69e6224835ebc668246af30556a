@@ -1,0 +1,6 @@
+
+3php:S1254"Remove this commented out code.(…ÁÌÓ
+y	php:S1488j"_Immediately return this expression instead of assigning it to the temporary variable "$buffer".(Ùòòÿÿÿÿÿ
+x	php:S1488@"cImmediately return this expression instead of assigning it to the temporary variable "$javascript".(„¯÷Ÿ
+<php:S108"")Either remove or fill this block of code.(¿ß¡Y
+n	php:S3776D"TRefactor this function to reduce its Cognitive Complexity from 16 to the 15 allowed.(¦±ššùÿÿÿÿ

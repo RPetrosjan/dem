@@ -1,0 +1,207 @@
+{% spaceless %}
+<html>
+<head>
+    <style>
+        {{ include('admin/calculdevis/pdf/style/top_societe_info_panel_pdf.css') }}
+         {{ include('admin/calculdevis/pdf/style/pdf.style.css') }}
+
+    </style>
+</head>
+<body>
+<div class="div_title colred">Devis - {{ request.randomName }}<br/><span>{{ societe_info.cpville.ville }} {{ "now"|date("d/m/Y") }}</span></div>
+
+{{ include('admin/calculdevis/pdf/top_societe_info_panel_pdf.html.twig') }}
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+
+    <table cellspacing="0" cellpadding="0" border="0">
+        <tr>
+            <td class="td_label">Nom </td><td class="td_label1">:</td><td class="td_user_info">{{ devis_info.nom }} {{ devis_info.prenom }}</td>
+            <td class="td_label">Catégorie </td><td class="td_label1">:</td><td class="td_user_info">{{ devis_info.prestation }}</td>
+        </tr>
+        <tr>
+            <td class="td_label">Téléphone</td><td>:</td><td>{{ devis_info.telephone }}</td>
+            <td class="td_label">Transport </td><td class="td_label1">:</td><td>Special</td>
+        </tr>
+        <tr>
+            <td class="td_label">Adresse</td><td>:</td><td>{{ devis_info.cp1 }}<br/>{{ devis_info.adresse1 }}</td>
+            <td class="td_label">Distance </td><td class="td_label1">:</td><td>{{ distance }}</td>
+        </tr>
+        <tr>
+            <td class="td_label">Email</td><td>:</td><td>{{ devis_info.email }}</td>
+            <td class="td_label">Volume </td><td class="td_label1">:</td><td>{{ devis_info.volume }} m&sup3;</td>
+        </tr>
+    </table>
+
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+
+            <table cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                    <td style="width: 350px">
+                        <div style="font-size: 16px; font-weight: bold; text-transform: uppercase" class="colred">Départ</div>
+                    </td>
+                    <td>
+                        <div style="font-size: 16px; font-weight: bold; text-transform: uppercase" class="colred">Arrivée</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_label">Date </td><td class="td_label1">:</td><td class="td_user_info">{% if devis_info.date1 is null %}{{ devis_info.date }}{% else %}{{ devis_info.date1 }}{% endif %}</td><td class="td_label">Date </td><td class="td_label1">:</td><td class="td_user_info">{% if devis_info.date2 is null %}{{ devis_info.date1 }}{% else %}{{ devis_info.date2 }}{% endif %}</td>
+                </tr>
+                <tr>
+                    <td class="td_label">Adresse</td><td>:</td><td>{% if devis_info.adresse1 is null %}{{ devis_info.cp1  }} {% else %}{{ devis_info.adresse1 }}{% endif %}</td>
+                    <td class="td_label">Adresse </td><td class="td_label1">:</td><td>{% if devis_info.adresse2 is null %}{{ devis_info.cp2  }}{% else %}{{ devis_info.adresse2 }}{% endif %}</td>
+                </tr>
+                <tr>
+                    <td class="td_label">Ville</td><td>:</td><td>{{ devis_info.cp1 }}</td>
+                    <td class="td_label">Ville</td><td class="td_label1">:</td><td>{{ devis_info.cp2 }}</td>
+                </tr>
+                <tr>
+                    <td class="td_label">Etage</td><td>:</td><td>{{ devis_info.etage1 }}</td>
+                    <td class="td_label">Etage</td><td class="td_label1">:</td><td>{{ devis_info.etage2 }}</td>
+                </tr>
+                <tr>
+                    <td class="td_label">Ascenseur</td><td>:</td><td>{{ devis_info.ascenseur1 }}</td>
+                    <td class="td_label">Ascenseur</td><td class="td_label1">:</td><td>{{ devis_info.ascenseur2 }}</td>
+                </tr>
+
+            </table>
+
+
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+
+
+
+            <table cellspacing="0" cellpadding="0" border="0" style="width: 590px">
+                <tr>
+                    <td>
+                        <div style="font-size: 18px; font-weight: bold; text-transform: uppercase" class="colred">{{ devis_info.prestation }}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 12px">Chargement transport et déchargement. Emballage et déballage de la vaisselle et des objets fragiles.
+                        Emballage des vêtements, livres et autres objets non fragiles. Emballage en penderie des vêtements
+                        sur cintres. Emballage des matelas et sommiers sous housse. Emballage des
+                        Tv-Hi-fi,ordinateurs,micro-ondes. Emballage des cadres tableaux, miroir. Protection du mobilier
+                        sous couvertures ou bullpack. Démontage et remontage des meubles si nécessaire. Remise en place
+                        du mobilier selon vos instructions.
+                    </td>
+                </tr>
+            </table>
+
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+
+            <table cellspacing="0" border="0" style="padding-bottom: 0px; width: 300px; border-bottom-style: solid; border-bottom-color: black;    border-bottom-width: 0.15pt;">
+                    <tr>
+                        <td style="width: 330px; font-size: 12px">
+                            <div style="font-size: 16px; font-weight: bold; text-transform: uppercase" class="colred">Observations</div>
+                            Assurance comprise, garantie dommage
+                            (franchise <b class="colred">{{ request.franchise }} &euro;</b>), valeur globale de <b class="colred">{% set number_format_valeur = request.valeur_globale / 1000 %}{{ number_format_valeur|number_format(3,' ',',') }} &euro;</b> et
+                            <b class="colred">{{ request.par_objet }} &euro;</b> par objet non listé.
+                        </td>
+                        <td style="width: 50px">
+
+                        </td>
+                        <td style="width: 215px;">
+                            <div style="font-size: 14px; font-weight: bold; text-transform: uppercase" class="colred">Estimation de votre coût</div>
+                            <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 0px; position: absolute">
+                                <tr><td style="width: 110px; font-size: 17px">Prix H.T</td>
+                                    <td style="width: 100px; font-size: 16px; text-align: right">{{ request.priceht }} &euro;</td>
+                                </tr>
+                                <tr><td style="font-size: 14px; width: 110px;">TVA {{ request.tva }}%</td>
+                                    <td style="width: 100px;font-size: 16px; text-align: right">{{ request.priceht * request.tva / 100 }} &euro;</td>
+                                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+            </table>
+                <table cellspacing="0" cellpadding="0" border="0" style="padding-bottom: 5px;">
+                    <tr>
+                        <td style="width: 310px">
+                            <table>
+                                <tr>
+                                    <td style="font-size: 12px">Tarif valable {{ request.valable }} mois, les informations annoncées
+                                        et sous des accés au départ et à l'arrivée. Ci-joint
+                                        un exemplaire des conditions générales et un
+                                        exemplaire de la déclaration de valeur.
+                                        <br><br>En accord avec les termes de ce présent devis et
+                                        des conditions générales de vente ci-jointes, merci
+                                        à nous retourner daté et signé accompagnés du
+                                        chèque dl'acompte correspondant <span class="colred">{{ request.tva }}%</span> à la
+                                        commande.
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                        <td style="text-align: right; font-size: 16px; width: 285px;">
+
+                            <table cellpadding="0" cellspacing="0" border="0" style="width: 200px">
+                                <tr>
+                                    <td style="width: 74px"></td>
+                                    <td  style="width: 110px; text-align: left"><b class="colred">Prix T.T.C.:</b></td>
+                                    <td style="width: 100px"><b class="colred">{{ request.priceht + request.priceht * request.tva / 100 }}  &euro;</b></td>
+                                </tr>
+                            </table>
+                            <table cellspacing="0" style="padding-top: 15px; padding-bottom: 0px">
+                                <tr>
+                                    <td style="font-size: 16px">
+                                        <br/><br/><br/>
+                                        <table cellpadding="0" cellspacing="0" style="font-size: 15px">
+                                            <tr>
+                                                <td>{{ request.acompte }}% Acompte de à la commande</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b class="colred">{{ (request.priceht + request.priceht * request.tva / 100) * request.acompte / 100 }} €</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Solde livraison</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b class="colred">{{ (request.priceht + request.priceht * request.tva / 100 ) - (request.priceht + request.priceht * request.tva / 100) * request.acompte / 100 }} €</b></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+                        </td>
+                    </tr>
+                </table>
+
+
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table style="border-bottom-style: solid; border-bottom-color: black;    border-bottom-width: 0.15pt;">
+    <tr>
+        <td><b>Signature du Client</b></td>
+        <td style="text-align: right"><b>Signature d'entreprise</b></td>
+    </tr>
+</table>
+    <table cellspacing="0" cellpadding="0">
+        <tr>
+            <td style="font-style: italic; font-size: 12px">(précédée de la mention "bon pour accord")</td>
+        </tr>
+    </table>
+
+
+{% endspaceless %}

@@ -1,0 +1,16 @@
+{% spaceless %}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
+    {{ '/public/css/block/bodyPage.html.css'|cssloader }}
+<div class="bodyPage">
+
+    {% if articles is defined %}
+            {% for article in articles %}
+        <div class="articlediv">
+                {{ article.articleHtml|raw }}
+        </div>
+            {%  endfor %}
+        {% endif %}
+
+</div>
+   {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}

@@ -1,0 +1,167 @@
+{% spaceless %}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
+    <div class="AvisbodyPage">
+        <div id="alldevis">
+            <div>
+            <h1>Avis sur les sociétés de déménagement</h1>
+            <span class="text">Trouvez les meilleurs demenageurs sur votre ville.</span>
+            <h2>Total Avis <span class="colred">137</span> | Moyenne <span class="colgreen">{{ moyen_avis }}</span> / 5 </h2>
+            <div class="avispanel">
+                {% for i in 1..5 %}
+                    {% if moyen_avis >= i %}
+                        <i class="fas fa-star"></i>
+                    {% else %}
+                        <i class="far fa-star"></i>
+                    {% endif %}
+                {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div>
+            <div>
+                <h1>Trouver avis par ville</h1>
+                <div class="row"><div id="appbundle_calculdevis_General" class="topformdiv">
+                        <form>
+                        <div class="row"><input type="text" id="appbundle_calculdevis_Depart_cp1" autocomplete="off" class="cp_ville"><label for="appbundle_calculdevis_Depart_cp1" class="required">code postal ville</label></div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div>
+            <div>
+                <h1>Avis par société</h1>
+
+                <div class="row"><div id="appbundle_calculdevis_General" class="topformdiv">
+                        <form>
+                        <div class="row"><input type="text" id="appbundle_calculdevis_Depart_cp1" autocomplete="off" ><label for="appbundle_calculdevis_Depart_cp1" class="required">Nom Societe</label></div>
+                        </form>
+                    </div></div>
+
+            </div>
+        </div>
+
+
+
+        <div>
+            <div class="avisdiv boxes">
+                <h2>Société : <span class="colred">Les gentlemen du déménagement </span></h2> 			<h3>
+                    <a href="http://les-clayes-sous-bois.déménagements.fr">LES CLAYES SOUS BOIS</a><span class="colgreen"> --- </span><a href="http://reims.déménagements.fr">REIMS</a></h3>
+                <div class="avispanel">
+                    {% for i in 1..5 %}
+                        {% if moyen_avis >= i %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="avisstar star5"></div>
+                <div class="avistxt">
+                    <p class="speech captionLeft"></p>
+                    <div>
+                        <b>LE THIEC Cédric</b>
+                        Pas de communication entre le patron et ses employés sur ce qu’il y a déménager alors que le patron es venu constater quelques jours avant ! Un coup il dit quelque chose à l’un et autre chose à L’autre ! Pas sérieux au niveau de l’organisation de son planning ! Meuble démonter qui ont été abîmer,casser précipitation de l’un des employés pour finir la journée !
+                        Mauvaise expérience pour moi je ne renouvèlerai pas !!
+                    </div>
+                    <button>lire plus</button>
+                     <div class="avistime"><span>Editée </span>13/07/2018</div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+
+            <div class="avisdiv boxes">
+                <h2>Société : <span class="colred">Les gentlemen du déménagement </span></h2> 			<h3>
+                    <a href="http://les-clayes-sous-bois.déménagements.fr">LES CLAYES SOUS BOIS</a><span class="colgreen"> --- </span><a href="http://reims.déménagements.fr">REIMS</a></h3>
+                <div class="avispanel">
+                    {% for i in 1..5 %}
+                        {% if moyen_avis >= i %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="avisstar star5"></div>
+                <div class="avistxt">
+                    <p class="speech captionLeft"></p>
+                    <div>
+                        <b>LE THIEC Cédric</b>
+                        Pas de communication entre le patron et ses employés sur ce qu’il y a déménager alors que le patron es venu constater quelques jours avant ! Un coup il dit quelque chose à l’un et autre chose à L’autre ! Pas sérieux au niveau de l’organisation de son planning ! Meuble démonter qui ont été abîmer,casser
+                    </div>
+                    <button>lire plus</button>
+                    <div class="avistime"><span>Editée </span>13/07/2018</div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div>
+
+            <div class="avisdiv boxes">
+                <h2>Société : <span class="colred">Les gentlemen du déménagement </span></h2> 			<h3>
+                    <a href="http://les-clayes-sous-bois.déménagements.fr">LES CLAYES SOUS BOIS</a><span class="colgreen"> --- </span><a href="http://reims.déménagements.fr">REIMS</a></h3>
+                <div class="avispanel">
+                    {% for i in 1..5 %}
+                        {% if moyen_avis >= i %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="avisstar star5"></div>
+                <div class="avistxt">
+                    <p class="speech captionLeft"></p>
+                    <div>
+                        <b>LE THIEC Cédric</b>
+                        Pas de communication entre le patron et.
+                    </div>
+                    <button>lire plus</button>
+                    <div class="avistime"><span>Editée </span>13/07/2018</div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <div>
+            <div class="avisdiv boxes">
+                <h2>Société : <span class="colred">Les gentlemen du déménagement </span></h2> 			<h3>
+                    <a href="http://les-clayes-sous-bois.déménagements.fr">LES CLAYES SOUS BOIS</a><span class="colgreen"> --- </span><a href="http://reims.déménagements.fr">REIMS</a></h3>
+                <div class="avispanel">
+                    {% for i in 1..5 %}
+                        {% if moyen_avis >= i %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="avisstar star5"></div>
+                <div class="avistxt">
+                    <p class="speech captionLeft"></p>
+                    <div>
+                        <b>LE THIEC Cédric</b>
+                        Pas de communication entre le patron et ses employés sur ce qu’il y a déménager alors que le patron es venu constater quelques jours avant ! Un coup il dit quelque chose à l’un et autre chose à L’autre ! Pas sérieux au niveau de l’organisation de son planning ! Meuble démonter qui ont été abîmer,casser précipitation de l’un des employés pour finir la journée !
+                        Mauvaise expérience pour moi je ne renouvèlerai pas !!
+                    </div>
+                    <button>lire plus</button>
+                    <div class="avistime"><span>Editée </span>13/07/2018</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}

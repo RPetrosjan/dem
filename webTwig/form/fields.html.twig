@@ -1,0 +1,31 @@
+{% spaceless %}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
+{% block form_row %}
+        {% if form.vars.attr.class is defined and form.vars.attr.class == 'cp_ville' %}
+            {{ '/public/css/form/code_postal_ajax.css'|cssloader }}
+            {{ '/public/js/form/code_postal_ajax.js'|jsloader }}
+        {% endif %}
+        {% if form.vars.choices is defined %}
+            {{ '/public/js/form/choices.js'|jsloader }}
+        {% endif %}
+        {% if form.vars.attr.class is defined and form.vars.attr.class == 'datepicker' %}
+            {{ '/public/js/datepicker/datepicker.js'|jsloader }}
+            {{ '/public/css/datepicker/datepicker.css'|cssloader }}
+        {% endif %}
+        {% if form.vars.attr.class is defined and form.vars.attr.class == 'societe_ajax' %}
+            {{ '/public/css/form/code_postal_ajax.css'|cssloader }}
+            {{ '/public/js/form/societe_ajax.js'|jsloader }}
+        {% endif %}
+
+        <div class="row">
+            {% if form.vars.attr|first == 'topformdiv' %}
+                {{ form_label(form) }}
+            {% endif %}
+            {{ form_widget(form) }}
+            {% if form.vars.attr|first != 'topformdiv' %}
+                {{ form_label(form) }}
+            {% endif %}
+        </div>
+{% endblock form_row %}
+    {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}

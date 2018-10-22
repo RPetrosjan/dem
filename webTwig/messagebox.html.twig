@@ -1,0 +1,16 @@
+{% spaceless %}
+{{ '/public/css/messagebox.html.css'|cssloader }}
+{{ '/public/js/messagebox.html.js'|jsloader }}
+
+
+ {% for message in app.flashes('success') %}
+     <div class="divmessagebox">
+         <div class="divfermeruser" onclick="ClosePanelMessage()"><i class="fas fa-times"></i></div>
+         <div class="messagetext" id="messagetext"><div><span id="messagealerttype" class="spanalert"></span><br><br><span id="messageboxtext">
+                {{ message }}
+            </span></div></div>
+         <button class="button" onclick="ClosePanelMessage()">OK</button>
+     </div>
+     <div class="screengray"></div>
+{% endfor %}
+{% endspaceless %}

@@ -1,0 +1,56 @@
+{% spaceless %}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
+{{ '/public/css/block/infoPageMentionLegales.html.css'|cssloader }}
+    {{ '/public/css/block/infoPageEspaceDemenageur.html.css'|cssloader }}
+<div class="espace_body">
+    <div class="espace_top">
+        <h1 class="colred"><i class="fas fa-desktop"></i> Espace déménageur</h1>
+    </div>
+
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <h1>Bonjour {{ app.user.username }}</h1>
+        <div class="text">Vous pouvez passer sur votre  <a class="colred" href="{{ path('sonata_admin_dashboard') }}">
+                compte
+            </a>
+        </div>
+    {% else %}
+
+        {{ '/public/css/form/DemForm.html.css'|cssloader }}
+        {{ '/public/js/form/DemForm.html.js'|jsloader }}
+
+
+
+        <form action="{{ path("fos_user_security_check") }}" class="formloginuser" method="post">
+
+            <div class="row"><div id="appbundle_calculdevis_General" class="topformdiv">
+                    <div class="row">
+                        <input autocomplete="off" type="text" id="username" name="_username" required="required" />
+                        <label for="appbundle_calculdevis_General_prestation">Identifiant</label>
+                    </div>
+                    <div class="row">
+                        <input autocomplete="off" type="password" id="password" name="_password" required="required" />
+                        <label for="appbundle_calculdevis_General_volume">Volume</label>
+                    </div>
+                    <div class="row">
+
+                        <label class="container">Mémoriser mon identifiant
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                            <span class="checkmark"></span>
+                        </label>
+                        <button type="submit" id="_submit" name="_submit">Valider</button>
+                    </div>
+                </div>
+            </div>
+
+            {% if csrf_token %}
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            {% endif %}
+
+        </form>
+
+
+    {% endif %}
+
+</div>
+    {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}

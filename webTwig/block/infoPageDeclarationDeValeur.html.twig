@@ -1,0 +1,54 @@
+{% spaceless %}
+{% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
+{{ '/public/css/block/infoPagePrestation.css'|cssloader }}
+<div class="contentbottom declaration" id="declaration">
+    <div>
+
+        <h1>Déclaration de valeur</h1>
+
+        <div class="tips">
+            <div class="numbretip">01</div>
+            <h2>A QUOI SERT CE DOCUMENT</h2>
+            <span class="text">La déclaration de valeur est conseillé, vous listerez les objets ou ensemble d’objets ayant une valeur de + de 300 €, en cas de litige elle sert au calcul de l’indemnisation.</span>
+        </div>
+
+        <div class="tips">
+            <div class="numbretip">02</div>
+            <h2>CE DOCUMENT DEVRAIT ETRE JOINT AVEC CHAQUE DEVIS</h2>
+            <span class="text">Oui mais vous pouvez aussi faire une déclaration sur papier libre.</span>
+        </div>
+
+        <div class="tips">
+            <div class="numbretip">03</div>
+            <h2>SI LA SOCIETE NE TRANSMET PAS DE DÉCLARATION DE VALEUR</h2>
+            <span class="text">Il faut la demander par mail pour avoir un écrit</span>
+        </div>
+
+        <div class="tips">
+            <div class="numbretip">04</div>
+            <h2>QUE FAIRE EN CAS D’ABSENCE DE DOCUMENT</h2>
+            <span class="text">Changer de déménageur</span>
+        </div>
+
+        <div class="tips">
+            <div class="numbretip">05</div>
+            <h2>COMMENT REMPLIR CE DOCUMENT, QUELS OBJETS? ET QUEL MONTANT INDIQUER</h2>
+            <span class="text">Vous indiquez ce qui vaut + de 300€ valeur vénale (vétusté-10% par an)</span>
+        </div>
+
+        <div class="tips">
+            <div class="numbretip">06</div>
+            <h2>CET DOCUMENT JE LE GARDE CHEZ MOI? OU JE DOIS LE RENVOYER A LA SOCIETE (FAIRE PHOTOCOPIE?)</h2>
+            <span class="text">Vous indiquez ce qui vaut + de 300€ valeur vénale (vétusté-10% par an)</span>
+        </div>
+
+        <div class="tips">
+            <div class="numbretip">07</div>
+            <h2>EN CAS DE PERTE OU CASSE D’UN OBJET LISTÉ</h2>
+            <span class="text">La cie vous demandera un devis de réparation, et l’objet listé sera indemnisé en fonction de la valeur – la franchise liée à votre contrat.</span>
+        </div>
+
+    </div>
+</div>
+{% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}

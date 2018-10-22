@@ -1,0 +1,133 @@
+{% spaceless %}
+    <html>
+    <head>
+        <style>
+            {{ include('admin/calculdevis/pdf/style/top_societe_info_panel_pdf.css') }}
+            {{ include('admin/calculdevis/pdf/style/pdf.style.css') }}
+
+        </style>
+    </head>
+<body>
+<div class="div_title colred">LETTRE DE VOITURE {{ request.randomName }}<br/><span>(exemplaire livraison) <br/>{{ societe_info.cpville.ville }} {{ "now"|date("d/m/Y") }}</span></div>
+
+{{ include('admin/calculdevis/pdf/top_societe_info_panel_pdf.html.twig') }}
+
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+
+<table cellspacing="0" cellpadding="0" border="0">
+    <tr>
+        <td class="td_label">Nom </td><td class="td_label1">:</td><td class="td_user_info">{{ devis_info.nom }} {{ devis_info.prenom }}</td>
+        <td class="td_label">Catégorie </td><td class="td_label1">:</td><td class="td_user_info">{{ devis_info.prestation }}</td>
+    </tr>
+    <tr>
+        <td class="td_label">Téléphone</td><td>:</td><td>{{ devis_info.telephone }}</td>
+        <td class="td_label">Transport </td><td class="td_label1">:</td><td>Special</td>
+    </tr>
+    <tr>
+        <td class="td_label">Adresse</td><td>:</td><td>{{ devis_info.cp1 }}<br/>{{ devis_info.adresse1 }}</td>
+        <td class="td_label">Distance </td><td class="td_label1">:</td><td>{{ distance }}</td>
+    </tr>
+    <tr>
+        <td class="td_label">Email</td><td>:</td><td>{{ devis_info.email }}</td>
+        <td class="td_label">Volume </td><td class="td_label1">:</td><td>{{ devis_info.volume }} m&sup3;</td>
+    </tr>
+</table>
+
+<table cellpadding="10">
+    <tr>
+        <td></td>
+    </tr>
+</table>
+
+<table cellspacing="0" cellpadding="0" border="0">
+    <tr>
+        <td style="width: 350px">
+            <div style="font-size: 16px; font-weight: bold; text-transform: uppercase" class="colred">Départ</div>
+        </td>
+        <td>
+            <div style="font-size: 16px; font-weight: bold; text-transform: uppercase" class="colred">Arrivée</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="td_label">Date </td><td class="td_label1">:</td><td class="td_user_info">{% if devis_info.date1 is null %}{{ devis_info.date }}{% else %}{{ devis_info.date1 }}{% endif %}</td><td class="td_label">Date </td><td class="td_label1">:</td><td class="td_user_info">{% if devis_info.date2 is null %}{{ devis_info.date1 }}{% else %}{{ devis_info.date2 }}{% endif %}</td>
+    </tr>
+    <tr>
+        <td class="td_label">Adresse</td><td>:</td><td>{% if devis_info.adresse1 is null %}{{ devis_info.cp1  }} {% else %}{{ devis_info.adresse1 }}{% endif %}</td>
+        <td class="td_label">Adresse </td><td class="td_label1">:</td><td>{% if devis_info.adresse2 is null %}{{ devis_info.cp2  }}{% else %}{{ devis_info.adresse2 }}{% endif %}</td>
+    </tr>
+    <tr>
+        <td class="td_label">Ville</td><td>:</td><td>{{ devis_info.cp1 }}</td>
+        <td class="td_label">Ville</td><td class="td_label1">:</td><td>{{ devis_info.cp2 }}</td>
+    </tr>
+</table>
+
+<table cellpadding="10">
+    <tr>
+        <td></td>
+    </tr>
+</table>
+
+
+    <table>
+        <tr>
+            <td class="colred" style="font-size: 18px; border-bottom-color:black; border-bottom-style: sold; border-bottom-width: 1px"><b>Observations du client</b></td>
+            <td class="colred" style="padding-left15px; font-size: 18px; border-bottom-color:black; border-bottom-style: sold; border-bottom-width: 1px"><b>Observations du chef d'équipe</b></td>
+        </tr>
+        <tr>
+            <td style="border-right-color:black; border-right-style: sold; border-right-width: 1px" >
+
+                <table>
+                    <tr>
+                        <td>Reçu mon mobilier :</td><td></td>
+                    </tr>
+                    <tr>
+                        <td style="border-bottom-color:black; border-bottom-style: sold; border-bottom-width: 1px"></td><td>Au complet et sans réserves après vérification avec le chef d'équipe.</td>
+                    </tr>
+                    <tr>
+                        <td></td><td></td>
+                    </tr>
+                    <tr>
+                        <td style="border-bottom-color:black; border-bottom-style: sold; border-bottom-width: 1px"></td><td> Avec réserves détaillées ci-dessous :
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+        <tr>
+            <td style="border-right-color:black; border-right-style: sold; border-right-width: 1px; border-bottom-color:black; border-bottom-style: sold; border-bottom-width: 1px;">
+                <br/><br/><br/>
+                Signature :
+            </td>
+            <td style="border-bottom-color:black; border-bottom-style: sold; border-bottom-width: 1px;">
+                <br/><br/><br/>
+                Signature :
+            </td>
+        </tr>
+
+    </table>
+
+
+    <table>
+        <tr>
+            <td style="border-bottom-color:black; border-bottom-style: dotted; border-bottom-width: 1px">A:</td>
+            <td style="border-bottom-color:black; border-bottom-style: dotted; border-bottom-width: 1px">Le:</td>
+        </tr>
+    </table>
+
+<table >
+    <tr><td style="font-size: 11px">La livraison donne lieu à des formalités impératives : voir conditions générales. Dans tous les cas, vous devez donner décharge à l'entreprise en signant ce document. En cas de dommages, utilisez la grille ci-dessus pour identifier avec précision les avaries constatées, la mention sous réserves de déballage n'ayant aucune valeur de preuve. N'oubliez pas de confirmer vos réserves à l'entreprise par lettre recommandée dans les 10 jours qui suivent la livraison, faute de quoi vous seriez privé de votre droit d'agir contre l'entreprise.
+            </td>
+    </tr>
+</table>
+
+
+
+
+
+{% endspaceless %}

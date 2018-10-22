@@ -1,14 +1,33 @@
+{% spaceless %}{% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
 <!DOCTYPE html>
+{{ '/public/css/base.html.css'|cssloader }}
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    {# SeT Seo page info #}
+    <title>{% block title %}{{ seo_page[0].title }}{% endblock %}</title>
+    <meta name="keywords" content="{{ seo_page[0].keywords }}" />
+    <meta name="description" content="{{ seo_page[0].description }}">
     {% block stylesheets %}{% endblock %}
     <link rel="stylesheet" href="/css/{{ cssFileName }}" />
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Déménagement 2018" />
+    <meta name="ROBOTS" content="INDEX,FOLLOW" />
+    <meta name="revisit-after" content="7 days" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
 <body>
+{% include 'messagebox.html.twig' %}
 
+{% for label, messages in app.session.flashbag.all %}
+
+{% endfor %}
+
+<div class="divbodyblock">
+    <div>
 {% block body %}
     {% block topHeader %}
         {% block topMenu %}
@@ -18,14 +37,19 @@
     {% endblock  %}
     {% block infoPage %}
     {%  endblock %}
+    {% block imageBlock %}
+    {% endblock %}
     {% block bodyPage %}
     {% endblock %}
     {% block footerPage %}
     {% endblock %}
 {% endblock %}
+    </div>
+</div>
 {% block javascripts %}{% endblock %}
 <script src="/js/{{ jsFileName }}"></script>
 
-
 </body>
 </html>
+{% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}

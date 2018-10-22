@@ -1,4 +1,53 @@
 {% extends 'base.html.twig' %}
 {% block topMenu %}
     {% include 'menu/topMenu.html.twig'%}
+    {% include 'menu/top_sous_menu.html.twig' %}
+{% endblock %}
+
+{% block topBody %}
+    {% if devisform is defined %}
+            {% include 'block/top_body_block_div.html.twig' %}
+        {% else %}
+            {% include 'block/top_body_block.html.twig' %}
+    {% endif %}
+
+{% endblock %}
+
+ {% block infoPage %}
+    {% include 'block/infoPage.html.twig' %}
+ {%  endblock %}
+
+{% block imageBlock %}
+        {% if imageBlockStop is not defined or imageBlockStop != true %}
+        {% include 'block/imageBlock.html.twig' %}
+    {% endif %}
+{% endblock %}
+
+{% block bodyPage %}
+    {% if app.request.get('_route') == 'prestation' %}
+        {% include 'block/infoPagePrestation.html.twig' %}
+    {% elseif app.request.get('_route') == 'assurance' %}
+        {% include 'block/infoPageAssurance.html.twig' %}
+    {% elseif app.request.get('_route') == 'cartonspage' %}
+        {% include 'block/infoPageCartons.html.twig' %}
+    {% elseif app.request.get('_route') == 'locationpage' %}
+        {% include 'block/infoPageLocation.html.twig' %}
+    {% elseif app.request.get('_route') == 'visitetechniquepage' %}
+        {% include 'block/infoPageVisiteTechnique.html.twig' %}
+    {% elseif app.request.get('_route') == 'declarationdevaleurpage' %}
+        {% include 'block/infoPageDeclarationDeValeur.html.twig' %}
+    {% elseif app.request.get('_route') == 'avispage' %}
+        {% include 'block/infoPageAvis.html.twig' %}
+    {% elseif app.request.get('_route') == 'contactpage' %}
+        {% include 'block/infoPageContact.html.twig' %}
+    {% elseif app.request.get('_route') == 'mentionslegalespage' %}
+    {% elseif app.request.get('_route') == 'espacedemenageurpage' %}
+
+    {% else %}
+        {% include 'block/bodyPage.html.twig' %}
+    {% endif %}
+{% endblock %}
+
+{% block footerPage %}
+    {% include 'block/footerPage.html.twig' %}
 {% endblock %}

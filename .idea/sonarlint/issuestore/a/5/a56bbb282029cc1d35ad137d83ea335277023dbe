@@ -1,0 +1,58 @@
+
+„	php:S14488"jClass "CRUDController" has 44 methods, which is greater than 20 authorized. Split it into smaller classes.(‰ëøÿÿÿÿ
+j	php:S1142å"OReduce the number of returns of this function 5, down to the maximum allowed 3.(æ¼Şúÿÿÿÿ
+e	php:S1142·"OReduce the number of returns of this function 4, down to the maximum allowed 3.(İì“
+e	php:S1142²"OReduce the number of returns of this function 4, down to the maximum allowed 3.(áãĞ
+e	php:S1142·"OReduce the number of returns of this function 5, down to the maximum allowed 3.(¾‰ı
+e	php:S1142Ú	"OReduce the number of returns of this function 5, down to the maximum allowed 3.(˜ÑÛÙ
+[php:S112Ô"FDefine and throw a dedicated exception instead of using a generic one.(Œù‘
+[php:S112Ü"FDefine and throw a dedicated exception instead of using a generic one.(Îî˜Ë
+Zphp:S112—"FDefine and throw a dedicated exception instead of using a generic one.(¼€q
+[php:S112Ú"FDefine and throw a dedicated exception instead of using a generic one.(Œù‘
+[php:S112Ê"FDefine and throw a dedicated exception instead of using a generic one.(Œù‘
+[php:S112ù"FDefine and throw a dedicated exception instead of using a generic one.(éìÏÓ
+[php:S112ƒ	"FDefine and throw a dedicated exception instead of using a generic one.(éìÏÓ
+[php:S112‹	"FDefine and throw a dedicated exception instead of using a generic one.(éìÏÓ
+j	php:S3776·"TRefactor this function to reduce its Cognitive Complexity from 24 to the 15 allowed.(İì“
+j	php:S3776²"TRefactor this function to reduce its Cognitive Complexity from 18 to the 15 allowed.(áãĞ
+j	php:S3776·"TRefactor this function to reduce its Cognitive Complexity from 22 to the 15 allowed.(¾‰ı
+v	php:S1192ù"[Define a constant instead of duplicating this literal "sonata.admin.audit.manager" 3 times.(ŠŞãíÿÿÿÿÿ
+c	php:S1192³"HDefine a constant instead of duplicating this literal "action" 13 times.(Ó«Ÿ‰üÿÿÿÿ
+m	php:S1192Œ"RDefine a constant instead of duplicating this literal "sonata.admin.pool" 3 times.(€¾àÿúÿÿÿÿ
+]	php:S1192¦"GDefine a constant instead of duplicating this literal "object" 8 times.(ÔµÀõ
+h	php:S1192¶"MDefine a constant instead of duplicating this literal "sonata.batch" 3 times.(µæú¦øÿÿÿÿ
+f	php:S1192¶"KDefine a constant instead of duplicating this literal "csrf_token" 3 times.(µæú¦øÿÿÿÿ
+b	php:S1192‚"GDefine a constant instead of duplicating this literal "result" 4 times.(¶õ¶‰üÿÿÿÿ
+n	php:S1192Ó"SDefine a constant instead of duplicating this literal "sonata_flash_error" 5 times.(‚â¥ùÿÿÿÿ
+k	php:S1192Í"UDefine a constant instead of duplicating this literal "sonata_flash_success" 5 times.(¸¤à–
+_	php:S1192Ş"IDefine a constant instead of duplicating this literal "elements" 3 times.(˜Íµ…
+h	php:S1192Ã"MDefine a constant instead of duplicating this literal "all_elements" 4 times.(Œæóùÿÿÿÿ
+Š	php:S1192ş"oDefine a constant instead of duplicating this literal "unable to find the audit reader for class : %s" 3 times.(İáëæıÿÿÿÿ
+]	php:S1192½"GDefine a constant instead of duplicating this literal "create" 5 times.(öÁú
+w	php:S1192Œ"\Define a constant instead of duplicating this literal "security.csrf.token_manager" 4 times.(üûŒ¡şÿÿÿÿ
+±	php:S1192¿"•Define a constant instead of duplicating this literal "unable to find the targeted object `%s` from the revision `%s` with classname : `%s`" 3 times.(¨¾ˆöûÿÿÿÿ
+	php:S1192ì"fDefine a constant instead of duplicating this literal "unable to find the object with id: %s" 7 times.(µœ¡«üÿÿÿÿ
+]	php:S1192‰"GDefine a constant instead of duplicating this literal "%name%" 7 times.(°¡·Ê
+^	php:S1192÷"HDefine a constant instead of duplicating this literal "history" 3 times.(Ğ°İÃ
+a	php:S1192„"FDefine a constant instead of duplicating this literal "admin" 4 times.(Û¸×şÿÿÿÿ
+b	php:S1192ñ"GDefine a constant instead of duplicating this literal "delete" 3 times.(óò×Íúÿÿÿÿ
+d	php:S1192ê"IDefine a constant instead of duplicating this literal "objectId" 4 times.(£÷ôùÿÿÿÿ
+i	php:S1192ˆ"NDefine a constant instead of duplicating this literal "base_template" 4 times.(™Ç½§ıÿÿÿÿ
+w	php:S1192·"\Define a constant instead of duplicating this literal "sonata.admin.admin_exporter" 4 times.(¹ÿö•ûÿÿÿÿ
+n	php:S1192Î"SDefine a constant instead of duplicating this literal "SonataAdminBundle" 12 times.(‹´ÓÌùÿÿÿÿ
+9php:S125°"Remove this commented out code.(‘’ÔÙıÿÿÿÿ
+4php:S125£"Remove this commented out code.(­Í¶
+4php:S125 "Remove this commented out code.(±üÎÊ
+9php:S125‡"Remove this commented out code.(‰Òããúÿÿÿÿ
+4php:S125 "Remove this commented out code.(±üÎÊ
+9php:S125Ù"Remove this commented out code.(ä­İÍıÿÿÿÿ
+4php:S125Š"Remove this commented out code.(É„Ò¨
+9php:S125Ë"Remove this commented out code.(ä­İÍıÿÿÿÿ
+4php:S125™"Remove this commented out code.(œö‹ì
+4php:S125¡"Remove this commented out code.(“ñ²Ã
+9php:S125»	"Remove this commented out code.(Úµá´øÿÿÿÿ
+4php:S125À	"Remove this commented out code.(ö¯›è
+C	php:S1125ú"(Remove the literal "true" boolean value.(±¦×øÿÿÿÿÿ
+?	php:S1125")Remove the literal "false" boolean value.(€œÃê
+d	php:S1117ê
+"IRename "$admin" which has the same name as the field declared at line 68.(“ÁçŸşÿÿÿÿ

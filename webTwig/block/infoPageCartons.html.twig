@@ -1,0 +1,11 @@
+{% spaceless %}
+{% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
+{{ '/public/css/block/infoPageCartons.css'|cssloader }}
+<div class="contentbottom">
+    <div>
+        <h2 class="colred">Cartons prise en charge au depot livraison à domicile en sus</h2>
+        {% include 'block/cartons/cartons_form_block.html.twig' %}
+    </div>
+</div>
+{% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}

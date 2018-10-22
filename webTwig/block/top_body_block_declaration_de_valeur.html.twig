@@ -1,0 +1,20 @@
+{% spaceless %}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
+<div class="sectionleft">
+    <div class="divcalculinfo"><h1><span class="colred">Déclaration de valeur</span></h1>
+        <p>
+        - A quoi sert ce document
+        </p>
+        <p>
+        - Être joint avec chaque devis
+        </p>
+        <p>
+        - Absence de document
+        </p>
+        <p>
+        <a class="lireplus" href="#declaration">lire plus</a>
+        </p>
+    </div>
+</div>
+    {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}

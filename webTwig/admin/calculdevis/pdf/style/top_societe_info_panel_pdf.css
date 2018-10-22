@@ -1,0 +1,23 @@
+.div_title{
+    text-align: center;
+    font-size:  22px;
+    font-weight: bold;
+    font-family: 'OpenSans', sans-serif;
+}
+.div_title>span{
+    font-size: 12px;
+    font-weight: initial;
+    color: black;
+}
+.namesociete{
+    font-size: 18px;
+    font-weight: bold;
+}
+.topsocieteinfo{
+
+    padding-top: 15px;
+    border-bottom-style: solid;
+    border-bottom-color: black;
+    border-bottom-width: 0.15pt;
+    padding-bottom: 10px;
+}

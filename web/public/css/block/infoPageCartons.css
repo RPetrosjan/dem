@@ -1,0 +1,242 @@
+.contentbottom {
+    background-color: White;
+}
+
+.contentbottom .divcarton{
+    text-align: left;
+    max-width: 400px;
+    margin-bottom: 30px;
+    display: inline-block;
+}
+.divcarton .divcartonimage {
+    margin-right: 6px;
+    width: 100px;
+}
+.divcarton .divcartondescript {
+    max-width: 250px;
+    padding-top: 25px;
+}
+.divcarton .divcartonprice {
+    padding-left: 20px;
+}
+.divcarton .divcartonprice .divplusminus {
+    float: none;
+    margin-bottom: 6px;
+    margin-top: 6px;
+    margin-left: 28px;
+}
+
+.spanplusadmin .fa-minus-square, .spanplusadmin .fa-plus-square{
+    color: #b10909;
+    margin-top: -2px;
+}
+.divplusminus .spanplusadmin >span.shopping {
+    margin-left: 5px;
+}
+.divplusminus .spanplusadmin >span.shopping, .divplusminus .spanplusadmin >.fa-shopping-cart{
+    display: inline-block;
+    font-size: 15px;
+}
+.divplusminus .spanplusadmin {
+    cursor: pointer;
+    font-size: 25px;
+    z-index: 10;
+    font-family: arial;
+    font-weight: bold;
+    color: white;
+    border-radius: 4px;
+    position: relative;
+}
+.divplusminus{
+ margin-top: 10px;
+}
+.resultspanplusadmin{
+    color: black;
+    vertical-align: top;
+    font-size: 19px;
+}
+
+.divplusminus .spancombian {
+    display: inline-block;
+    width: 37px;
+    margin-top: 1px;
+    padding: 2px;
+    margin-left: 1px;
+    margin-right: 1px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #F3F0F0;
+    height: 17px;
+}
+.divcarton div {
+    float: left;
+}
+.divcarton .divcartondescripttext {
+
+    background-image: url(../img/info.png);
+    background-repeat: no-repeat;
+    background-position: 0 center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.divcarton .divcartondescripttext i{
+    color: #b10909;
+    display: inline-block;
+    float: left;
+    font-size: 37px;
+    margin-right: 17px;
+}
+.divcarton .divcartondescripttext .text {
+    font-size: 1.1em;
+    letter-spacing: 0.01em;
+    line-height: 19px;
+    display: block;
+}
+.divcarton .divcartondescripttext .text {
+    font-size: 1.1em;
+    letter-spacing: 0.01em;
+    line-height: 19px;
+    display: block;
+}
+
+.hiddenelement {
+    display: none;
+}
+.divcarton .divcartondescript h2 {
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+.divcarton .divcartondescript h3 {
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.divcarton .divcartondescript h3 span{
+    display: block;
+    margin-top: 3px;
+}
+
+.contentbottom>div {
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 25px;
+    background-image: url(/img/bacpap8.png);
+    background-position: center 0px;
+    padding-bottom: 55px;
+
+}
+.cartonform {
+    text-align: left;
+    width: 230px;
+    display: none;
+}
+.contentbottom>div>h1 {
+    margin-bottom: 50px;
+    margin-top: 30px;
+}
+.contentbottom>div h2{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.mon_panier_panel {
+    text-align: center;
+    padding: 10px;
+    background-color: #a72222;
+    color: white;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 25px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.panier_details{
+    display: none;
+}
+.panier_details>div{
+    display: inline-block;
+    margin: 5px auto;
+    max-width: 400px;
+    background-color: white;
+    border: 1px #c7c6c6 solid;
+    padding: 6px 27px;
+    border-radius: 2px;
+    box-shadow: 0px 0px 15px -5px black;
+}
+.panier_details .title{
+    display: inline-block;
+    text-align: left;
+    font-size: 28px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #a72222;
+    font-weight: bold;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+.panier_details>div>div:first-of-type{
+    margin-bottom: 10px;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 16px;
+    border-bottom: 1px solid #c8c8c8;
+    text-align: left;
+}
+.panier_details .articles>div{
+    border-bottom: #c8c8c8 dotted 1px;
+    text-align: left;
+    font-size: 14px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    margin-bottom: 3px;
+}
+.panier_details>div .quantite_carton{
+    display: inline-block;
+    width: 45px;
+    text-align: right;
+}
+.panier_details>div>div:first-of-type{
+    font-weight: bold;
+}
+.panier_details>div .nom_carton{
+    display: inline-block;
+    width: 170px;
+
+}
+.panier_details>div .prix_carton{
+    display: inline-block;
+    width: 62px;
+    text-align: right;
+}
+.panier_details>div i{
+    padding-left: 15px;
+    cursor: pointer;
+}
+.panier_details>div i:hover{
+    color: #a72222;
+}
+.articles_valider {
+    padding: 5px 22px;
+    width: auto;
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 850px) {
+    .top_body_block.cartons_page{
+        background-image: none;
+    }
+    .divcarton .divcartonprice .divplusminus{
+        margin-left: 0px;
+    }
+    .divcarton .divcartondescripttext{
+        padding-left: 20px;
+    }
+    .contentbottom .divcarton{
+        max-width: inherit;
+    }
+    .contentbottom .divcarton:nth-child(2n+1)
+    {
+        background-color: #e6e4e4;
+        box-shadow: 0px 0px 15px -5px black;
+        padding-bottom: 21px;
+    }
+}

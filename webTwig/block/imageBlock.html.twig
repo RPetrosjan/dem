@@ -1,0 +1,156 @@
+{% spaceless %}
+    {{ '/public/css/block/imageBlock.html.css'|cssloader }}
+    {{ '/public/css/slick/slick.css'|cssloader }}
+    {{ '/public/js/slick/slick.min.js'|jsloader }}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
+<div class="topimageBlock">
+<div class="imageBlock">
+    <div class="dem-slick">
+        {% if imagebandes is defined %}
+           {% for imagebande in imagebandes %}
+               <div>
+                   <div class="slickimageblock">
+                       <div>
+                           <img src="/img/{{ imagebande.imagebande[0].uploadPath }}/{{ imagebande.imagebande[0].filename }}" title="{{ imagebande.imagebande[0].title }}" alt="{{ imagebande.imagebande[0].altimage }}" />
+                       </div>
+                       <div>
+                           <h2>Demenagements</h2>
+                           <h3>{{ imagebande.villeDepart }} - </h3>
+                           <h3>{{ imagebande.villeArrivee }}</h3>
+                           <h4>Prix {{ imagebande.prix }} &euro;</h4>
+                           <span>{{ imagebande.description }}</span>
+                       </div>
+                   </div>
+               </div>
+           {% endfor %}
+        {% endif %}
+        {#
+        <div>
+            <div class="slickimageblock">
+                <div>
+                    <img src="/public/img/slick/camion4.jpg" alt="camion" />
+                </div>
+                <div>
+                    <h2>Demenagements</h2>
+                    <h3>Strasourg</h3>
+                    <h3>Illkirch-Graffenstaden</h3>
+                    <h4>Prix 2530 &euro;</h4>
+                    <span>Les cartons sont toujours utiles pour un déménagement. Demandez à votre entreprise de déménagement pour qu’elle vous fournisse les cartons les plus adaptés pour votre déménagement.</span>
+                </div>
+            </div>
+        </div>
+        <div>
+
+            <div>
+                <div class="slickimageblock">
+                    <div>
+                        <img src="/public/img/slick/camion4.jpg" alt="camion" />
+                    </div>
+                    <div>
+                        <h2>Demenagements</h2>
+                        <h3>Strasourg</h3>
+                        <h3>Illkirch-Graffenstaden</h3>
+                        <h4>Prix 2530 &euro;</h4>
+                        <span>Les cartons sont toujours utiles pour un déménagement. Mais si </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div>
+            <div>
+                <div class="slickimageblock">
+                    <div>
+                        <img src="/public/img/slick/camion4.jpg" alt="camion" />
+                    </div>
+                    <div>
+                        <h2>Demenagements</h2>
+                        <h3>Strasourg</h3>
+                        <h3>Illkirch-Graffenstaden</h3>
+                        <h4>Prix 2530 &euro;</h4>
+                        <span>Les cartons sont toujours utiles pour un déménagement. Mais si </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div>
+                <div class="slickimageblock">
+                    <div>
+                        <img src="/public/img/slick/camion4.jpg" alt="camion" />
+                    </div>
+                    <div>
+                        <h2>Demenagements</h2>
+                        <h3>Strasourg</h3>
+                        <h3>Illkirch-Graffenstaden</h3>
+                        <h4>Prix 2530 &euro;</h4>
+                        <span>Les cartons sont toujours utiles pour un déménagement. Mais si </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div>
+                <div class="slickimageblock">
+                    <div>
+                        <img src="/public/img/slick/camion4.jpg" alt="camion" />
+                    </div>
+                    <div>
+                        <h2>Demenagements</h2>
+                        <h3>Strasourg</h3>
+                        <h3>Illkirch-Graffenstaden</h3>
+                        <h4>Prix 2530 &euro;</h4>
+                        <span>Les cartons sont toujours utiles pour un déménagement. Mais si </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div>
+                <div class="slickimageblock">
+                    <div>
+                        <img src="/public/img/slick/camion4.jpg" alt="camion" />
+                    </div>
+                    <div>
+                        <h2>Demenagements</h2>
+                        <h3>Strasourg</h3>
+                        <h3>Illkirch-Graffenstaden</h3>
+                        <h4>Prix 2530 &euro;</h4>
+                        <span>Les cartons sont toujours utiles pour un déménagement. Mais si </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        #}
+    </div>
+
+</div>
+</div>
+{% if imagebandes is defined %}
+    <script>
+        $(document).ready(function(){
+            $('.dem-slick').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 4000,
+                arrows: false,
+                responsive: [
+                    {
+                        breakpoint: 850,
+                        settings: {
+                            arrows: false,
+                            centerMode: true,
+                            centerPadding: '40px',
+                            slidesToShow: 1
+                        }
+                    }
+
+
+                ]
+        });
+        });
+    </script>
+{% endif %}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}
