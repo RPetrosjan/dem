@@ -1,4 +1,5 @@
 {% spaceless %}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
 {{ '/public/css/block/infoPageMentionLegales.html.css'|cssloader }}
     {{ '/public/css/block/infoPageEspaceDemenageur.html.css'|cssloader }}
 <div class="espace_body">
@@ -51,4 +52,5 @@
     {% endif %}
 
 </div>
+    {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
 {% endspaceless %}

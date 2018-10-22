@@ -4,6 +4,11 @@
     font-weight: bold;
     font-family: 'OpenSans', sans-serif;
 }
+.div_title>span{
+    font-size: 12px;
+    font-weight: initial;
+    color: black;
+}
 .namesociete{
     font-size: 18px;
     font-weight: bold;

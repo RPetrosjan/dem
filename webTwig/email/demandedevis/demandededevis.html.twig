@@ -1,0 +1,28 @@
+<div style="background-color: #a72222;">
+    {% for weight,menu in topmenu %}
+        <a style="color:white; display: inline-block;padding-top: 5px; text-transform: uppercase; padding-left: 8px; padding-right: 8px; padding-bottom: 5px; border-right: 1px white solid">{{ menu.name }}</a>
+    {% endfor %}
+</div><br/>
+
+Bonjour, <b>{{ devis_info.nom }} {{ devis_info.prenom }}</b>
+
+Pour votre futur déménagement à {{ devis_info.cp2 }} {{ devis_info.date2 }}
+notre equipe demenagement_rapide vous propose pour {{ request.priceht }} H.T. euros.
+
+Nous vous envoyons "Devis","Condition générales de contrat de déménagement", "Déclaration de valeur".
+
+L'equipe de {{ societe_info.namesociete }} vous remercie pour votre visite.
+
+
+<span>{{ societe_info.namesociete }}</span>
+    {{ societe_info.adresse }}
+    {{ societe_info.cpville.cp }} {{ societe_info.cpville.ville }}
+    {% for telsoc in societe_info.tel %}
+        <span style="color: #a72222; font-weight: bold">{{ telsoc.tel }}</span> /
+    {% endfor %}
+
+
+Vous pouvez visiter notre web site : {{ societe_info.website }}
+
+Votre Equipe
+<b style="color: #a72222;">{{ societe_info.namesociete }}</b>

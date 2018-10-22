@@ -11,7 +11,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\DemandeDevis;
 use AppBundle\Entity\DocPDF;
 use Sonata\AdminBundle\Controller\CRUDController;
+use Swift_Attachment;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
 /**
@@ -68,8 +70,8 @@ class SonataController extends CRUDController
 
     }
 
+    public function sendpdfdevisAction(\Swift_Mailer $mailer) {
 
-    public function sendpdfdevisAction() {
 
 
         // Get Id for Find Calcul Devis
@@ -94,32 +96,161 @@ class SonataController extends CRUDController
         if(is_numeric($devis_accompte) == false) {
             $devis_accompte = 0;
         }
+
+        $franchise = $this->getRequest()->get('franchise');
+        if(is_numeric($franchise) == false) {
+            $franchise = 0;
+        }
+
+        $valeur_globale = $this->getRequest()->get('valeur_globale');
+        if(is_numeric($valeur_globale) == false) {
+            $valeur_globale = 0;
+        }
+
+        $par_objet = $this->getRequest()->get('par_objet');
+        if(is_numeric($par_objet) == false) {
+            $par_objet = 0;
+        }
+
+        $valable = $this->getRequest()->get('valable');
+        if(is_numeric($valable) == false) {
+            $valable = 0;
+        }
+
+        $randomname = $this->getRequest()->get('randomName');
+        if(empty($randomname)) {
+            $randomname = 'not-randomname';
+        }
+
+        /*
+       return  $this->render(
+        // app/Resources/views/Emails/registration.html.twig
+            'email/demandedevis/demandededevis.html.twig',[
+                'devis_info' => $devis,
+                'request' => $this->getRequest()->query->all(),
+                'societe_info' => $societe,
+            ]
+        );*/
 
         $docpdf = new DocPDF();
         $docpdf->setPrice($devis_priceht);
         $docpdf->addIdDevis($devis);
         $docpdf->setAcompte($devis_accompte);
         $docpdf->setTva($devis_tva);
+        $docpdf->setFranchise($franchise);
+        $docpdf->setValeurGlobale($valeur_globale);
+        $docpdf->setParObjet($par_objet);
+        $docpdf->setValable($valable);
+        $docpdf->setRandomname($randomname);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($docpdf);
         $em->flush();
 
-        return new JsonResponse([
-            'status' => 'ok',
+
+
+
+
+        $referer = $this->getRequest()
+            ->headers
+            ->get('referer');
+
+
+
+        $message = (new \Swift_Message('Votre Devis du déménagement'))
+            ->setFrom(['john@orange.fr' => 'John Doe'])
+            ->setTo('contact@demenagement-express.fr')
+            ->setBody(
+                $this->renderView(
+                // app/Resources/views/Emails/registration.html.twig
+                    'email/demandedevis/demandededevis.html.twig',[
+                        'devis_info' => $devis,
+                        'request' => $this->getRequest()->query->all(),
+                        'societe_info' => $societe,
+                    ]
+                ),
+                'text/html'
+            )
+          /*  ->addPart(
+                $this->renderView(
+                // app/Resources/views/Emails/registration.html.twig
+                    'email/demandedevis/demandededevis.html.twig',[
+                        'devis_info' => $devis,
+                        'request' => $this->getRequest()->query->all(),
+                        'societe_info' => $societe,
+                    ]
+                ),
+                'text/plain'
+            ) */
+
+        ;
+
+
+        // Creating PDF Devis
+        $pdfDevis = $this->GenerateDevisPdf($this->getRequest()->get('id'), 'S');
+        // Attach PDF as String in Mail
+        $attachment = new Swift_Attachment($pdfDevis, 'devis.pdf', 'application/pdf');
+        $message->attach($attachment);
+
+        //Creating PDF CondGenerlae
+        $pdfCondGen = $this->GenerateCondGeneralePdf($this->getRequest()->get('id'),'S');
+        // Attach PDF as String in Mail
+        $attachment = new Swift_Attachment($pdfCondGen, 'Condition Generale.pdf', 'application/pdf');
+        $message->attach($attachment);
+
+        //Creating PDF Déclaration de valeur
+        $pdfDecVal = $this->GenerateDeclValeur($this->getRequest()->get('id'),'S');
+        // Attach PDF as String in Mail
+        $attachment = new Swift_Attachment($pdfDecVal, 'Déclaration de valeur.pdf', 'application/pdf');
+        $message->attach($attachment);
+
+        // Creating PDF Declaration de Valeur
+        $htmlRender = $this->renderView('admin/calculdevis/pdf/devis/devis_pdf_part1.html.twig', [
+            'devis_info' => $devis,
+            'distance' => '25km',
+            'request' => $this->getRequest()->query->all(),
+            'societe_info' => $societe,
         ]);
+
+
+
+        if ($mailer->send($message))
+        {
+            $this->addFlash('success','Votre devis été bien envoyée');
+        }
+        else
+        {
+            $this->addFlash('success','Votre devis été bien envoyée');
+        }
+
+
+
+        return new RedirectResponse($referer);
+
     }
 
-    // pdf Devis action pour affihser DEVIS
-    public function pdfdevisAction(){
+    public function pdfdecvalAction() {
 
-        // Get Id for Find Calcul Devis
-        $repository = $this->getDoctrine()->getRepository(DemandeDevis::class);
-        $devis = $repository->findOneBy(['id' => $this->getRequest()->get('id')]);
+        return $this->GenerateDeclValeur($this->getRequest()->get('id'),'I');
+    }
+
+
+    public function pdfcondgenAction() {
+
+        return $this->GenerateCondGeneralePdf($this->getRequest()->get('id'),'I');
+
+    }
+
+    public function pdflettredechrgAction() {
+
 
         // Get Info of Societe pdf
         $societe = $this->getDoctrine()->getManager()->getRepository('AppBundle:Societe');
         $societe = $societe->findOneBy(array('siege' => true));
+
+        // Get Id for Find Calcul Devis
+        $repository = $this->getDoctrine()->getRepository(DemandeDevis::class);
+        $devis = $repository->findOneBy(['id' => $this->getRequest()->get('id')]);
 
         $devis_priceht = $this->getRequest()->get('priceht');
         if(is_numeric($devis_priceht) == false) {
@@ -136,13 +267,176 @@ class SonataController extends CRUDController
             $devis_accompte = 0;
         }
 
-        $htmlRender = $this->renderView('admin/calculdevis/pdf/devis/devis_pdf_part1.html.twig', [
+        $htmlRender = $this->renderView('admin/calculdevis/pdf/lettre_dechargement/lettre_dechargement.html.twig', [
             'devis_num' => 'DEVIS-13-10-2018',
+            'societe_info' => $societe,
+            'devis_info' => $devis,
+            'distance' => '25km',
+            'request' => $this->getRequest()->query->all(),
+            'devis_priceht' => $devis_priceht,
+            'devis_tva' => $devis_tva,
+            'devis_accompte' => $devis_accompte,
+            'societe_info' => $societe,
+        ]);
+
+
+        $pdf = $this->returnPDFResponseFromHTML();
+        $pdf->setPageMark();
+        $pdf->writeHTML($htmlRender, true, false, true, false, '');
+
+        //Arrivée
+        // Write HTML PDF page First
+        $filename = '/ourcodeworld_pdf_demo';
+        return $pdf->Output($filename, 'I');
+
+    }
+
+    public function pdflettrechrgAction() {
+
+        // Get Info of Societe pdf
+        $societe = $this->getDoctrine()->getManager()->getRepository('AppBundle:Societe');
+        $societe = $societe->findOneBy(array('siege' => true));
+
+        // Get Id for Find Calcul Devis
+        $repository = $this->getDoctrine()->getRepository(DemandeDevis::class);
+        $devis = $repository->findOneBy(['id' => $this->getRequest()->get('id')]);
+
+        $devis_priceht = $this->getRequest()->get('priceht');
+        if(is_numeric($devis_priceht) == false) {
+            $devis_priceht = 0;
+        }
+
+        $devis_tva = $this->getRequest()->get('tva');
+        if(is_numeric($devis_tva) == false) {
+            $devis_tva = 0;
+        }
+
+        $devis_accompte = $this->getRequest()->get('acompte');
+        if(is_numeric($devis_accompte) == false) {
+            $devis_accompte = 0;
+        }
+
+        $htmlRender = $this->renderView('admin/calculdevis/pdf/lettre_chargement/lettre_chargement.html.twig', [
+            'devis_num' => 'DEVIS-13-10-2018',
+            'societe_info' => $societe,
+            'devis_info' => $devis,
+            'distance' => '25km',
+            'request' => $this->getRequest()->query->all(),
+        ]);
+
+
+        $pdf = $this->returnPDFResponseFromHTML();
+        $pdf->setPageMark();
+        $pdf->writeHTML($htmlRender, true, false, true, false, '');
+
+        //Arrivée
+        // Write HTML PDF page First
+        $filename = '/ourcodeworld_pdf_demo';
+        return $pdf->Output($filename, 'I');
+
+    }
+    public function pdffactureAction() {
+        // Get Info of Societe pdf
+        $societe = $this->getDoctrine()->getManager()->getRepository('AppBundle:Societe');
+        $societe = $societe->findOneBy(array('siege' => true));
+
+        // Get Id for Find Calcul Devis
+        $repository = $this->getDoctrine()->getRepository(DemandeDevis::class);
+        $devis = $repository->findOneBy(['id' => $this->getRequest()->get('id')]);
+
+        $devis_priceht = $this->getRequest()->get('priceht');
+        if(is_numeric($devis_priceht) == false) {
+            $devis_priceht = 0;
+        }
+
+        $devis_tva = $this->getRequest()->get('tva');
+        if(is_numeric($devis_tva) == false) {
+            $devis_tva = 0;
+        }
+
+        $devis_accompte = $this->getRequest()->get('acompte');
+        if(is_numeric($devis_accompte) == false) {
+            $devis_accompte = 0;
+        }
+
+        $htmlRender = $this->renderView('admin/calculdevis/pdf/facture/facture_pdf.html.twig', [
+            'devis_num' => 'DEVIS-13-10-2018',
+            'societe_info' => $societe,
             'devis_info' => $devis,
             'distance' => '25km',
             'devis_priceht' => $devis_priceht,
             'devis_tva' => $devis_tva,
             'devis_accompte' => $devis_accompte,
+            'request' => $this->getRequest()->query->all(),
+        ]);
+
+
+        $pdf = $this->returnPDFResponseFromHTML();
+        $pdf->setPageMark();
+        $pdf->writeHTML($htmlRender, true, false, true, false, '');
+
+        //Arrivée
+        // Write HTML PDF page First
+        $filename = '/ourcodeworld_pdf_demo';
+        return $pdf->Output($filename, 'I');
+    }
+
+    public function GenerateDeclValeur($id_devis, $type_output) {
+        // Get Info of Societe pdf
+        $societe = $this->getDoctrine()->getManager()->getRepository('AppBundle:Societe');
+        $societe = $societe->findOneBy(array('siege' => true));
+
+        $htmlRender = $this->renderView('admin/calculdevis/pdf/dec_valeurs/dec_valeurs_pdf.html.twig', [
+            'societe_info' => $societe,
+            'request' => $this->getRequest()->query->all(),
+        ]);
+
+        $pdf = $this->returnPDFResponseFromHTML();
+        $pdf->setPageMark();
+        $pdf->writeHTML($htmlRender, true, false, true, false, '');
+
+        //Arrivée
+        // Write HTML PDF page First
+        $filename = '/ourcodeworld_pdf_demo';
+        return $pdf->Output($filename, $type_output);
+    }
+
+    public function GenerateCondGeneralePdf($id_devis, $type_output) {
+        // Get Info of Societe pdf
+        $societe = $this->getDoctrine()->getManager()->getRepository('AppBundle:Societe');
+        $societe = $societe->findOneBy(array('siege' => true));
+
+        $htmlRender = $this->renderView('admin/calculdevis/pdf/cond_generales/cond_generales_pdf.html.twig', [
+            'societe_info' => $societe,
+            'request' => $this->getRequest()->query->all(),
+        ]);
+
+
+        $pdf = $this->returnPDFResponseFromHTML();
+        $pdf->setPageMark();
+        $pdf->writeHTML($htmlRender, true, false, true, false, '');
+
+        //Arrivée
+        // Write HTML PDF page First
+        $filename = '/ourcodeworld_pdf_demo';
+        return $pdf->Output($filename, $type_output);
+    }
+
+    public function GenerateDevisPdf($id_devis,$type_output) {
+        // Get Id for Find Calcul Devis
+        $repository = $this->getDoctrine()->getRepository(DemandeDevis::class);
+        $devis = $repository->findOneBy(['id' => $id_devis]);
+
+        // Get Info of Societe pdf
+        $societe = $this->getDoctrine()->getManager()->getRepository('AppBundle:Societe');
+        $societe = $societe->findOneBy(array('siege' => true));
+
+
+        $htmlRender = $this->renderView('admin/calculdevis/pdf/devis/devis_pdf_part1.html.twig', [
+            'devis_num' => 'DEVIS-13-10-2018',
+            'devis_info' => $devis,
+            'distance' => '25km',
+            'request' => $this->getRequest()->query->all(),
             'societe_info' => $societe,
         ]);
 
@@ -153,6 +447,12 @@ class SonataController extends CRUDController
         //Arrivée
         // Write HTML PDF page First
         $filename = '/ourcodeworld_pdf_demo';
-        return $pdf->Output($filename, 'I');
+        return $pdf->Output($filename, $type_output);
+    }
+
+    // pdf Devis action pour affihser DEVIS
+    public function pdfdevisAction(){
+
+        return $this->GenerateDevisPdf($this->getRequest()->get('id'),'I');
     }
 }

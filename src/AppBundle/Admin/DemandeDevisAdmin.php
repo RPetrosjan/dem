@@ -35,7 +35,13 @@ class DemandeDevisAdmin extends AbstractAdmin
 
         $collection
             ->add('pdfdevis', $this->getRouterIdParameter().'/pdfdevis') // Action gets added automatically
+            ->add('pdfcondgen', $this->getRouterIdParameter().'/pdfcondgen') // Action gets added automatically
+            ->add('pdfdecval', $this->getRouterIdParameter().'/pdfdecval') // Action gets added automatically
+            ->add('pdffacture', $this->getRouterIdParameter().'/pdffacture') // Action gets added automatically
+            ->add('pdflettrechrg', $this->getRouterIdParameter().'/pdflettrechrg') // Action gets added automatically
+            ->add('pdflettredechrg', $this->getRouterIdParameter().'/pdflettredechrg') // Action gets added automatically
             ->add('sendpdfdevis', $this->getRouterIdParameter().'/sendpdfdevis') //Action for generated and sending Devis
+
         ;
         //      $collection->add('view', $this->getRouterIdParameter().'/view');
     }
@@ -49,9 +55,9 @@ class DemandeDevisAdmin extends AbstractAdmin
 
     public function configureActionButtons($action, $object = null) {
         $list = parent::configureActionButtons($action,$object);
-        $list['custom_action'] = array(
+     /*   $list['custom_action'] = array(
             'template' =>  'admin/custom_button.html.twig',
-        );
+        ); */
         return $list;
     }
 
@@ -75,12 +81,6 @@ class DemandeDevisAdmin extends AbstractAdmin
     // Show Result in the Page
     protected function configureFormFields(FormMapper $formMapper) {
 
-        // Modification valeur readed
-        // Appell service orm service.yml
-        $contact = $this->getSubject();
-        $contact->setReaded(true);
-        $this->em->persist($contact);
-        $this->em->flush();
 
         $formMapper
 
@@ -166,7 +166,6 @@ class DemandeDevisAdmin extends AbstractAdmin
 
         $repository = $em->getRepository(DocPDF::class);
         $list_devis = $repository->findByDevisId($this->getRequest()->get('id'));
-
 
 
         $showMapper

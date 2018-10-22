@@ -1,4 +1,5 @@
 {% spaceless %}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
     {{ '/public/css/block/footerPage.html.css'|cssloader }}
 <footer>
     <div class="contact">
@@ -38,4 +39,5 @@
         <h4>{{ 'Nos Partenaires'|trans }}</h4>
     </div>
 </footer>
+    {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
 {% endspaceless %}

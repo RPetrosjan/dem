@@ -6,6 +6,11 @@
             <div>
                 <span>{{ societe_info.cpville.cp }} {{ societe_info.cpville.ville }}</span>
             </div>
+
+                {% for telsoc in societe_info.tel %}
+                    <span class="colred">{{ telsoc.tel }}</span> /
+                {% endfor %}
+
         </td>
         <td style="text-align: right">
             <strong>N SIRET {{ societe_info.siret }}</strong><br/>

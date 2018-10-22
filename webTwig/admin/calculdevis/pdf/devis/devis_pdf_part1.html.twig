@@ -8,12 +8,8 @@
     </style>
 </head>
 <body>
-<div class="div_title colred">{{ devis_num }}</div>
-<table>
-    <tr>
-        <td></td>
-    </tr>
-</table>
+<div class="div_title colred">Devis - {{ request.randomName }}<br/><span>{{ societe_info.cpville.ville }} {{ "now"|date("d/m/Y") }}</span></div>
+
 {{ include('admin/calculdevis/pdf/top_societe_info_panel_pdf.html.twig') }}
 <table>
     <tr>
@@ -114,8 +110,8 @@
                         <td style="width: 330px; font-size: 12px">
                             <div style="font-size: 16px; font-weight: bold; text-transform: uppercase" class="colred">Observations</div>
                             Assurance comprise, garantie dommage
-                            (franchise <b class="colred">230 &euro;</b>), valeur globale de <b class="colred">20 000 &euro;</b> et
-                            <b class="colred">300 &euro;</b> par objet non listé.
+                            (franchise <b class="colred">{{ request.franchise }} &euro;</b>), valeur globale de <b class="colred">{% set number_format_valeur = request.valeur_globale / 1000 %}{{ number_format_valeur|number_format(3,' ',',') }} &euro;</b> et
+                            <b class="colred">{{ request.par_objet }} &euro;</b> par objet non listé.
                         </td>
                         <td style="width: 50px">
 
@@ -124,10 +120,10 @@
                             <div style="font-size: 14px; font-weight: bold; text-transform: uppercase" class="colred">Estimation de votre coût</div>
                             <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 0px; position: absolute">
                                 <tr><td style="width: 110px; font-size: 17px">Prix H.T</td>
-                                    <td style="width: 100px; font-size: 16px; text-align: right">{{ devis_priceht }} &euro;</td>
+                                    <td style="width: 100px; font-size: 16px; text-align: right">{{ request.priceht }} &euro;</td>
                                 </tr>
-                                <tr><td style="font-size: 14px; width: 110px;">TVA {{ devis_tva }}%</td>
-                                    <td style="width: 100px;font-size: 16px; text-align: right">{{ devis_priceht * devis_tva / 100 }} &euro;</td>
+                                <tr><td style="font-size: 14px; width: 110px;">TVA {{ request.tva }}%</td>
+                                    <td style="width: 100px;font-size: 16px; text-align: right">{{ request.priceht * request.tva / 100 }} &euro;</td>
                                 </tr>
 
                             </table>
@@ -139,14 +135,14 @@
                         <td style="width: 310px">
                             <table>
                                 <tr>
-                                    <td style="font-size: 12px">Tarif valable 2 mois, les informations annoncées
+                                    <td style="font-size: 12px">Tarif valable {{ request.valable }} mois, les informations annoncées
                                         et sous des accés au départ et à l'arrivée. Ci-joint
                                         un exemplaire des conditions générales et un
                                         exemplaire de la déclaration de valeur.
                                         <br><br>En accord avec les termes de ce présent devis et
                                         des conditions générales de vente ci-jointes, merci
                                         à nous retourner daté et signé accompagnés du
-                                        chèque dl'acompte correspondant <span class="colred">{{ devis_accompte }}%</span> à la
+                                        chèque dl'acompte correspondant <span class="colred">{{ request.tva }}%</span> à la
                                         commande.
                                     </td>
                                 </tr>
@@ -159,7 +155,7 @@
                                 <tr>
                                     <td style="width: 74px"></td>
                                     <td  style="width: 110px; text-align: left"><b class="colred">Prix T.T.C.:</b></td>
-                                    <td style="width: 100px"><b class="colred">{{ devis_priceht + devis_priceht * devis_tva / 100 }}  &euro;</b></td>
+                                    <td style="width: 100px"><b class="colred">{{ request.priceht + request.priceht * request.tva / 100 }}  &euro;</b></td>
                                 </tr>
                             </table>
                             <table cellspacing="0" style="padding-top: 15px; padding-bottom: 0px">
@@ -168,16 +164,16 @@
                                         <br/><br/><br/>
                                         <table cellpadding="0" cellspacing="0" style="font-size: 15px">
                                             <tr>
-                                                <td>{{ devis_accompte }}% Acompte de à la commande</td>
+                                                <td>{{ request.acompte }}% Acompte de à la commande</td>
                                             </tr>
                                             <tr>
-                                                <td><b class="colred">{{ (devis_priceht + devis_priceht * devis_tva / 100) * devis_accompte / 100 }} €</b></td>
+                                                <td><b class="colred">{{ (request.priceht + request.priceht * request.tva / 100) * request.acompte / 100 }} €</b></td>
                                             </tr>
                                             <tr>
                                                 <td>Solde livraison</td>
                                             </tr>
                                             <tr>
-                                                <td><b class="colred">{{ (devis_priceht + devis_priceht * devis_tva / 100 ) - (devis_priceht + devis_priceht * devis_tva / 100) * devis_accompte / 100 }} €</b></td>
+                                                <td><b class="colred">{{ (request.priceht + request.priceht * request.tva / 100 ) - (request.priceht + request.priceht * request.tva / 100) * request.acompte / 100 }} €</b></td>
                                             </tr>
                                         </table>
                                     </td>

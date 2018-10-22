@@ -1,3 +1,5 @@
+{% spaceless %}
+{% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
 <div class="topresultdiv">
     <div class="toprow">
         <div class="rows devisresult">
@@ -37,3 +39,5 @@
     </div>
     <h1>Le prix me convient, je souhaite obtenir un <u>devis gratuit</u></h1>
 </div>
+{% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}

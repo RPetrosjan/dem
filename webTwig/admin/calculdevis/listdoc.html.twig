@@ -3,6 +3,7 @@
     <tr class="sonata-ba-list-field-header">
         <th class="sonata-ba-list-field-header-actions">Date</th>
         <th class="sonata-ba-list-field-header-actions">E-mail</th>
+        <th class="sonata-ba-list-field-header-actions">Numero</th>
         <th class="sonata-ba-list-field-header-actions">Devis</th>
         <th class="sonata-ba-list-field-header-actions">Dec. Val</th>
         <th class="sonata-ba-list-field-header-actions">Condition Gen.</th>
@@ -14,30 +15,33 @@
     <tbody>
 
     {% for devis in field_description.options.list_devis %}
+        {% set pdfurl = 'priceht='~devis.price~'&tva='~devis.tva~'&acompte='~devis.acompte~'&franchise='~devis.franchise~'&valeur_globale='~devis.valeurglobale~'&par_objet='~devis.parobjet~'&valable='~devis.valable~'&randomName='~devis.randomname %}
 
-        <tr>
-            <td class="sonata-ba-list-field sonata-ba-list-field-datetime" objectid="43">{{ devis.CreatedDate|date('m/d/Y',"Europe/Paris") }}</td>
-            <td class="sonata-ba-list-field sonata-ba-list-field-Symfony\Component\Form\Extension\Core\Type\TextType" objectid="43">{{ devis.getIdDevis()[0].email }}</td>
-            <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="43">
-                <a class="sonata-link-identifier colred" target="_blank" href="/adminss/app/demandedevis/{{ object.id }}/pdfdevis?priceht={{ devis.price }}&tva={{ devis.tva }}&acompte={{ devis.acompte }}"><i class="far fa-file-pdf"></i></a>
-            </td>
-            <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="43">
-                <a class="sonata-link-identifier" href="/adminss/app/calculdevis/43/edit"><i class="far fa-file-pdf"></i></a>
-            </td>
-            <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="43">
-                <a class="sonata-link-identifier" href="/adminss/app/calculdevis/43/edit"><i class="far fa-file-pdf"></i></a>
-            </td>
-            <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="43">
-                <a class="sonata-link-identifier" href="/adminss/app/calculdevis/43/edit"><i class="far fa-file-pdf"></i></a>
-            </td>
-            <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="43">
-                <a class="sonata-link-identifier" href="/adminss/app/calculdevis/43/edit"><i class="far fa-file-pdf"></i></a>
-            </td>
-            <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="43">
-                <a class="sonata-link-identifier" href="/adminss/app/calculdevis/43/edit"><i class="far fa-file-pdf"></i></a>
-            </td>
-        </tr>
-    {% endfor %}
+         <tr>
+             <td class="sonata-ba-list-field sonata-ba-list-field-datetime" objectid="43">{{ devis.CreatedDate|date('m/d/Y',"Europe/Paris") }}</td>
+             <td class="sonata-ba-list-field sonata-ba-list-field-Symfony\Component\Form\Extension\Core\Type\TextType">{{ devis.getIdDevis()[0].email }}</td>
+             <td>{{ devis.randomname }}</td>
+             <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="43">
+                 <a class="sonata-link-identifier colred" target="_blank" href="/adminss/app/demandedevis/{{ object.id }}/pdfdevis?{{ pdfurl }}"><i class="far fa-file-pdf"></i></a>
+             </td>
+             <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="43">
+                 <a class="sonata-link-identifier colred" target="_blank" href="/adminss/app/demandedevis/{{ object.id }}/pdfdecval?{{ pdfurl }}"><i class="far fa-file-pdf"></i></a>
+             </td>
+             <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="43">
+                 <a class="sonata-link-identifier colred" target="_blank" href="/adminss/app/demandedevis/{{ object.id }}/pdfcondgen?{{ pdfurl }}"><i class="far fa-file-pdf"></i></a>
+             </td>
+             <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="43">
+                 <a class="sonata-link-identifier colred" target="_blank" href="/adminss/app/demandedevis/{{ object.id }}/pdffacture?{{ pdfurl }}"><i class="far fa-file-pdf"></i></a>
+             </td>
+             <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="43">
+                 <a class="sonata-link-identifier colred" target="_blank" href="/adminss/app/demandedevis/{{ object.id }}/pdflettrechrg?{{ pdfurl }}"><i class="far fa-file-pdf"></i></a>
+             </td>
+             <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="43">
+                 <a class="sonata-link-identifier colred" target="_blank" href="/adminss/app/demandedevis/{{ object.id }}/pdflettredechrg?{{ pdfurl }}"><i class="far fa-file-pdf"></i></a>
+             </td>
+         </tr>
+
+     {% endfor %}
 
     </tbody>
 

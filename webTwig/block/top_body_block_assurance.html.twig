@@ -1,4 +1,5 @@
  {% spaceless %}
+     {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
      <div class="sectionleft">
          <h1>Assurance de déménagement.</h1><h2> On en a besoin? <br><span class="colred">Quelle est la couverture en cas d’avarie?</span></h2>
          <span class="text"><br>
@@ -17,4 +18,5 @@ L’entreprise de déménagement doit avoir un GARANTIE RESPONSABILITE CONTRACTU
 		</span>
          </div>
      </div>
+     {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
  {% endspaceless %}

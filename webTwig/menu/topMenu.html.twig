@@ -1,6 +1,7 @@
-{{ '/public/css/menu/topMenu.html.css'|cssloader }}
-{{ '/public/js/menu/topMenu.html.js'|jsloader }}
 {% spaceless %}
+    {{ '/public/css/menu/topMenu.html.css'|cssloader }}
+    {{ '/public/js/menu/topMenu.html.js'|jsloader }}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
 <div class="header-white">
     <header class="navbar">
         <div class="websitebox">
@@ -25,4 +26,5 @@
         </div>
     </header>
 </div>
+    {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
 {% endspaceless %}

@@ -1,7 +1,7 @@
-{{ '/public/js/block/jquery-scrolltofixed-min.js'|jsloader }}
-{{ '/public/js/block/carton_form_block.js'|jsloader }}
-
 {% spaceless %}
+    {{ '/public/js/block/jquery-scrolltofixed-min.js'|jsloader }}
+    {{ '/public/js/block/carton_form_block.js'|jsloader }}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
 <div class="mon_panier_panel"><i class="fas fa-shopping-basket"></i> Mon Panier <span class="panier_count"></span></div>
     <div class="panier_details">
         <div>
@@ -49,5 +49,5 @@
         </div>
 
     {% endfor %}
-
+    {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
 {% endspaceless %}

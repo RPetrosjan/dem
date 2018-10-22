@@ -93,8 +93,6 @@ class WebController extends Controller
         $imagebande = $this->getDoctrine()->getManager()->getRepository('AppBundle:ImageBande');
         $imagebande = $imagebande->findBy(array(),array('id' => 'DESC'),10);
 
-        dump($imagebande);
-
         $social = $this->getDoctrine()->getManager()->getRepository('AppBundle:Social');
         $social =  $social->findAll();
 

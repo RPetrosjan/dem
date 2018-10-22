@@ -1,5 +1,6 @@
 {{ '/public/css/block/infoPageAssurance.css'|cssloader }}
 {% spaceless %}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
 <div class="contentbottom">
     <div>
         
@@ -91,4 +92,5 @@ A la fin de la livraison, vous vérifiez avec le chef d’équipe l’état du m
         
     </div>
 </div>
+    {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
 {% endspaceless %}

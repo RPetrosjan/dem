@@ -1,4 +1,5 @@
 {% spaceless %}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
     {{ '/public/css/block/bodyPage.html.css'|cssloader }}
 <div class="bodyPage">
 
@@ -11,4 +12,5 @@
         {% endif %}
 
 </div>
+   {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
 {% endspaceless %}

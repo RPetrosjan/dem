@@ -1,3 +1,5 @@
+{% spaceless %}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
 {{ '/public/css/menu/top_sous_menu.html.css'|cssloader }}
 <div class="top_sous_menu">
 
@@ -16,6 +18,8 @@
         </em>
 {% endfor %}
 </div>
+    {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}
 
 
 

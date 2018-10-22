@@ -1,4 +1,6 @@
+{% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
 {{ '/public/css/block/infoPageContact.css'|cssloader }}
 {% include 'block/bodyPage.html.twig' %}
+{% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
 
 

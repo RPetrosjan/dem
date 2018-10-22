@@ -1,3 +1,5 @@
+{% spaceless %}
+{% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
     {{ '/public/css/form/DemForm.html.css'|cssloader }}
 
     {{ '/public/css/tinyscrollbar.css'|cssloader }}
@@ -7,3 +9,5 @@
     {% form_theme devisform 'form/fields.html.twig' %}
     {{ form_start(devisform,{'attr': {'class':'divform'}}) }}
     {{ form_end(devisform) }}
+{% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}

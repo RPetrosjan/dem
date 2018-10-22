@@ -1,7 +1,8 @@
-{{ '/public/css/block/imageBlock.html.css'|cssloader }}
-{{ '/public/css/slick/slick.css'|cssloader }}
-{{ '/public/js/slick/slick.min.js'|jsloader }}
 {% spaceless %}
+    {{ '/public/css/block/imageBlock.html.css'|cssloader }}
+    {{ '/public/css/slick/slick.css'|cssloader }}
+    {{ '/public/js/slick/slick.min.js'|jsloader }}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
 <div class="topimageBlock">
 <div class="imageBlock">
     <div class="dem-slick">
@@ -151,4 +152,5 @@
         });
     </script>
 {% endif %}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
 {% endspaceless %}

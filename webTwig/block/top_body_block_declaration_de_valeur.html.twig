@@ -1,3 +1,5 @@
+{% spaceless %}
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
 <div class="sectionleft">
     <div class="divcalculinfo"><h1><span class="colred">Déclaration de valeur</span></h1>
         <p>
@@ -14,3 +16,5 @@
         </p>
     </div>
 </div>
+    {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}

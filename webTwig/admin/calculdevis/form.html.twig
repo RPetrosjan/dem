@@ -2,7 +2,7 @@
         <div class="box-body">
             <div class="sonata-ba-collapsed-fields">
 
-                <div class="form-group">
+                <div class="form-group col-md-4">
                     <label class="control-label">
                         Prix HT &euro;
                     </label>
@@ -11,7 +11,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group col-md-4">
                     <label class="control-label" >
                         TVA %
                     </label>
@@ -20,7 +20,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group col-md-4">
                     <label class="control-label" >
                         Prix TTC &euro;
                     </label>
@@ -30,7 +30,7 @@
                 </div>
 
 
-                <div class="form-group">
+                <div class="form-group col-md-4">
                     <label class="control-label" >
                         Acompte %
                     </label>
@@ -39,16 +39,16 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="control-label" >
-                        Acompte de à la commande &euro;
+                <div class="form-group col-md-4">
+                    <label style="font-size: 12px" class="control-label">
+                        Acompte commande €
                     </label>
                     <div class="sonata-ba-field sonata-ba-field-standard-natural">
                         <input type="text" id="accompte_commande" maxlength="50" disabled="disabled" class=" form-control" />
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group col-md-4">
                     <label class="control-label" >
                         Solde livraison &euro;
                     </label>
@@ -57,10 +57,46 @@
                     </div>
                 </div>
 
+                <div class="form-group col-md-4">
+                    <label class="control-label" >
+                        Franchise &euro;
+                    </label>
+                    <div class="sonata-ba-field sonata-ba-field-standard-natural">
+                        <input type="text" value="230" id="franchise" maxlength="50" class=" form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label class="control-label" >
+                        Valeur globale &euro;
+                    </label>
+                    <div class="sonata-ba-field sonata-ba-field-standard-natural">
+                        <input type="text" value="20000" id="valeur_globale" maxlength="50" class=" form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label class="control-label" >
+                        Par objet non liste &euro;
+                    </label>
+                    <div class="sonata-ba-field sonata-ba-field-standard-natural">
+                        <input type="text" value="300" id="par_objet" maxlength="50" class=" form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label class="control-label" >
+                        Devis valable (mois)
+                    </label>
+                    <div class="sonata-ba-field sonata-ba-field-standard-natural">
+                        <input type="text" value="2" id="valable" maxlength="50" class=" form-control" />
+                    </div>
+                </div>
+
 
 
                 <button type="button" id="button_valider" class="btn btn-success" name="btn_update_and_list"><i class="fa fa-paper-plane"></i> Valider</button>
-                <button type="button" id="button_voir" class="btn btn-success" name="btn_update_and_list"><i class="far fa-file-pdf"></i> Voir</button>
+                <button type="button" id="button_voir" class="btn btn-success" name="btn_update_and_list"><i class="far fa-file-pdf"></i> Prévisualiser</button>
                 <div class="result_devis"></div>
             </div>
         </div>
@@ -72,13 +108,53 @@
         vertical-align: top;
         font-family: verdana;
     }
+    .result_devis>a{
+        margin-top: 3px;
+        margin-bottom: 3px;
+        margin-right: 3px;
+    }
 
 </style>
 <script>
-    $('#button_voir').click(function () {
-            $('.result_devis').html('' +
-                '<a class="btn btn-success" target="_blank" href="http://demadmin.dd/adminss/app/demandedevis/{{ object.id }}/pdfdevis?priceht='+$("#prixht").val()+'&tva='+$("#prixtva").val()+'&acompte='+$("#accomte").val()+'"><i class="far fa-file-pdf"></i> Devis</a>');
+
+    // Generate new Devis Name
+    function getDevisNewName() {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for (var i = 0; i < 5; i++)
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        return text;
+    }
+
+    var RandomName = getDevisNewName();
+    
+    var array_previsualiser = {
+      "Devis": "pdfdevis",
+      "Declaration Valeur": "pdfdecval",
+      "Condition Generales.":"pdfcondgen",
+      "Facture": "pdffacture",
+      "Lettre Chrg.": "pdflettrechrg",
+      "Lettre DeChrg": "pdflettredechrg"
+    };
+
+    $('#button_valider').click(function(){
+        window.location.href = 'http://demadmin.dd/adminss/app/demandedevis/{{ object.id }}/sendpdfdevis?priceht='+$("#prixht").val()+'&tva='+$("#prixtva").val()+'&acompte='+$("#accomte").val()+'&franchise='+$('#franchise').val()+'&valeur_globale='+$("#valeur_globale").val()+'&par_objet='+$("#par_objet").val()+'&valable='+$("#valable").val()+'&randomName='+RandomName;
     });
+
+    function GenerateButtons() {
+        RandomName = getDevisNewName();
+        var text_html = '';
+        $.each(array_previsualiser, function ($key, $value) {
+            text_html += '<a class="btn btn-success" target="_blank" href="http://demadmin.dd/adminss/app/demandedevis/{{ object.id }}/'+$value+'?priceht='+$("#prixht").val()+'&tva='+$("#prixtva").val()+'&acompte='+$("#accomte").val()+'&franchise='+$('#franchise').val()+'&valeur_globale='+$("#valeur_globale").val()+'&par_objet='+$("#par_objet").val()+'&valable='+$("#valable").val()+'&randomName='+RandomName+' "><i class="far fa-file-pdf"></i> '+$key+'</a>';
+        });
+        $('.result_devis').html(text_html);
+    }
+
+    $('#button_voir').click(function () {
+        GenerateButtons();
+    });
+
 
     $("#prixht, #prixtva, #accomte").keyup(function () {
 
@@ -102,6 +178,8 @@
 
         $("#accompte_commande").val(accompte_commande);
         $("#solde_livraison").val(prixttc - accompte_commande);
+
+        GenerateButtons();
 
     });
 

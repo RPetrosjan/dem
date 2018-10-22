@@ -1,5 +1,5 @@
 {% spaceless %}
-
+    {% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
     {{ '/public/css/block/infoPageAssurance.css'|cssloader }}
     {% spaceless %}
         <div class="contentbottom">
@@ -70,5 +70,5 @@
             </div>
         </div>
     {% endspaceless %}
-
+    {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
 {% endspaceless %}

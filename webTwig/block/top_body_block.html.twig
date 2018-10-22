@@ -1,4 +1,5 @@
-{{ '/public/css/block/top_body_block.html.css'|cssloader }}
+{% spaceless %}
+{% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}{{ '/public/css/block/top_body_block.html.css'|cssloader }}
 <div class="websitebox">
 <div class="top_body_block">
 
@@ -41,3 +42,5 @@
 
     </div>
 </div>
+{% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}

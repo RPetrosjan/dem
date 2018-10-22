@@ -1,4 +1,4 @@
-{% spaceless %}
+{% spaceless %}{% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
 <!DOCTYPE html>
 {{ '/public/css/base.html.css'|cssloader }}
 <html>
@@ -51,4 +51,5 @@
 
 </body>
 </html>
+{% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
 {% endspaceless %}

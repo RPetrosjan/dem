@@ -97,11 +97,35 @@ class DocPDF
     }
 
     /**
+     * @return string
+     */
+    public function getRandomname()
+    {
+        return $this->randomname;
+    }
+
+    /**
+     * @param string $randomname
+     */
+    public function setRandomname($randomname)
+    {
+        $this->randomname = $randomname;
+    }
+
+    /**
      * @var string
      *
      * @ORM\Column(name="PriceHT", type="string", length=255)
      */
     private $price;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="RandomName", type="string", length=255)
+     */
+    private $randomname;
 
     /**
      * @var string
@@ -116,6 +140,101 @@ class DocPDF
      * @ORM\Column(name="Acompte", type="string", length=50)
      */
     private $acompte;
+
+    /**
+     * @return string
+     */
+    public function getFranchise()
+    {
+        return $this->franchise;
+    }
+
+    /**
+     * @param string $franchise
+     */
+    public function setFranchise($franchise)
+    {
+        $this->franchise = $franchise;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValeurGlobale()
+    {
+        return $this->valeurglobale;
+    }
+
+    /**
+     * @param string $valeur_globale
+     */
+    public function setValeurGlobale($valeurglobale)
+    {
+        $this->valeurglobale = $valeurglobale;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParObjet()
+    {
+        return $this->parobjet;
+    }
+
+    /**
+     * @param string $par_objet
+     */
+    public function setParObjet($parobjet)
+    {
+        $this->parobjet = $parobjet;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValable()
+    {
+        return $this->valable;
+    }
+
+    /**
+     * @param string $valable
+     */
+    public function setValable($valable)
+    {
+        $this->valable = $valable;
+    }
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Franchise", type="string", length=50)
+     */
+    private $franchise;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Valeur_Globale", type="string", length=50)
+     */
+    private $valeurglobale;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Par_Objet", type="string", length=50)
+     */
+    private $parobjet;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Valable", type="string", length=50)
+     */
+    private $valable;
+
+
 
 
     /**

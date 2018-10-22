@@ -1,3 +1,5 @@
+{% spaceless %}
+{% if app.environment == 'dev' %}<!-- Start {{ _self.getTemplateName() }} -->{% endif %}
 {{ '/public/css/block/top_body_block_div.html.css'|cssloader }}
 <div class="websitebox">
 <div class="top_body_block {% if(class_top_block is defined) %}{{ class_top_block }}{% endif %}">
@@ -90,3 +92,5 @@ Notre technicien vous expliquera les points techniques et l’organisation pour 
     {% endif %}
     </div>
 </div>
+    {% if app.environment == 'dev' %}<!-- End {{ _self.getTemplateName() }} -->{% endif %}
+{% endspaceless %}
