@@ -4,7 +4,7 @@
 <footer>
     <div class="contact">
 
-        {% if societe is defined %}
+        {% if societe is defined and societe.tel is defined %}
         <h4>{{ 'Contactez nous'|trans }}</h4>
                 {% for key,tel in societe.tel %}
                     {% if key <2 %}
@@ -12,7 +12,7 @@
                     {% endif %}
                 {% endfor %}
 
-                <span>E-Mail : {{ societe.email }}</span>
+                <span>E-Mail : {% if societe.email is defined %}{{ societe.email }}{% endif %}</span>
         <h4>{{ societe.namesociete }}</h4>
                 <span>{{ societe.cpville.cp }} {{ societe.cpville.ville }}</span>
                 <span>{{ societe.adresse }}</span>

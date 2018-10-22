@@ -5,9 +5,9 @@
 <head>
     <meta charset="UTF-8" />
     {# SeT Seo page info #}
-    <title>{% block title %}{{ seo_page[0].title }}{% endblock %}</title>
-    <meta name="keywords" content="{{ seo_page[0].keywords }}" />
-    <meta name="description" content="{{ seo_page[0].description }}">
+    <title>{% block title %}{% if seo_page[0] is defined %}{{ seo_page[0].title }}{% endif %}{% endblock %}</title>
+    <meta name="keywords" content="{% if seo_page[0] is defined %}{{ seo_page[0].keywords }}{% endif %}" />
+    <meta name="description" content="{% if seo_page[0] is defined %}{{ seo_page[0].description }}{% endif %}">
     {% block stylesheets %}{% endblock %}
     <link rel="stylesheet" href="/css/{{ cssFileName }}" />
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />

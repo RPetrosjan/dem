@@ -8,7 +8,7 @@
             <ul>
         {% spaceless %}
             <li><a href="/">Déménagement France<span>Tel</span>
-                    {% if societe is defined %}
+                    {% if societe is defined and societe.tel is defined %}
                         {% for key,tel in societe.tel %}
                             {% if key <2 %}
                                 <span>{{ tel.tel }}</span>

@@ -6,14 +6,14 @@
  <article>
      <div class="addresscontent">
          {% if societe is defined %}
-            <span class="colred">{{ societe.NAMESOCIETE }}</span>
-             <div>{{ societe.adresse }}</div>
-              <div>{{ societe.cpville.cp }} {{ societe.cpville.ville }}</div>
+            <span class="colred">{% if societe.namesociete is defined %}{{ societe.namesociete }}{% endif %}</span>
+             <div>{% if societe.adresse is defined %}{{ societe.adresse }}{% endif %}</div>
+              <div>{% if societe.cpville.cp is defined %}{{ societe.cpville.cp }} {{ societe.cpville.ville }}{% endif %}</div>
          {% endif %}
         <div class="telephone">
         <i class="fas fa-phone-square"></i>
 
-            {% if societe is defined %}
+            {% if societe is defined and societe.tel is defined %}
                 {% for key,tel in societe.tel %}
                     {% if key <2 %}
                         <div>{{ tel.tel }}</div>
