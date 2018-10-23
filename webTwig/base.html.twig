@@ -2,14 +2,14 @@
 <!DOCTYPE html>
 {{ '/public/css/base.html.css'|cssloader }}
 <html>
-<head>
+<head>{% set rndstr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789' %}
     <meta charset="UTF-8" />
     {# SeT Seo page info #}
     <title>{% block title %}{% if seo_page[0] is defined %}{{ seo_page[0].title }}{% endif %}{% endblock %}</title>
     <meta name="keywords" content="{% if seo_page[0] is defined %}{{ seo_page[0].keywords }}{% endif %}" />
     <meta name="description" content="{% if seo_page[0] is defined %}{{ seo_page[0].description }}{% endif %}">
     {% block stylesheets %}{% endblock %}
-    <link rel="stylesheet" href="/css/{{ cssFileName }}" />
+    <link rel="stylesheet" href="/css/{{ cssFileName }}?{{ random(rndstr) }}{{ random(rndstr) }}{{ random(rndstr) }}{{ random(rndstr) }}" />
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,7 +47,7 @@
     </div>
 </div>
 {% block javascripts %}{% endblock %}
-<script src="/js/{{ jsFileName }}"></script>
+<script src="/js/{{ jsFileName }}?{{ random(rndstr) }}{{ random(rndstr) }}{{ random(rndstr) }}{{ random(rndstr) }}s"></script>
 
 </body>
 </html>

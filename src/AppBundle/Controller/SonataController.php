@@ -72,8 +72,6 @@ class SonataController extends CRUDController
 
     public function sendpdfdevisAction(\Swift_Mailer $mailer) {
 
-
-
         // Get Id for Find Calcul Devis
         $repository = $this->getDoctrine()->getRepository(DemandeDevis::class);
         $devis = $repository->findOneBy(['id' => $this->getRequest()->get('id')]);
@@ -146,7 +144,6 @@ class SonataController extends CRUDController
         $em = $this->getDoctrine()->getManager();
         $em->persist($docpdf);
         $em->flush();
-
 
 
 

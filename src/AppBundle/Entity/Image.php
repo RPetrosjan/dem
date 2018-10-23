@@ -10,11 +10,13 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+
 use AppBundle\Entity\Traits\Image as ImageTrait;
 /**
  * Image
  *
- * @ORM\Table(name="ImageType")
+ * @ORM\Table(name="imagetype")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Image")
  */
 class Image

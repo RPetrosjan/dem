@@ -64,6 +64,12 @@ class Prestation
     }
 
     public function __toString() {
+
+
+        if(empty($this->prestation)) {
+            return '';
+        }
+
         return $this->prestation;
     }
 }

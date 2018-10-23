@@ -1,7 +1,9 @@
 <?php
 namespace AppBundle\Entity\Traits;
 
+use Symfony\Component\HttpFoundation\File\MimeType\ExtensionGuesser;
 use Symfony\Component\Validator\Constraints as Assert;
+
 
 trait Image
 {
@@ -65,11 +67,17 @@ trait Image
      */
     public function setFile($file)
     {
-        $OriginFileName =preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
         $this->file = $file;
+        dump($file);
+
+        $OriginFileName =preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
         if(($fileName = $this->getFilename()) == null)
         {
-            $fileName = uniqid().'.'.$file->guessExtension();
+            $type = $file->getClientMimeType();
+            $guesser = ExtensionGuesser::getInstance();
+            $guesser->guess($type);
+
+            $fileName = uniqid().'.'.$guesser->guess($type);
         }
         else{
             $fileName = substr($fileName, 0, strpos($fileName, "?"));

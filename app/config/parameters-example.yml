@@ -1,0 +1,13 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: 3306
+    database_name: rafdemfr_sdemenagement
+    database_user: rafdemfr_sdemenagement_user
+    database_password: Av{Iw71$5D)l
+    mailer_transport: smtp
+    mailer_host: mail.rafdem.fr
+    mailer_port: 465
+    mailer_user: demadmin@rafdem.fr
+    mailer_password: g=tSb*@vm7,G
+    secret: ThisTokenIsNotSoSecretChangeIt

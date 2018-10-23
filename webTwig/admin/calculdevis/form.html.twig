@@ -139,14 +139,14 @@
     };
 
     $('#button_valider').click(function(){
-        window.location.href = 'http://demadmin.dd/adminss/app/demandedevis/{{ object.id }}/sendpdfdevis?priceht='+$("#prixht").val()+'&tva='+$("#prixtva").val()+'&acompte='+$("#accomte").val()+'&franchise='+$('#franchise').val()+'&valeur_globale='+$("#valeur_globale").val()+'&par_objet='+$("#par_objet").val()+'&valable='+$("#valable").val()+'&randomName='+RandomName;
+        window.location.href = '/adminss/app/demandedevis/{{ object.id }}/sendpdfdevis?priceht='+$("#prixht").val()+'&tva='+$("#prixtva").val()+'&acompte='+$("#accomte").val()+'&franchise='+$('#franchise').val()+'&valeur_globale='+$("#valeur_globale").val()+'&par_objet='+$("#par_objet").val()+'&valable='+$("#valable").val()+'&randomName='+RandomName;
     });
 
     function GenerateButtons() {
         RandomName = getDevisNewName();
         var text_html = '';
         $.each(array_previsualiser, function ($key, $value) {
-            text_html += '<a class="btn btn-success" target="_blank" href="http://demadmin.dd/adminss/app/demandedevis/{{ object.id }}/'+$value+'?priceht='+$("#prixht").val()+'&tva='+$("#prixtva").val()+'&acompte='+$("#accomte").val()+'&franchise='+$('#franchise').val()+'&valeur_globale='+$("#valeur_globale").val()+'&par_objet='+$("#par_objet").val()+'&valable='+$("#valable").val()+'&randomName='+RandomName+' "><i class="far fa-file-pdf"></i> '+$key+'</a>';
+            text_html += '<a class="btn btn-success" target="_blank" href="/adminss/app/demandedevis/{{ object.id }}/'+$value+'?priceht='+$("#prixht").val()+'&tva='+$("#prixtva").val()+'&acompte='+$("#accomte").val()+'&franchise='+$('#franchise').val()+'&valeur_globale='+$("#valeur_globale").val()+'&par_objet='+$("#par_objet").val()+'&valable='+$("#valable").val()+'&randomName='+RandomName+' "><i class="far fa-file-pdf"></i> '+$key+'</a>';
         });
         $('.result_devis').html(text_html);
     }

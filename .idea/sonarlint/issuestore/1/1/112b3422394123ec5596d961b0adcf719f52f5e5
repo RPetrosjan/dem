@@ -1,4 +1,4 @@
 
-p	php:S1192"QDefine a constant instead of duplicating this literal "telephoneSociete" 3 times.(§Í’øøÿÿÿÿ8’Ø—Äá,
-n	php:S1192"ODefine a constant instead of duplicating this literal "adresseSociete" 3 times.(¯ó«×øÿÿÿÿ8’Ø—Äá,
-f	php:S1192"GDefine a constant instead of duplicating this literal "active" 3 times.(¸öÆûÿÿÿÿ8’Ø—Äá,
+p	php:S1192$"ODefine a constant instead of duplicating this literal "adresseSociete" 3 times.(¯ó«×øÿÿÿÿ8’Ø—Äá,
+r	php:S1192%"QDefine a constant instead of duplicating this literal "telephoneSociete" 3 times.(§Í’øøÿÿÿÿ8’Ø—Äá,
+h	php:S11924"GDefine a constant instead of duplicating this literal "active" 3 times.(¸öÆûÿÿÿÿ8’Ø—Äá,
