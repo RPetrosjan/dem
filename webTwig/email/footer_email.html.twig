@@ -1,0 +1,17 @@
+{% if plain == 'html' %}</div>
+<br /><br /><br />{% else %}
+
+
+{% endif %}
+Vous pouvez visiter notre web site : {% if plain == 'html' %}<a href="http://{{societe_info.website }}"><b>{% endif %}{{societe_info.website }}{% if plain == 'html' %}</b></a>{% endif %}
+{% if plain == 'html' %}<br/><br/>{% else %}
+
+{% endif %}
+{% if plain == 'html' %}<b>{% endif %}Votre Equipe{% if plain == 'html' %}</b><br />{% else %}
+
+{% endif %}
+{% if plain == 'html' %}<b class="colred">{% endif %}{{ societe_info.namesociete }}{% if plain == 'html' %}</b>
+</div>
+</body>
+</html>
+{% endif %}

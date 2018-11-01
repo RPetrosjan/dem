@@ -16,7 +16,7 @@
                         TVA %
                     </label>
                     <div class="sonata-ba-field sonata-ba-field-standard-natural">
-                        <input type="text" id="prixtva" maxlength="50" class=" form-control" value="20" />
+                        <input type="text" id="prixtva" maxlength="50" class=" form-control" value="{{ field_description.options.societe_devis_info.prixtva }}" />
                     </div>
                 </div>
 
@@ -35,7 +35,7 @@
                         Acompte %
                     </label>
                     <div class="sonata-ba-field sonata-ba-field-standard-natural">
-                        <input type="text" id="accomte" maxlength="50" class=" form-control" value="30" />
+                        <input type="text" id="accomte" maxlength="50" class=" form-control" value="{{ field_description.options.societe_devis_info.accompte }}" />
                     </div>
                 </div>
 
@@ -62,7 +62,7 @@
                         Franchise &euro;
                     </label>
                     <div class="sonata-ba-field sonata-ba-field-standard-natural">
-                        <input type="text" value="230" id="franchise" maxlength="50" class=" form-control" />
+                        <input type="text" value="{{ field_description.options.societe_devis_info.franchise }}" id="franchise" maxlength="50" class=" form-control" />
                     </div>
                 </div>
 
@@ -71,7 +71,7 @@
                         Valeur globale &euro;
                     </label>
                     <div class="sonata-ba-field sonata-ba-field-standard-natural">
-                        <input type="text" value="20000" id="valeur_globale" maxlength="50" class=" form-control" />
+                        <input type="text" value="{{ field_description.options.societe_devis_info.valeurglobale }}" id="valeur_globale" maxlength="50" class=" form-control" />
                     </div>
                 </div>
 
@@ -80,7 +80,7 @@
                         Par objet non liste &euro;
                     </label>
                     <div class="sonata-ba-field sonata-ba-field-standard-natural">
-                        <input type="text" value="300" id="par_objet" maxlength="50" class=" form-control" />
+                        <input type="text" value="{{ field_description.options.societe_devis_info.parobjet }}" id="par_objet" maxlength="50" class=" form-control" />
                     </div>
                 </div>
 
@@ -89,15 +89,15 @@
                         Devis valable (mois)
                     </label>
                     <div class="sonata-ba-field sonata-ba-field-standard-natural">
-                        <input type="text" value="2" id="valable" maxlength="50" class=" form-control" />
+                        <input type="text" value="{{ field_description.options.societe_devis_info.devisvalable }}" id="valable" maxlength="50" class=" form-control" />
                     </div>
                 </div>
 
-
-
-                <button type="button" id="button_valider" class="btn btn-success" name="btn_update_and_list"><i class="fa fa-paper-plane"></i> Valider</button>
-                <button type="button" id="button_voir" class="btn btn-success" name="btn_update_and_list"><i class="far fa-file-pdf"></i> Prévisualiser</button>
-                <div class="result_devis"></div>
+                <div>
+                    <button type="button" id="button_valider" class="btn btn-success" name="btn_update_and_list"><i class="fa fa-paper-plane"></i> Valider</button>
+                    <button type="button" id="button_voir" class="btn btn-success" name="btn_update_and_list"><i class="far fa-file-pdf"></i> Prévisualiser</button>
+                    <div class="result_devis"></div>
+                </div>
             </div>
         </div>
 
@@ -112,6 +112,9 @@
         margin-top: 3px;
         margin-bottom: 3px;
         margin-right: 3px;
+    }
+    label.control-label{
+        white-space: nowrap;
     }
 
 </style>

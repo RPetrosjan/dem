@@ -7,11 +7,16 @@
         <em>
         {% for weight,sous_menu in emmenu %}
             {% if sous_menu.url == '/espace-demenageur' and  is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+                <a href="{{ path('sonata_admin_dashboard') }}">
+                    <span><i class="fas fa-truck"></i></span> Votre Compte
+                </a>
+
                 <a href="{{ path('fos_user_security_logout') }}">
                     <span><i class="fas fa-unlock-alt"></i></span>Se déconnecter
                 </a>
             {% else %}
-                <a title="{{ sous_menu.title }}" href="{{ sous_menu.url }}"><span>{{ sous_menu.icon|raw }}</span>{{ sous_menu.name }}</a>
+                <a title="{{ sous_menu.title }}" href="{% if sitehost != app.request.server.get('SERVER_NAME')  %}http://{{ sitehost }}{% endif %}{{ sous_menu.url }}"><span>{{ sous_menu.icon|raw }}</span>{{ sous_menu.name }}</a>
             {% endif %}
 
         {% endfor %}

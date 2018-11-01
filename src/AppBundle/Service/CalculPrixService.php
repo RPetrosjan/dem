@@ -19,10 +19,8 @@ class CalculPrixService
     const PAR_ETAGE = 2;
 
     // Price si avec ou sans ascenseur
-    const MODE_ASCENSEUR = array(
-        'Oui' => -2,
-        'No' => 0,
-    );
+    const MODE_ASCENSEUR = ['Oui' => -2, 'No' => 0];
+
 
     // Marge en %
     const MARGE = 30;

@@ -17,12 +17,15 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class SocieteAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
+
+            ->tab($this->trans('Parametres Societe'))
             ->add('siege',CheckboxType::class,array(
                 'label' => $this->trans('Sige Sociale')
             ))
@@ -46,6 +49,30 @@ class SocieteAdmin extends AbstractAdmin
                 'label' => 'Web Site',
                 'required' => false,
             ])
+            ->end()
+            ->end()
+            ->tab($this->trans('Parametres Devis'))
+            ->add('prixtva', TextType::class, [
+                'label' => 'TVA % Devis'
+            ])
+            ->add('accompte', TextType::class, [
+                'label' => 'Accompte %'
+            ])
+            ->add('franchise', TextType::class, [
+                'label' => 'Franchise €'
+            ])
+            ->add('valeurglobale', TextType::class, [
+                'label' => 'Valeur globale €'
+            ])
+            ->add('parobjet', TextType::class, [
+                'label' => 'Par objet non liste €'
+            ])
+            ->add('devisvalable', TextType::class, [
+                'label' => 'Devis Valable'
+            ])
+            ->end()
+            ->end()
+
         ;
     }
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

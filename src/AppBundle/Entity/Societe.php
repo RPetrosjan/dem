@@ -221,6 +221,153 @@ class Societe
      */
     private $website;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prixtva", type="string", length=50)
+     */
+    private $prixtva;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="accompte", type="string", length=50)
+     */
+    private $accompte;
+
+    /**
+     * @return string
+     */
+    public function getAccompte()
+    {
+        return $this->accompte;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @param string $prixtva
+     */
+    public function setPrixtva($prixtva)
+    {
+        $this->prixtva = $prixtva;
+    }
+
+    /**
+     * @param string $franchise
+     */
+    public function setFranchise($franchise)
+    {
+        $this->franchise = $franchise;
+    }
+
+    /**
+     * @param string $valeurglobale
+     */
+    public function setValeurglobale($valeurglobale)
+    {
+        $this->valeurglobale = $valeurglobale;
+    }
+
+    /**
+     * @param string $parobjet
+     */
+    public function setParobjet($parobjet)
+    {
+        $this->parobjet = $parobjet;
+    }
+
+    /**
+     * @param string $devisvalable
+     */
+    public function setDevisvalable($devisvalable)
+    {
+        $this->devisvalable = $devisvalable;
+    }
+
+    /**
+     * @param string $accompte
+     */
+    public function setAccompte($accompte)
+    {
+        $this->accompte = $accompte;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrixtva()
+    {
+        return $this->prixtva;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFranchise()
+    {
+        return $this->franchise;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValeurglobale()
+    {
+        return $this->valeurglobale;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParobjet()
+    {
+        return $this->parobjet;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDevisvalable()
+    {
+        return $this->devisvalable;
+    }
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="franchise", type="string", length=50)
+     */
+    private $franchise;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="valeurglobale", type="string", length=50)
+     */
+    private $valeurglobale;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="parobjet", type="string", length=50)
+     */
+    private $parobjet;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="devisvalable", type="string", length=50)
+     */
+    private $devisvalable;
+
 
 }
 

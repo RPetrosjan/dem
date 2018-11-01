@@ -7,7 +7,7 @@
         <div class="websitebox">
             <ul>
         {% spaceless %}
-            <li><a href="/">Déménagement France<span>Tel</span>
+                <li><a href="/">Déménagement France{% if subdomains is defined %}<span>{{ subdomains }}</span>{% endif %}<span>Tel</span>
                     {% if societe is defined and societe.tel is defined %}
                         {% for key,tel in societe.tel %}
                             {% if key <2 %}
@@ -19,7 +19,7 @@
             </li>
 
     {% for weight,menu in topmenu %}
-        <li><a {% if app.request.pathInfo == menu.url %} class="active" {% endif %} href="{{ menu.url }}" title="{{ menu.title }}">{{ menu.name|trans }}</a></li>
+        <li><a {% if app.request.pathInfo == menu.url %} class="active" {% endif %} href="{% if sitehost != app.request.server.get('SERVER_NAME')  %}http://{{ sitehost }}{% endif %}{{ menu.url }}" title="{{ menu.title }}">{{ menu.name|trans }}</a></li>
     {% endfor %}
             </ul>
         {% endspaceless %}

@@ -19,7 +19,7 @@
 
          <tr>
              <td class="sonata-ba-list-field sonata-ba-list-field-datetime" objectid="43">{{ devis.CreatedDate|date('m/d/Y',"Europe/Paris") }}</td>
-             <td class="sonata-ba-list-field sonata-ba-list-field-Symfony\Component\Form\Extension\Core\Type\TextType">{{ devis.getIdDevis()[0].email }}</td>
+             <td class="sonata-ba-list-field sonata-ba-list-field-Symfony\Component\Form\Extension\Core\Type\TextType">{{ devis.email }}</td>
              <td>{{ devis.randomname }}</td>
              <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="43">
                  <a class="sonata-link-identifier colred" target="_blank" href="/adminss/app/demandedevis/{{ object.id }}/pdfdevis?{{ pdfurl }}"><i class="far fa-file-pdf"></i></a>

@@ -120,16 +120,6 @@ class SonataController extends CRUDController
             $randomname = 'not-randomname';
         }
 
-        /*
-       return  $this->render(
-        // app/Resources/views/Emails/registration.html.twig
-            'email/demandedevis/demandededevis.html.twig',[
-                'devis_info' => $devis,
-                'request' => $this->getRequest()->query->all(),
-                'societe_info' => $societe,
-            ]
-        );*/
-
         $docpdf = new DocPDF();
         $docpdf->setPrice($devis_priceht);
         $docpdf->addIdDevis($devis);
@@ -140,12 +130,11 @@ class SonataController extends CRUDController
         $docpdf->setParObjet($par_objet);
         $docpdf->setValable($valable);
         $docpdf->setRandomname($randomname);
+        $docpdf->setEmail($devis->getEmail());
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($docpdf);
         $em->flush();
-
-
 
 
         $referer = $this->getRequest()
@@ -153,33 +142,31 @@ class SonataController extends CRUDController
             ->get('referer');
 
 
-
         $message = (new \Swift_Message('Votre Devis du déménagement'))
-            ->setFrom(['john@orange.fr' => 'John Doe'])
-            ->setTo('contact@demenagement-express.fr')
+            ->setFrom([$societe->getEmail() => $societe->getNamesociete()])
+            ->setTo($devis->getEmail())
             ->setBody(
                 $this->renderView(
-                // app/Resources/views/Emails/registration.html.twig
                     'email/demandedevis/demandededevis.html.twig',[
                         'devis_info' => $devis,
                         'request' => $this->getRequest()->query->all(),
                         'societe_info' => $societe,
+                        'plain' => 'html'
                     ]
                 ),
                 'text/html'
             )
-          /*  ->addPart(
+            ->addPart(
                 $this->renderView(
-                // app/Resources/views/Emails/registration.html.twig
                     'email/demandedevis/demandededevis.html.twig',[
                         'devis_info' => $devis,
                         'request' => $this->getRequest()->query->all(),
                         'societe_info' => $societe,
+                        'plain' => 'text'
                     ]
                 ),
                 'text/plain'
-            ) */
-
+            )
         ;
 
 

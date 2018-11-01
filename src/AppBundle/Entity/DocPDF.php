@@ -144,6 +144,30 @@ class DocPDF
     /**
      * @return string
      */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Email", type="string", length=50)
+     */
+    private $email;
+
+    /**
+     * @return string
+     */
     public function getFranchise()
     {
         return $this->franchise;

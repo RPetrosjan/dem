@@ -36,19 +36,35 @@ class DevisForm extends AbstractType
                 ))
                     ->add('nom', TextType::class, array(
                         'label' => 'Votre nom',
+                        'attr' => [
+                            'autocomplete' => 'off',
+                        ],
+
                     ))
                     ->add('prenom',TextType::class, array(
                         'label' => 'Votre prenom',
+                        'attr' => [
+                            'autocomplete' => 'off',
+                        ],
                     ))
                     ->add('telephone',TextType::class, array(
                         'label' => 'Telephone',
+                        'attr' => [
+                            'autocomplete' => 'nope',
+                        ],
                     ))
                     ->add('portable',TextType::class, array(
                         'label' => 'Portable',
                         'required' => false,
+                        'attr' => [
+                            'autocomplete' => 'off',
+                        ],
                     ))
                     ->add('email',EmailType::class, array(
                         'label' => 'E-mail',
+                        'attr' => [
+                            'autocomplete' => 'nope',
+                        ],
                     ))
             )
             ->add(
@@ -64,6 +80,7 @@ class DevisForm extends AbstractType
                     'label' => 'Date de demenagement',
                     'attr' => array(
                         'class' => 'datepicker',
+                        'autocomplete' => 'off',
                     ),
                 ))
                 ->add('cp1', TextType::class, array(
@@ -71,25 +88,33 @@ class DevisForm extends AbstractType
                     'label' => 'code postal ville',
                     'attr' => array(
                         'class' => 'cp_ville',
+                        'autocomplete' => 'nope',
                     ),
                 ))
                 ->add('adresse1', TextType::class, array(
                     'empty_data'  => '',
                     'label' => 'adresse',
                     'required' => false,
+                    'attr' => [
+                        'autocomplete' => 'nope',
+                    ]
                 ))
                 ->add('pays1', TextType::class, array(
                     'empty_data'  => 'France',
                     'label' => 'Pays',
                     'data' => 'France',
                     'required' => false,
+                    'attr' => [
+                        'autocomplete' => 'nope',
+                    ]
                 ))
                 ->add('etage1', TextType::class, array(
                     'label' => 'Etage',
                     'empty_data'  => '0',
-                    'attr' => array(
-                        'class' => 'etage'
-                    ),
+                    'attr' => [
+                        'class' => 'etage',
+                        'autocomplete' => 'off',
+                    ],
                     'required' => false,
                 ))
                 ->add('ascenseur1', 'choice', array(
@@ -98,9 +123,10 @@ class DevisForm extends AbstractType
                         'Oui' => 'Oui',
                         'No' => 'No',
                     ),
-                    'attr' => array(
-                        'class' => 'ascenseur'
-                    ),
+                    'attr' => [
+                        'class' => 'ascenseur',
+                        'autocomplete' => 'off',
+                    ],
                     'label' => 'Ascenseur',
                     'required' => false,
                 ))
@@ -120,45 +146,55 @@ class DevisForm extends AbstractType
                 ))
                 ->add('date2',TextType::class, array(
                     'label' => 'Date de demenagement',
-                    'attr' => array(
+                    'attr' => [
                         'class' => 'datepicker',
-                    ),
+                        'autocomplete' => 'off',
+                    ],
                 ))
                 ->add('cp2', TextType::class, array(
                     'empty_data'  => '00000',
                     'label' => 'code postal ville',
-                    'attr' => array(
+                    'attr' => [
                         'class' => 'cp_ville',
-                    ),
+                        'autocomplete' => 'nope',
+                    ],
                 ))
                 ->add('adresse2', TextType::class, array(
                     'empty_data'  => '',
                     'label' => 'adresse',
                     'required' => false,
+                    'attr' => [
+                        'autocomplete' => 'off',
+                    ],
                 ))
                 ->add('pays2', TextType::class, array(
                     'empty_data'  => 'France',
                     'label' => 'Pays',
                     'data' => 'France',
                     'required' => false,
+                    'attr' => [
+                        'autocomplete' => 'off',
+                    ],
                 ))
                 ->add('etage2', TextType::class, array(
                     'label' => 'Etage',
                     'empty_data'  => '0',
-                    'attr' => array(
-                        'class' => 'etage'
-                    ),
+                    'attr' => [
+                        'class' => 'etage',
+                        'autocomplete' => 'off',
+                    ],
                     'required' => false,
                 ))
                 ->add('ascenseur2', 'choice', array(
                     'empty_data'  => true,
-                    'choices'  => array(
+                    'choices'  => [
                         'Oui' => 'Oui',
                         'No' => 'No',
-                    ),
-                    'attr' => array(
-                        'class' => 'ascenseur'
-                    ),
+                    ],
+                    'attr' => [
+                        'class' => 'ascenseur',
+                        'autocomplete' => 'off',
+                    ],
                     'label' => 'Ascenseur',
                     'required' => false,
                 ))
@@ -171,9 +207,9 @@ class DevisForm extends AbstractType
             ->add(
                 $builder->create('InfoGeneral', FormType::class, array(
                     'inherit_data' => true,
-                    'attr' => array(
+                    'attr' => [
                         'class' => 'topformdiv',
-                    ),
+                    ],
                     'label' => 'General',
                     'required' => false,
                     'label_attr' => array('class' => 'topformtoplabel devis general'),
@@ -186,11 +222,19 @@ class DevisForm extends AbstractType
                         'Luxe' => 'Luxe',
                     ),
                     'required' => false,
+                    'attr' => [
+                        'class' => 'prestation',
+                        'readonly' => true,
+                        'autocomplete' => 'off',
+                    ],
                 ))
                 ->add('volume',TextType::class,array(
                     'empty_data'  => '0',
                     'label' => 'Volume',
                     'required' => false,
+                    'attr' => [
+                        'autocomplete' => 'off',
+                    ],
                 ))
             )
             ->add('save', SubmitType::class, array(

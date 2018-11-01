@@ -31,6 +31,7 @@ class DemandeDevisAdmin extends AbstractAdmin
         '_sort_by' => 'CreatedDate',
     ];
 
+    // Creating new Custom route
     protected function configureRoutes(RouteCollection $collection) {
 
         $collection
@@ -163,9 +164,12 @@ class DemandeDevisAdmin extends AbstractAdmin
         $em->persist($contact);
         $em->flush();
 
-
         $repository = $em->getRepository(DocPDF::class);
         $list_devis = $repository->findByDevisId($this->getRequest()->get('id'));
+
+        $societe = $em->getRepository('AppBundle:Societe');
+        $societe_devis_info = $societe->findOneBy(array('siege' => true));
+
 
 
         $showMapper
@@ -220,6 +224,7 @@ class DemandeDevisAdmin extends AbstractAdmin
             ])
             ->add('prixform', 'string', [
                 "template" => "admin/calculdevis/form.html.twig",
+                'societe_devis_info' => $societe_devis_info,
             ])
             ->end()
             ->with('Tous les documents', [

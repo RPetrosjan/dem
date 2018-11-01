@@ -1,28 +1,12 @@
-<div style="background-color: #a72222;">
-    {% for weight,menu in topmenu %}
-        <a style="color:white; display: inline-block;padding-top: 5px; text-transform: uppercase; padding-left: 8px; padding-right: 8px; padding-bottom: 5px; border-right: 1px white solid">{{ menu.name }}</a>
-    {% endfor %}
-</div><br/>
+{% include 'email/header_email.html.twig' %}
+Bonjour, {% if plain == 'html' %}<b>{% endif %}{{ devis_info.nom }} {{ devis_info.prenom }}{% if plain == 'html' %}</b>{% endif %}
+{% if plain == 'html' %}<br/><br/>{% else %}
 
-Bonjour, <b>{{ devis_info.nom }} {{ devis_info.prenom }}</b>
+{% endif %}
+Pour votre futur déménagement à {{ devis_info.cp2 }} {{ devis_info.date2 }}{% if plain == 'html' %}<br/>{% endif %}
+notre equipe {% if plain == 'html' %}<b style="color: #a72222">{% endif %}{{ societe_info.namesociete }}{% if plain == 'html' %}</b>{% endif %} vous propose pour {{ request.priceht }} H.T. euros.
+{% if plain == 'html' %}<br/><br/>{% else %}
 
-Pour votre futur déménagement à {{ devis_info.cp2 }} {{ devis_info.date2 }}
-notre equipe demenagement_rapide vous propose pour {{ request.priceht }} H.T. euros.
-
-Nous vous envoyons "Devis","Condition générales de contrat de déménagement", "Déclaration de valeur".
-
-L'equipe de {{ societe_info.namesociete }} vous remercie pour votre visite.
-
-
-<span>{{ societe_info.namesociete }}</span>
-    {{ societe_info.adresse }}
-    {{ societe_info.cpville.cp }} {{ societe_info.cpville.ville }}
-    {% for telsoc in societe_info.tel %}
-        <span style="color: #a72222; font-weight: bold">{{ telsoc.tel }}</span> /
-    {% endfor %}
-
-
-Vous pouvez visiter notre web site : {{ societe_info.website }}
-
-Votre Equipe
-<b style="color: #a72222;">{{ societe_info.namesociete }}</b>
+{% endif %}
+Nous vous envoyons "{% if plain == 'html' %}<b style="color: #a72222">{% endif %}Devis{% if plain == 'html' %}</b>{% endif %}","{% if plain == 'html' %}<b style="color: #a72222">{% endif %}Condition générales de contrat de déménagement{% if plain == 'html' %}</b>{% endif %}", "{% if plain == 'html' %}<b style="color: #a72222">{% endif %}Déclaration de valeur{% if plain == 'html' %}</b>{% endif %}".
+{% include 'email/footer_email.html.twig' %}

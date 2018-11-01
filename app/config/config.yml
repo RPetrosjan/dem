@@ -8,7 +8,7 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: fr
     cssFileName: pages.css
     jsFileName: pages.js
     admin: adminss
@@ -51,6 +51,7 @@ twig:
         jsFileName: '%jsFileName%'
         topmenu: '%topmenu%'
         top_sous_menu: '%topmenu_sous_menu%'
+        sitehost: 'xn--dmnagements-bbbb.fr'
 
 
 # Doctrine Configuration

@@ -231,9 +231,47 @@ class WebController extends Controller
     }
 
     public function SaveFormValues(){
+
+        $demandedevis = new DemandeDevis();
+        $demandedevis->setNom($this->get('session')->get('tasktotal')->getNom());
+        $demandedevis->setPrenom($this->get('session')->get('tasktotal')->getPrenom());
+        $demandedevis->setTelephone($this->get('session')->get('tasktotal')->getTelephone());
+        $demandedevis->setPortable($this->get('session')->get('tasktotal')->getPortable());
+        $demandedevis->setEmail($this->get('session')->get('tasktotal')->getEmail());
+
+
+        $demandedevis->setDate1($this->get('session')->get('tasktotal')->getDate1());
+        $demandedevis->setCp1($this->get('session')->get('tasktotal')->getCp1());
+        $demandedevis->setAdresse1($this->get('session')->get('tasktotal')->getAdresse1());
+        $demandedevis->setPays1($this->get('session')->get('tasktotal')->getPays1());
+        $demandedevis->setEtage1($this->get('session')->get('tasktotal')->getEtage1());
+        $demandedevis->setAscenseur1($this->get('session')->get('tasktotal')->getAscenseur1());
+        $demandedevis->setComment1($this->get('session')->get('tasktotal')->getComment1());
+
+        if(empty($this->get('session')->get('tasktotal')->getDate2())) {
+            $demandedevis->setDate2($this->get('session')->get('tasktotal')->getDate1());
+        }
+        else {
+            $demandedevis->setDate2($this->get('session')->get('tasktotal')->getDate2());
+        }
+        $demandedevis->setCp2($this->get('session')->get('tasktotal')->getCp2());
+        $demandedevis->setAdresse2($this->get('session')->get('tasktotal')->getAdresse2());
+        $demandedevis->setPays2($this->get('session')->get('tasktotal')->getPays2());
+        $demandedevis->setEtage2($this->get('session')->get('tasktotal')->getEtage2());
+        $demandedevis->setAscenseur2($this->get('session')->get('tasktotal')->getAscenseur2());
+        $demandedevis->setComment2($this->get('session')->get('tasktotal')->getComment2());
+
+        $demandedevis->setPrestation($this->get('session')->get('tasktotal')->getPrestation());
+        $demandedevis->setVolume($this->get('session')->get('tasktotal')->getVolume());
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($demandedevis);
+        $em->flush();
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($this->get('session')->get('tasktotal'));
         $em->flush();
+
 
 ///        $this->addDevisService->AddDevis($this->get('session')->get('tasktotal'),$this->getDoctrine()->getManager());
     }
@@ -465,6 +503,26 @@ class WebController extends Controller
             'imageBlockStop' => true,
             "csrf_token" => $csrf_token,
             "last_username" => $lastUsernameKey,
+        ],$this->getWebElements()));
+        $this->LoadCssLoader($request);
+        return $htmlRender;
+    }
+    /**
+     * It will make all subdomains for the web site
+     *
+     * @Route("/", name="strasbourgpage", host="{subdomains}.xn--dmnagements-bbbb.fr")
+     */
+    public function SubDomainsPage (Request $request, $subdomains) {
+
+        $caluldevis = new CalculDevis();
+        $calculdevisform = $this->createForm(CalculDevisType::class,$caluldevis,array(
+            'action' => $this->generateUrl('prixpage'),
+        ));
+
+
+        $htmlRender = $this->render('Pages/homepage.html.twig', array_merge([
+            'subdomains' => $subdomains,
+            'calculdevisform' => $calculdevisform->createView(),
         ],$this->getWebElements()));
         $this->LoadCssLoader($request);
         return $htmlRender;
