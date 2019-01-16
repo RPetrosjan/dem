@@ -4,11 +4,15 @@
     <meta charset="UTF-8" />
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/{{ cssFileName }}" />
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
 <body>
-
+<div id="background_awesome" class="background_awesome"></div>
 {% block body %}
     {% block topHeader %}
         {% block topMenu %}
@@ -26,6 +30,28 @@
 {% block javascripts %}{% endblock %}
 <script src="/js/{{ jsFileName }}"></script>
 
+<script>
+
+    /*
+    $(document).ready(function() {
+         $fonts_array = ['<i class="fas fa-box-open"></i>', '<i class="fas fa-route"></i>', '<i class="fas fa-couch"></i>', '<i class="fas fa-box-full"></i>', '<i class="fas fa-person-dolly"></i>', '<i class="fas fa-fragile"></i>', '<i class="fas fa-lamp"></i>', '<i class="fas fa-dolly"></i>', '<i class="fas fa-box-up"></i>','<i class="fas fa-truck-container"></i>', '<i class="fas fa-truck-couch"></i>'];
+
+         for (var i =0 ;i<10; i++) {
+
+             $fonts_array.forEach(function (element) {
+                 web_el = $(element).appendTo('#background_awesome');
+
+                 xWi = $(window).width();
+                 yhe = $(window).height();
+                 web_el.css({top: Math.random()*yhe, left: Math.random()*xWi, opacity: 0.5});
+
+             });
+         }
+
+    });
+*/
+
+</script>
 
 </body>
 </html>

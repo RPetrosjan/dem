@@ -1,0 +1,286 @@
+/* Structure */
+body{
+    background-image: url('/image/light_wool.png?kl');
+}
+
+.background_awesome>i{
+    position: absolute;
+    font-size: 45px;
+    color: #b2b2b2;
+}
+
+img {
+    height: auto;
+    width: 100%;
+}
+
+input[type=submit],button[type=submit] {
+    background: #fff;
+    height: 2.75rem;
+    margin: 1em auto auto;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    input[type=submit], button[type=submit] {
+        background: #ab2800;
+        bottom: 2.75rem;
+        left: 2.55rem;
+        height: 2.75rem;
+        padding: 0 3rem;
+        font: 700 16px 'Montserrat', sans-serif;
+        border-radius: 3px;
+    }
+}
+
+input[type=email],
+input[type=text],
+input[type=password] {
+    height: 1.5rem;
+    margin: 0 0 1.15rem;
+    width: 100%;
+    font: 700 16px 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+figure {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    figure {
+        float: left;
+        height: 345px;
+        position: relative;
+        width: 50%;
+        display: inline-block;
+    }
+}
+
+form {
+    overflow: hidden;
+    padding: 10%;
+    position: relative;
+    width: 80%;
+}
+
+@media (min-width: 768px) {
+    form {
+        float: left;
+        padding: 6%;
+        width: 38%;
+    }
+    form.registration_form {
+        width: initial;
+    }
+}
+
+div.registration_form >span{
+    width: 45%;
+    display: inline-block;
+    margin-right: 4%;
+}
+
+.form_end {
+    display: inline-block;
+    padding-left: 42px;
+}
+.form_end >a {
+    color: #2c625d;
+    display: block;
+}
+.form_end >i{
+    font-size: 10px;
+    font-style: normal;
+}
+
+main {
+    margin: 30px auto auto;
+    overflow: hidden;
+    position: relative;
+    width: 90%;
+}
+
+@media (min-width: 768px) {
+    main {
+        left: 50%;
+        margin: auto;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        width: 42.5rem;
+        background: #dcdcdca6;
+    }
+
+
+}
+
+.headline {
+    position: absolute;
+    top: 8vw;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .headline {
+        top: 3.4rem;
+    }
+}
+
+/* Skin */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #74bdb7;
+    font: 700 16px 'Montserrat', sans-serif;
+}
+
+input[type=email],
+input[type=text],
+input[type=password]{
+    background: none;
+    border: none;
+    border-bottom: 2px solid #74bdb7;
+    box-sizing: border-box;
+    outline: none;
+    position: relative;
+}
+
+input[type=email]:required,
+input[type=text]:required,
+input[type=password]:required{
+    box-shadow: none;
+    outline: none;
+}
+
+input[type=submit], button[type=submit] {
+    background: #f37b56;
+    border: none;
+    color: #fff;
+    padding: 0 2rem;
+
+
+}
+
+input[type=submit]:hover,
+input[type=submit]:focus,
+button[type=submit]:hover,
+button[type=submit]:focus{
+    background: #c33003;
+    cursor: pointer;
+    outline: none;
+}
+
+.inputs--filled label {
+    transform: translate(0, 0);
+}
+
+.inputs--invalid input {
+    animation: shake 0.3s cubic-bezier(.36,.07,.19,.97) both;
+    background: url(//assets.petermueller.io/codepen/dailyui-001/ico-invalid.svg) center right no-repeat;
+    border-bottom: 2px solid #f37b56;
+    box-shadow: none;
+    color: #f37b56;
+    transform: translate3d(0, 0, 0);
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    33% {
+        transform: translate3d(-6px, 0, 0);
+    }
+
+    66% {
+        transform: translate3d(6px, 0, 0);
+    }
+}
+
+.inputs--invalid label {
+    color: #f37b56;
+}
+
+label {
+    display: inline-block;
+    transform: translate(0, 1.25rem);
+    transition: 0.15s;
+    color: #2c625d;
+
+}
+
+main {
+    background: #f9f6ed;
+    border-radius: 0.25rem;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.6);
+}
+
+.text-headline {
+    color: #74bdb7;
+    letter-spacing: 0.4rem;
+    font: 700 1.4em 'Montserrat';
+    text-align: center;
+    text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+    .text-headline {
+        font: 700 1.625rem 'Montserrat';
+        line-height: 25px;
+    }
+}
+
+.register_info{
+    padding-top: 28px;
+    padding-right: 28px;
+    padding-left: 6%;
+    color: #f37b56;
+}
+.register_info>i{
+    color: #000000;
+    font-size: 30px;
+    float: left;
+    margin-right: 9px;
+    margin-top: 6px;
+}
+.text-body {
+    color: #354c58;
+    font: 700 16px 'Montserrat', sans-serif;
+}
+
+.text-small-uppercase {
+    color: #233f3c;
+    font: 700 .75rem 'Montserrat';
+    letter-spacing: .08rem;
+    text-transform: uppercase;
+}
+
+.text-subheadline>b{
+    color: black;
+}
+.text-subheadline {
+    color: #f37b56;
+    font: 700 0.652rem 'Montserrat';
+    left: -.17rem;
+    letter-spacing: .143rem;
+    margin-bottom: 1.5rem;
+    padding-top: 13px;
+    position: relative;
+    text-transform: uppercase;
+    padding-left: 25px;
+    text-shadow: 0px 0px 2px #d7d7d7;
+}
+
+@media (min-width: 768px) {
+    .text-subheadline {
+        font: 700 0.75rem 'Montserrat';
+        line-height: 18px;
+    }
+}

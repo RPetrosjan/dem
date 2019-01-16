@@ -4,6 +4,10 @@ parameters:
     #parameter_name: value
 
 services:
+    access.denied:
+        class: AppBundle\Security\AccessDeniedHandler
+        arguments: [ '@templating' ]
+
     # default configuration for services in *this* file
     _defaults:
         # automatically injects dependencies in your services
@@ -36,7 +40,33 @@ services:
            - AppBundle\Entity\User
            - ~
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Users, group : 'Admin' }
+            - { name: sonata.admin, manager_type: orm, label: Users, group : 'Admin', icon: '<i class="fa fa-users"></i>' }
+        public: true
+
+
+
+    admin.demandedevis:
+        class: AppBundle\Admin\DemandeDevisAdmin
+        arguments:
+            - ~
+            - AppBundle\Entity\DemandeDevis
+            - ~
+            - "@doctrine.orm.default_entity_manager"
+            - "@security.token_storage"
+        tags:
+            - { name: sonata.admin, manager_type: orm, route: '/demandedevis', label: 'Demande Devis', group: 'Web' }
+        public: true
+
+
+    admin.devisenvoye:
+        class: AppBundle\Admin\DevisEnvoyeAdmin
+        arguments:
+            - ~
+            - AppBundle\Entity\DevisEnvoye
+            - ~
+            - "@doctrine.orm.default_entity_manager"
+        tags:
+            - { name: sonata.admin, manager_type: orm, route: '/devisenvoye', label: 'Envoye', group: 'Web' }
         public: true
 
     # add more services, or override services that need manual wiring

@@ -1,0 +1,378 @@
+.skin-black .wrapper, .skin-black .main-sidebar, .skin-black .left-side, .skin-black .main-header{
+    background-color: transparent;
+    background-image: url("/image/admin/dashboard/font9.jpg");
+}
+.slimScrollDiv, .skin-black .main-header .navbar, .skin-black .main-header > .logo{
+    background-color: #ffffff9e;
+}
+.skin-black .sidebar a{
+    color: #141415;
+}
+
+.skin-black .sidebar-menu > li > a{
+    border-left: none;
+    cursor: inherit;
+}
+.sidebar-menu>li>a>.fa, .sidebar-menu>li>a>.glyphicon, .sidebar-menu>li>a>.ion{
+    margin-right: 4px;
+}
+.skin-black .sidebar-menu > li > a>i{
+    padding-right: 5px;
+}
+
+table.sonata-ba-list th {
+    background-image: none;
+}
+
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+    border: none;
+}
+
+th.sonata-ba-list-field-header-order-desc a, th.sonata-ba-list-field-header-order-asc a {
+    font-weight: normal;
+}
+.table-striped>tbody>tr:nth-of-type(odd){
+    background-color: inherit;
+}
+.table-hover>tbody>tr:hover{
+    background-color: #f5f5f5;
+}
+.table-hover>tbody>tr{
+    border-bottom: 1px #e3e3e3 solid;
+}
+.sonata-ba-list td.sonata-ba-list-field a.sonata-link-identifier{
+    font-weight: bold;
+    color: #1d5576;
+}
+th.sonata-ba-list-field-header-order-desc a, th.sonata-ba-list-field-header-order-asc a {
+    position: relative;
+    margin-right: 10px;
+    display: inline-block;
+    color: #c90000;
+    font-size: 15px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.aaction{
+    font-size: 22px;
+    text-shadow: 0px 0px 2px #b6b6b6;
+}
+.aaction.show {
+    color: #00bcd4;
+}
+.aaction.edit {
+    color: green;
+}
+.aaction.remove{
+    color: red;
+}
+
+.table>caption+thead>tr:first-child>td, .table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>td, .table>thead:first-child>tr:first-child>th {
+    border-top: 0;
+    position: relative;
+    color: #c90000;
+    font-size: 15px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+.select2-container .select2-choice {
+    font-weight: bold;
+    box-shadow: 0px 1px 5px -3px rgba(44, 44, 44, 1);
+    color: #a72222;
+    font-family: 'Open Sans Condensed', sans-serif;
+    outline: 0;
+    position: relative;
+    transition: all .3s ease-in-out;
+    z-index: 10;
+    border: 1px #b6b4b4 solid;
+    height: auto;
+    line-height: 15px;
+    border-radius: 3px!important;
+}
+
+.select2-container .select2-choice .select2-arrow b{
+    margin: -2px;
+}
+.select2-choice, .select2-choices, .select2-drop {
+    border-radius: 3px!important;
+    font-weight: bold;
+    border: 1px solid #a72222;
+}
+
+form>.row{
+    margin-top: 10px;
+    margin-left: -2px;
+}
+
+.box-header>.box-title>i {
+    background-color: #c90000;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 11px -2px black;
+    float: left;
+    margin-left: -48px;
+    margin-top: -22px;
+    text-align: center;
+    width: 39px;
+}
+
+.select2-results .select2-highlighted {
+    color: #fff;
+    background-color: #a72222;
+}
+
+.sidebar>p{
+    border-top: none;
+    display: none;
+}
+.navbar-right-logout
+{
+    float: right!important
+}
+.navbar-right-logout a{
+    font-size: 14px;
+    color: #c90000 !important;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+.navbar-right-logout a>span{
+    padding: 10px;
+}
+.navbar-right-logout a>i{
+    font-size: 18px;
+}
+
+.skin-black .sidebar-menu > li > .treeview-menu{
+    background-color: transparent;
+    margin: 0px;
+}
+.skin-black .treeview-menu > li > a{
+    color: #c90000;
+    background-color: #cfcece7a;
+    box-shadow: 0px 0px 5px -2px black;
+    margin-bottom: 6px;
+}
+.skin-black .treeview-menu > li > a:hover {
+    color: #c90000 !important;
+    background-color: white;
+}
+
+.sidebar-menu .treeview-menu{
+    padding-left: 0px;
+}
+
+.skin-black .sidebar a {
+    color: #141415;
+    font-size: 15px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.skin-black .sidebar-menu > li:hover > a, .skin-black .sidebar-menu > li.active > a {
+    color: #000000;
+    background: transparent;
+    border-left-color: #585858;
+}
+
+body{
+    background-color: #EDEDED;
+    background-position: center 0px;
+    background-repeat: no-repeat;
+    color: #3F3F3F;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    margin: 0;
+}
+
+/* Panel devis edit */
+
+.input-group .form-control
+{
+    float: none;
+}
+.input-group .input-group-addon{
+    display: none;
+}
+
+input.form-control {
+    border-radius: 3px;
+    box-shadow: 0px 1px 5px -3px rgba(44, 44, 44, 1);
+    color: #a72222;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    outline: 0;
+    padding: 4px 0 4px 0px;
+    position: relative;
+    transition: all .3s ease-in-out;
+    z-index: 10;
+    text-indent: 10px;
+    border: 1px #b6b4b4 solid;
+    height: auto;
+}
+
+div.input-group{
+    display: block;
+}
+
+.sonata-ba-field.sonata-ba-field-standard-natural {
+    display: inline-block;
+    width: 50%;
+}
+
+.form-group>label {
+    width: 120px;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 12px;
+    color: black;
+}
+
+.form-group {
+    border-top: 1px solid #eaeaea;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+.sonata-ba-collapsed-fields > .form-group {
+    margin-bottom: 0px;
+}
+
+/* Panel devis show */
+.nav-tabs-custom>.nav-tabs>li.active>a, .nav-tabs-custom>.nav-tabs>li.active:hover>a {
+    background-color: #fff;
+    color: #444;
+    box-shadow: 0px 0px 15px -5px black;
+}
+
+.ui-datepicker{
+    z-index: 100;
+}
+
+.nav-tabs-custom {
+    margin-bottom: 20px;
+    background: #ffffff9e;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    border-radius: 3px;
+}
+
+.box-header>.fa, .box-header>.glyphicon, .box-header>.ion, .box-header .box-title {
+    font-family: 'Open Sans Condensed', sans-serif;
+    text-transform: uppercase;
+    color: #c90000;
+    padding-left: 25px;
+}
+
+.box.box-primary {
+    border: 1px lightgrey solid;
+    border-radius: 5px;
+}
+
+.nav-tabs-custom>.tab-content {
+    background: transparent;
+    padding: 10px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+    border-top: 1px solid #eaeaea;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 12px;
+    color: black;
+}
+
+.nav-tabs-custom>.nav-tabs>li>a {
+    color: #444;
+    border-radius: 0;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -webkit-transition: 0.3s;
+    background: #fff;
+    color: #a72222;
+    /* display: inline-block; */
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 13px 45px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.3s;
+    margin-bottom: 1px;
+}
+
+/* Button */
+form>.well {
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+form>.well> .btn {
+    box-shadow: 5px 3px 10px -3px #747474;
+}
+
+/* Panel top */
+
+.aaction{
+    font-size: 22px;
+    text-shadow: 0px 0px 2px #b6b6b6;
+}
+.aaction.show {
+    color: #00bcd4;
+}
+.aaction.edit {
+    color: green;
+}
+.aaction.remove{
+    color: red;
+}
+
+
+
+.nav>li>a{
+    display: inline-block;
+}
+.btn-default {
+    background-color: transparent;
+    border: none;
+    padding: 1px 9px;
+}
+
+.btn-default:hover {
+    background-color: transparent;
+}
+
+.navbar-default .navbar-nav>li>a {
+    font-weight: bold;
+    font-size: 15px;
+    color: #024928;
+}
+
+
+
+/* DatePiceker */
+ui-datepicker td span, .ui-datepicker td a {
+    display: block;
+    padding: .2em;
+    text-align: right;
+    text-decoration: none;
+    background: transparent!important;
+}
+
+.ui-widget-header{
+    border: none;
+    background: transparent;
+}
+
