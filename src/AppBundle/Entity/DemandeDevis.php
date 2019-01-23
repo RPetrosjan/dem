@@ -581,7 +581,6 @@ class DemandeDevis
         $this->comment1 = '';
         $this->comment2 = '';
 
-        dump(\Ramsey\Uuid\Uuid::uuid4());
         $this->uuid = \Ramsey\Uuid\Uuid::uuid4();
     }
 

@@ -9,6 +9,8 @@
 namespace AppBundle\Admin;
 
 
+use AppBundle\Form\EstimationPrixForm;
+use AppBundle\Form\LoginForm;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -17,6 +19,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Validator\Constraints\Form;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 
@@ -223,6 +226,7 @@ class DemandeDevisAdmin extends AbstractAdmin
             ])
             ->add('date2', TextType::class, [
                 'attr' => [
+                    'class' => 'datepicker',
                     'autocomplete' => 'nope',
                 ]
             ])
@@ -282,11 +286,24 @@ class DemandeDevisAdmin extends AbstractAdmin
         $em->flush();
 
 
+        $formlogin = $container->get('form.factory')->create(EstimationPrixForm::class, null, [
+            'action' => 'post',
+        ])->createView();
+
       //  $societe = $em->getRepository('AppBundle:Societe');
        // $societe_devis_info = $societe->findOneBy(array('siege' => true));
 
         $showMapper
             ->tab($this->trans('Devis Info'))
+            ->with('General', [
+                    'class'       => 'col-md-6']
+            )
+            ->add('nom')
+            ->add('prenom')
+            ->add('telephone')
+            ->add('email')
+
+            ->end()
             ->with('Info Déménagement ',[
                 'class'       => 'col-md-6 title_devis'
             ])
@@ -305,15 +322,7 @@ class DemandeDevisAdmin extends AbstractAdmin
                 'mapped' => false,
             ])
             ->end()
-            ->with('General', [
-                    'class'       => 'col-md-6']
-            )
-            ->add('nom')
-            ->add('prenom')
-            ->add('telephone')
-            ->add('email')
 
-            ->end()
             ->with('Info Depart' ,[
                 'class'       => 'col-md-6'
             ])
@@ -342,11 +351,18 @@ class DemandeDevisAdmin extends AbstractAdmin
             ->tab($this->trans('Envoyer Devis'))
 
             ->with('Estimation Prix', [
-                'class'       => 'col-md-4'
+                'class'       => 'col-md-5',
+            ])
+            ->add('prixform', LoginForm::class, [
+                "template" => "admin/demandedevis/estimation_prix.html.twig",
+                'label' => 'Prix',
+                'attr' => [
+                    'form' => $formlogin,
+                ]
             ])
             ->end()
             ->with('Tous les documents', [
-                'class' => 'col-md-8'
+                'class' => 'col-md-7'
             ])
 
             ->end()

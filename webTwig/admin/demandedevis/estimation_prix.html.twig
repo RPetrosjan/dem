@@ -1,0 +1,12 @@
+{% set form = field_description.options.attr.form %}
+
+
+{% form_theme form 'admin/demandedevis/form/fields.html.twig' %}
+
+<div class="box-body">
+
+{{ form_start(form) }}
+{{ form_end(form) }}
+
+</div>
+

@@ -1,0 +1,17 @@
+{% block form_row %}
+
+    {% if form.vars.name != 'group' and form.vars.name != 'group_top' %}
+
+        <div class="col-md-4 text-nowrap form-group" style="margin-bottom: 20px">
+        {{ form_label(form) }}
+    {% endif %}
+
+    {{ form_widget(form) }}
+    {% if form.vars.name != 'group' and form.vars.name != 'group_top' %}
+
+             </div>
+    {% endif %}
+
+
+
+{% endblock form_row %}

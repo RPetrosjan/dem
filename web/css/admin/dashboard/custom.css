@@ -360,19 +360,3 @@ form>.well> .btn {
     color: #024928;
 }
 
-
-
-/* DatePiceker */
-ui-datepicker td span, .ui-datepicker td a {
-    display: block;
-    padding: .2em;
-    text-align: right;
-    text-decoration: none;
-    background: transparent!important;
-}
-
-.ui-widget-header{
-    border: none;
-    background: transparent;
-}
-
