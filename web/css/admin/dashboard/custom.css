@@ -156,13 +156,14 @@ form>.row{
 }
 .skin-black .treeview-menu > li > a{
     color: #c90000;
-    background-color: #cfcece7a;
-    box-shadow: 0px 0px 5px -2px black;
-    margin-bottom: 6px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 3px -1px black;
+    margin-bottom: 2px;
+    padding: 10px 5px 10px 15px;
 }
 .skin-black .treeview-menu > li > a:hover {
-    color: #c90000 !important;
-    background-color: white;
+    color: white !important;
+    background-color: #9b0000;
 }
 
 .sidebar-menu .treeview-menu{
@@ -242,6 +243,7 @@ div.input-group{
     padding-bottom: 6px;
 }
 
+
 .sonata-ba-collapsed-fields > .form-group {
     margin-bottom: 0px;
 }
@@ -289,7 +291,12 @@ div.input-group{
     font-size: 12px;
     color: black;
 }
-
+.alert>i{
+    font-size: 20px;
+    float: left;
+    margin-right: 8px;
+    margin-top: -1px;
+}
 .nav-tabs-custom>.nav-tabs>li>a {
     color: #444;
     border-radius: 0;
@@ -310,7 +317,7 @@ div.input-group{
 }
 
 /* Button */
-form>.well {
+form .well, .form-group>.well {
     background-color: transparent;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -319,7 +326,7 @@ form>.well {
     font-size: 16px;
 }
 
-form>.well> .btn {
+form .well .btn {
     box-shadow: 5px 3px 10px -3px #747474;
 }
 
@@ -339,7 +346,29 @@ form>.well> .btn {
     color: red;
 }
 
+.main-header .sidebar-toggle:before{
+    content: none;
+}
 
+.changer-tab>i{
+    font-size: 23px;
+    color: #333;
+    margin-right: 10px;
+    position: absolute;
+    left: 14px;
+    top: 10px;
+}
+
+.nav-tabs-custom>.nav-tabs{
+    margin-bottom: 15px;
+    border-bottom-color: #d3d3d3;
+}
+
+.nav-tabs-custom>.nav-tabs>li {
+    border-top: 3px solid transparent;
+    margin-bottom: 3px;
+    margin-right: 5px;
+}
 
 .nav>li>a{
     display: inline-block;
@@ -360,3 +389,31 @@ form>.well> .btn {
     color: #024928;
 }
 
+.form-control[disabled], fieldset[disabled] .form-control {
+    border: none;
+    box-shadow: none;
+    height: 28px;
+}
+.devisPrev{
+
+}
+.devisPrev>a{
+    color: #444;
+    text-decoration: underline;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: bold;
+    margin-left: 31px;
+    margin-bottom: 21px;
+    display: inline-block;
+}
+.devisPrev>a>i{
+    font-size: 25px;
+    color: #a72222;
+    margin-right: 6px;
+    float: left;
+    margin-top: -5px;
+}
+
+.devis_table_list a{
+    text-decoration: underline;
+}

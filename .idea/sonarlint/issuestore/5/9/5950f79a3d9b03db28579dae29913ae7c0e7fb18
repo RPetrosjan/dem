@@ -1,0 +1,4 @@
+
+R	php:S1068"3Remove this unused "$switch_to_user" private field.(°¥‚‡ÿÿÿÿÿ8Ϊαί’-
+P	php:S1185"6Remove this method "__construct" to simply inherit it.(ƒφΩƒ8Ϊαί’-
+z	php:S1448"`Class "User" has 36 methods, which is greater than 20 authorized. Split it into smaller classes.(γομ8Ϊαί’-

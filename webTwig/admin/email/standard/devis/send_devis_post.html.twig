@@ -1,0 +1,27 @@
+{% include('admin/email/standard/devis/block/header.html.twig') %}
+{% set boderText = '
+<div style="width: 490px; background-color: #e6e6e6;padding-top: 35px; padding-left: 20px; padding-bottom: 35px; padding-right: 10px; margin-top: 5px">
+    Bonjour <b style="color: #c90000;">'~devis_info.nom~' '~devis_info.prenom~'</b>
+    <div>Pour votre futur déménagement à <b>'~devis_info.cp2~' '~devis_info.ville2~'</b></div>
+    <div>notre equipe vous propose pour <b><span style="color: #c90000;">'~prixht~' H.T.</span> &euro;</b>. </div>
+</div>
+
+<div style="width: 500px; background-color: #e6e6e6;padding-top: 15px; padding-left: 10px; padding-bottom: 10px; padding-right: 10px; margin-top: 5px">
+    <div>En pièce jointe nous Vous envoyons en <b style="color: #c90000;">pdf</b> format</div>
+    <div>
+        <ul>
+            <li><i>Devis</i></li>
+            <li><i>Condition générales de contrat de déménagement</i></li>
+            <li><i>Déclaration de valeur</i></li>
+        </ul>
+    </div>
+</div>
+' %}
+
+ {% if formatEmail == 'html' %}
+     {{ boderText|raw }}
+ {% else %}
+     {{ boderText|striptags|nl2br }}
+{% endif %}
+
+{% include('admin/email/standard/devis/block/footer.html.twig') %}

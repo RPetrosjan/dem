@@ -2,6 +2,9 @@ app:
     resource: '@AppBundle/Controller/'
     type: annotation
 
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
 admin_area:
     resource: '@AppBundle/Resources/config/routing/sonata_admin.xml'
     prefix: %admin%
@@ -17,6 +20,13 @@ sonata_societe:
 sonata_admin_user:
     path: /%admin%/app/user/list
 
+sonata_admin_devis_conf:
+    path: /%admin%/app/devisconfig
+
+sonata_admin_ma_societe:
+    path: /%admin%/app/ma-societe
+
+
 sonata_admin_demande_devis:
     path: /%admin%/app/demandedevis/list
 
@@ -25,6 +35,11 @@ sonata_admin_devis_envoye:
 
 sonata_admin:
     path: /%admin%/
+
+sonata_sendDevis_post:
+    path: /%admin%/app/demandedevis/{uuid}/post
+    controller: AppBundle\Controller\AdminController::sendDevisPost
+
 
 
 fos_user_security:

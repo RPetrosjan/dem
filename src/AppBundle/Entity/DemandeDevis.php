@@ -15,22 +15,6 @@ use Ramsey\Uuid\UuidInterface;
  */
 class DemandeDevis
 {
-    /**
-     * @return UuidInterface
-     */
-    public function getUuid()
-    {
-        return $this->uuid;
-    }
-
-    /**
-     * @param UuidInterface $uuid
-     */
-    public function setUuid($uuid)
-    {
-        $this->uuid = $uuid;
-    }
-
 
     /**
      * @var int
@@ -177,6 +161,13 @@ class DemandeDevis
      * @ORM\Column(name="email", type="string", length=64, nullable=true)
      */
     private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="budget", type="string", length=64, nullable=true)
+     */
+    private $budget;
 
 
     /**
@@ -766,5 +757,41 @@ class DemandeDevis
     {
         $this->prestation = $prestation;
     }
+
+
+    /**
+     * @return UuidInterface
+     */
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param UuidInterface $uuid
+     */
+    public function setUuid($uuid)
+    {
+        $this->uuid = $uuid;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getBudget()
+    {
+        return $this->budget;
+    }
+
+    /**
+     * @param string $budget
+     */
+    public function setBudget($budget)
+    {
+        $this->budget = $budget;
+    }
+
+
 }
 

@@ -9,12 +9,14 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\DemandeDevis;
 use AppBundle\Entity\OptimizerCss;
 use AppBundle\Entity\OptimizerJs;
 use AppBundle\Entity\User;
 use AppBundle\Form\LoginForm;
 use AppBundle\Form\RegistrationForm;
-use Doctrine\Common\Annotations\Annotation;
+
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -27,10 +29,12 @@ class WebController extends Controller
 {
 
     private $twig;
+    private $em;
 
-    public function __construct(Twig_Environment $twig)
+    public function __construct(Twig_Environment $twig, EntityManagerInterface $em)
     {
         $this->twig = $twig;
+        $this->em = $em;
     }
 
     /**
@@ -71,6 +75,26 @@ class WebController extends Controller
 
         \file_put_contents($ServerUrl.'/css/'.$filecss,$optimcss->optimizeCss($csstext));
         \file_put_contents($ServerUrl.'/js/'.$filejs,$optimjs->minifyJavascript($jstext));
+    }
+
+    /**
+     * @Route("/testemailtwig/{type}", name="testmailtwig_page")
+     */
+    public function ShowEmailTwigTest(Request $request) {
+
+
+        $devis = $this->em->getRepository(DemandeDevis::class)->find(6);
+
+        $message= $this->render('admin/email/standard/devis/send_devis_post.html.twig', [
+            'societe_info' => $this->getUser(),
+            'devis_info' => $devis,
+            'prixht' => 1560,
+            'formatEmail' => 'html'
+        ]);
+
+        return $message;
+
+
     }
 
     /**

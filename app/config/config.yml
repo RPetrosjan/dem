@@ -103,6 +103,9 @@ sonata_block:
             contexts: [admin]
 
 sonata_admin:
+    security:
+        handler: sonata.admin.security.handler.role
+
     title: 'Espace Déménageur'
     search: false
     templates:
@@ -188,11 +191,11 @@ sonata_admin:
                 label:              Paramètres
                 icon:               '<i class="fas fa-cogs"></i>'
                 items:
-                   - route:        sonata_admin_user
+                   - route:        sonata_admin_ma_societe
                      label:        Ma Societe
                      roles:        [ROLE_CLIENT]
 
-                   - route:        sonata_admin_user
+                   - route:        sonata_admin_devis_conf
                      label:        Devis / Tarification
                      roles:        [ROLE_CLIENT]
 

@@ -1,0 +1,22 @@
+{% set footerText = '
+<div style="width: 490px; background-color: #e6e6e6;padding-top: 35px; padding-left: 20px; padding-bottom: 35px; padding-right: 10px; margin-top: 5px">
+    <div style="margin-bottom: 10px">
+    N\'hésitez pas à nous contacter pour tout complément d\'information
+    </div>' %}
+    {% if societe_info.website|length > 1 %}
+        {% set footerText = footerText~'L\'equipe de
+        <div style="text-align: left; padding-left: 10px; color: #c90000;"><b>'~societe_info.companyName~'</b></div> vous remercie pour votre visite.
+        <div style="text-align: right; font-weight: bold">
+        <a style="color: #c90000;" href="'~societe_info.website~'">'~societe_info.website~'</a>
+        </div>'%}
+    {% endif %}
+{% set footerText = footerText~'
+</div>
+</body>
+</html>
+' %}
+ {% if formatEmail == 'html' %}
+     {{ footerText|raw }}
+ {% else %}
+     {{ footerText|striptags|nl2br }}
+ {% endif %}

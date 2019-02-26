@@ -1,0 +1,262 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+
+    <style>
+        {{ include('admin/pdf/standard/css/pdf.css') }}
+    </style>
+</head>
+<body>
+{{ include ('admin/pdf/standard/block/top_societe_info_panel_pdf.html.twig') }}
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table cellpadding="0" cellspacing="0">
+    <tr>
+        <td style=" width:83%;  text-align: right; font-size: 15px; font-weight: bold ">Conditions generales de vente du contrat de déménagement - {{ devisInfo.getDevisNumber() }}</td>
+        <td style="width: 17%"></td>
+    </tr>
+    <tr>
+        <td style=" width:83%;  text-align: right; font-weight: normal ">{{ societeInfo.codePostal }} {{ societeInfo.city }} {{ devisInfo.CreatedDate|date("m/d/Y") }}</td>
+        <td style="width: 17%"></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table style="font-weight: normal; font-size: 7px" cellpadding="3">
+    <tr>
+        <td style="text-align: center; font-size: 8px">Les présentes conditions générales de vente et les conditions particulières négociées entre l’entreprise et le client déterminent les droits et obligations de chacun d’eux. Elles
+            s’appliquent de plein droit et de convention expresse entre les parties (article 1134 du Code Civil), aux opérations de déménagement, objet du présent contrat.
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 50%">
+            <table cellpadding="0" cellspacing="3">
+                <tr>
+                    <td> <strong>CHAPITRE I : DISPOSITIONS GENERALES</strong><br/>
+                        <b style="color: #9b0000">ARTICLE 1 – INFORMATIONS SUR LES CONDITIONS DE REALISATION DU
+                            DEMENAGEMENT</b><br/>
+                        A la demande de l'entreprise, le client doit fournir toutes informations dont il a
+                        connaissance permettent la réalisation matérielle du déménagement, tant au lieu de
+                        chargement que de livraison (conditions ds'accès pour le personnel et le véhicule,
+                        possibilité de stationnement, travaux en cours et touts autres particularité). Le client est
+                        préalablement informé des suppléments chiffrés qus'il serait éventuellement amené à
+                        supporter en cas ds'absence ds'informations ou ds'inexactitude de celle-ci. Le client doit
+                        également signaler les objets dont le transport est assujetti à une réglementation
+                        spéciale (vins, alcools, armes, etc.), les formalités administratives éventuelles étant à sa
+                        charge. Un devis gratuit décrivant les caractéristiques de ls'opération projetées est
+                        fourni par ls'entreprise au client.</td>
+                </tr>
+                <tr>
+                    <td><b style="color: #9b0000">ARTICLES 2 - REALISATION DU CONTRAT</b><br/>
+                        Sauf stipulation contraire des conditions particulières, toute somme versée d'avance est
+                        qualifiée d'arrhes. Sauf en cas de force majeure : -en cas de résiliation par le client, les
+                        arrhes ne sont pas remboursées, -en cas de résiliation par l'entreprise ou défaillance de
+                        celle-ci, le professionnel les restitue au double.
+
+                    </td>
+                    <td><b style="color: #9b0000">ARTICLES 11 - PRESENCE OBLIGATOIRE DE CLIENT</b>
+                        Le client ou son mandataire doit être présent tant au chargement qu'à la livraison ; il
+                        doit vérifier, avant le départ du véhicule, qu'aucun objet n'a été oublié dans les locaux et
+                        dépendances où se trouvait le mobilier. Le représentant de l'entreprise est en droit
+                        d'exiger du client la constatation par écrit de toute détérioration antérieure au
+                        déménagement
+                    </td>
+                </tr>
+                <tr>
+                    <td><b style="color: #9b0000">ARTICLES 3 - DÉMARCHAGE ET VENTE A DOMICILE</b><br/>
+                        En cas de démarchage et de vente à domicile, le client bénéficie de la faculté de
+                        renonciation dans les 7 jours suivant la signature du contrat de déménagement, telle
+                        que prévue par la loi du 22 décembre 1972 modifiée. Il reçoit à cet effet un bordereau
+                        de rétraction, aucune contrepartie financière ne devant être perçue pendant ce délai.
+
+                    </td>
+                </tr>
+                <tr>
+                    <td><b style="color: #9b0000">ARTICLES 4 - ASSURANCE DOMMAGE</b><br/>
+                        L'entreprise a la faculté de proposer au client de souscrire une assurance dommage
+                        destinée à garantir le mobilier contre certains risques pour lesquels elle n'assume
+                        légalement aucune responsabilité. Son coût est portéla connaissance du client, qui a la
+                        possibilité d'y souscrire ou non.
+                    </td>
+                </tr>
+                <tr>
+                    <td><b style="color: #9b0000">ARTICLES 5 - DELAIS D'EXECUTION INDETERMINES</b><br/>
+                        Si, à la demande du client, il n'est pas fixé de date ou de période formelle d'exécution,
+                        le client peut adresser une mise en demeure par lettre recommandée à l'entreprise, au
+                        cas où celle-ci n'a pas entrepris le transport dans un délai normalement prévisible. A
+                        compter de cette mise en demeure, l'entreprise dispose d'un délai de dix jours pour
+                        exécuter l'opération convenue. A défaut d'exécution, dans le délai de dix jours, sauf cas
+                        de force majeur, le contrat est considéré comme résilié par l'entreprise et les sommes
+                        versées sont restituées
+
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>CHAPITRE II : PRIX ET MODALITES DE REGLEMENT</strong><br/>
+                        <b style="color: #9b0000">ARTICLES 6 - PRIX ET MODALITES DE REGLEMENT</b><br/>
+                        Les prix fixès au contrat ne peuvent être modifiès que si des charges imprèvisibles et
+                        indèpendantes de la volontè de l'entreprise, lièes aux modalitès de rèalisation,
+                        surviennent avant le dèbut de l'opèration. Le client et l'entreprise peuvent toutefois
+                        dècider d'un commun accord de modifier les dispositions prèvues au contrat sous
+                        rèserve de convenir de nouvelles modalitès et des consèquences pouvant en rèsulter
+                        su le prix fixè, notamment pour toutes prestations supplèmentaires non prèvues au
+                        contrat initial
+                    </td>
+                </tr>
+                <tr>
+                    <td><b style="color: #9b0000">ARTICLES 7 - VALIDITE DES PRIX</b><br/>
+                        Si la date de rèalisation n'a pas ètè fixèe, l'entreprise et le client dèterminent la durèe de
+                        validitè des prix à compter de la date d'ètablissement du devis.
+                    </td>
+                </tr>
+                <tr>
+                    <td><b style="color: #9b0000">ARTICLES 8 - MODALITE DE REGLEMENT</b><br/>
+                        Les conditions particulières doivent prévoir après négociation: -les montant des arrhes
+                        versé à la commande, -le montant du versement intermédiaire, le cas échéant é la fin
+                        du chargement, -le solde é la fin du contrat de déménagement
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>CHAPITRE III : REALISATION DES PRESTATIONS</strong><br/>
+                        <b style="color: #9b0000">ARTICLES 9 - PRESTATIONS EFFECTUEES PAR L'ENTREPRISE</b><br/>
+                        Les prestations sont convenues avec le client préalablement à chaque opération et
+                        précisément définies dans le devis. L'entreprise n'assume pas la prise en charge des
+                        personnes, des animaux, des végétaux, des matières dangereuses, infectés, explosives
+                        ou inflammables, des bijoux, monnaies, métaux précieux ou valeurs. Toute exception à
+                        cette règle doit être l'objet d'un accord écrit entre l'entreprise et le client avant le début
+                        de la réalisation.
+
+                    </td>
+                </tr>
+            </table>
+           </td>
+        <td>
+            <table cellpadding="0" cellspacing="3">
+                <tr>
+                    <td><b style="color: #9b0000">ARTICLES 10 - REALISATION PAR UNE TIERCE ENTREPRISE</b><br/>
+                        L'entreprise conserve la faculté de confier, sous son entière responsabilité, la
+                        réalisation totale ou partielle du déménagement à une tierce entreprise dénommée «
+                        entreprise exécutante ». Dans le cas où l'entreprise contractante utilise cette faculté,
+                        l'information du client sur l'identité de l'entreprise exécutante doit être réalisée dans un
+                        délai minium de 48 heures avant la date de réalisation ; le client est en droit de refuser
+                        et les sommes lui sont alors restituées.
+                    </td>
+                </tr>
+                <tr>
+                    <td><b style="color: #9b0000">ARTICLES 11 - PRESENCE OBLIGATOIRE DE CLIENT</b><br/>
+                        Le client ou son mandataire doit être présent tant au chargement qu'à la livraison ; il
+                        doit vérifier, avant le départ du véhicule, qu'aucun objet n'a été oublié dans les locaux et
+                        dépendances où se trouvait le mobilier. Le représentant de l'entreprise est en droit
+                        d'exiger du client la constatation par écrit de toute détérioration antérieure au
+                        déménagement.
+
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>CHAPITRE IV : RESPONSABILITE DE L'ENTREPRISE</strong><br/>
+                        <b style="color: #9b0000">ARTICLES 12 - RESPONSABILITE POUR RETARD</b><br/>
+                        L'entreprise est tenue de réaliser le déménagement suivant la date de chargement et
+                        de livraison (article 104 du code de commerce), ou en cas de groupage suivant la
+                        période indiqués sur la lettre de voiture. Sauf en cas de force majeur, l'indemnité due en
+                        cas de retard est calculée suivant le préjudice démontré et supporté par le client
+                    </td>
+                </tr>
+                <tr>
+                    <td><b style="color: #9b0000">ARTICLES 13 - RESPONSABILITE POUR PERTES ET AVARIES</b><br/>
+                        L'entreprise est responsable des meubles et objets qui lui ont été confiés, sauf cas de
+                        force majeure, vice propre de la chose ou faute du client (article 103 du code de
+                        commerce). Elle décline toute responsabilité en ce qui concerne les opérations qui ne
+                        seraient pas exécutées par ses préposés ou ses intermédiaires substitués.
+
+                    </td>
+                </tr>
+                <tr>
+                    <td><b style="color: #9b0000">ARTICLES 14 - INDEMNISATION POUR PERTES ET AVARIES</b><br/>
+                        Suivant la nature des dommages, les pertes et avaries donnent lieu à réparation,
+                        remplacement ou indemnité compensatrice. L'indemnisation intervient dans la limite du
+                        préjudice matériel prouvé et des conditions particulières négociées entre l'entreprise et
+                        le client. Ces conditions particulières fixent - sous peine de nullité de plein droit du
+                        contrat – le montant de l'indemnisation maximum pour la totalité du mobilier et pour
+                        chaque objet ou élément de mobilier. Elles peuvent également fixer l'indemnisation
+                        maximum des objets figurant sur une liste valorisée. Le client est informé des coûts en
+                        résultant.
+                    </td>
+                </tr>
+                <tr>
+                    <td><b style="color: #9b0000">ARTICLES 15 - PRESCRIPTION</b><br/>
+                        Les actions en justice pour avarie, perte ou retard auxquelles peut donner lieu le contrat
+                        de déménagement doivent être intentées dans l'année qui suit la livraison du mobilier
+                        (article 108 du code de commerce).
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>CHAPITRE V : LIVRAISON DU MOBILIER ET FORMALITES EN CAS DEDOMMAGE</strong><br/>
+                        <b style="color: #9b0000">ARTICLES 16 - LIVRAISON DU MOBILIER A DOMICILE</b><br/>
+                        A la réception, le client doit vérifier l'état de son mobilier et en donner décharge dès la
+                        livraison terminée à l'aide de la déclaration de fin de travail. En cas de perte ou d'avarie
+                        et pour sauvegarder ses droits et moyens de preuve, le client a intér&ecirct à émettre
+                        dès la livraison et la mise en place, en présence des représentants de l'entreprise, des
+                        réserves écrites, précises et détaillées. Que ces réserves aient été prises ou non, le
+                        client doit, en cas de perte et d'avarie, soit adresser à l'entreprise une lettre
+                        recommandée dans laquelle il décrit le dommage constaté, soit faire éé un acte extra
+                        judiciaire (constat d'huissier). Ces formalités doivent être accomplies dans les 3 jours,
+                        non compris les dimanches et jours fériés, qui suivent la livraison. A défaut, le client est
+                        privé du droit d'agir contre l'entreprise (article 105 du code de commerce).
+                    </td>
+                </tr>
+                <tr>
+                    <td><b style="color: #9b0000">ARTICLES 17 - LIVRAISON DU MOBILIER AU GARDE-MEUBLES A LA DEMANDE
+                            DU CLIENT</b><br/>
+                        La livraison en garde-meubles est assimilée à une livraison à domicile et met fin au
+                        contrat de déménagement. Les frais d'entrée en garde-meubles sont distincts et
+                        facturés au client par le garde-meubles qui assume la garde du mobilier.
+
+                    </td>
+                </tr>
+                <tr>
+                    <td><b style="color: #9b0000">ARTICLES 18 - DEPOT NECESSAIRE PAR SUIT D'EMPECHEMENT A LA
+                            LIVRAISON</b><br/>
+                        En cas d'absence du client aux adresses de livraison par lui indiquées, ou
+                        d'impossibilité matérielle n'étant pas le fait de l'entreprise, le mobilier est placé d'office
+                        dans un gardemeubles, à la diligence de l'entreprise et aux frais du client. Par tout
+                        moyens appropriés, l'entreprise rend compte au client de cette opération de dépôt, que
+                        met fin au contrat de déménagement.
+                    </td>
+                </tr>
+            </table>
+
+
+        </td>
+    </tr>
+
+</table>
+<table cellpadding="2">
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table style="font-weight: normal; font-size: 9px" cellpadding="3">
+    <tr>
+        <td>Les présentes conditions générales de vente on été élaborées par la Chambre Syndicale du Déménagement avec les représentants des consommateurs et tiennent compte de
+            la recommandation n 82.02CCA émise par la Commission des Clauses Abusives. Elles prennent effet au 1er octobre 1993.
+        </td>
+    </tr>
+    <tr>
+        <td> Le déménagement s'effectuera aux présentes conditions générales et aux conditions particulières figurant au recto ; après en avoir pris connaissance, le
+            client déclare les accepter.</td>
+    </tr>
+</table>
+<table style=" font-size: 9px" cellpadding="3">
+    <tr>
+        <td>Fait à: </td><td>le:</td><td>Signature du client</td>
+    </tr>
+</table>
+</body>
+</html>

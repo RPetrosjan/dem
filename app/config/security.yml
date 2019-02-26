@@ -6,10 +6,30 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
+
+        ROLE_CLIENT_DEVIS:
+          - ROLE_ADMIN_DEMANDEDEVIS_LIST
+          - ROLE_ADMIN_DEMANDEDEVIS_VIEW
+          - ROLE_ADMIN_DEVISENVOYE_LIST
+          - ROLE_ADMIN_DEVISENVOYE_VIEW
+          - ROLE_ADMIN_DEVISENVOYE_EDIT
+          - ROLE_ADMIN_DEVISENVOYE_DELETE
+
+
         ROLE_ADMIN:       ROLE_ADMIN
-        ROLE_CLIENT:      ROLE_CLIENT
-        ROLSE_SOCIETE:    ROLSE_SOCIETE
-        ROLE_SUPER_ADMIN: [ROLE_CLIENT, ROLE_ADMIN, ROLSE_SOCIETE,ROLE_ALLOWED_TO_SWITCH]
+        ROLE_ALL_DEVIS_ENVOYE_READER:
+           - ROLE_ALL_DEVIS_ENVOYE_READER
+        ROLE_CLIENT:
+          - ROLE_CLIENT_DEVIS
+        ROLSE_SOCIETE:
+          - ROLE_CLIENT
+          - LIST
+
+        ROLE_SUPER_ADMIN: [ROLE_CLIENT, ROLE_ADMIN, ROLSE_SOCIETE, ROLE_ALL_DEVIS_ENVOYE_READER ,ROLE_ALLOWED_TO_SWITCH]
+
+    access_decision_manager:
+        strategy: unanimous
+
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
@@ -31,6 +51,8 @@ security:
             logout: true
             anonymous: true
             access_denied_handler: AppBundle\Security\AccessDeniedHandler
+            switch_user:
+              provider:   fos_userbundle
            # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate

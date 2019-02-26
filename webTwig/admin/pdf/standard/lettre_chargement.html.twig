@@ -1,0 +1,148 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+
+    <style>
+        {{ include('admin/pdf/standard/css/pdf.css') }}
+    </style>
+</head>
+<body>
+{{ include ('admin/pdf/standard/block/top_societe_info_panel_pdf.html.twig') }}
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table cellpadding="0" cellspacing="0">
+    <tr>
+        <td style=" width:83%;  text-align: right; font-size: 20px; font-weight: bold ">Lettre de voiture - {{ devisInfo.getDevisNumber() }}</td>
+        <td style="width: 17%"></td>
+    </tr>
+    <tr>
+        <td style=" width:83%; color: #9b0000; text-align: right; ">exemplaire chargement</td>
+        <td style="width: 17%"></td>
+    </tr>
+    <tr>
+        <td style=" width:83%;  text-align: right; font-weight: normal ">{{ societeInfo.codePostal }} {{ societeInfo.city }} {{ devisInfo.CreatedDate|date("m/d/Y") }}</td>
+        <td style="width: 17%"></td>
+    </tr>
+
+</table>
+<table style="height: 20px;">
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="0" class="tdline">
+    <tr>
+        <td style="font-size: 14px;">{{ devisInfo.nom }} {{ devisInfo.prenom }}</td>
+    </tr>
+    <tr>
+        <td style="width: 75%">{{ devisInfo.adresse1  }}</td>
+        <td style="width: 15%; text-align: right;"><strong style="color: #9b0000;">Prestation : </strong></td>
+        <td style="width: 10%"> {{ devisInfo.prestation }}</td>
+    </tr>
+    <tr>
+        <td style="width: 75%">{{ devisInfo.cp1 }} {{ devisInfo.ville1 }}
+        </td>
+        <td style="width: 15%; text-align: right;"><strong style="color: #9b0000;">Volume : </strong></td>
+        <td style=" width: 10%"> {{ devisInfo.volume }} m&sup3;</td>
+    </tr>
+    <tr>
+        <td style="width: 75%"><span style="color: #9b0000">{{ devisInfo.telephone }}</span>
+        </td>
+        <td style="width: 15%; text-align: right;"><strong style="color: #9b0000;">Distance : </strong></td>
+        <td style="width: 10%"> {{ devisInfo.distance }} km</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="0" class="tdline">
+    <tr>
+        <td style="width: 50%; font-size: 14px;">DÉPART</td>
+        <td style="width: 50%; font-size: 14px;">ARRIVÉE</td>
+    </tr>
+    <tr>
+        <td style="width: 12%"><span style="color: #9b0000">Date </span></td>
+        <td style="width: 38%">{{ devisInfo.date1 }}</td>
+        <td style="width: 12%"><span style="color: #9b0000">Date </span></td>
+        <td style="width: 38%">{{ devisInfo.date2 }}</td>
+    </tr>
+    <tr>
+        <td style="width: 12%"><span style="color: #9b0000">Adresse </span></td>
+        <td style="width: 38%">{{ devisInfo.adresse1 }}</td>
+        <td style="width: 12%"><span style="color: #9b0000">Adresse </span></td>
+        <td style="width: 38%">{{ devisInfo.adresse2 }}</td>
+    </tr>
+    <tr>
+        <td style="width: 12%"><span style="color: #9b0000">Ville </span></td>
+        <td style="width: 38%">{{ devisInfo.cp1 }} {{ devisInfo.ville1 }}</td>
+        <td style="width: 12%"><span style="color: #9b0000">Ville </span></td>
+        <td style="width: 38%">{{ devisInfo.cp2 }} {{ devisInfo.ville2 }}</td>
+    </tr>
+    <tr>
+        <td style="width: 12%"><span style="color: #9b0000">Etage </span></td>
+        <td style="width: 38%">{{ devisInfo.etage1 }} </td>
+        <td style="width: 12%"><span style="color: #9b0000">Etage </span></td>
+        <td style="width: 38%">{{ devisInfo.etage2 }}</td>
+    </tr>
+    <tr>
+        <td style="width: 12%"><span style="color: #9b0000">Ascenseur </span></td>
+        <td style="width: 38%">{{ devisInfo.ascenseur1 }} </td>
+        <td style="width: 12%"><span style="color: #9b0000">Ascenseur </span></td>
+        <td style="width: 38%">{{ devisInfo.ascenseur2 }}</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table cellpadding="0" cellspacing="0">
+    <tr>
+        <td style="font-size: 18px; color: #9b0000;">Assurance comprise</td>
+    </tr>
+    <tr>
+        <td style="font-weight: normal; font-size: 13px">Garantie dommage (franchise de 230 €), valeur globale de 10 000 € et 250 € maximum par objet non
+            listé. L'opération s'effectue aux conditions générales de vente du contrat de déménagement
+            approuvées par le client.</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table cellspacing="0" cellpadding="0">
+    <tr>
+        <td style="font-size: 18px; color: #9b0000; border-bottom-color: black; border-bottom-style: solid; border-bottom-width: 2px;">Observations du chef d'équipe</td>
+    </tr>
+    <tr>
+        <td style="font-size: 18px; color: #9b0000; height: 200px; border-bottom-color: black; border-bottom-style: solid; border-bottom-width: 2px;">
+
+        </td>
+    </tr>
+</table>
+
+
+<table>
+    <tr>
+        <td style="width: 60%">Fait à: </td><td>le:</td>
+    </tr>
+    <tr>
+        <td style="width: 60%">Signature du client<br/><span style="font-weight: normal">(précédée de la mention "bon pour accord")
+</span></td><td>Signature d'entreprise</td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Security\Core\Role\RoleHierarchy;
 
 class UsersAdmin extends AbstractAdmin
@@ -98,6 +99,10 @@ class UsersAdmin extends AbstractAdmin
                 'label'=>$this->trans('Active'),
                 'editable'=> true,
             ))
+            ->add('switch_to_user',TextType::class,[
+                'label'=>$this->trans('Switch'),
+                'template' => 'admin/switch/swhitch_to_user.html.twig'
+            ])
         ;
     }
 }

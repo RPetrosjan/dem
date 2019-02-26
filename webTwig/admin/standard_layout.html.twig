@@ -5,11 +5,14 @@
     {#{% if _actions|replace({ '<li>': '', '</li>': '' })|trim is not empty %}#}
     {% if _actions|replace({ '<li>': '', '</li>': '' })|trim is not empty %}
 
+
         <ul class="nav navbar-nav navbar-right">
             <li>
                 {{ _actions|striptags('<a><i>')|raw }}
             </li>
         </ul>
+
+
         {#<ul class="nav navbar-nav navbar-right">
 
             {% if _actions|split('</a>')|length > 2 %}
@@ -26,12 +29,19 @@
     {% endif %}
 {% endblock sonata_admin_content_actions_wrappers %}
 
+{% block tab_menu_navbar_header %}
+    {% if _navbar_title is not empty %}
+        <div class="navbar-header">
+        {#    <div class="navbar-brand" >Date de demande {{ object.CreatedDate|date("m/d/Y") }}</div> #}
+        </div>
+    {% endif %}
+{% endblock %}
 
 {% block sonata_nav %}
     <nav class="navbar navbar-static-top" role="navigation">
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas"
-           role="button" title="{{ 'toggle_navigation'|trans({}, 'SonataAdminBundle') }}">
-            <span class="sr-only">{{ 'toggle_navigation'|trans({}, 'SonataAdminBundle') }}</span>
+           role="button" >
+            <i class="fas fa-bars"></i>
         </a>
 
         <div class="navbar-left">
@@ -78,6 +88,9 @@
         </div>
         <div class="navbar-right-logout">
             <ol class="nav navbar-top-links breadcrumb">
+                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                    <a href="{{ path('homepage', {'_switch_user': '_exit'}) }}"> Sortir d'identité <i class="fas fa-sign-out-alt"></i></a>
+                {% endif %}
                 <li>
                     <a href="/logout">
                         <i class="fas fa-running"></i> <span>Se déconnecter</span>

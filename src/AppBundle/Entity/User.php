@@ -10,7 +10,7 @@ namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\Role\RoleHierarchy;
+
 
 /**
  * @ORM\Entity
@@ -19,6 +19,7 @@ use Symfony\Component\Security\Core\Role\RoleHierarchy;
 class User extends BaseUser
 {
 
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -26,10 +27,21 @@ class User extends BaseUser
      */
     protected $id;
 
+
     /**
      * @ORM\Column(name="age",type="integer", nullable=true)
      */
     protected $age;
+
+    /**
+     * @ORM\OneToMany(targetEntity="DevisConfig", mappedBy="user_id")
+     */
+    private $id_devis_conf;
+
+    /**
+     * @ORM\OneToMany(targetEntity="DevisEnvoye", mappedBy="user_id")
+     */
+    private $id_devis_envoye;
 
 
     /**
@@ -52,6 +64,14 @@ class User extends BaseUser
      * @ORM\Column(name="companyName", type="string", length=36, nullable=true)
      */
     private $companyName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="company_email", type="string", length=36, nullable=true)
+     */
+    private $companyEmail;
+
 
     /**
      * @var string
@@ -81,12 +101,22 @@ class User extends BaseUser
      */
     private $street;
 
+
+
     /**
      * @var string
      *
      * @ORM\Column(name="siret", type="string", length=36, nullable=true)
      */
     private $siret;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="website", type="string", length=64, nullable=true)
+     */
+    private $website;
+
 
     /**
      * @var string
@@ -114,6 +144,9 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="DemandeDevis", mappedBy="societe_devis")
      */
     private $user_devis;
+
+    /** @var string */
+    private $switch_to_user;
 
 
 
@@ -336,6 +369,79 @@ class User extends BaseUser
         $this->street = $street;
     }
 
+    /**
+     * @return string
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
 
+    /**
+     * @param string $website
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getIdDevisConf()
+    {
+        return $this->id_devis_conf;
+    }
+
+    /**
+     * @param DevisConfig $id_devis_conf
+     */
+    public function setIdDevisConf($id_devis_conf)
+    {
+        $this->id_devis_conf = $id_devis_conf;
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getIdDevisEnvoye()
+    {
+        return $this->id_devis_envoye;
+    }
+
+    /**
+     * @param User $id_devis_envoye
+     */
+    public function setIdDevisEnvoye($id_devis_envoye)
+    {
+        $this->id_devis_envoye = $id_devis_envoye;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getCompanyEmail()
+    {
+        return $this->companyEmail;
+    }
+
+    /**
+     * @param string $companyEmail
+     */
+    public function setCompanyEmail($companyEmail)
+    {
+        $this->companyEmail = $companyEmail;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSwitchToUser()
+    {
+        return $this->username;
+    }
 
 }

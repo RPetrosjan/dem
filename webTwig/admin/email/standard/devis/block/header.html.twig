@@ -1,0 +1,22 @@
+{% set headertext = '
+<html>
+<body>
+<div style="width: 500px; background-color: #e6e6e6;padding-top: 15px; padding-left: 10px; padding-bottom: 20px; padding-right: 10px;">
+<div style="font-size: 22px; color: #c90000; text-transform: uppercase;font-weight: bold;font-family: \'Trebuchet MS\', sans-serif;border-bottom: 1px gray solid;padding-left: 5px;">'~societe_info.companyName~'</div>
+<div style="text-align: right">
+<div>'~societe_info.street~'</div>
+<div>'~societe_info.codePostal~' '~societe_info.country~'</div>
+</div>
+<b>Tel : '~societe_info.tel|phone
+%}
+{% if societe_info.mobile|length > 0 %}
+  {% set headertext = headertext ~'/ '~societe_info.mobile|phone~'</b>
+</div>'
+  %}
+ {% if formatEmail == 'html' %}
+ {{ headertext|raw }}
+     {% else %}
+  {{ headertext|striptags|nl2br }}
+     {% endif %}
+{% endif %}
+
