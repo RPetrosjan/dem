@@ -45,6 +45,12 @@ class User extends BaseUser
 
 
     /**
+     * @ORM\OneToMany(targetEntity="MesDevis", mappedBy="user_id")
+     */
+    private $id_mes_devis;
+
+
+    /**
      * @var string
      *
      * @ORM\Column(name="firstName", type="string", length=36, nullable=true)
@@ -443,5 +449,23 @@ class User extends BaseUser
     {
         return $this->username;
     }
+
+    /**
+     * @return User
+     */
+    public function getIdMesDevis()
+    {
+        return $this->id_mes_devis;
+    }
+
+    /**
+     * @param array $id_mes_devis
+     */
+    public function setIdMesDevis($id_mes_devis)
+    {
+        $this->id_mes_devis = $id_mes_devis;
+    }
+
+
 
 }

@@ -12,6 +12,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\DemandeDevis;
 use AppBundle\Entity\DevisConfig;
 use AppBundle\Entity\DevisEnvoye;
+use AppBundle\Entity\MesDevis;
 use AppBundle\Entity\User;
 use AppBundle\Form\DevisConfigForm;
 use AppBundle\Form\MaSocieteForm;
@@ -78,7 +79,7 @@ class AdminController extends Controller
      * @param array $param
      * @return DevisEnvoye
      */
-    private function DemandeDevisToDevisEnvoye(DemandeDevis $devis, array $param) {
+    private function DemandeDevisToDevisEnvoye($devis, array $param) {
         /** @var DevisEnvoye $devisEnvoye */
         $devisEnvoye = new DevisEnvoye();
         $devisEnvoye->setNom($devis->getNom());
@@ -133,9 +134,18 @@ class AdminController extends Controller
         $distance = $request->request->get('estimation_prix_form')['group4']['distance'];
 
 
-        $devis = current($this->em->getRepository(DemandeDevis::class)->findOneBy([
+
+        $devis = $this->em->getRepository(DemandeDevis::class)->findOneBy([
             'uuid' => $uuid,
-        ]));
+        ]);
+
+        // We check if found devis with uuid in DemandeDevis
+        if(is_null($devis)) {
+            // If null we check if devis uuid from MesDevis
+            $devis = $this->em->getRepository(MesDevis::class)->findOneBy([
+                'uuid' => $uuid,
+            ]);
+        }
 
         // Check if devis null it will be check in DevisEnvoyer
         if(is_null($devis)) {
@@ -171,7 +181,6 @@ class AdminController extends Controller
             }
         }
 
-        dump($devis);
         $this->em->persist($devis);
         $this->em->flush();
 

@@ -9,6 +9,7 @@
 namespace AppBundle\Admin;
 
 
+use AppBundle\Entity\DemandeDevis;
 use AppBundle\Entity\DevisConfig;
 use AppBundle\Entity\DevisEnvoye;
 use AppBundle\Form\EstimationPrixForm;
@@ -31,7 +32,11 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class DemandeDevisAdmin extends AbstractAdmin
 {
 
+    /** @var object  */
     private $object;
+
+    /** @var  */
+    private $em;
 
     // Creating Sort By DateTime ASC
     protected $datagridValues = [
@@ -40,6 +45,36 @@ class DemandeDevisAdmin extends AbstractAdmin
         '_sort_by' => 'CreatedDate',
     ];
 
+    /**
+     * @param string $code
+     * @param string $class
+     * @param string $baseControllerName
+     */
+    public function __construct($code, $class, $baseControllerName, $em)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->em = $em;
+    }
+
+    public function getDashboardActions()
+    {
+
+        $actions = parent::getDashboardActions();
+
+        $allDemandeDevis = $this->em->getRepository(DemandeDevis::class)->getAllDemandeDevis();
+        $container = $this->getConfigurationPool()->getContainer();
+//        $userEntity = $container->get('security.token_storage')->getToken()->getUser();
+//        $allDevisEnvoye  = $this->em->getRepository(DevisEnvoye::class)->getAllDevisEnvoye($userEntity->getId());
+
+        $allDevisEnvoye = $container->get('admin.stat')->getStatDevisEnvoye();
+
+        $actions['pageShow'] = [
+            'devis' => $allDemandeDevis,
+            'statDevis' => $allDevisEnvoye,
+        ];
+
+        return $actions;
+    }
 
 
     public function configure() {

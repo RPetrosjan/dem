@@ -14,6 +14,7 @@ security:
           - ROLE_ADMIN_DEVISENVOYE_VIEW
           - ROLE_ADMIN_DEVISENVOYE_EDIT
           - ROLE_ADMIN_DEVISENVOYE_DELETE
+          - ROLE_ADMIN_MESDEVIS_ALL
 
 
         ROLE_ADMIN:       ROLE_ADMIN
@@ -23,7 +24,6 @@ security:
           - ROLE_CLIENT_DEVIS
         ROLSE_SOCIETE:
           - ROLE_CLIENT
-          - LIST
 
         ROLE_SUPER_ADMIN: [ROLE_CLIENT, ROLE_ADMIN, ROLSE_SOCIETE, ROLE_ALL_DEVIS_ENVOYE_READER ,ROLE_ALLOWED_TO_SWITCH]
 
@@ -65,6 +65,6 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/%admin%/app/user, roles: ROLE_SUPER_ADMIN }
+
         - { path: ^/%admin%/, roles: ROLE_CLIENT }
 

@@ -1,0 +1,111 @@
+<div style="width: 100%; height: 200px">
+    <canvas id="myChart" style="height: 100%; width: 100%"></canvas>
+</div>
+
+{# Set array DemandeDevis in variable arrayDemandeDevis #}
+{% set arrayDemandeDevis = group.items[0].dashboardActions.pageShow.statDevis.statDemandeDevis %}
+{# Set array DevisEnvoye in variable arrayDemandeDevis #}
+{% set arrayDevisEnvoye  = group.items[0].dashboardActions.pageShow.statDevis.statDevisEnvoye %}
+
+{# Title of table #}
+{% set titleTable = '' %}
+{# Table X acsee Table Name #}
+{% set monthTable = [] %}
+{# Values of Demande devis #}
+{% set demandeDevisTable = [] %}
+{# Values of DevisEnvoye devis #}
+{% set devisEnvoye = [] %}
+
+
+
+{% for key,value in arrayDemandeDevis %}
+    {# Get Title of Table #}
+    {% if titleTable|length > 1 %}
+        {% set titleTable = titleTable ~ ' - ' %}
+    {% endif %}
+       {% set titleTable = titleTable ~ key %}
+
+    {# Parse all month with ger volumes #}
+    {% for keyMonth,valueMonth in value %}
+
+        {# Check if in Array DevisEnvoye key for Year exist #}
+        {% if arrayDevisEnvoye[key] is defined %}
+            {# Check if in Array DevisEnvoye key for Month exist #}
+            {% if arrayDevisEnvoye[key][keyMonth] is defined %}
+                {% set devisEnvoye = devisEnvoye|merge([arrayDevisEnvoye[key][keyMonth]]) %}
+            {% else %}
+                {% set devisEnvoye = devisEnvoye|merge([0]) %}
+            {% endif %}
+
+        {% else %}
+            {% set devisEnvoye = devisEnvoye|merge([0]) %}
+        {% endif %}
+
+        {# Create Monat Table #}
+        {% set monthTable = monthTable|merge([keyMonth]) %}
+
+        {% set demandeDevisTable = demandeDevisTable|merge([valueMonth]) %}
+    {% endfor %}
+
+{% endfor %}
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+<script>
+    var ctx = $("#myChart");
+
+    // font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+
+    new Chart(ctx,{
+        "type":"line",
+        "data":{
+            "labels": {{ monthTable|json_encode|raw }},
+            "datasets":[{
+                "label":"Demande de Devis",
+                "data":{{ demandeDevisTable|json_encode|raw }},
+                "fill":true,
+                "borderColor":"#c90000",
+                "lineTension":0.1,
+                'pointBackgroundColor' : 'white',
+                'pointBorderColor' : 'black',
+
+            },
+                {
+                    "label":"Devis Envoyee",
+                    "data":{{ devisEnvoye|json_encode|raw }},
+                    "fill":true,
+                    "borderColor":"#3186c3",
+                    "lineTension":0.1,
+                    'pointBackgroundColor' : 'white',
+                    'pointBorderColor' : 'black',
+                    'fontFamily' : "'Titillium Web', sans-serif",
+                }]
+        },
+        "options":{
+            'legend': {
+                'display'  : true,
+                'position' : 'right',
+                'labels'   : {
+                    'boxWidth' : 10,
+                    'usePointStyle' : true,
+                    'fontColor' : 'black',
+                    'fontSize' : 12,
+                    'padding' : 10
+                },
+                'onClick' : false,
+
+            },
+            'title' : {
+                'text' : '{{ titleTable }}',
+                'display': true,
+                'position' : 'top',
+                'fontSize' : 18,
+                'fontColor'  : 'black',
+                'fontFamily' : "'Titillium Web', sans-serif",
+                'fontStyle' : 'bold',
+            }
+        }
+    });
+
+
+</script>

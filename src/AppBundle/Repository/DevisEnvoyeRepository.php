@@ -10,4 +10,14 @@ namespace AppBundle\Repository;
  */
 class DevisEnvoyeRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param $idUser
+     * @return null|object
+     */
+    public function getAllDevisEnvoye($idUser){
+
+        return $this->findBy([
+            'user_id' => $idUser,
+        ]);
+    }
 }

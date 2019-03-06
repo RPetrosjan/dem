@@ -161,7 +161,7 @@ form>.row{
     margin-bottom: 2px;
     padding: 10px 5px 10px 15px;
 }
-.skin-black .treeview-menu > li > a:hover {
+.skin-black .treeview-menu > li > a:hover, .skin-black .treeview-menu > li.active > a, .skin-black .treeview-menu > li > a:hover {
     color: white !important;
     background-color: #9b0000;
 }

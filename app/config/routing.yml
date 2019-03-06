@@ -26,9 +26,8 @@ sonata_admin_devis_conf:
 sonata_admin_ma_societe:
     path: /%admin%/app/ma-societe
 
-
-sonata_admin_demande_devis:
-    path: /%admin%/app/demandedevis/list
+sonata_admin_mes_devis:
+    path: /%admin%/app/mesdevis/list
 
 sonata_admin_devis_envoye:
     path:  /%admin%/app/devisenvoye/list

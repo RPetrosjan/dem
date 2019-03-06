@@ -7,8 +7,15 @@ services:
 
     pdf.devis.generator:
         public: true
-        class:     AppBundle\Service\PDFDevisGenerator
+        class:     AppBundle\service\PDFDevisGenerator
         arguments: ['@service_container']
+
+    admin.stat:
+        public: true
+        class: AppBundle\service\Statistique
+        arguments:
+          - '@doctrine.orm.entity_manager'
+          - '@security.token_storage'
 
     AppBundle\Form\MaSocieteForm:
         arguments: ['@security.authorization_checker']
@@ -16,6 +23,8 @@ services:
     access.denied:
         class: AppBundle\Security\AccessDeniedHandler
         arguments: [ '@templating' ]
+
+
 
     # default configuration for services in *this* file
     _defaults:
@@ -62,7 +71,12 @@ services:
             - "@doctrine.orm.default_entity_manager"
             - "@security.token_storage"
         tags:
-            - { name: sonata.admin, manager_type: orm, route: '/demandedevis', label: 'Demande Devis', group: 'Web' }
+            -
+              name: sonata.admin
+              manager_type: orm
+              route: '/demandedevis'
+              label: 'Demande Devis'
+              group: 'Web'
         public: true
 
 
@@ -74,8 +88,35 @@ services:
             - ~
             - "@doctrine.orm.default_entity_manager"
         tags:
-            - { name: sonata.admin, manager_type: orm, route: '/devisenvoye', label: 'Envoye', group: 'Web' }
+            -
+             name: sonata.admin
+             manager_type: orm
+             route: '/devisenvoye'
+             label: 'Envoye'
+             group: 'Web'
         public: true
+
+    admin.mesdevis:
+        class: AppBundle\Admin\MesDevisAdmin
+        arguments:
+            - ~
+            - AppBundle\Entity\MesDevis
+            - ~
+            - "@security.token_storage"
+        tags:
+            -
+              name: sonata.admin
+              manager_type: orm
+              route: '/mesdevis'
+              label: 'Mes Devis'
+              group: 'Web'
+        public: true
+
+
+
+
+
+
 
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:

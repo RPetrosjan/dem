@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use DateTime;
 
 /**
  * DemandeDevisRepository
@@ -10,4 +11,21 @@ namespace AppBundle\Repository;
  */
 class DemandeDevisRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getAllDemandeDevis(){
+
+        $now = new DateTime;
+        $now->modify('-12 month');
+
+        dump($now->format("d/m/Y 00:00:00"));
+
+
+        return $this->createQueryBuilder('db')
+            ->where('db.CreatedDate >= :dateStart')
+            ->setParameters([
+                'dateStart' => $now,
+            ])
+            ->getQuery()
+            ->execute()
+            ;
+    }
 }

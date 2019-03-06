@@ -3,7 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: '@AppBundle/yml/menu/topmenu.yml' }
-    - { resource: sonata/sonata_block.yml }
+
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -101,6 +101,7 @@ sonata_block:
         # enable the SonataAdminBundle block
         sonata.admin.block.admin_list:
             contexts: [admin]
+        sonata.block.service.text:
 
 sonata_admin:
     security:
@@ -109,7 +110,8 @@ sonata_admin:
     title: 'Espace Déménageur'
     search: false
     templates:
-        layout: 'admin/standard_layout.html.twig'
+        layout:      'admin/standard_layout.html.twig'
+        list_block:  'admin/block_admin_list.html.twig'
     assets:
         stylesheets:
           - https://use.fontawesome.com/releases/v5.6.1/css/all.css
@@ -159,32 +161,43 @@ sonata_admin:
 
     dashboard:
         blocks:
+
             -
                 position: left
                 type: sonata.admin.block.admin_list
+                settings:
+                    groups:
+                       - espace
+            -
+                position: right
+                type: sonata.block.service.text
+                settings:
+                    content: >
+                        <h2>Welcome to the Sonata Admin</h2>
+                        <p>This is a <code>sonata.block.service.text</code> from the Block
+                        Bundle, you can create and add new block in these area by configuring
+                        the <code>sonata_admin</code> section.</p> <br/> For instance, here
+                        a RSS feed parser (<code>sonata.block.service.rss</code>):
         groups:
+
             admin:
                 keep_open:          true
                 label:              Admin
                 label_catalogue:    SonataAdminBundle
                 icon:               '<i class="fa fa-users"></i>'
                 items:
-                    - route:        sonata_admin_user
-                      label:        Users
-                      roles:        [ROLE_SUPER_ADMIN]
+                    - admin.users
 
             espace:
                 keep_open:          true
                 label:              Espace
                 icon:               '<i class="fas fa-desktop"></i>'
                 items:
-                    - route:        sonata_admin_demande_devis
-                      label:        Devis
-                      roles:        [ROLE_CLIENT]
+                    - admin.demandedevis
+                    - admin.mesdevis
+                    - admin.devisenvoye
 
-                    - route:        sonata_admin_devis_envoye
-                      label:        Ajouter / Envoyer
-                      roles:        [ROLE_CLIENT]
+
 
             parametres:
                 keep_open:          true

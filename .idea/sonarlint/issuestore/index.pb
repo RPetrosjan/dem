@@ -175,3 +175,15 @@ i
 9webTwig/admin/email/standard/devis/block/footer.html.twig,e\d\ed5c03199dfd2d3e4d03bd442f02d23766b00c4e
 =
 web/.htaccess,a\a\aa95423ab8ad72b2db670e0bf91755ea37fe331a
+U
+%src/AppBundle/Admin/MesDevisAdmin.php,5\a\5a6acd78d3a470e14458e9743652c4575e72cb8d
+Q
+!src/AppBundle/Entity/MesDevis.php,e\b\eb3ec3211b7f8c642c276580ee106fa5626c1642
+_
+/src/AppBundle/Repository/MesDevisRepository.php,d\e\de9bdc1c79e44988dd7b7bd9556c0c286406e6c6
+Y
+)webTwig/admin/statistique/devis.html.twig,f\e\fe4de8e5f5ce715c5dd46394f633a87adf382f30
+X
+(webTwig/admin/block_admin_list.html.twig,2\0\201e4d18668283f2dd61023ffc43ea859e3023fd
+U
+%src/AppBundle/service/Statistique.php,1\a\1ae9fa527101ecf3b1b103e24357b534e12c7b16
