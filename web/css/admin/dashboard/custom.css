@@ -3,7 +3,9 @@
     background-image: url("/image/admin/dashboard/font9.jpg");
 }
 .slimScrollDiv, .skin-black .main-header .navbar, .skin-black .main-header > .logo{
-    background-color: #ffffff9e;
+
+    color: black;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 .skin-black .sidebar a{
     color: #141415;
@@ -416,4 +418,30 @@ form .well .btn {
 
 .devis_table_list a{
     text-decoration: underline;
+}
+
+
+.divlogo{
+    display: inline-block;
+    float: left;
+    background: white;
+}
+
+.divlogo>img{
+    height: 100%;
+    position: absolute;
+}
+
+.div_company_logo>img{
+    width: 140px;
+    cursor: pointer;
+    box-shadow: 0px 0px 15px -3px black;
+}
+.div_company_logo>input[type='file'] {
+    display: none;
+}
+.div_company_logo>span{
+    display: inline-block;
+    margin-left: 35px;
+    width: 100%;
 }

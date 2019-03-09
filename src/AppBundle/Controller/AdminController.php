@@ -369,12 +369,17 @@ class AdminController extends Controller
 
         // Get info user for fulling Form
         $maSocieteConfig =  $this->em->getRepository(User::class)->find($this->userEntity);
+        $company_icon = '/'.$maSocieteConfig->getWebPath();
 
         //Generate form
         $maSocieteForm = $this->createForm(MaSocieteForm::class, $maSocieteConfig, [
             'action' => $this->generateUrl('masociete'),
             'label' => false,
+            'attr' => [
+                'company_icon' => $company_icon,
+            ]
         ]);
+
 
         $maSocieteForm->handleRequest($request);
         if($maSocieteForm->isSubmitted() && $maSocieteForm->isValid()) {
@@ -394,6 +399,7 @@ class AdminController extends Controller
 
         return $this->render('admin/custom_view.html.twig', array(
             'form' => $maSocieteForm->createView(),
+            'company_icon' => $company_icon,
         ));
     }
 

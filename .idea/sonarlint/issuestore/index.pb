@@ -95,8 +95,6 @@ T
 $src/AppBundle/Entity/DevisEnvoye.php,4\6\4645d8920f14dadfc94207bf0a0ab6db77e169b7
 A
 app/AppKernel.php,3\2\32f52550acb5074923c0619d4deb7829721136e0
-R
-"app/config/sonata/sonata_block.yml,1\9\193b075f046907d8a88dbe762a8c27294e12ee81
 X
 (src/AppBundle/Admin/DevisEnvoyeAdmin.php,f\8\f884dbc92eec896b004c1d32f28930835788f0fc
 b
@@ -187,3 +185,13 @@ X
 (webTwig/admin/block_admin_list.html.twig,2\0\201e4d18668283f2dd61023ffc43ea859e3023fd
 U
 %src/AppBundle/service/Statistique.php,1\a\1ae9fa527101ecf3b1b103e24357b534e12c7b16
+X
+(src/AppBundle/Repository/CompanyIcon.php,3\6\36c3a786ff32619d5cc54b2a08889d8f09684239
+T
+$src/AppBundle/Entity/CompanyIcon.php,3\e\3ebe006283ecd3ea4d1e06363a6e0c6a27844834
+W
+'src/AppBundle/service/ImagineFilter.php,9\4\946ebc92a826ff1575757df6bd327c0939a2b7f2
+U
+%src/AppBundle/Entity/Traits/Image.php,b\e\be7803a42021d698261ae141580e902d4446992b
+U
+%src/AppBundle/service/ImageResize.php,c\9\c963ca1e9ac8a65b3594dc775559d8bfb4f65405

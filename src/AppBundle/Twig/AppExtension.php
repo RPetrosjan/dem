@@ -2,6 +2,7 @@
 
 namespace AppBundle\Twig;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -13,13 +14,28 @@ class AppExtension extends \Twig_Extension
 {
     public $cssArray = [];
     public $jsArray = [];
+
+    private $container;
+
+
+    public function __construct(ContainerInterface $container) {
+        $this->container = $container;
+    }
+
+    public function getFunctions()
+    {
+        return [
+            new \Twig_SimpleFunction('company',[$this,'getUserInfo']),
+        ];
+
+    }
+
     public function getFilters(){
 
         return array(
             new \Twig_SimpleFilter('cssloader',array($this,'cssloader')),
             new \Twig_SimpleFilter('jsloader',array($this,'jsloader')),
             new \Twig_SimpleFilter('phone',array($this,'phoneloader')),
-
         );
 
     }
@@ -34,8 +50,13 @@ class AppExtension extends \Twig_Extension
         $this->jsArray[] = $jsname;
     }
 
+    public function getUserInfo() {
+        return $this->container->get('security.token_storage')->getToken()->getUser();
+    }
+
     /**
-     * @param mixed $phone
+     * @param $numTel
+     * @return string
      */
     public function phoneloader($numTel) {
         $i=0;
@@ -56,6 +77,8 @@ class AppExtension extends \Twig_Extension
         }
         return $formate;
     }
+
+
 
 
 }

@@ -5,6 +5,12 @@ parameters:
 
 services:
 
+    app.filter.imagine:
+        public: true
+        class:  AppBundle\service\ImagineFilter
+        arguments:
+          - '@service_container'
+
     pdf.devis.generator:
         public: true
         class:     AppBundle\service\PDFDevisGenerator

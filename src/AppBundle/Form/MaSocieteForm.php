@@ -11,6 +11,7 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -35,6 +36,12 @@ class MaSocieteForm extends AbstractType
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
+
+        $image_path = null;
+        if(isset($options['attr']['company_icon'])) {
+            $image_path = $options['attr']['company_icon'];
+        }
+
         $builder
         ->add(
             $builder->create('group1', FormType::class, [
@@ -151,6 +158,26 @@ class MaSocieteForm extends AbstractType
                 ])
         )
 
+        ->add(
+            $builder->create('group3', FormType::class, [
+                'label' => 'Logo Societe',
+                'inherit_data' => true,
+                'attr' => [
+                    'cutom_class' => 'col-md-6',
+                    'icon' => '<i class="fas fa-image"></i>'
+
+                ],
+            ])
+            ->add('file', FileType::class, [
+                'label' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'divclass' => 'col-md-6',
+                    'image_path' => $image_path,
+                ]
+            ])
+        )
+
         ->add('save', SubmitType::class, [
             'label' => 'Enregistrer',
             'attr' => [
@@ -164,8 +191,6 @@ class MaSocieteForm extends AbstractType
                 unset($data['group1']['companyName']);
                 unset($data['group1']['siret']);
             }
-            dump($data);
-
         })
       ;
     }

@@ -3,7 +3,8 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\Roles;
-use AppBundle\Entity\User;
+
+use AppBundle\service\ImageResize;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -11,7 +12,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Security\Core\Role\RoleHierarchy;
+
 
 class UsersAdmin extends AbstractAdmin
 {
@@ -38,6 +39,20 @@ class UsersAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         global $kernel;
+        $image = $this->getSubject();
+
+        // use $fileFieldOptions so we can add other options to the field
+        $fileFieldOptions = ['required' => false];
+        if ($image && ($webPath = $image->getWebPath())) {
+            // get the container so the full path to the image can be set
+            $container = $this->getConfigurationPool()->getContainer();
+            $fullPath = $container->get('request_stack')->getCurrentRequest()->getBasePath().'/'.$webPath;
+
+            // add a 'help' option containing the preview's img tag
+            $fileFieldOptions['help'] = '<img src="'.$fullPath.'" class="admin-preview"/>';
+        }
+
+
 
         $allroles = (current($kernel->getContainer()->get('security.role_hierarchy')));
         $roleslist =[];
@@ -62,6 +77,13 @@ class UsersAdmin extends AbstractAdmin
         }
 
         $formMapper
+            ->with('General', [
+                    'class'       => 'col-md-6',
+                    'attr' => [
+                        'icon' => '<i class="fas fa-clipboard-list"></i>',
+                    ],
+                ]
+            )
             ->add('enabled','checkbox',array(
                 'required' => false,
             ))
@@ -73,6 +95,46 @@ class UsersAdmin extends AbstractAdmin
                 'choices' => $roleslist,
                 'multiple' => true,
             ))
+            ->end()
+            ->with('Company Info', [
+                'class'       => 'col-md-6',
+            ])
+            ->add('companyName', TextType::class, [
+                'label' => 'Nom Société'
+            ])
+            ->add('siret', TextType::class, [
+                'label' => 'SIRET'
+            ])
+            ->add('street', TextType::class, [
+                'label' => 'Adress'
+            ])
+            ->add('codePostal', TextType::class, [
+                'label' => 'Code Postal'
+            ])
+            ->add('city', TextType::class, [
+                'label' => 'Ville'
+            ])
+            ->add('tel', TextType::class, [
+                'label' => 'Téléphone'
+            ])
+            ->add('mobile', TextType::class, [
+                'label' => 'Portable'
+            ])
+            ->add('companyEmail', TextType::class, [
+                'label' => 'E-mail Société'
+            ])
+            ->add('Website', TextType::class, [
+                'label' => 'Site Web'
+            ])
+            ->add('fax', TextType::class, [
+                'label' => 'Fax'
+            ])
+            ->end()
+            ->with('Company Icon', [
+                'class'       => 'col-md-6',
+            ])
+            ->add('file', 'file', $fileFieldOptions)
+            ->end()
         ;
     }
 

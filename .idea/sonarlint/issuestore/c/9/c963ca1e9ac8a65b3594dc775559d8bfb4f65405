@@ -1,0 +1,20 @@
+
+dphp:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ø¢§ôüÿÿÿÿ8“¢Ø•-
+Uphp:S131"7Add a "case default" clause to this "switch" statement.(çÍÕ˜úÿÿÿÿ8“¢Ø•-
+dphp:S112"FDefine and throw a dedicated exception instead of using a generic one.(ë²±ùÿÿÿÿ8“¢Ø•-
+dphp:S112"FDefine and throw a dedicated exception instead of using a generic one.(‡¦¬‹üÿÿÿÿ8“¢Ø•-
+N	php:S1066"/Merge this if statement with the enclosing one.(ÌÚúÁùÿÿÿÿ8“¢Ø•-
+`	php:S1192"FDefine a constant instead of duplicating this literal "5.5.0" 3 times.(Ïæ‹“8“¢Ø•-
+Uphp:S131"7Add a "case default" clause to this "switch" statement.(äâåÕşÿÿÿÿ8“¢Ø•-
+^php:S112"FDefine and throw a dedicated exception instead of using a generic one.(ï°I8“¢Ø•-
+^php:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ö³ós8“¢Ø•-
+dphp:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ø¢§ôüÿÿÿÿ8“¢Ø•-
+s	php:S3776"TRefactor this function to reduce its Cognitive Complexity from 16 to the 15 allowed.(â³–Ùıÿÿÿÿ8“¢Ø•-
+‰	php:S1192"jDefine a constant instead of duplicating this literal "For WebP support PHP >= 5.5.0 is required" 3 times.(Ø¢§ôüÿÿÿÿ8“¢Ø•-
+dphp:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ø¢§ôüÿÿÿÿ8“¢Ø•-
+	php:S1448"gClass "ImageResize" has 25 methods, which is greater than 20 authorized. Split it into smaller classes.(ÌØñÔ8“¢Ø•-
+dphp:S112"FDefine and throw a dedicated exception instead of using a generic one.(î¢ıüÿÿÿÿ8“¢Ø•-
+s	php:S3776"TRefactor this function to reduce its Cognitive Complexity from 51 to the 15 allowed.(Â¶Í“ùÿÿÿÿ8“¢Ø•-
+~	php:S1488"_Immediately return this expression instead of assigning it to the temporary variable "$resize".(ˆßºáşÿÿÿÿ8“¢Ø•-
+Uphp:S131"7Add a "case default" clause to this "switch" statement.(çÍÕ˜úÿÿÿÿ8“¢Ø•-
+_php:S112"FDefine and throw a dedicated exception instead of using a generic one.(õÄé£8“¢Ø•-

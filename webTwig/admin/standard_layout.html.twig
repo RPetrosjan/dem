@@ -1,5 +1,23 @@
 {% extends '@SonataAdmin/standard_layout.html.twig' %}
+  {% set company = company()  %}
+{% block meta_tags %}
+    {{ parent() }}
+    <link rel="icon" type="image/x-icon" href="http://xn--dmnagements-bbbb.fr/favicon.ico" />
+{% endblock %}
 
+{% block sonata_head_title %}
+    {{ company.getCompanyName() }}
+{% endblock %}
+
+{% block logo %}
+
+    <div class="divlogo">
+     <img src="/image/{{ company.getPath() ~'/'~company.getFilename() }}" />
+     <a class="logo" href="{{ path('sonata_admin_dashboard') }}">
+      {{ company.getCompanyName() }}
+     </a>
+    </div>
+{% endblock %}
 
 {% block sonata_admin_content_actions_wrappers %}
 

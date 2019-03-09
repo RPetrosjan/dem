@@ -10,7 +10,7 @@ namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-
+use AppBundle\Entity\Traits\Image as ImageTrait;
 
 /**
  * @ORM\Entity
@@ -19,6 +19,8 @@ use Doctrine\ORM\Mapping as ORM;
 class User extends BaseUser
 {
 
+    use ImageTrait;
+    public $uploadPath = "company_icon";
 
     /**
      * @ORM\Id
@@ -458,14 +460,10 @@ class User extends BaseUser
         return $this->id_mes_devis;
     }
 
-    /**
-     * @param array $id_mes_devis
-     */
-    public function setIdMesDevis($id_mes_devis)
+    public function getWebPath()
     {
-        $this->id_mes_devis = $id_mes_devis;
+        $webPath = "image/".$this->uploadPath."/".$this->filename;
+        return $webPath;
     }
-
-
 
 }
