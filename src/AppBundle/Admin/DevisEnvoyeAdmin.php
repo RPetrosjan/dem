@@ -17,6 +17,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -40,7 +41,8 @@ class DevisEnvoyeAdmin extends AbstractAdmin
     public function configure() {
 
         /// $this->setTemplate('list','@AppBundle/Admin/ContactList.html.twig');
-        $this->setTemplate('edit','admin/calculDevisAdminEdit.html.twig');
+
+        $this->setTemplate('edit','admin/calculDevisEnvoyeAdminEdit.html.twig');
         $this->setTemplate('show','admin/calculDevisAdminShow.html.twig');
     }
 
@@ -73,13 +75,45 @@ class DevisEnvoyeAdmin extends AbstractAdmin
     // Filtering list result for calcul devis en ligne
     public function createQuery($context = 'list')
     {
+        /** @var  $container */
         $container = $this->getConfigurationPool()->getContainer();
+        /** @var  $userEntity */
         $userEntity = $container->get('security.token_storage')->getToken()->getUser();
 
+        /** @var $query */
         $query = parent::createQuery($context);
-        $query->where(
-            $query->getRootAliases()[0].'.user_id = '.$userEntity->getId()
-        );
+
+
+        // Get submit Requet
+        $inSearch = $this->getRequest()->get('search_in_table');
+        if(is_null($inSearch)) {
+            $inSearch = '';
+        }
+
+        $this->getConfigurationPool()->getContainer()->get('twig')->addGlobal('search_in_table', $inSearch);
+        $filterMapped = ['devis_number', 'prixht', 'nom', 'prenom', 'email', 'CreatedDate'];
+
+        // Creation Query OR OR OR
+        $searchQuery = '';
+        // List de paramters
+        $setParam = [];
+        $alias = $query->getRootAliases()[0];
+        foreach ($filterMapped as $key => $list) {
+            $searchQuery.=$alias.'.'.$list.' like :'.$list;
+            if($key < sizeof($filterMapped) - 1) {
+                $searchQuery.=' OR ';
+            }
+            $setParam[$list] = '%'.$inSearch.'%';
+        }
+
+
+        $query
+            ->where($alias.'.user_id = :user_id')
+            ->andWhere($searchQuery)
+            ->setParameters(array_merge([
+                'user_id' => $userEntity->getId(),
+            ], $setParam));
+
         return $query;
     }
 
@@ -126,7 +160,48 @@ class DevisEnvoyeAdmin extends AbstractAdmin
 
         $formMapper
 
-            ->with('General', [
+            ->with($this->trans('info.devis'), [
+                'class' => 'div-group-class col-md-12',
+                'attr' => [
+                    'icon' => '<i class="fas fa-info-circle"></i>',
+                ]
+            ])
+            ->add('signee', CheckboxType::class, [
+                'help' => 'Client accepteé ce devis',
+                'required' => false,
+                'attr' => [
+                    'div-group-class' => 'div-group-class col-md-2 nopadding',
+                ],
+                'label' => $this->trans('devis.sign')
+            ])
+            ->add('helper', TextType::class, [
+                'label' => 'helper',
+                'required' => false,
+                'mapped' => false,
+                'attr' => [
+                    'class' => 'ba-field-hidden',
+                    'div-group-class' => 'col-md-12',
+                ]
+            ])
+            ->add('sous_traitance', CheckboxType::class, [
+                'help' => $this->trans('souhaite.sous.traitance').'?',
+                'required' => false,
+                'attr' => [
+                    'div-group-class' => 'col-md-2 nopadding',
+                    //      'class' => 'ba-field-hidden',li
+                ],
+            ])
+
+            ->add('prix_soustraitance', TextType::class, [
+                'label' => 'Prix Sous-traitance',
+                'required' => false,
+                'attr' => [
+                    ///      'class' => 'ba-field-hidden',
+                    'div-group-class' => 'col-md-2',
+                ]
+            ])
+            ->end()
+            ->with($this->trans('general'), [
                     'class'       => 'col-md-6',
                     'attr' => [
                         'icon' => '<i class="fas fa-clipboard-list"></i>',
@@ -145,13 +220,9 @@ class DevisEnvoyeAdmin extends AbstractAdmin
                     'icon' => '<i class="fas fa-info"></i>',
                 ]
             ])
-            ->add('CreatedDate', 'sonata_type_date_picker', [
-                'label' => 'Date de demande',
-                'format'=>'dd/MM/yyyy',
-                'required' => false,
-                'attr' => [
-                    'class' => 'datepicker'
-                ]
+            ->add('createdDataText', TextType::class, [
+                'disabled' =>  true,
+                'label' => 'Date de Demande',
             ])
             ->add('volume', TextType::class, [
                 'label' => 'Volume',
@@ -200,7 +271,11 @@ class DevisEnvoyeAdmin extends AbstractAdmin
                     'icon' => '<i class="fas fa-map-signs"></i>',
                 ]
             ])
-            ->add('date2')
+            ->add('date2', TextType::class, [
+            'attr' => [
+                'class' => 'datepicker'
+                ]
+            ])
             ->add('adresse2')
             ->add('cp2')
             ->add('ville2')
@@ -220,12 +295,10 @@ class DevisEnvoyeAdmin extends AbstractAdmin
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-            ->add('CreatedDate')
+            ->add('devis_number')
             ->add('nom')
             ->add('prenom')
-            ->add('cp1')
-            ->add('cp2')
-            ->add('date')
+
         ;
     }
 
@@ -333,7 +406,37 @@ class DevisEnvoyeAdmin extends AbstractAdmin
                     'icon' => '<i class="fas fa-paperclip"></i>',
                 ]
             ])
-            ->with('General', [
+            ->with($this->trans('info.devis'), [
+                'class' => 'div-group-class col-md-12',
+                'attr' => [
+                    'icon' => '<i class="fas fa-info-circle"></i>',
+                ]
+            ])
+
+            ->add('signee', null, [
+                'help' => 'Client accepteé ce devis',
+                'required' => false,
+                'attr' => [
+                    'div-group-class' => 'div-group-class col-md-2 nopadding',
+                ],
+                'label' => $this->trans('devis.sign')
+            ])
+
+
+
+
+            ->add('sous_traitance', null, [
+                'label' => 'Sous Traitance'
+            ])
+
+            ->add('prix_soustraitance', TextType::class, [
+                'label' => 'Prix Sous-traitance',
+            ])
+
+
+            ->end()
+
+            ->with($this->trans('general'), [
                     'class'       => 'col-md-6',
                     'attr' => [
                         'icon' => '<i class="fas fa-clipboard-list"></i>',
@@ -346,6 +449,7 @@ class DevisEnvoyeAdmin extends AbstractAdmin
             ->add('email')
 
             ->end()
+
             ->with('Info Déménagement ',[
                 'class'       => 'col-md-6 title_devis',
                 'attr' => [
@@ -410,6 +514,12 @@ class DevisEnvoyeAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('devis_number', null, [
                 'label' => 'Numero Devis',
+                'route' => [
+                    'name' => 'show',
+                ]
+            ])
+            ->addIdentifier('signee', null, [
+                'label' => 'Signeé',
                 'route' => [
                     'name' => 'show',
                 ]

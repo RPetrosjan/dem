@@ -14,19 +14,24 @@ use AppBundle\Entity\DevisEnvoye;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 class PDFDevisGenerator
 {
     /** @var Container  */
     private $container;
 
+    /** @var KernelInterface  */
+    private $parent;
+
     /**
      * PDFDevisGenerator constructor.
      * @param EntityManagerInterface $em
      * @param Container $container
      */
-    public function __construct(Container $container) {
+    public function __construct(Container $container, KernelInterface $parent) {
         $this->container = $container;
+        $this->parent = $parent;
     }
 
     // Generation du PDF
@@ -101,8 +106,13 @@ class PDFDevisGenerator
             'societeInfo' => $societe
         ]);
 
+        $logo_societe = $this->parent->getProjectDir().'\web\image\\'.$societe->getPath().'\\'.substr($societe->filename, 0, strpos($societe->filename, "?"));
+
         $pdf = $this->returnPDFResponseFromHTML();
         $pdf->setPageMark();
+        // C:\Users\rpetrosjan\Desktop\ticket\site-admin-symfony\espace-demenageur3\web\image\5c83220050751.png?5c8322005f1c4
+        // C:\Users\rpetrosjan\Desktop\ticket\site-admin-symfony\espace-demenageur3\web\image\company_icon\5c83220050751.png
+        $pdf->Image($logo_societe, 90, '', 30);
         $pdf->writeHTML($htmlRender, true, false, true, false, '');
 
         //Arrivée

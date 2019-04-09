@@ -1,5 +1,8 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
+
+## Ruben SEARCH for this
+# dump($this->getBaseRole($admin));
 security:
 
     encoders:
@@ -15,9 +18,13 @@ security:
           - ROLE_ADMIN_DEVISENVOYE_EDIT
           - ROLE_ADMIN_DEVISENVOYE_DELETE
           - ROLE_ADMIN_MESDEVIS_ALL
+          - ROLE_ADMIN_USERS_CONNECTION_LIST
+          - ROLE_ADMIN_SOUSTRAITANCE_LIST
+          - ROLE_ADMIN_SOUSTRAITANCE_VIEW
 
 
-        ROLE_ADMIN:       ROLE_ADMIN
+
+        ROLE_ADMIN:  ROLE_ADMIN
         ROLE_ALL_DEVIS_ENVOYE_READER:
            - ROLE_ALL_DEVIS_ENVOYE_READER
         ROLE_CLIENT:

@@ -16,13 +16,22 @@ class DemandeDevisRepository extends \Doctrine\ORM\EntityRepository
         $now = new DateTime;
         $now->modify('-12 month');
 
-        dump($now->format("d/m/Y 00:00:00"));
-
 
         return $this->createQueryBuilder('db')
             ->where('db.CreatedDate >= :dateStart')
             ->setParameters([
                 'dateStart' => $now,
+            ])
+            ->getQuery()
+            ->execute()
+            ;
+    }
+
+    public function getDevisByUuid($uuid) {
+        return $this->createQueryBuilder('db')
+            ->where('db.uuid = :uuid')
+            ->setParameters([
+               'uuid' => $uuid,
             ])
             ->getQuery()
             ->execute()

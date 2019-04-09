@@ -90,7 +90,6 @@ th.sonata-ba-list-field-header-order-desc a, th.sonata-ba-list-field-header-orde
     outline: 0;
     position: relative;
     transition: all .3s ease-in-out;
-    z-index: 10;
     border: 1px #b6b4b4 solid;
     height: auto;
     line-height: 15px;
@@ -217,7 +216,6 @@ input.form-control {
     padding: 4px 0 4px 0px;
     position: relative;
     transition: all .3s ease-in-out;
-    z-index: 10;
     text-indent: 10px;
     border: 1px #b6b4b4 solid;
     height: auto;
@@ -331,6 +329,10 @@ form .well, .form-group>.well {
 form .well .btn {
     box-shadow: 5px 3px 10px -3px #747474;
 }
+.form-actions.stuck
+{
+    position: relative;
+}
 
 /* Panel top */
 
@@ -389,6 +391,20 @@ form .well .btn {
     font-weight: bold;
     font-size: 15px;
     color: #024928;
+    cursor: pointer;
+}
+
+.navbar-default .navbar-nav>li>a.sonata-action-element{
+    background-color: #024928;
+    color: white;
+    border-left: 1px white solid;
+}
+.navbar-default .navbar-nav>li>a.sonata-action-element:hover{
+    background-color: #04703e;
+}
+
+.navbar-default .navbar-nav>li>a.sonata-action-element>i{
+    margin-right: 4px;
 }
 
 .form-control[disabled], fieldset[disabled] .form-control {
@@ -444,4 +460,32 @@ form .well .btn {
     display: inline-block;
     margin-left: 35px;
     width: 100%;
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.div-group-class .sonata-ba-field.sonata-ba-field-standard-natural{
+    width: 100%;
+}
+
+div.alert {
+    font-size: 13px !important;
+    font-weight: bold;
+    text-shadow: 0px 0px 8px #000000;
+    box-shadow: 0px 0px 15px -3px black;
+}
+
+.bg-green, .callout.callout-success, .alert-success, .label-success, .modal-success .modal-body{
+    font-size: 11px;
+}
+
+.bg-red, .callout.callout-danger, .alert-danger, .alert-error, .label-danger, .modal-danger .modal-body {
+    font-size: 11px;
+}
+
+.sonata-bc .breadcrumb {
+    font-size: 14px;
 }

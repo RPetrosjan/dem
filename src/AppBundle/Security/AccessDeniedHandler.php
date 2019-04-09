@@ -32,9 +32,9 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
 
        /// $this->templating->render('@Twig/Exception/error403.html.twig');
 
-       /// $loader = new \Twig_Loader_Filesystem('Pages/homepage.html.twig');
+     ///   $loader = new \Twig_Loader_Filesystem('Pages/homepageff.html.twig');
 
-        dump($accessDeniedException);
+      ////  dump($accessDeniedException);
         return new Response('Access Denied Ruben', 403);
 
     }

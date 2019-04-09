@@ -24,5 +24,5 @@ file that was distributed with this source code.
 {% endif %}
 
 {% block field %}
-    {{ field_description.options.attr.boolean_values[object.readed]|raw }}
+    {{ field_description.options.attr.boolean_values[isDevisReaded(object.uuid)]|raw }}
 {% endblock %}

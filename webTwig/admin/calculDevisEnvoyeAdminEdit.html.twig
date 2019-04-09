@@ -1,0 +1,83 @@
+{% extends 'admin/calculDevisAdminEdit.html.twig' %}
+
+{% block form %}
+    {{ parent() }}
+
+    <script>
+
+        function BlockShowHide(obj, show) {
+
+            $parent = $(obj).closest('div[class*=col-md]');
+
+            console.log($parent);
+
+            if(show == 'show') {
+                $parent.show();
+            }
+            else if(show == 'hide') {
+                $parent.hide();
+            }
+        }
+
+        jQuery(document).ready(function() {
+
+            // Definir Objets
+            var signeeObj = $('input[id*=_signee]');
+            var soustraitanceObj = $('input[id*=sous_traitance]');
+            var prixsoustraitanceObj = $('div[id*=prix_soustraitance]');
+
+
+            if(signeeObj.attr('checked')) {
+
+                BlockShowHide(soustraitanceObj, 'show');
+                BlockShowHide(prixsoustraitanceObj, 'show');
+            }
+            else {
+                BlockShowHide(soustraitanceObj, 'hide');
+                BlockShowHide(prixsoustraitanceObj, 'hide');
+            }
+
+            if(soustraitanceObj.is(':checked')) {
+                BlockShowHide(prixsoustraitanceObj, 'show');
+            }
+            else {
+                BlockShowHide(prixsoustraitanceObj, 'hide');
+            }
+
+
+            signeeObj.change(function(){
+                if(signeeObj.is(':checked')) {
+                    // checked
+                    BlockShowHide(soustraitanceObj, 'show');
+                    if(soustraitanceObj.is(':checked') && signeeObj.is(':checked')) {
+                        BlockShowHide(prixsoustraitanceObj, 'show');
+                    }
+
+                }
+                else {
+                    // unchecked
+                    BlockShowHide(soustraitanceObj, 'hide');
+                    BlockShowHide(prixsoustraitanceObj, 'hide');
+                }
+
+            });
+
+            soustraitanceObj.change(function(){
+                if(soustraitanceObj.is(':checked') && signeeObj.is(':checked')) {
+                    // checked
+                        BlockShowHide(prixsoustraitanceObj, 'show');
+                }
+                else {
+                    // unchecked
+                    BlockShowHide(prixsoustraitanceObj, 'hide');
+                }
+            });
+
+
+
+
+
+        });
+    </script>
+
+{% endblock %}

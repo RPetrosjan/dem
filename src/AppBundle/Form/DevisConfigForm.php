@@ -16,17 +16,27 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class DevisConfigForm extends AbstractType
 {
+
+    private $translator;
+
+    /**
+     * DevisConfigForm constructor.
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator) {
+        $this->translator = $translator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
-
             ->add(
                 $builder->create('group1', FormType::class, [
-                    'label' => 'Devis / Tarification',
+                    'label' => $this->translator->trans('devis.tarification'),
                     'inherit_data' => true,
                     'attr' => [
                         'cutom_class' => 'col-md-6',

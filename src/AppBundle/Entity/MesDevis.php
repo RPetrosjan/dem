@@ -2,11 +2,9 @@
 
 namespace AppBundle\Entity;
 
-use DateTimeZone;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
-
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use AppBundle\Entity\Traits\Devis as Devis;
 
 /**
  * MesDevis
@@ -17,217 +15,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class MesDevis
 {
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", unique=true)
-     */
-    private $uuid;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="cp1", type="string", length=64, nullable=true)
-     */
-    private $cp1;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="etage1", type="string", length=64, nullable=true))
-     */
-    private $etage1;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ascenseur1", type="string", length=70, nullable=true))
-     */
-    private $ascenseur1;
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="cp2", type="string", length=64, nullable=true)
-     */
-    private $cp2;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ville1", type="string", length=64, nullable=true)
-     */
-    private $ville1;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ville2", type="string", length=64, nullable=true)
-     */
-    private $ville2;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="etage2", type="string", length=64, nullable=true))
-     */
-    private $etage2;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="ascenseur2", type="string", length=64, nullable=true))
-     */
-    private $ascenseur2;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="volume", type="string", length=10, nullable=true))
-     */
-    private $volume;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="prestation", type="string", length=20, nullable=true))
-     */
-    private $prestation;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=64, nullable=true)
-     */
-    private $nom;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="prenom", type="string", length=64, nullable=true)
-     */
-    private $prenom;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="telephone", type="string", length=64, nullable=true)
-     */
-    private $telephone;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="portable", type="string", length=64, nullable=true)
-     */
-    private $portable;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=64, nullable=true)
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="budget", type="string", length=64, nullable=true)
-     */
-    private $budget;
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="adresse1", type="string", length=64, nullable=true)
-     */
-    private $adresse1;
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="adresse2", type="string", length=64, nullable=true)
-     */
-    private $adresse2;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="date", type="string", length=64, nullable=true)
-     */
-    private $date;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="comment1", type="text", nullable=true)
-     */
-    private $comment1;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="comment2", type="text", nullable=true)
-     */
-    private $comment2;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="distance", type="string", length=64, nullable=true)
-     */
-    private $distance;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="pays1", type="string", length=64, nullable=true)
-     */
-    private $pays1;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="pays2", type="string", length=64, nullable=true)
-     */
-    private $pays2;
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="date1", type="string", length=64, nullable=true)
-     */
-    private $date1;
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="date2", type="string", length=64, nullable=true)
-     */
-    private $date2;
-
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created", type="datetime")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $CreatedDate;
+    use Devis;
 
     /**
      * @var User
@@ -235,6 +23,18 @@ class MesDevis
      * @ManyToOne(targetEntity="User", inversedBy="id_mes_devis", cascade={"persist"})
      */
     private $user_id;
+
+
+    /** @var string */
+    private  $nom_prenom;
+
+    /** @var  string */
+    private $cp_ville1;
+
+    /** @var string */
+    private $cp_ville2;
+
+
 
     /**
      * @var bool
@@ -245,479 +45,110 @@ class MesDevis
 
 
     /**
-     * DemandeDevis constructor.
-     * @param TokenStorageInterface $tokenStorage
-     * @throws \Exception
+     * @var bool
+     *
+     * @ORM\Column(name="signee", type="boolean", nullable=true)
+     */
+    private $signee;
+
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="sous_traitance", type="boolean", nullable=true)
+     */
+    private $sous_traitance;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prix_soustraitance", length=32,  type="string", nullable=true)
+     */
+    private $prix_soustraitance;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prix_ht", length=32,  type="string", nullable=true)
+     */
+    private $prix_ht;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prix_tva", length=16,  type="string", nullable=true)
+     */
+    private $prix_tva;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prix_ttc", length=16,  type="string", nullable=true)
+     */
+    private $prix_ttc;
+
+    /**
+     * MesDevis constructor.
      */
     public function __construct()
     {
-        $date = \DateTime::createFromFormat('d/m/Y', date('d/m/Y'));
-        $this->CreatedDate  = $date->setTimeZone(new DateTimeZone('Europe/Paris'));
-
-        $this->nom = null;
-        $this->prenom = null;
-        $this->date = null;
-        $this->email = null;
-        $this->telephone = null;
-        $this->date1 = null;
-        $this->date2 = null;
-        $this->comment1 = '';
-        $this->comment2 = '';
-
-        $this->uuid = \Ramsey\Uuid\Uuid::uuid4();
+        // We make construct of trait
+        $this->DevisTraitConstruct();
     }
 
 
+    /**
+     * @return string
+     */
+    public function getPrixHt()
+    {
+        return $this->prix_ht;
+    }
 
     /**
-     * Get id
-     *
-     * @return int
+     * @param string $prix_ht
      */
-    public function getId()
+    public function setPrixHt($prix_ht)
     {
-        return $this->id;
+        $this->prix_ht = $prix_ht;
     }
 
     /**
      * @return string
      */
-    public function getUuid()
+    public function getPrixTva()
     {
-        return $this->uuid;
+        return $this->prix_tva;
     }
 
     /**
-     * @param string $uuid
+     * @param string $prix_tva
      */
-    public function setUuid($uuid)
+    public function setPrixTva($prix_tva)
     {
-        $this->uuid = $uuid;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCp1()
-    {
-        return $this->cp1;
-    }
-
-    /**
-     * @param string $cp1
-     */
-    public function setCp1($cp1)
-    {
-        $this->cp1 = $cp1;
+        $this->prix_tva = $prix_tva;
     }
 
     /**
      * @return string
      */
-    public function getEtage1()
+    public function getPrixTtc()
     {
-        return $this->etage1;
+        return $this->prix_ttc;
     }
 
     /**
-     * @param string $etage1
+     * @param string $prix_ttc
      */
-    public function setEtage1($etage1)
+    public function setPrixTtc($prix_ttc)
     {
-        $this->etage1 = $etage1;
+        $this->prix_ttc = $prix_ttc;
     }
 
-    /**
-     * @return string
-     */
-    public function getAscenseur1()
-    {
-        return $this->ascenseur1;
-    }
-
-    /**
-     * @param string $ascenseur1
-     */
-    public function setAscenseur1($ascenseur1)
-    {
-        $this->ascenseur1 = $ascenseur1;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCp2()
-    {
-        return $this->cp2;
-    }
-
-    /**
-     * @param string $cp2
-     */
-    public function setCp2($cp2)
-    {
-        $this->cp2 = $cp2;
-    }
-
-    /**
-     * @return string
-     */
-    public function getVille1()
-    {
-        return $this->ville1;
-    }
-
-    /**
-     * @param string $ville1
-     */
-    public function setVille1($ville1)
-    {
-        $this->ville1 = $ville1;
-    }
-
-    /**
-     * @return string
-     */
-    public function getVille2()
-    {
-        return $this->ville2;
-    }
-
-    /**
-     * @param string $ville2
-     */
-    public function setVille2($ville2)
-    {
-        $this->ville2 = $ville2;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEtage2()
-    {
-        return $this->etage2;
-    }
-
-    /**
-     * @param string $etage2
-     */
-    public function setEtage2($etage2)
-    {
-        $this->etage2 = $etage2;
-    }
-
-    /**
-     * Set ascenseur2
-     *
-     * @param boolean $ascenseur2
-     *
-     * @return CalculDevis
-     */
-    public function setAscenseur2($ascenseur2)
-    {
-        $this->ascenseur2 = $ascenseur2;
-
-        return $this;
-    }
-
-    /**
-     * Get ascenseur2
-     *
-     * @return bool
-     */
-    public function getAscenseur2()
-    {
-        return $this->ascenseur2;
-    }
-
-    /**
-     * @return string
-     */
-    public function getVolume()
-    {
-        return $this->volume;
-    }
-
-    /**
-     * @param string $volume
-     */
-    public function setVolume($volume)
-    {
-        $this->volume = $volume;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPrestation()
-    {
-        return $this->prestation;
-    }
-
-    /**
-     * @param string $prestation
-     */
-    public function setPrestation($prestation)
-    {
-        $this->prestation = $prestation;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    /**
-     * @param string $nom
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPrenom()
-    {
-        return $this->prenom;
-    }
-
-    /**
-     * @param string $prenom
-     */
-    public function setPrenom($prenom)
-    {
-        $this->prenom = $prenom;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTelephone()
-    {
-        return $this->telephone;
-    }
-
-    /**
-     * @param string $telephone
-     */
-    public function setTelephone($telephone)
-    {
-        $this->telephone = $telephone;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPortable()
-    {
-        return $this->portable;
-    }
-
-    /**
-     * @param string $portable
-     */
-    public function setPortable($portable)
-    {
-        $this->portable = $portable;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param string $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBudget()
-    {
-        return $this->budget;
-    }
-
-    /**
-     * @param string $budget
-     */
-    public function setBudget($budget)
-    {
-        $this->budget = $budget;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAdresse1()
-    {
-        return $this->adresse1;
-    }
-
-    /**
-     * @param string $adresse1
-     */
-    public function setAdresse1($adresse1)
-    {
-        $this->adresse1 = $adresse1;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAdresse2()
-    {
-        return $this->adresse2;
-    }
-
-    /**
-     * @param string $adresse2
-     */
-    public function setAdresse2($adresse2)
-    {
-        $this->adresse2 = $adresse2;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * @param string $date
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-    }
-
-    /**
-     * @return string
-     */
-    public function getComment1()
-    {
-        return $this->comment1;
-    }
-
-    /**
-     * @param string $comment1
-     */
-    public function setComment1($comment1)
-    {
-        $this->comment1 = $comment1;
-    }
-
-    /**
-     * @return string
-     */
-    public function getComment2()
-    {
-        return $this->comment2;
-    }
-
-    /**
-     * @param string $comment2
-     */
-    public function setComment2($comment2)
-    {
-        $this->comment2 = $comment2;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDistance()
-    {
-        return $this->distance;
-    }
-
-    /**
-     * @param string $distance
-     */
-    public function setDistance($distance)
-    {
-        $this->distance = $distance;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPays1()
-    {
-        return $this->pays1;
-    }
-
-    /**
-     * @param string $pays1
-     */
-    public function setPays1($pays1)
-    {
-        $this->pays1 = $pays1;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPays2()
-    {
-        return $this->pays2;
-    }
-
-    /**
-     * @param string $pays2
-     */
-    public function setPays2($pays2)
-    {
-        $this->pays2 = $pays2;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDate1()
-    {
-        return $this->date1;
-    }
-
-    /**
-     * @param string $date1
-     */
-    public function setDate1($date1)
-    {
-        $this->date1 = $date1;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDate2()
-    {
-        return $this->date2;
-    }
-
-    /**
-     * @param string $date2
-     */
-    public function setDate2($date2)
-    {
-        $this->date2 = $date2;
-    }
 
 
     /**
@@ -728,21 +159,6 @@ class MesDevis
         return $this->user_id;
     }
 
-    /**
-     * @return static
-     */
-    public function getCreatedDate()
-    {
-        return $this->CreatedDate;
-    }
-
-    /**
-     * @param static $createdDate
-     */
-    public function setCreatedDate($createdDate)
-    {
-        $this->CreatedDate = $createdDate;
-    }
 
     /**
      * @param User $user_id
@@ -768,5 +184,94 @@ class MesDevis
         $this->share = $share;
     }
 
-}
 
+    /**
+     * @return bool
+     */
+    public function isSignee()
+    {
+        return $this->signee;
+    }
+
+    /**
+     * @param bool $signee
+     */
+    public function setSignee($signee)
+    {
+        $this->signee = $signee;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSousTraitance()
+    {
+        return $this->sous_traitance;
+    }
+
+    /**
+     * @param bool $sous_traitance
+     */
+    public function setSousTraitance($sous_traitance)
+    {
+        $this->sous_traitance = $sous_traitance;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getPrixSoustraitance()
+    {
+        return $this->prix_soustraitance;
+    }
+
+    /**
+     * @param string $prix_soustraitance
+     */
+    public function setPrixSoustraitance($prix_soustraitance)
+    {
+        $this->prix_soustraitance = $prix_soustraitance;
+    }
+
+
+    /**
+     * @return MesDevis
+     */
+    public function getSousTraitanceMesDevis()
+    {
+        return $this->sous_traitance_mes_devis;
+    }
+
+    /**
+     * @param MesDevis $sous_traitance_mes_devis
+     */
+    public function setSousTraitanceMesDevis($sous_traitance_mes_devis)
+    {
+        $this->sous_traitance_mes_devis = $sous_traitance_mes_devis;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNomPrenom()
+    {
+        return $this->user_id->getFirstName().' '.$this->user_id->getLastName();
+    }
+
+    /**
+     * @return string
+     */
+    public function getCpVille1()
+    {
+        return $this->cp1.' '.$this->ville1;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCpVille2()
+    {
+        return $this->cp2.' '.$this->ville2;
+    }
+}

@@ -46,11 +46,26 @@ class User extends BaseUser
     private $id_devis_envoye;
 
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="UserConnect", mappedBy="user_id")
+     */
+    private $id_user_connect;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ViewDevisCount", mappedBy="user_id")
+     */
+    private $id_user_view_devis;
+
     /**
      * @ORM\OneToMany(targetEntity="MesDevis", mappedBy="user_id")
      */
     private $id_mes_devis;
 
+    /**
+     * @ORM\OneToMany(targetEntity="DemandeDevis", mappedBy="ownerId")
+     */
+    private $id_demande_devis;
 
     /**
      * @var string
@@ -149,6 +164,14 @@ class User extends BaseUser
 
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="viewDeviscount", type="string", length=18, nullable=true)
+     */
+    private $viewDevisCount;
+
+
+    /**
      * @ORM\OneToMany(targetEntity="DemandeDevis", mappedBy="societe_devis")
      */
     private $user_devis;
@@ -162,6 +185,22 @@ class User extends BaseUser
     {
         parent::__construct();
         // your own logic
+    }
+
+    /**
+     * @return string
+     */
+    public function getViewDevisCount()
+    {
+        return $this->viewDevisCount;
+    }
+
+    /**
+     * @param string $viewDevisCount
+     */
+    public function setViewDevisCount($viewDevisCount)
+    {
+        $this->viewDevisCount = $viewDevisCount;
     }
 
 
@@ -464,6 +503,54 @@ class User extends BaseUser
     {
         $webPath = "image/".$this->uploadPath."/".$this->filename;
         return $webPath;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdDemandeDevis()
+    {
+        return $this->id_demande_devis;
+    }
+
+    /**
+     * @param mixed $id_demande_devis
+     */
+    public function setIdDemandeDevis($id_demande_devis)
+    {
+        $this->id_demande_devis = $id_demande_devis;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdUserConnect()
+    {
+        return $this->id_user_connect;
+    }
+
+    /**
+     * @param mixed $id_user_connect
+     */
+    public function setIdUserConnect($id_user_connect)
+    {
+        $this->id_user_connect = $id_user_connect;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdUserViewDevis()
+    {
+        return $this->id_user_view_devis;
+    }
+
+    /**
+     * @param mixed $id_user_view_devis
+     */
+    public function setIdUserViewDevis($id_user_view_devis)
+    {
+        $this->id_user_view_devis = $id_user_view_devis;
     }
 
 }

@@ -3,9 +3,9 @@
 </div>
 
 {# Set array DemandeDevis in variable arrayDemandeDevis #}
-{% set arrayDemandeDevis = group.items[0].dashboardActions.pageShow.statDevis.statDemandeDevis %}
+{% set arrayDemandeDevis = page.statDevis.statDemandeDevis %}
 {# Set array DevisEnvoye in variable arrayDemandeDevis #}
-{% set arrayDevisEnvoye  = group.items[0].dashboardActions.pageShow.statDevis.statDevisEnvoye %}
+{% set arrayDevisEnvoye  = page.statDevis.statDevisEnvoye %}
 
 {# Title of table #}
 {% set titleTable = '' %}

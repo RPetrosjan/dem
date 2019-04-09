@@ -40,7 +40,6 @@ sonata_sendDevis_post:
     controller: AppBundle\Controller\AdminController::sendDevisPost
 
 
-
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

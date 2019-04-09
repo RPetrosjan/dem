@@ -77,7 +77,7 @@ class UsersAdmin extends AbstractAdmin
         }
 
         $formMapper
-            ->with('General', [
+            ->with($this->trans('general'), [
                     'class'       => 'col-md-6',
                     'attr' => [
                         'icon' => '<i class="fas fa-clipboard-list"></i>',
@@ -95,6 +95,7 @@ class UsersAdmin extends AbstractAdmin
                 'choices' => $roleslist,
                 'multiple' => true,
             ))
+            ->add('viewDevisCount', 'text')
             ->end()
             ->with('Company Info', [
                 'class'       => 'col-md-6',

@@ -134,6 +134,12 @@ class WebController extends Controller
                         $this->get('security.token_storage')->setToken($token);
                         $this->get('session')->set('_security_main', serialize($token));
 
+                        // check if user connected already today
+                        $this->get('admin.user.connect')->ifConnectToday($user);
+
+                        // save that user connected
+                        $this->get('admin.user.connect')->addUserConnect($user);
+
                         // Fire the login event manually
                         $event = new InteractiveLoginEvent($request, $token);
                         $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
@@ -204,7 +210,7 @@ class WebController extends Controller
             $usertwig['roles'] = $user->getRoles()[0];
             $usertwig['firstname'] = $user->getFirstName();
             $usertwig['lastname'] = $user->getLastName();
- ;
+
             $form = null;
         }
 

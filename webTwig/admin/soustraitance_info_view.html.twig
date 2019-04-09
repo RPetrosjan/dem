@@ -1,0 +1,12 @@
+{% extends 'admin/standard_layout.html.twig' %}
+{% block sonata_admin_content %}
+
+
+    {{  dump(block('show')) }}
+
+    {% include '@SonataCore/FlashMessage/render.html.twig' %}
+
+    {% set base_template = 'admin/standard_layout.html.twig' %}
+
+
+{% endblock %}

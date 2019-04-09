@@ -14,15 +14,18 @@ use AppBundle\Entity\DevisConfig;
 use AppBundle\Entity\DevisEnvoye;
 use AppBundle\Entity\MesDevis;
 use AppBundle\Entity\User;
+use AppBundle\Field\CustomFiledInterface;
 use AppBundle\Form\DevisConfigForm;
 use AppBundle\Form\MaSocieteForm;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Admin\FieldDescriptionCollection;
+
+use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
 use Swift_Attachment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Bundle\FrameworkBundle\Controller\RedirectController;
 use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -35,6 +38,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class AdminController extends Controller
 {
+
 
     /** @var null|object  */
     private $userEntity;
@@ -86,7 +90,6 @@ class AdminController extends Controller
         $devisEnvoye->setPrenom($devis->getPrenom());
         $devisEnvoye->setTelephone($devis->getTelephone());
         $devisEnvoye->setEmail($devis->getEmail());
-        $devisEnvoye->setDate($devis->getDate());
         $devisEnvoye->setDate1($devis->getDate1());
         $devisEnvoye->setDate2($devis->getDate2());
         $devisEnvoye->setAdresse1($devis->getAdresse1());
@@ -139,6 +142,8 @@ class AdminController extends Controller
             'uuid' => $uuid,
         ]);
 
+
+
         // We check if found devis with uuid in DemandeDevis
         if(is_null($devis)) {
             // If null we check if devis uuid from MesDevis
@@ -156,6 +161,7 @@ class AdminController extends Controller
                 ]);
         }
 
+
         if(!is_null($devis)) {
             // Check If we have class in DevisEnvoye
             if (strpos(get_class($devis), 'DevisEnvoye') === false) {
@@ -169,6 +175,7 @@ class AdminController extends Controller
                     'valable'   => $valable,
                     'distance'  => $distance
                 ]);
+
             } else {
                 $devis->setPrixht($prixht);
                 $devis->setTva($tva);
@@ -178,6 +185,8 @@ class AdminController extends Controller
                 $devis->setParobjet($parobjet);
                 $devis->setValable($valable);
                 $devis->setDistance($distance);
+
+
             }
         }
 
@@ -266,6 +275,43 @@ class AdminController extends Controller
             ->find($this->tokenStorage->getToken()->getUser()->getId());
     }
 
+    private $vars = array();
+
+    /**
+     * @Route("espace/app/soustraitance/{uuid}", requirements={"uuid" : "^(?!list)[^\/]+"} ,name="sous_traitance_info")
+     * @param $uuid
+     */
+    public function getInfoSousTraitance($uuid) {
+
+        $object = $this->em->getRepository(MesDevis::class)->findBy([
+            'uuid' => $uuid,
+        ]);
+
+        $myCustomInterface = new CustomFiledInterface();
+        $myCustomInterface->setName('prenom');
+        $myCustomInterface->setType('text');
+
+
+        /*
+        $fieldDescription = FieldDescriptionInterface::class;
+        $fieldDescription->setName('elements');
+        dump($fieldDescription);
+        exit();
+        */
+
+        $filedDescription = new FieldDescriptionCollection();
+        $filedDescription->add($myCustomInterface);
+
+        dump($filedDescription);
+
+
+        return $this->render('admin/soustraitance_info_view.html.twig', [
+            'admin' => [
+                'show' => $filedDescription,
+            ]
+        ]);
+    }
+
     /**
      * @Route("espace/app/devisenvoye/{uuid}/{type}",  requirements={"type" = "devis|declaration_valeur|condition_generale|facture|lettre_chargement|lettre_dechargement"} ,name="devis_doc_generator")
      * @param $uuid
@@ -291,7 +337,6 @@ class AdminController extends Controller
      * @return
      */
     public function DevisPrevisualiserPdfGenerator(Request $request) {
-
         /** @var DevisEnvoye $devis */
         $devis = $this->getDoctrine()
             ->getRepository(DemandeDevis::class)
@@ -307,6 +352,18 @@ class AdminController extends Controller
                     'uuid' => $request->get('uuid'),
                 ]);
         }
+
+        // Check if devis null it will be check in MesDevis
+
+        if(is_null($devis)) {
+            $devis = $this->getDoctrine()
+                ->getRepository(MesDevis::class)
+                ->findOneBy([
+                    'uuid' => $request->get('uuid'),
+                ]);
+        }
+
+
 
         if(!is_null($devis))  {
             // Check If we have class in DevisEnvoye
@@ -344,6 +401,7 @@ class AdminController extends Controller
                 $devis->setValable($request->get('valable'));
                 $devis->setDistance($request->get('distance'));
             }
+
 
             return $this->container->get('pdf.devis.generator')->pdfGenerate($devis, $this->getUserEntity(), $request->get('type'), 'I');
         }
@@ -473,4 +531,5 @@ class AdminController extends Controller
             'form' => $devisConfigForm->createView(),
         ));
     }
+
 }

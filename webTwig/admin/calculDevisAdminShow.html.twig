@@ -56,6 +56,22 @@
 
     {{ sonata_block_render_event('sonata.admin.show.bottom', { 'admin': admin, 'object': object }) }}
 
+    {% set url = path('devis_prev_doc_generator', {
+        'uuid' : '2222',
+        'type' :'devis',
+        'prixtht' : 0,
+        'tva' : 0,
+        'acompte' : 0,
+        'franchise' : 0,
+        'valglobale' : 0,
+        'parobjet' : 0,
+        'valable' : 0,
+        'distance' : 0
+
+    }) %}
+
+    {%  set pdf_url = url[:url|strpos('2222')]  %}
+
     <script>
 
         var devisId = '{{ object.getUuid() }}';
@@ -65,12 +81,12 @@
             $urlval = prixht+'/'+tva+'/'+acompte+'/'+franchise+'/'+valglobale+'/'+parobjet+'/'+valable+'/'+distance;
 
             $('.devisPrev.js').html('' +
-                '<a target="_blank" href="/espace/app/devisprevisualise/'+devisId+'/devis/'+$urlval+'"><i class="far fa-file-pdf"></i> Devis</a>' +
-                '<a target="_blank" href="/espace/app/devisprevisualise/'+devisId+'/declaration_valeur/'+$urlval+'"><i class="far fa-file-pdf"></i> Declaration Valeur </a>' +
-                '<a target="_blank" href="/espace/app/devisprevisualise/'+devisId+'/condition_generale/'+$urlval+'"><i class="far fa-file-pdf"></i> Condition Générale </a>' +
-                '<a target="_blank" href="/espace/app/devisprevisualise/'+devisId+'/facture/'+$urlval+'"><i class="far fa-file-pdf"></i> Facture </a>' +
-                '<a target="_blank" href="/espace/app/devisprevisualise/'+devisId+'/lettre_chargement/'+$urlval+'"><i class="far fa-file-pdf"></i> Lettre Chargement  </a>' +
-                '<a target="_blank" href="/espace/app/devisprevisualise/'+devisId+'/lettre_dechargement/'+$urlval+'"><i class="far fa-file-pdf"></i> Lettre Dechargement  </a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/devis/'+$urlval+'"><i class="far fa-file-pdf"></i> Devis</a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/declaration_valeur/'+$urlval+'"><i class="far fa-file-pdf"></i> Declaration Valeur </a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/condition_generale/'+$urlval+'"><i class="far fa-file-pdf"></i> Condition Générale </a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/facture/'+$urlval+'"><i class="far fa-file-pdf"></i> Facture </a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/lettre_chargement/'+$urlval+'"><i class="far fa-file-pdf"></i> Lettre Chargement  </a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/lettre_dechargement/'+$urlval+'"><i class="far fa-file-pdf"></i> Lettre Dechargement  </a>' +
                 '');
         }
 

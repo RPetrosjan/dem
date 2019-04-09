@@ -21,7 +21,14 @@
                             {% endif %}
 
                             {% for field_name in form_group.fields if form[field_name] is defined %}
-                                {{ form_row(form[field_name])}}
+                                {% if form[field_name].vars.attr['div-group-class'] is defined %}
+                                  <div class="{{ form[field_name].vars.attr['div-group-class'] }}">
+                                      {{ form_row(form[field_name])}}
+                                  </div>
+                                  {% else %}
+                                      {{ form_row(form[field_name])}}
+                                  {% endif %}
+
                             {% else %}
                                 <em>{{ 'message_form_group_empty'|trans({}, 'SonataAdminBundle') }}</em>
                             {% endfor %}

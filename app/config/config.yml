@@ -15,7 +15,7 @@ parameters:
 
 framework:
     #esi: ~
-    translator: { fallbacks: ['%locale%'] }
+    translator: { fallbacks: ['fr'] }
     secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
@@ -121,6 +121,7 @@ fos_user:
             type: AppBundle\Form\RegistrationType
 
 sonata_block:
+    default_contexts: [cms]
     blocks:
         # enable the SonataAdminBundle block
         sonata.admin.block.admin_list:
@@ -136,6 +137,10 @@ sonata_admin:
     templates:
         layout:      'admin/standard_layout.html.twig'
         list_block:  'admin/block_admin_list.html.twig'
+        dashboard:   'admin/dashboard/base.html.twig'
+        list:        'admin/dashboard/list.html.twig'
+        button_create:  'admin/dashboard/create_button.html.twig'
+        knp_menu_template: 'admin/dashboard/menu/sonata_menu.html.twig'
     assets:
         stylesheets:
           - https://use.fontawesome.com/releases/v5.6.1/css/all.css
@@ -192,6 +197,14 @@ sonata_admin:
                 settings:
                     groups:
                        - espace
+
+            -
+                position: right
+                type: sonata.admin.block.admin_list
+                settings:
+                  groups:
+                    - mon_compte
+
        #     -
        #         position: right
        #         type: sonata.block.service.text
@@ -202,6 +215,8 @@ sonata_admin:
        #                 Bundle, you can create and add new block in these area by configuring
        #                 the <code>sonata_admin</code> section.</p> <br/> For instance, here
        #                 a RSS feed parser (<code>sonata.block.service.rss</code>):
+
+
         groups:
 
             admin:
@@ -220,6 +235,7 @@ sonata_admin:
                     - admin.demandedevis
                     - admin.mesdevis
                     - admin.devisenvoye
+                    - admin.soustraitance
 
 
 
@@ -233,10 +249,10 @@ sonata_admin:
                      roles:        [ROLE_CLIENT]
 
                    - route:        sonata_admin_devis_conf
-                     label:        Devis / Tarification
+                     label:        devis.tarification
                      roles:        [ROLE_CLIENT]
 
-            payement:
+            mon_compte:
                 keep_open:          true
                 label:              Mon Compte
                 icon:               '<i class="fas fa-money-check-alt"></i>'
@@ -248,4 +264,7 @@ sonata_admin:
                     - route:        sonata_admin_user
                       label:        Facture
                       roles:        [ROLE_CLIENT]
+
+                    - admin.users.connection
+
 

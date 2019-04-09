@@ -12,6 +12,7 @@ namespace AppBundle\Admin;
 use AppBundle\Entity\DemandeDevis;
 use AppBundle\Entity\DevisConfig;
 use AppBundle\Entity\DevisEnvoye;
+use AppBundle\Entity\ReadyDemandeDevis;
 use AppBundle\Form\EstimationPrixForm;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -19,6 +20,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -45,6 +47,56 @@ class DemandeDevisAdmin extends AbstractAdmin
         '_sort_by' => 'CreatedDate',
     ];
 
+
+    /**
+     *
+     * SEARCH box
+     *
+     * @param string $context
+     * @return \Sonata\AdminBundle\Datagrid\ProxyQueryInterface
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var  $container */
+        $container = $this->getConfigurationPool()->getContainer();
+
+        /** @var $query */
+        $query = parent::createQuery($context);
+
+
+        // Get submit Requet
+        $inSearch = $this->getRequest()->get('search_in_table');
+        if(is_null($inSearch)) {
+            $inSearch = '';
+        }
+
+        $this->getConfigurationPool()->getContainer()->get('twig')->addGlobal('search_in_table', $inSearch);
+        $filterMapped = ['CreatedDate', 'cp1', 'cp2', 'date1', 'date2'];
+
+        // Creation Query OR OR OR
+        $searchQuery = '';
+        // List de paramters
+        $setParam = [];
+        $alias = $query->getRootAliases()[0];
+        foreach ($filterMapped as $key => $list) {
+            $searchQuery.=$alias.'.'.$list.' like :'.$list;
+            if($key < sizeof($filterMapped) - 1) {
+                $searchQuery.=' OR ';
+            }
+            $setParam[$list] = '%'.$inSearch.'%';
+        }
+
+
+        $query
+          ///  ->where($alias.'.user_id = :user_id')
+            ->andWhere($searchQuery)
+            ->setParameters(array_merge([
+////                'user_id' => $userEntity->getId(),
+            ], $setParam));
+
+        return $query;
+    }
+
     /**
      * @param string $code
      * @param string $class
@@ -68,9 +120,10 @@ class DemandeDevisAdmin extends AbstractAdmin
 
         $allDevisEnvoye = $container->get('admin.stat')->getStatDevisEnvoye();
 
-        $actions['pageShow'] = [
+        $actions['pageDashboard'][] = [
             'devis' => $allDemandeDevis,
             'statDevis' => $allDevisEnvoye,
+            'template' => 'admin/statistique/devis.html.twig'
         ];
 
         return $actions;
@@ -78,7 +131,6 @@ class DemandeDevisAdmin extends AbstractAdmin
 
 
     public function configure() {
-
         /// $this->setTemplate('list','@AppBundle/Admin/ContactList.html.twig');
         $this->setTemplate('edit','admin/calculDevisAdminEdit.html.twig');
         $this->setTemplate('show','admin/calculDevisAdminShow.html.twig');
@@ -130,19 +182,9 @@ class DemandeDevisAdmin extends AbstractAdmin
     // Show Result in the Page
     protected function configureFormFields(FormMapper $formMapper) {
 
-        // Her we will get all Roles for user
-        /** @var  $roles
-        $roles = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser()->getRoles();
-        if(array_search('ROLE_SUPER_ADMIN', $roles) === false) {
-            if ($this->isCurrentRoute('edit')) {
-                throw new AccessDeniedException('Access Denied to the action and role');
-            }
-        }
-         * */
-
         $formMapper
 
-            ->with('General', [
+            ->with($this->trans('general'), [
                     'class'       => 'col-md-6',
                     'attr' => [
                         'icon' => '<i class="fas fa-clipboard-list"></i>',
@@ -150,7 +192,7 @@ class DemandeDevisAdmin extends AbstractAdmin
                 ]
             )
             ->add('civilite', ChoiceType::class, [
-                'label' => 'Civilite',
+                'label' => $this->trans('civilite'),
                 'mapped' => false,
                 'choices'  => array(
                     'M ' => 'M',
@@ -296,11 +338,13 @@ class DemandeDevisAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
             ->add('CreatedDate')
-            ->add('nom')
+            ->add('nom', null, [], EntityType::class, [
+                'class' => DemandeDevis::class
+            ])
             ->add('prenom')
             ->add('cp1')
             ->add('cp2')
-            ->add('date')
+            ->add('date1')
         ;
     }
 
@@ -310,13 +354,31 @@ class DemandeDevisAdmin extends AbstractAdmin
         $container = $this->getConfigurationPool()->getContainer();
         $em = $container->get('doctrine.orm.entity_manager');
 
-        $contact = $this->getSubject();
-        $contact->setReaded(true);
-        $em->persist($contact);
-        $em->flush();
-
-
         $userEntity = $container->get('security.token_storage')->getToken()->getUser();
+        $result = $em->getRepository(ReadyDemandeDevis::class)
+            ->getReadedDemandeDevis($userEntity, $this->getSubject()->getUuid());
+
+        if(empty($result) && $userEntity->getViewDevisCount()<1) {
+            return $showMapper
+                ->add('nothing', TextType::class, [
+                    "template" => "admin/demandedevis/count_zero.html.twig",
+                    'mapped' => false,
+                ]);
+        }
+
+        // If not exist in the  ReadyDemandeDevis it will be add
+        if(empty($result)) {
+            $ready = new ReadyDemandeDevis();
+            $ready->setIdUser($userEntity);
+            $ready->setUuidDevis($this->getSubject()->getUuid());
+            $em->persist($ready);
+            $em->flush();
+
+            $userEntity->setViewDevisCount($userEntity->getViewDevisCount()-1);
+            $em->persist($userEntity);
+            $em->flush();
+        }
+
 
         $devisConfig = current($em
             ->getRepository(DevisConfig::class)
@@ -340,13 +402,14 @@ class DemandeDevisAdmin extends AbstractAdmin
         ])->createView();
 
 
+
         $showMapper
             ->tab($this->trans('Devis Info'), [
                 'attr' => [
                     'icon' => '<i class="fas fa-paperclip"></i>',
                 ]
             ])
-            ->with('General', [
+            ->with($this->trans('general'), [
                     'class'       => 'col-md-6',
                     'attr' => [
                         'icon' => '<i class="fas fa-clipboard-list"></i>',
@@ -463,11 +526,11 @@ class DemandeDevisAdmin extends AbstractAdmin
         // Remove list mode in top panel
         unset($this->listModes['mosaic']);
 
-
         $listMapper
             ->add('readed','boolean', [
                 'template' => '/admin/boolean.html.twig',
                 'editable' => true,
+                'data' => false,
                 'attr' => [
                     'boolean_values' => [
                         false => '<span class="label label-success">Nouveau</span>',
@@ -487,7 +550,7 @@ class DemandeDevisAdmin extends AbstractAdmin
                     'name' => 'show',
                 ]
             ])
-          */
+
             ->addIdentifier('nom', null, [
                 'route' => [
                     'name' => 'show',
@@ -497,7 +560,7 @@ class DemandeDevisAdmin extends AbstractAdmin
                 'route' => [
                     'name' => 'show',
                 ]
-            ])
+            ])  */
             ->addIdentifier('cp1', null, [
                 'route' => [
                     'name' => 'show',
