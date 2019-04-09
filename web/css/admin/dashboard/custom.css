@@ -3,9 +3,9 @@
     background-image: url("/image/admin/dashboard/font9.jpg");
 }
 .slimScrollDiv, .skin-black .main-header .navbar, .skin-black .main-header > .logo{
-
     color: black;
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    background-color: #ffffff52;
 }
 .skin-black .sidebar a{
     color: #141415;
