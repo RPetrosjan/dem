@@ -42,7 +42,9 @@ class ViewDevisCountService
 
         $this->em = $em;
         $this->token = $token;
-        $this->ip = $container->get('request_stack')->getCurrentRequest()->getClientIp();
+        if(!is_null($container->get('request_stack')->getCurrentRequest())) {
+            $this->ip = $container->get('request_stack')->getCurrentRequest()->getClientIp();
+        }
     }
 
     /**
