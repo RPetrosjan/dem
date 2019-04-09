@@ -66,7 +66,7 @@ class ExceptionListener
                     $result = $this->em->getRepository(ViewDevisCount::class)->ifAddTodayCount($user);
 
                     if(empty($result)) {
-                        $this->viewDevisCountService->addDevisCount(1);
+                      ///  $this->viewDevisCountService->addDevisCount(1);
                         $this->viewDevisCountService->addCreateDateDevisCount();
                     }
                 }
