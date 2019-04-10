@@ -337,7 +337,7 @@ class DevisEnvoyeAdmin extends AbstractAdmin
 
         // $this->object
         /*
-        $sendDevis->setTva($devisConfig->getTva());
+        $sendDevis->setTva($devisConfig == false ? 20: $devisConfig->getTva());
         $sendDevis->setAcompte($devisConfig->getAcompte());
         $sendDevis->setFranchise($devisConfig->getFranchise());
         $sendDevis->setValglobale($devisConfig->getValglobale());
