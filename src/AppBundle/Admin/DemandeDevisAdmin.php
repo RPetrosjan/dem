@@ -388,11 +388,11 @@ class DemandeDevisAdmin extends AbstractAdmin
 
         $sendDevis = new DevisEnvoye();
         $sendDevis->setTva($devisConfig == false ? 20: $devisConfig->getTva());
-        $sendDevis->setAcompte($devisConfig->getAcompte());
-        $sendDevis->setFranchise($devisConfig->getFranchise());
-        $sendDevis->setValglobale($devisConfig->getValglobale());
-        $sendDevis->setParobjet($devisConfig->getParobjet());
-        $sendDevis->setValable($devisConfig->getValable());
+        $sendDevis->setAcompte($devisConfig == false ? 30 : $devisConfig->getAcompte());
+        $sendDevis->setFranchise($devisConfig == false ? 250 : $devisConfig->getFranchise());
+        $sendDevis->setValglobale($devisConfig == false ? 20000 : $devisConfig->getValglobale());
+        $sendDevis->setParobjet($devisConfig == false ? 500 : $devisConfig->getParobjet());
+        $sendDevis->setValable($devisConfig == false ? 3 : $devisConfig->getValable());
 
 
         $formEstimationPrix = $container->get('form.factory')->create(EstimationPrixForm::class, $sendDevis, [
