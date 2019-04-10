@@ -14,6 +14,7 @@ class DocPDFRepository extends \Doctrine\ORM\EntityRepository
 
         $qb = $this->createQueryBuilder('a');
 
+
         return $qb
                 ->select('a')
                 ->leftJoin('a.id_devis', 'c')

@@ -8,7 +8,7 @@
         </style>
     </head>
 <body>
-<div class="div_title colred">LETTRE DE VOITURE  {{ request.randomName }}<br/><span>(exemplaire chargement) <br/>{{ societe_info.cpville.ville }} {{ "now"|date("d/m/Y") }}</span></div>
+<div class="div_title colred">LETTRE DE VOITURE  {{ randomName }}<br/><span>(exemplaire chargement) <br/>{{ societe_info.cpville.ville }} {{ "now"|date("d/m/Y") }}</span></div>
 
 {{ include('admin/calculdevis/pdf/top_societe_info_panel_pdf.html.twig') }}
 
@@ -84,7 +84,7 @@
     <tr><td style="font-size: 18px;" class="colred"><b>Assurance comprise</b></td>
     </tr>
     <tr>
-        <td>Garantie dommage (franchise de {{ request.franchise  }} €), valeur globale de {% set number_format_valeur = request.valeur_globale / 1000 %}{{ number_format_valeur|number_format(3,' ',',') }} € et {{ request.par_objet }} € maximum par objet non listé. L'opération s'effectue aux conditions générales de vente du contrat de déménagement approuvées par le client.</td>
+        <td>Garantie dommage (franchise de {{ franchise  }} €), valeur globale de {% set number_format_valeur = valeur_globale / 1000 %} {{ number_format_valeur|number_format(3,' ',',') }} € et {{ parobjet }} € maximum par objet non listé. L'opération s'effectue aux conditions générales de vente du contrat de déménagement approuvées par le client.</td>
     </tr>
 </table>
 

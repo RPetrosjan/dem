@@ -23,6 +23,12 @@ sonata_admin_calculdevis:
 sonata_admin_demande_devis:
     path: /%admin%/app/demandedevis/list
 
+sonata_admin_demande_devis_doc_pdf:
+    path: /%admin%/app/demandedevis/{id}/show
+
+sonata_admin_doc_pdf:
+    path: /%admin%/app/docpdf/list
+
 sonata_admin_bande:
     path: /%admin%/app/bande/list
 
@@ -46,9 +52,6 @@ sonata_admin_social:
 
 sonata_admin_contact:
     path: /%admin%/app/contact/list
-
-sonata_admin_garde_meuble:
-    path: /%admin%/app/gardemeuble/list
 
 sonata_admin_carton:
     path: /%admin%/app/carton/list

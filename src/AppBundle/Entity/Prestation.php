@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\DemandeDevis;
 
 /**
  * Prestation
@@ -12,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Prestation
 {
+
     /**
      * @var int
      *
@@ -22,11 +24,26 @@ class Prestation
     private $id;
 
     /**
+     * @var array
+     *
+     * @ORM\OneToMany(targetEntity="DemandeDevis", mappedBy="prestation")
+     */
+    private $devisPrestation;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="Prestation", type="string", length=255)
      */
     private $prestation;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Description", type="text")
+     */
+    private $description;
 
 
     /**
@@ -65,12 +82,44 @@ class Prestation
 
     public function __toString() {
 
-
         if(empty($this->prestation)) {
             return '';
         }
 
         return $this->prestation;
     }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDevisPrestation()
+    {
+        return $this->devisPrestation;
+    }
+
+    /**
+     * @param array $devisPrestation
+     */
+    public function setDevisPrestation($devisPrestation)
+    {
+        $this->devisPrestation = $devisPrestation;
+    }
+
 }
 

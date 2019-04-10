@@ -102,7 +102,7 @@ class CalculDevisAdmin extends AbstractAdmin
                 'empty_data'  => true,
                 'choices'  => array(
                     'Oui' => 'Oui',
-                    'No' => 'No',
+                    $this->trans('no') => 'No',
                 ),
             ])
             ->end()
@@ -115,7 +115,7 @@ class CalculDevisAdmin extends AbstractAdmin
                 'empty_data'  => true,
                 'choices'  => array(
                     'Oui' => 'Oui',
-                    'No' => 'No',
+                    $this->trans('no') => 'No',
                 ),
             ])
             ->end()
@@ -138,7 +138,7 @@ class CalculDevisAdmin extends AbstractAdmin
 
     public function preUpdate($user)
     {
-        dump($user);
+      ///  dump($user);
     }
 
 

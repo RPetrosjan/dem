@@ -15,7 +15,7 @@
     <tbody>
 
     {% for devis in field_description.options.list_devis %}
-        {% set pdfurl = 'priceht='~devis.price~'&tva='~devis.tva~'&acompte='~devis.acompte~'&franchise='~devis.franchise~'&valeur_globale='~devis.valeurglobale~'&par_objet='~devis.parobjet~'&valable='~devis.valable~'&randomName='~devis.randomname %}
+        {% set pdfurl = '&randomName='~devis.randomname %}
 
          <tr>
              <td class="sonata-ba-list-field sonata-ba-list-field-datetime" objectid="43">{{ devis.CreatedDate|date('m/d/Y',"Europe/Paris") }}</td>

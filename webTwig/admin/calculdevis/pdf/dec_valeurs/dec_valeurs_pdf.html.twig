@@ -8,7 +8,7 @@
     </style>
 </head>
 <body>
-<div class="div_title colred">Déclaration de valeur - {{ request.randomName }}</div>
+<div class="div_title colred">Déclaration de valeur - {{ randomName }}</div>
 
 {{ include('admin/calculdevis/pdf/top_societe_info_panel_pdf.html.twig') }}
     <table>
@@ -18,7 +18,7 @@
                 confiez le déménagement de votre mobilier à un professionnel. L'entreprise de déménagement sera responsable des
                 dommages éventuels pouvant survenir au mobilier confié dans les conditions fixées à l'article 13 des conditions générales de
                 vente. Par ailleurs, conformément à l'article 14 des conditions générales, l'indemnisation pour pertes et pour avaries est
-                limitée à la valeur totale du mobilier et ce pour objet ou élément de mobilier à {{ request.par_objet  }} €.<br/><br/>
+                limitée à la valeur totale du mobilier et ce pour objet ou élément de mobilier à {{ parobjet  }} €.<br/><br/>
                 Dans certains cas, la responsabilité de l'entreprise peut ne pas être retenue (accident ou incendie non responsable, vol avec
                 agression, les cas de force majeurs) : vous pouvez alors estimer que la responsabilité contractuelle de l'entreprise est
                 insuffisante et opter pour la souscription d'une assurance dommage, article 4 des conditions générales de vente qui sont

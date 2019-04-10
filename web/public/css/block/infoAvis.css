@@ -1,68 +1,68 @@
-.avispanel .fas{
-    color: #E7711B;
-}
-.top_body_block{
-    background-image: url('/img/block/dem_top_block.png');
-}
-.bodyPage>div.fulldiv{
-    display: block;
-}
-.AvisbodyPage {
-    width: 90%;
-    margin: 0 auto;
-}
-.AvisbodyPage>div {
-    display: inline-block;
-    width: 33%;
-    vertical-align: top;
-}
-.AvisbodyPage>div>div {
-    padding: 25px 15px;
-}
-.AvisbodyPage>div:nth-child(n+4) {
-    margin-bottom: 35px;
-}
-
-.AvisbodyPage .row{
-    margin-top: 15px;
-}
-
-.avistxt {
-    max-width: 420px;
-    display: inline-block;
-    margin-top: 8px;
-}
-
-.avistxt>div {
-    padding-left: 20px;
-    border-left: 1px rgb(34, 116, 167) solid;
-}
-
-.avistxt button {
-    padding: 4px;
-    width: 100%;
-    margin-top: 5px;
-}
-
-.avistime {
-    color: rgb(34, 116, 167);
-    text-align: right;
-    font-family: 'Open Sans Condensed', sans-serif;
-    font-size: 15px;
-    position: absolute;
-}
-
-.avistime>span{
-    color: black;
-}
-
-
-@media (max-width: 850px) {
-    .AvisbodyPage>div {
-        width: 100%;
-    }
-
-    .avistxt{
-        max-width: none;
-    }
+.avispanel .fas{
+    color: #E7711B;
+}
+.top_body_block{
+    background-image: url('/img/block/dem_top_block.png');
+}
+.bodyPage>div.fulldiv{
+    display: block;
+}
+.AvisbodyPage {
+    width: 90%;
+    margin: 0 auto;
+}
+.AvisbodyPage>div {
+    display: inline-block;
+    width: 33%;
+    vertical-align: top;
+}
+.AvisbodyPage>div>div {
+    padding: 25px 15px;
+}
+.AvisbodyPage>div:nth-child(n+4) {
+    margin-bottom: 35px;
+}
+
+.AvisbodyPage .row{
+    margin-top: 15px;
+}
+
+.avistxt {
+    max-width: 420px;
+    display: inline-block;
+    margin-top: 8px;
+}
+
+.avistxt>div {
+    padding-left: 20px;
+    border-left: 1px rgb(34, 116, 167) solid;
+}
+
+.avistxt button {
+    padding: 4px;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.avistime {
+    color: rgb(34, 116, 167);
+    text-align: right;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 15px;
+    position: absolute;
+}
+
+.avistime>span{
+    color: black;
+}
+
+
+@media (max-width: 850px) {
+    .AvisbodyPage>div {
+        width: 100%;
+    }
+
+    .avistxt{
+        max-width: none;
+    }
 }

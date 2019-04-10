@@ -10,6 +10,8 @@ namespace AppBundle\Form;
 
 
 use AppBundle\Entity\DemandeDevis;
+use AppBundle\Entity\Prestation;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -121,7 +123,7 @@ class DevisForm extends AbstractType
                     'empty_data'  => true,
                     'choices'  => array(
                         'Oui' => 'Oui',
-                        'No' => 'No',
+                        'Non' => 'No',
                     ),
                     'attr' => [
                         'class' => 'ascenseur',
@@ -189,7 +191,7 @@ class DevisForm extends AbstractType
                     'empty_data'  => true,
                     'choices'  => [
                         'Oui' => 'Oui',
-                        'No' => 'No',
+                        'Non' => 'No',
                     ],
                     'attr' => [
                         'class' => 'ascenseur',
@@ -214,13 +216,8 @@ class DevisForm extends AbstractType
                     'required' => false,
                     'label_attr' => array('class' => 'topformtoplabel devis general'),
                 ))
-                ->add('prestation','choice',array(
-                    'empty_data'  => 'Économique',
-                    'choices' => array(
-                        'Économique' => 'Économique',
-                        'Standard' => 'Standard',
-                        'Luxe' => 'Luxe',
-                    ),
+                ->add('prestation',EntityType::class, array(
+                    'class' => Prestation::class,
                     'required' => false,
                     'attr' => [
                         'class' => 'prestation',

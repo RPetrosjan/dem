@@ -1,350 +1,350 @@
-input,select,textarea{
-    background-color: transparent;
-    border: 0;
-    border-radius: 3px;
-    box-shadow: 0px 1px 5px -3px rgba(44, 44, 44, 1);
-    color: #a72222;
-    display: inline-block;
-    font-family: 'Open Sans Condensed', sans-serif;
-    font-weight: 700;
-    outline: 0;
-    padding: 9px 0 9px 15px;
-    position: relative;
-    text-indent: 60px;
-    transition: all .3s ease-in-out;
-    width: 215px;
-    z-index: 10;
-    font-size: 17px;
-}
-input[type=checkbox] {
-    width: auto;
-}
-/* Customize the label (the container) */
-.container {
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
-    cursor: pointer;
-    display: block;
-    font-size: 15px;
-    margin-bottom: 12px;
-    padding-left: 29px;
-    position: relative;
-    user-select: none;
-}
-
-/* Hide the browser's default checkbox */
-.container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-/* Create a custom checkbox */
-.checkmark {
-    background-color: #ffffff;
-    height: 18px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 18px;
-    border: 1px #545454 solid;
-}
-
-/* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
-    background-color: #ccc;
-}
-
-/* When the checkbox is checked, add a blue background */
-.container input:checked ~ .checkmark {
-    background-color: #a72222;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-/* Show the checkmark when checked */
-.container input:checked ~ .checkmark:after {
-    display: block;
-}
-
-/* Style the checkmark/indicator */
-.container .checkmark:after {
-    -ms-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    height: 10px;
-    left: 5px;
-    top: 1px;
-    transform: rotate(45deg);
-    width: 5px;
-}
-
-
-select{
-    width: 120px;
-}
-.row{
-    margin-bottom: 33px;
-}
-
-.row>textarea{
-    width: 456px;
-    height: 100px;
-    resize: none;
-}
-
-.topformtoplabel.devis{
-    margin-top: 155px;
-}
-.topformtoplabel.devis.general{
-    margin-top: 68px;
-}
-.topformtoplabel{
-    margin-left: -38px;
-    transform: rotate(-90deg);
-    transform-origin: left top 0;
-    position: absolute;
-    margin-top: 90px;
-    font-size: 1.7em;
-    text-transform: uppercase;
-    font-family: 'Open Sans Condensed', sans-serif;
-}
-.topformtoplabel.coordonees{
-    margin-top: 180px;
-}
-.row .row{
-    position: relative;
-    display: inline-block;
-    margin: 10px 4px;
-    vertical-align: top;
-}
-.row .row >div{
-    margin-top: 2px;
-    position: absolute;
-    width: 100%;
-    z-index: 25;
-    display: none;
-}
-.row .row >div.active{
-    display: block;
-}
-.row .row >div>a{
-    display: block;
-    text-decoration: none;
-    padding: 5px 10px 5px 10px;
-    border-bottom: 1px rgb(194, 194, 194) solid;
-    box-shadow: 0px 5px 10px 1px rgb(69, 69, 69);
-    border-top: 1px whitesmoke solid;
-    margin: 0;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    white-space: nowrap;
-    background-color: white;
-    font-family: 'Open Sans Condensed', sans-serif;
-    -webkit-transition: 0.3s;
-    -moz-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s;
-    position: relative;
-}
-
-.row .row >div>a:hover {
-    background-color: rgb(250, 250, 250);
-    text-indent: 15px;
-    color: #a72222;
-}
-.row .row >div>a:last-of-type{
-    border-bottom: none;
-}
-
-input.etage{
-    width: 70px;
-}
-
-.prestation, .prestation:focus,.prestation:focus, .prestation.active,.prestation.active{
-    background-image: url(/img/dpdown.png);
-    background-repeat: no-repeat;
-    background-position: center right;
-    cursor: pointer;
-}
-select.ascenseur,.ascenseur {
-    width: 120px;
-    background-image: url(/img/dpdown.png);
-    background-repeat: no-repeat;
-    background-position: center right;
-    cursor: pointer;
-}
-
-select.ascenseur:focus,.ascenseur:focus, select.ascenseur.active,.ascenseur.active{
-    background-image: url(/img/dpdown.png);
-    background-repeat: no-repeat;
-    background-position: center right;
-}
-
-.row > textarea + label{
-    height: 118px;
-}
-input + label,select + label, textarea + label {
-    background-color: White;
-    border-radius: 3px;
-    color: #032429;
-    display: inline-block;
-    font-family: 'Open Sans Condensed', sans-serif;
-    font-weight: bold;
-    left: 0;
-    line-height: 39px;
-    position: absolute;
-    text-indent: 15px;
-    text-shadow: 0 1px 0 rgba(19, 74, 70, 0);
-    text-transform: uppercase;
-    top: 0;
-    transition: all .3s ease-in-out;
-    width: 100%;
-    height: 41px;
-    overflow: hidden;
-    font-size: 15px;
-}
-
-.top_body_block>div.toprow{
-    display: block;
-    text-align: left;
-}
-
-.topresultdiv{
-    margin-bottom: 250px;
-    margin-top: 25px;
-}
-.topresultdiv h1{
-    width: 380px;
-}
-.rows {
-    border-bottom: #E6E6E6 1px solid;
-    width: 250px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-    padding-bottom: 15px;
-    padding-left: 70px;
-    margin-top: 10px;
-    display: inline-table;
-    text-align: left;
-}
-.rows.devisresult{
-    padding-left: 0px;
-}
-.rows .smallstrong {
-    margin-top: 52px;
-    width: 30px;
-}
-.rows strong {
-    float: left;
-    transform: rotate(-90deg);
-    transform-origin: left top 0;
-    font-family: times;
-    font-size: 1.7em;
-    text-transform: uppercase;
-    font-family: 'Open Sans Condensed', sans-serif;
-}
-.rows .smallbold {
-    font-family: 'Open Sans Condensed', sans-serif;
-    font-size: 1.4em;
-}
-.rows .smallbold span:first-of-type{
-    display: block;
-    white-space: nowrap;
-}
-.rows .smallbold span {
-    color: rgb(18, 132, 0);
-}
-
-input:hover,select:hover,textarea:hover,input.active,select.active,textarea.active
-{
-    position: relative;
-    z-index: 10;
-}
-
-input:focus,textarea:focus,select:focus
-input:active,select:active,input.active,select.active, textarea.active{
-    color: #a72222;
-    text-indent: 0;
-    background: #fff;
-}
-
-input:focus + label,textarea:focus + label,select:focus + label
-input:active + label,select:active + label,input.active + label,select.active + label, textarea.active + label {
-    background-color:  transparent;
-    transform: translateY(-28px);
-}
-
-button, .button{
-    -khtml-transition: all 0.3s linear;
-    -moz-transition: all 0.3s linear;
-    -o-transition: all 0.3s linear;
-    -webkit-transition: all 0.3s linear;
-    background: #a72222;
-    border: 1px solid #aaa;
-    border-radius: 4px;
-    color: #FFF;
-    cursor: pointer;
-    display: inline-block;
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=0 );
-    font-family: "Open Sans Condensed", sans;
-    font-size: 1.08em;
-    font-weight: bold;
-    letter-spacing: 0.05em;
-    margin-left: 2px;
-    margin-top: 5px;
-    padding: 11px 15px;
-    text-align: center;
-    text-decoration: none;
-    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
-    text-transform: uppercase;
-    transition: all 0.3s linear;
-    width: 230px;
-}
-
-
-.row .row >div.villediv{
-    display: block;
-}
-.villediv>a{
-    display: inline-block;
-    padding: 5px 15px;
-}
-
-@media (max-width: 850px) {
-    .row .row{
-        display: block;
-        margin-bottom: 24px;
-    }
-    input,input.etage,input.ascenseur,input.active,input:focus,.row>textarea,.row>textarea:focus{
-        width: 100%;
-        padding: 9px 0 9px 0px;
-        text-indent: 12px;
-    }
-    .topformdiv{
-        width: auto;
-    }
-    .topformtoplabel{
-        margin-left: 10px;
-        position: relative;
-        transform: none;
-    }
-    button{
-        margin-left: 0px;
-        width: 100%;
-    }
-    .topresultdiv{
-        margin-top: 75px;
-    }
+input,select,textarea{
+    background-color: transparent;
+    border: 0;
+    border-radius: 3px;
+    box-shadow: 0px 1px 5px -3px rgba(44, 44, 44, 1);
+    color: #a72222;
+    display: inline-block;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 700;
+    outline: 0;
+    padding: 9px 0 9px 15px;
+    position: relative;
+    text-indent: 60px;
+    transition: all .3s ease-in-out;
+    width: 215px;
+    z-index: 10;
+    font-size: 17px;
+}
+input[type=checkbox] {
+    width: auto;
+}
+/* Customize the label (the container) */
+.container {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+    display: block;
+    font-size: 15px;
+    margin-bottom: 12px;
+    padding-left: 29px;
+    position: relative;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    background-color: #ffffff;
+    height: 18px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 18px;
+    border: 1px #545454 solid;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: #a72222;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    height: 10px;
+    left: 5px;
+    top: 1px;
+    transform: rotate(45deg);
+    width: 5px;
+}
+
+
+select{
+    width: 120px;
+}
+.row{
+    margin-bottom: 33px;
+}
+
+.row>textarea{
+    width: 456px;
+    height: 100px;
+    resize: none;
+}
+
+.topformtoplabel.devis{
+    margin-top: 155px;
+}
+.topformtoplabel.devis.general{
+    margin-top: 68px;
+}
+.topformtoplabel{
+    margin-left: -38px;
+    transform: rotate(-90deg);
+    transform-origin: left top 0;
+    position: absolute;
+    margin-top: 90px;
+    font-size: 1.7em;
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+.topformtoplabel.coordonees{
+    margin-top: 180px;
+}
+.row .row{
+    position: relative;
+    display: inline-block;
+    margin: 10px 4px;
+    vertical-align: top;
+}
+.row .row >div{
+    margin-top: 2px;
+    position: absolute;
+    width: 100%;
+    z-index: 25;
+    display: none;
+}
+.row .row >div.active{
+    display: block;
+}
+.row .row >div>a{
+    display: block;
+    text-decoration: none;
+    padding: 5px 10px 5px 10px;
+    border-bottom: 1px rgb(194, 194, 194) solid;
+    box-shadow: 0px 5px 10px 1px rgb(69, 69, 69);
+    border-top: 1px whitesmoke solid;
+    margin: 0;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    white-space: nowrap;
+    background-color: white;
+    font-family: 'Open Sans Condensed', sans-serif;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    position: relative;
+}
+
+.row .row >div>a:hover {
+    background-color: rgb(250, 250, 250);
+    text-indent: 15px;
+    color: #a72222;
+}
+.row .row >div>a:last-of-type{
+    border-bottom: none;
+}
+
+input.etage{
+    width: 70px;
+}
+
+.prestation, .prestation:focus,.prestation:focus, .prestation.active,.prestation.active{
+    background-image: url(/img/dpdown.png);
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+}
+select.ascenseur,.ascenseur {
+    width: 120px;
+    background-image: url(/img/dpdown.png);
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+}
+
+select.ascenseur:focus,.ascenseur:focus, select.ascenseur.active,.ascenseur.active{
+    background-image: url(/img/dpdown.png);
+    background-repeat: no-repeat;
+    background-position: center right;
+}
+
+.row > textarea + label{
+    height: 118px;
+}
+input + label,select + label, textarea + label {
+    background-color: White;
+    border-radius: 3px;
+    color: #032429;
+    display: inline-block;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: bold;
+    left: 0;
+    line-height: 39px;
+    position: absolute;
+    text-indent: 15px;
+    text-shadow: 0 1px 0 rgba(19, 74, 70, 0);
+    text-transform: uppercase;
+    top: 0;
+    transition: all .3s ease-in-out;
+    width: 100%;
+    height: 41px;
+    overflow: hidden;
+    font-size: 15px;
+}
+
+.top_body_block>div.toprow{
+    display: block;
+    text-align: left;
+}
+
+.topresultdiv{
+    margin-bottom: 250px;
+    margin-top: 25px;
+}
+.topresultdiv h1{
+    width: 380px;
+}
+.rows {
+    border-bottom: #E6E6E6 1px solid;
+    width: 250px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 15px;
+    padding-left: 70px;
+    margin-top: 10px;
+    display: inline-table;
+    text-align: left;
+}
+.rows.devisresult{
+    padding-left: 0px;
+}
+.rows .smallstrong {
+    margin-top: 52px;
+    width: 30px;
+}
+.rows strong {
+    float: left;
+    transform: rotate(-90deg);
+    transform-origin: left top 0;
+    font-family: times;
+    font-size: 1.7em;
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+.rows .smallbold {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 1.4em;
+}
+.rows .smallbold span:first-of-type{
+    display: block;
+    white-space: nowrap;
+}
+.rows .smallbold span {
+    color: rgb(18, 132, 0);
+}
+
+input:hover,select:hover,textarea:hover,input.active,select.active,textarea.active
+{
+    position: relative;
+    z-index: 10;
+}
+
+input:focus,textarea:focus,select:focus
+input:active,select:active,input.active,select.active, textarea.active{
+    color: #a72222;
+    text-indent: 0;
+    background: #fff;
+}
+
+input:focus + label,textarea:focus + label,select:focus + label
+input:active + label,select:active + label,input.active + label,select.active + label, textarea.active + label {
+    background-color:  transparent;
+    transform: translateY(-28px);
+}
+
+button, .button{
+    -khtml-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    -webkit-transition: all 0.3s linear;
+    background: #a72222;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    color: #FFF;
+    cursor: pointer;
+    display: inline-block;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=0 );
+    font-family: "Open Sans Condensed", sans;
+    font-size: 1.08em;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    margin-left: 2px;
+    margin-top: 5px;
+    padding: 11px 15px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+    text-transform: uppercase;
+    transition: all 0.3s linear;
+    width: 230px;
+}
+
+
+.row .row >div.villediv{
+    display: block;
+}
+.villediv>a{
+    display: inline-block;
+    padding: 5px 15px;
+}
+
+@media (max-width: 850px) {
+    .row .row{
+        display: block;
+        margin-bottom: 24px;
+    }
+    input,input.etage,input.ascenseur,input.active,input:focus,.row>textarea,.row>textarea:focus{
+        width: 100%;
+        padding: 9px 0 9px 0px;
+        text-indent: 12px;
+    }
+    .topformdiv{
+        width: auto;
+    }
+    .topformtoplabel{
+        margin-left: 10px;
+        position: relative;
+        transform: none;
+    }
+    button{
+        margin-left: 0px;
+        width: 100%;
+    }
+    .topresultdiv{
+        margin-top: 75px;
+    }
 }

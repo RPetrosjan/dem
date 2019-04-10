@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use DateTimeZone;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * DemandeDevis
  *
@@ -21,23 +22,6 @@ class DemandeDevis
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @return bool
-     */
-    public function isReaded()
-    {
-        return $this->readed;
-    }
-
-    /**
-     * @param bool $readed
-     */
-    public function setReaded($readed)
-    {
-        $this->readed = $readed;
-    }
-
 
     /**
      * @var bool
@@ -67,37 +51,6 @@ class DemandeDevis
      */
     private $ascenseur1;
 
-    /**
-     * @return string
-     */
-    public function getVille1()
-    {
-        return $this->ville1;
-    }
-
-    /**
-     * @param string $ville1
-     */
-    public function setVille1($ville1)
-    {
-        $this->ville1 = $ville1;
-    }
-
-    /**
-     * @return string
-     */
-    public function getVille2()
-    {
-        return $this->ville2;
-    }
-
-    /**
-     * @param string $ville2
-     */
-    public function setVille2($ville2)
-    {
-        $this->ville2 = $ville2;
-    }
 
     /**
      * @var string
@@ -142,9 +95,9 @@ class DemandeDevis
     private $volume;
 
     /**
-     * @var string
+     * @var Prestation
      *
-     * @ORM\Column(name="prestation", type="string", length=20, nullable=true))
+     * @ORM\ManyToOne(targetEntity="Prestation", inversedBy="devisPrestation", cascade={"persist"})
      */
     private $prestation;
 
@@ -179,6 +132,95 @@ class DemandeDevis
     private $telephone;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="portable", type="string", length=50, nullable=true)
+     */
+    private $portable;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=50, nullable=true)
+     */
+    private $email;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="adresse1", type="string", length=50, nullable=true)
+     */
+    private $adresse1;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="adresse2", type="string", length=50, nullable=true)
+     */
+    private $adresse2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="date", type="string", length=50, nullable=true)
+     */
+    private $date;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comment1", type="text", nullable=true)
+     */
+    private $comment1;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comment2", type="text", nullable=true)
+     */
+    private $comment2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="distance", type="string", length=50, nullable=true)
+     */
+    private $distance;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pays1", type="string", length=50, nullable=true)
+     */
+    private $pays1;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pays2", type="string", length=50, nullable=true)
+     */
+    private $pays2;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="date1", type="string", length=50, nullable=true)
+     */
+    private $date1;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="date2", type="string", length=50, nullable=true)
+     */
+    private $date2;
+
+
+
+    /**
      * @return string
      */
     public function getPortable()
@@ -194,19 +236,6 @@ class DemandeDevis
         $this->portable = $portable;
     }
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="portable", type="string", length=50, nullable=true)
-     */
-    private $portable;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=50, nullable=true)
-     */
-    private $email;
 
     /**
      * @return string
@@ -256,6 +285,39 @@ class DemandeDevis
         $this->telephone = $telephone;
     }
 
+
+    /**
+     * @return string
+     */
+    public function getVille1()
+    {
+        return $this->ville1;
+    }
+
+    /**
+     * @param string $ville1
+     */
+    public function setVille1($ville1)
+    {
+        $this->ville1 = $ville1;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVille2()
+    {
+        return $this->ville2;
+    }
+
+    /**
+     * @param string $ville2
+     */
+    public function setVille2($ville2)
+    {
+        $this->ville2 = $ville2;
+    }
+
     /**
      * @return string
      */
@@ -287,13 +349,6 @@ class DemandeDevis
     {
         $this->date = $date;
     }
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="adresse1", type="string", length=50, nullable=true)
-     */
-    private $adresse1;
 
     /**
      * @return string
@@ -328,18 +383,38 @@ class DemandeDevis
     }
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="adresse2", type="string", length=50, nullable=true)
+     * @return bool
      */
-    private $adresse2;
+    public function isReaded()
+    {
+        return $this->readed;
+    }
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="date", type="string", length=50, nullable=true)
+     * @param bool $readed
      */
-    private $date;
+    public function setReaded($readed)
+    {
+        $this->readed = $readed;
+    }
+
+
+
+    /**
+     * @return string
+     */
+    public function getDistance()
+    {
+        return $this->distance;
+    }
+
+    /**
+     * @param string $distance
+     */
+    public function setDistance($distance)
+    {
+        $this->distance = $distance;
+    }
 
     /**
      * @return string
@@ -405,33 +480,6 @@ class DemandeDevis
         $this->comment2 = $comment2;
     }
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="comment1", type="text", nullable=true)
-     */
-    private $comment1;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="comment2", type="text", nullable=true)
-     */
-    private $comment2;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="pays1", type="string", length=50, nullable=true)
-     */
-    private $pays1;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="pays2", type="string", length=50, nullable=true)
-     */
-    private $pays2;
 
     /**
      * @return string
@@ -465,26 +513,22 @@ class DemandeDevis
         $this->date2 = $date2;
     }
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="date1", type="string", length=50, nullable=true)
-     */
-    private $date1;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="date2", type="string", length=50, nullable=true)
+     * @return \DateTime
      */
-    private $date2;
+    public function getCreatedDate()
+    {
+        return $this->CreatedDate;
+    }
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="token", type="string", length=50, nullable=true)
+     * @param \DateTime $CreatedDate
      */
-    private $token;
+    public function setCreatedDate($CreatedDate)
+    {
+        $this->CreatedDate = $CreatedDate;
+    }
 
     /**
      * CalculDevis constructor.
@@ -505,22 +549,6 @@ class DemandeDevis
         $this->date2 = null;
         $this->comment1 = '';
         $this->comment2 = '';
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedDate()
-    {
-        return $this->CreatedDate;
-    }
-
-    /**
-     * @param \DateTime $CreatedDate
-     */
-    public function setCreatedDate($CreatedDate)
-    {
-        $this->CreatedDate = $CreatedDate;
     }
 
 
@@ -679,6 +707,22 @@ class DemandeDevis
     }
 
     /**
+     * @return Prestation
+     */
+    public function getPrestation()
+    {
+        return $this->prestation;
+    }
+
+    /**
+     * @param Prestation $prestation
+     */
+    public function setPrestation($prestation)
+    {
+        $this->prestation = $prestation;
+    }
+
+    /**
      * Set volume
      *
      * @param string $volume
@@ -702,20 +746,5 @@ class DemandeDevis
         return $this->volume;
     }
 
-    /**
-     * @return string
-     */
-    public function getPrestation()
-    {
-        return $this->prestation;
-    }
-
-    /**
-     * @param string $prestation
-     */
-    public function setPrestation($prestation)
-    {
-        $this->prestation = $prestation;
-    }
 }
 

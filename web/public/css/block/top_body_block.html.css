@@ -1,85 +1,85 @@
-.top_body_block{
-    width: 100%;
-    position: relative;
-    background-repeat: no-repeat;
-    background-position: left bottom;
-    padding-top: 35px;
-}
-.top_body_block>div{
-    padding-top: 25px;
-    display: inline-block;
-    vertical-align: top;
-}
-.top_body_block .sectionleft{
-    height: 100%;
-    width: 50%;
-}
-.top_body_block .sectionright{
-    width: 45%;
-    text-align: right;
-}
-
-.top_body_block .sectionleft h2{
-    margin-top: 25px;
-}
-
-.divform{
-    display: inline-block;
-    width: 260px;
-    text-align: left;
-    margin-bottom: 45px;
-}
-.topformdiv{
-    width: 260px;
-}
-.text.assurance__page{
-    display: inline-block;
-    width: 238px
-}
-.text.right {
-    text-align: right;
-    display: block;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-.text.right .colred{
-    display: block;
-}
-.text {
-    font-size: 1.1em;
-    letter-spacing: 0.01em;
-    line-height: 19px;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-}
-.prestattion_div{
-    margin-bottom: 300px;
-    margin-top: 33px;
-}
-
-@media (max-width: 850px) {
-    .prestattion_div{
-        margin-bottom: 0px;
-        margin-top: 0px;
-        padding: 15px;
-    }
-    .top_body_block
-    {
-        background-image: none;
-        background-attachment: inherit;
-        background-position: right 0px ;
-    }
-    .top_body_block .sectionleft{
-        width: 100%;
-        margin-bottom: 150px;
-    }
-    .top_body_block .sectionleft>h1{
-        overflow: hidden;
-    }
-    .top_body_block .sectionright{
-        width: 100%;
-    }
-    .top_body_block .sectionright .divform{
-        width: 100%;
-    }
-}
-
+.top_body_block{
+    width: 100%;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    padding-top: 35px;
+}
+.top_body_block>div{
+    padding-top: 25px;
+    display: inline-block;
+    vertical-align: top;
+}
+.top_body_block .sectionleft{
+    height: 100%;
+    width: 50%;
+}
+.top_body_block .sectionright{
+    width: 45%;
+    text-align: right;
+}
+
+.top_body_block .sectionleft h2{
+    margin-top: 25px;
+}
+
+.divform{
+    display: inline-block;
+    width: 260px;
+    text-align: left;
+    margin-bottom: 45px;
+}
+.topformdiv{
+    width: 260px;
+}
+.text.assurance__page{
+    display: inline-block;
+    width: 238px
+}
+.text.right {
+    text-align: right;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.text.right .colred{
+    display: block;
+}
+.text {
+    font-size: 1.1em;
+    letter-spacing: 0.01em;
+    line-height: 19px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+.prestattion_div{
+    margin-bottom: 300px;
+    margin-top: 33px;
+}
+
+@media (max-width: 850px) {
+    .prestattion_div{
+        margin-bottom: 0px;
+        margin-top: 0px;
+        padding: 15px;
+    }
+    .top_body_block
+    {
+        background-image: none;
+        background-attachment: inherit;
+        background-position: right 0px ;
+    }
+    .top_body_block .sectionleft{
+        width: 100%;
+        margin-bottom: 150px;
+    }
+    .top_body_block .sectionleft>h1{
+        overflow: hidden;
+    }
+    .top_body_block .sectionright{
+        width: 100%;
+    }
+    .top_body_block .sectionright .divform{
+        width: 100%;
+    }
+}
+

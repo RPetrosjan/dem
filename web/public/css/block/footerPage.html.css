@@ -1,89 +1,89 @@
-footer{
-    background-color: #222;
-    box-shadow: 0 -3px 11px -2px rgba(54, 54, 56, 0.74);
-    color: #999;
-    font-size: 13px;
-    font-family: inherit;
-    display: inline-block;
-    text-align: center;
-    width: 100%;
-    padding-bottom: 30px;
-}
-footer>div{
-    text-align: left;
-}
-footer>div>span{
-    display: block;
-}
-footer>.contact{
-    width: 280px;
-    display: inline-block;
-    vertical-align: top;
-}
-footer>.nosservices{
-    width: 230px;
-    display: inline-block;
-    vertical-align: top;
-}
-footer>.nospartenaires{
-    width: 230px;
-    display: inline-block;
-    vertical-align: top;
-}
-footer>.nosservices>span{
-    display: block;
-    width: 200px;
-    border-bottom: 1px dashed gray;
-    margin-bottom: 5px;
-}
-
-footer>.footersocial{
-    width: 200px;
-    margin-left: 10px;
-    display: inline-block;
-}
-footer>.footersocial>a:first-of-type{
-    margin-top: 10px;
-}
-footer>.footersocial>a{
-    color: White;
-    font-family: 'Open Sans Condensed', sans-serif;
-    margin: 0;
-    text-decoration: none;
-    display: block;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-footer>.footersocial>a>i{
-    font-size: 23px;
-    float: left;
-    margin-top: -2px;
-    padding-right: 5px;
-}
-footer h4{
-    margin: 20px 0 5px;
-    color: #fff;
-    font: bold 14px/16px 'Open Sans', Arial, Helvetica, sans-serif;
-    display: inline-block;
-}
-
-@media (max-width: 850px) {
-    footer>div{
-        padding-left: 10px;
-    }
-    footer>.contact{
-        width: 100%;
-    }
-    footer>.nosservices{
-        width: 100%;
-    }
-    footer>.nospartenaires{
-        width: 100%;
-    }
-    footer>.footersocial{
-        width: 100%;
-        margin-left: 0px;
-    }
-
+footer{
+    background-color: #222;
+    box-shadow: 0 -3px 11px -2px rgba(54, 54, 56, 0.74);
+    color: #999;
+    font-size: 13px;
+    font-family: inherit;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    padding-bottom: 30px;
+}
+footer>div{
+    text-align: left;
+}
+footer>div>span{
+    display: block;
+}
+footer>.contact{
+    width: 280px;
+    display: inline-block;
+    vertical-align: top;
+}
+footer>.nosservices{
+    width: 230px;
+    display: inline-block;
+    vertical-align: top;
+}
+footer>.nospartenaires{
+    width: 230px;
+    display: inline-block;
+    vertical-align: top;
+}
+footer>.nosservices>span{
+    display: block;
+    width: 200px;
+    border-bottom: 1px dashed gray;
+    margin-bottom: 5px;
+}
+
+footer>.footersocial{
+    width: 200px;
+    margin-left: 10px;
+    display: inline-block;
+}
+footer>.footersocial>a:first-of-type{
+    margin-top: 10px;
+}
+footer>.footersocial>a{
+    color: White;
+    font-family: 'Open Sans Condensed', sans-serif;
+    margin: 0;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+footer>.footersocial>a>i{
+    font-size: 23px;
+    float: left;
+    margin-top: -2px;
+    padding-right: 5px;
+}
+footer h4{
+    margin: 20px 0 5px;
+    color: #fff;
+    font: bold 14px/16px 'Open Sans', Arial, Helvetica, sans-serif;
+    display: inline-block;
+}
+
+@media (max-width: 850px) {
+    footer>div{
+        padding-left: 10px;
+    }
+    footer>.contact{
+        width: 100%;
+    }
+    footer>.nosservices{
+        width: 100%;
+    }
+    footer>.nospartenaires{
+        width: 100%;
+    }
+    footer>.footersocial{
+        width: 100%;
+        margin-left: 0px;
+    }
+
 }

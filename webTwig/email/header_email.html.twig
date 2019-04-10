@@ -15,7 +15,7 @@
 {% if plain == 'html' %}
 <div>
     <div style="padding-top: 3px;">{% endif %}
-        {% for telsoc in societe_info.tel %}{% if plain == 'html' %}<span style="font-weight: bold;font-size: 13px; padding-right: 40px;" class="colred">{% endif %} Tel: {{ telsoc.tel }}{% if plain == 'html' %}</span>{% endif %}
+        {% for telsoc in societe_info.tel %}{% if plain == 'html' %}<span style="font-weight: bold;font-size: 13px; padding-right: 40px;" class="colred">{% endif %}Tel: {{ telsoc.tel }}{% if plain == 'html' %}</span>{% endif %}
         {% endfor %}
         {% if plain == 'html' %}</div>
     <div style="font-family: verdana; font-size: 13px; padding-top: 20px; ">{% else %}

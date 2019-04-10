@@ -128,6 +128,18 @@ services:
            - { name: sonata.admin, manager_type: orm, route: '/calculdevis', label: 'Calcul Devis', group : 'Web' }
         public: true
 
+    admin.doc.pdf:
+         class: AppBundle\Admin\DocPDFAdmin
+         arguments:
+         - ~
+         - AppBundle\Entity\DocPDF
+         - ~
+         - "@doctrine.orm.default_entity_manager"
+         tags:
+         - { name: sonata.admin, manager_type: orm, route: '/docpdf', label: 'Devis Envoye', group: 'Web' }
+         public: true
+
+
     admin.contact:
         class: AppBundle\Admin\DemandeDevisAdmin
         arguments:
@@ -207,6 +219,7 @@ services:
         tags:
         - { name: sonata.admin, manager_type: orm, route: '/francesociete', label: 'Autres Societe', group: 'Web' }
         public: true
+
 
     admin.seo:
         class: AppBundle\Admin\SEOAdmin

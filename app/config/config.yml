@@ -51,7 +51,8 @@ twig:
         jsFileName: '%jsFileName%'
         topmenu: '%topmenu%'
         top_sous_menu: '%topmenu_sous_menu%'
-        sitehost: 'xn--dmnagements-bbbb.fr'
+       # sitehost: 'xn--dmnagements-bbbb.fr'
+        sitehost: 'demadmin.dd'
 
 
 # Doctrine Configuration
@@ -108,23 +109,13 @@ sonata_admin:
     title: 'Admin'
     search: false
     title_logo: favicon.ico
+    templates:
+      layout:  'admin/template/standard_layout.html.twig'
     assets:
-        stylesheets:
-          - bundles/sonatacore/vendor/bootstrap/dist/css/bootstrap.min.css
+        extra_stylesheets:
+          - https://fonts.googleapis.com/css?family=Titillium+Web:400
           - https://use.fontawesome.com/releases/v5.3.1/css/all.css
-          - bundles/sonatacore/vendor/ionicons/css/ionicons.min.css
-          - bundles/sonataadmin/vendor/admin-lte/dist/css/AdminLTE.min.css
-          - bundles/sonataadmin/vendor/admin-lte/dist/css/skins/skin-black.css
-          - bundles/sonataadmin/vendor/iCheck/skins/square/blue.css
-          - bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css
-          - bundles/sonataadmin/vendor/jqueryui/themes/base/jquery-ui.css
-          - bundles/sonatacore/vendor/select2/select2.css
-          - bundles/sonatacore/vendor/select2-bootstrap-css/select2-bootstrap.min.css
-          - bundles/sonataadmin/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css
-          - bundles/sonataadmin/css/styles.css
-          - bundles/sonataadmin/css/layout.css
-          - bundles/sonataadmin/css/tree.css
-          - bundles/sonataadmin/css/colors.css
+          - /css/admin/dashboard/custom.css
     dashboard:
         groups:
             admin:
@@ -141,16 +132,17 @@ sonata_admin:
                       roles:        [ROLE_SUPER_ADMIN]
 
             web:
+                keep_open:          true
                 label: Web
                 label_catalogue:    SonataAdminBundle
                 items:
                    - route:        sonata_admin_article
                      label:        'Web'
-                     roles:        [ROLE_ADMIN]
+                     roles:        [ROLE_SUPER_ADMIN]
 
                    - route:        sonata_admin_bande
                      label:        'Bande'
-                     roles:        [ROLE_ADMIN]
+                     roles:        [ROLE_SUPER_ADMIN]
 
                    - route:        sonata_societe
                      label:        'Societe'
@@ -166,11 +158,11 @@ sonata_admin:
 
                    - route:        sonata_admin_prestation
                      label:        'Prestation'
-                     roles:        [ROLE_ADMIN]
+                     roles:        [ROLE_SUPER_ADMIN]
 
                    - route:        sonata_admin_cp_ville
                      label:        'Cp Ville'
-                     roles:        [ROLE_ADMIN]
+                     roles:        [ROLE_SUPER_ADMIN]
 
                    - route:        sonata_admin_social
                      label:        'Social Buttons'
@@ -178,7 +170,7 @@ sonata_admin:
 
                    - route:        sonata_admin_calculdevis
                      label:        'Calcul Devis'
-                     roles:        [ROLE_ADMIN]
+                     roles:        [ROLE_SUPER_ADMIN]
 
                    - route:        sonata_admin_demande_devis
                      label:        'Demande Devis'
@@ -190,7 +182,7 @@ sonata_admin:
 
                    - route:        sonata_admin_carton
                      label:        'Carton'
-                     roles:        [ROLE_ADMIN]
+                     roles:        [ROLE_SUPER_ADMIN]
 
                    - route:        sonata_admin_carton_form
                      label:        'Carton Form'
@@ -198,10 +190,14 @@ sonata_admin:
 
                    - route:        sonata_admin_france_societe
                      label:        'France Societe'
-                     roles:        [ROLE_ADMIN]
+                     roles:        [ROLE_SUPER_ADMIN]
 
                    - route:        sonata_admin_visiste_technique
                      label:        'Visiste Technique'
+                     roles:        [ROLE_ADMIN]
+
+                   - route:        sonata_admin_doc_pdf
+                     label:        'Devis Envoye'
                      roles:        [ROLE_ADMIN]
 
 

@@ -9,13 +9,16 @@
 namespace AppBundle\Admin;
 
 
+use AppBundle\Entity\DemandeDevis;
 use AppBundle\Entity\DocPDF;
+use AppBundle\Entity\Prestation;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -44,6 +47,9 @@ class DemandeDevisAdmin extends AbstractAdmin
             ->add('sendpdfdevis', $this->getRouterIdParameter().'/sendpdfdevis') //Action for generated and sending Devis
 
         ;
+
+        ///$collection->clearExcept(['list', 'show', 'create', 'delete',  'edit']);
+
         //      $collection->add('view', $this->getRouterIdParameter().'/view');
     }
 
@@ -69,15 +75,15 @@ class DemandeDevisAdmin extends AbstractAdmin
         $this->em = $em;
     }
 
-    /*
+
    // Filtering list result for calcul devis en ligne
    public function createQuery($context = 'list') {
       $query = parent::createQuery($context);
        $query->where(
-           $query->getRootAliases()[0].'.date IS NULL'
+           $query->getRootAliases()[0].'.nom IS not NULL'
        );
        return $query;
-    }*/
+    }
 
     // Show Result in the Page
     protected function configureFormFields(FormMapper $formMapper) {
@@ -85,13 +91,21 @@ class DemandeDevisAdmin extends AbstractAdmin
 
         $formMapper
 
+            ->tab('Devis Déménagement')
             ->with('Info Date')
             ->add('CreatedDate', 'sonata_type_date_picker', [
                 'label' => 'Date de demande',
-                'format'=>'dd/MM/yyyy'
+                'format'=>'dd/MM/yyyy',
+                'disabled' => true,
             ])
-            ->add('date', TextType::class, [
-                'label' => 'Date de demenagement',
+
+            ->add('Volume', TextType::class, [
+                'label' => 'Volume',
+                'required' => false,
+            ])
+            ->add('prestation', EntityType::class, [
+                'class' => Prestation::class,
+                'label' => 'Prestation'
             ])
             ->end()
             ->with('General', [
@@ -114,7 +128,7 @@ class DemandeDevisAdmin extends AbstractAdmin
                 'empty_data'  => true,
                 'choices'  => array(
                     'Oui' => 'Oui',
-                    'No' => 'No',
+                    $this->trans('no') => 'No',
                 ),
             ])
             ->end()
@@ -129,13 +143,12 @@ class DemandeDevisAdmin extends AbstractAdmin
                 'empty_data'  => true,
                 'choices'  => array(
                     'Oui' => 'Oui',
-                    'No' => 'No',
+                    $this->trans('no') => 'No',
                 ),
             ])
             ->end()
-
+            ->end()
         ;
-
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
@@ -147,10 +160,6 @@ class DemandeDevisAdmin extends AbstractAdmin
             ->add('cp2')
             ->add('date')
         ;
-    }
-
-    public function preUpdate($user) {
-        dump($user);
     }
 
 
@@ -165,23 +174,27 @@ class DemandeDevisAdmin extends AbstractAdmin
         $em->flush();
 
         $repository = $em->getRepository(DocPDF::class);
-        $list_devis = $repository->findByDevisId($this->getRequest()->get('id'));
-
+     ///   $list_devis = $repository->findByDevisId($this->getRequest()->get('id'));
+        $list_devis = $repository->findBy([
+            'id_devis' => $this->getRequest()->get('id'),
+        ] );
         $societe = $em->getRepository('AppBundle:Societe');
         $societe_devis_info = $societe->findOneBy(array('siege' => true));
 
-
-
         $showMapper
-
             ->tab($this->trans('Devis Info'))
             ->with('Info Date ')
             ->add('CreatedDate', null, [
                 'label' => 'Date de demande',
                 'format' => 'd/m/Y',
             ])
-            ->add('date', TextType::class, [
-                'label' => 'Date de demenagement',
+            ->add(
+                'volume', null, [
+                    'label' => 'Volume'
+                ]
+            )
+            ->add('prestation', TextType::class, [
+                'label' => 'Prestation',
             ])
 
             ->end()
@@ -241,6 +254,10 @@ class DemandeDevisAdmin extends AbstractAdmin
     }
 
     protected function configureListFields(ListMapper $listMapper) {
+
+        unset($this->listModes['mosaic']);
+
+
         $listMapper
             ->add('readed','boolean', [
                 'template' => '/admin/boolean.html.twig',
@@ -253,8 +270,13 @@ class DemandeDevisAdmin extends AbstractAdmin
                 ],
             ])
             ->add('CreatedDate', null, array(
-                'format' => 'd/m/Y H:i'
+                'format' => 'd/m/Y'
             ))
+            ->addIdentifier('email ', null, [
+                'route' => [
+                    'name' => 'show',
+                ]
+            ])
             ->addIdentifier('nom', null, [
                 'route' => [
                     'name' => 'show',
@@ -275,11 +297,6 @@ class DemandeDevisAdmin extends AbstractAdmin
                     'name' => 'show',
                 ]
             ])
-            ->addIdentifier('date', null, [
-                'route' => [
-                    'name' => 'show',
-                ]
-            ])
             ->addIdentifier('date1', null, [
                 'route' => [
                     'name' => 'show',
@@ -290,12 +307,30 @@ class DemandeDevisAdmin extends AbstractAdmin
                     'name' => 'show',
                 ]
             ])
+            ->addIdentifier('prestation', null, [
+                'route' => [
+                    'name' => 'show',
+                ],
+                'label' => 'Prestation',
+            ])
+            ->addIdentifier('volume', null, [
+                'route' => [
+                    'name' => 'show',
+                ],
+                'label' => 'Volume',
+            ])
             // add custom action links
             ->add('_action', 'actions', array(
                     'actions' => array(
-                        'show' => [],
-                        'edit' => [],
-                        'delete' => [],
+                        'show' => [
+                            'template' => 'admin/action/show_action.html.twig'
+                        ],
+                        'edit' => [
+                            'template' => 'admin/action/edit_action.html.twig'
+                        ],
+                        'delete' => [
+                            'template' => 'admin/action/remove_action.html.twig'
+                        ],
                     ))
             )
         ;

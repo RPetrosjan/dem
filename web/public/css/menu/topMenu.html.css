@@ -1,89 +1,89 @@
-.navbar li{
-    list-style: none;
-    display: inline-block;
-    vertical-align: top;
-}
-.navbar li a{
-    -moz-transition: 0.3s;
-    -o-transition: 0.3s;
-    -webkit-transition: 0.3s;
-    background: #fff;
-    border-right: 0.01em rgb(199, 199, 199) solid;
-    color: #a72222;
-    display: inline-block;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 24px 45px;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: 0.3s;
-    font-family: 'Open Sans Condensed', sans-serif;
-}
-.navbar{
-    background-color: white;
-    box-shadow: 0px 0px 15px 0px black;
-}
-.navbar li a:hover,.navbar li .active{
-    background-color: #a72222;
-    color: white;
-}
-.navbar li:first-child{
-    float: left;
-    position: relative;
-}
-.navbar li:first-child>a{
-    background: #a72222;
-    color: White;
-    height: 183px;
-    padding: 0px;
-    text-align: center;
-    width: 155px;
-    padding-top: 25px;
-    border-bottom-left-radius: 0.6em;
-    border-bottom-right-radius: 0.6em;
-}
-.navbar li:last-child>a{
-    border-right: none;
-}
-.navbar li:first-child>i{
-    font-size: 34px;
-    margin-top: 15px;
-    background-color: #e6e4e4;
-    box-shadow: 0px 0px 11px -3px black;
-    padding: 10px 13px;
-    border-radius: 3px;
-    display: none;
-}
-.navbar li:first-child>a>span:first-of-type{
-    margin-top: 55px;
-    margin-bottom: 5px;
-}
-.navbar li:first-child>a>span{
-    display: block;
-}
-
-
-@media (max-width: 850px) {
-    .navbar li{
-        width: 100%;
-        display: none;
-    }
-    .navbar li>a{
-        display: block;
-        border-bottom: 0.1em rgb(245, 242, 242) solid;
-    }
-    .navbar li:first-child>i{
-        display: block;
-    }
-    .navbar li:first-child {
-        text-align: center;
-        margin-bottom: 10px;
-        display: inherit;
-    }
-    .navbar li:first-child>a{
-        height: 119px;
-    }
-    .navbar li:first-child>a>span:first-of-type{
-        margin-top: 15px;
-    }
- }
+.navbar li{
+    list-style: none;
+    display: inline-block;
+    vertical-align: top;
+}
+.navbar li a{
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -webkit-transition: 0.3s;
+    background: #fff;
+    border-right: 0.01em rgb(199, 199, 199) solid;
+    color: #a72222;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 24px 45px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.3s;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+.navbar{
+    background-color: white;
+    box-shadow: 0px 0px 15px 0px black;
+}
+.navbar li a:hover,.navbar li .active{
+    background-color: #a72222;
+    color: white;
+}
+.navbar li:first-child{
+    float: left;
+    position: relative;
+}
+.navbar li:first-child>a{
+    background: #a72222;
+    color: White;
+    height: 183px;
+    padding: 0px;
+    text-align: center;
+    width: 155px;
+    padding-top: 25px;
+    border-bottom-left-radius: 0.6em;
+    border-bottom-right-radius: 0.6em;
+}
+.navbar li:last-child>a{
+    border-right: none;
+}
+.navbar li:first-child>i{
+    font-size: 34px;
+    margin-top: 15px;
+    background-color: #e6e4e4;
+    box-shadow: 0px 0px 11px -3px black;
+    padding: 10px 13px;
+    border-radius: 3px;
+    display: none;
+}
+.navbar li:first-child>a>span:first-of-type{
+    margin-top: 55px;
+    margin-bottom: 5px;
+}
+.navbar li:first-child>a>span{
+    display: block;
+}
+
+
+@media (max-width: 850px) {
+    .navbar li{
+        width: 100%;
+        display: none;
+    }
+    .navbar li>a{
+        display: block;
+        border-bottom: 0.1em rgb(245, 242, 242) solid;
+    }
+    .navbar li:first-child>i{
+        display: block;
+    }
+    .navbar li:first-child {
+        text-align: center;
+        margin-bottom: 10px;
+        display: inherit;
+    }
+    .navbar li:first-child>a{
+        height: 119px;
+    }
+    .navbar li:first-child>a>span:first-of-type{
+        margin-top: 15px;
+    }
+ }

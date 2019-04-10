@@ -8,7 +8,7 @@
         </style>
     </head>
 <body>
-<div class="div_title colred">LETTRE DE VOITURE {{ request.randomName }}<br/><span>(exemplaire livraison) <br/>{{ societe_info.cpville.ville }} {{ "now"|date("d/m/Y") }}</span></div>
+<div class="div_title colred">LETTRE DE VOITURE {{ randomName }}<br/><span>(exemplaire livraison) <br/>{{ societe_info.cpville.ville }} {{ "now"|date("d/m/Y") }}</span></div>
 
 {{ include('admin/calculdevis/pdf/top_societe_info_panel_pdf.html.twig') }}
 

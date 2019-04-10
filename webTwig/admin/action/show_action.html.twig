@@ -1,0 +1,11 @@
+
+{% if admin.hasAccess('show', object) and admin.hasRoute('show') %}
+    <a href="{{ admin.generateObjectUrl('show', object) }}" class="btn btn-sm btn-default view_link" title="{{ 'action_show'|trans({}, 'SonataAdminBundle') }}">
+        <i class="aaction show fas fa-user"></i>
+
+        {#
+        {{ 'action_show'|trans({}, 'SonataAdminBundle') }}
+        #}
+    </a>
+
+{% endif %}
