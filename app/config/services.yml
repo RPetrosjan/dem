@@ -121,7 +121,7 @@ services:
         class: AppBundle\Admin\SousTraitanceAdmin
         arguments:
             - ~
-            - AppBundle\Entity\SousTraitance
+            - AppBundle\Entity\MesDevis
             - ~
             - '@admin.view.devis.count'
             - '@service_container'

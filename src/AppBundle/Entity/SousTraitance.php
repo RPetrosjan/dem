@@ -7,7 +7,6 @@ use AppBundle\Entity\MesDevis as Mesdevis;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="mes_devis")
  */
 class SousTraitance extends Mesdevis
 {
