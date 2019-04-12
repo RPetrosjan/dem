@@ -162,7 +162,7 @@ class WebController extends Controller
         $getcp = $request->get('cp');
         $connection = $this->getDoctrine()->getManager()->getConnection();
 
-        $query = "SELECT cp,ville FROM  cp_ville WHERE cp LIKE ?";
+        $query = "SELECT cp,ville FROM code_postal WHERE cp LIKE ?";
         $newresult = $connection->executeQuery($query, array('%'.$getcp.'%'), array(\PDO::PARAM_STR))->fetchAll();
 
          foreach ($newresult as $index=>$value){
