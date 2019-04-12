@@ -20,6 +20,7 @@ use AppBundle\Entity\DemandeDevis;
 use AppBundle\Entity\GardeMeube;
 use AppBundle\Entity\OptimizerCss;
 use AppBundle\Entity\OptimizerJs;
+use AppBundle\Entity\Prestation;
 use AppBundle\Entity\SEO;
 use AppBundle\Entity\User;
 use AppBundle\Entity\VisiteTechnique;
@@ -151,6 +152,60 @@ class WebController extends Controller
 
         \file_put_contents($ServerUrl.'/css/'.$filecss,$optimcss->optimizeCss($csstext));
         \file_put_contents($ServerUrl.'/js/'.$filejs,$optimjs->minifyJavascript($jstext));
+    }
+
+    /**
+     * @Route("/set_devis_ayax", name="setdevisayax")
+     */
+    public function setDevisAyax(Request $request) {
+
+        $json = json_decode($request->get('json_devis'), true);
+
+        $id_prestation = $json['prestation'];
+        switch ($json['prestation']) {
+            case 'Economique':
+                $id_prestation = 1;
+                break;
+            case 'Standard':
+                $id_prestation = 2;
+                break;
+            case 'Luxe':
+                $id_prestation = 3;
+                break;
+            default:
+                $id_prestation = 1;
+        };
+
+        $prestation = $this->getDoctrine()->getRepository(Prestation::class)->find($id_prestation);
+
+        $devis = new DemandeDevis();
+
+        $devis->setNom($json['nom']);
+        $devis->setPrenom($json['prenom']);
+        $devis->setTelephone($json['telephone']);
+        $devis->setPortable($json['portable']);
+        $devis->setEmail($json['email']);
+        $devis->setDate1($json['date1']);
+        $devis->setDate2($json['date2']);
+        $devis->setCp1($json['cp1']);
+        $devis->setCp2($json['cp2']);
+        $devis->setVille1($json['ville1']);
+        $devis->setVille2($json['ville2']);
+        $devis->setPays1($json['pays1']);
+        $devis->setPays2($json['pays2']);
+        $devis->setPrestation($prestation);
+        $devis->setVolume($json['volume']);
+        $devis->setEtage1($json['etage1']);
+        $devis->setEtage2($json['etage2']);
+        $devis->setAscenseur1($json['ascenseur1']);
+        $devis->setAscenseur2($json['ascenseur2']);
+       /// $devis->setDistance($json['distance']);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($devis);
+        $em->flush();
+
+        return  new JsonResponse($json, 200);
     }
 
     /**
