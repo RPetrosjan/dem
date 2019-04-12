@@ -31,7 +31,7 @@ class DemandeDevisAdmin extends AbstractAdmin
     protected $datagridValues = [
         '_page' => 1,
         '_sort_order' => 'DESC',
-        '_sort_by' => 'CreatedDate',
+        '_sort_by' => 'id',
     ];
 
     // Creating new Custom route
