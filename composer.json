@@ -34,7 +34,8 @@
         "symfony/symfony": "3.4.*",
         "tetranz/select2entity-bundle": "^2.9",
         "twig/twig": "^1.0||^2.0",
-        "whiteoctober/tcpdf-bundle": "^1.1"
+        "whiteoctober/tcpdf-bundle": "^1.1",
+      "ext-http": "*"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

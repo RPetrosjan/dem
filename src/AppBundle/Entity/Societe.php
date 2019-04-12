@@ -180,7 +180,7 @@ class Societe
     private $siege;
 
     /**
-     * @ORM\ManyToOne(targetEntity="CpVille", cascade={"all"}, fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="CpVille", cascade={"all"},  inversedBy="societe_cpville")
      */
     private $cpville;
 
