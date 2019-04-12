@@ -153,7 +153,7 @@ class DemandeDevisAdmin extends AbstractAdmin
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-            ->add('CreatedDate')
+            ->add('email')
             ->add('nom')
             ->add('prenom')
             ->add('cp1')
