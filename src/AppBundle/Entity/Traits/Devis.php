@@ -9,6 +9,7 @@
 namespace AppBundle\Entity\Traits;
 
 
+use DateTime;
 use DateTimeZone;
 
 trait Devis
@@ -672,7 +673,7 @@ trait Devis
     public function DevisTraitConstruct()
     {
         $this->readed = false;
-        $date = \DateTime::createFromFormat('d/m/Y', date('d/m/Y'));
+        $date = DateTime::createFromFormat('d/m/Y', date('d/m/Y'));
         $this->CreatedDate  = $date->setTimeZone(new DateTimeZone('Europe/Paris'));
 
         $this->nom = null;

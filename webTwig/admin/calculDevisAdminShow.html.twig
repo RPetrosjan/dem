@@ -25,6 +25,16 @@
                         </li>
                     {% endfor %}
                 </ul>
+                <div>
+
+                    {% if pdf_button_name is defined %}
+                        <a href="pdf" target="_blank" class="imprimer_devis">
+                            {{ pdf_button_name.icon|raw }}
+                            {{ pdf_button_name.label }}
+                        </a >
+                    {% endif %}
+
+                </div>
 
                 <div class="tab-content">
                     {% for code, show_tab in admin.showtabs %}

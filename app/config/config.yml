@@ -187,6 +187,7 @@ sonata_admin:
         extra_javascripts:
           -  https://code.jquery.com/ui/1.12.1/jquery-ui.js
           - /js/datepicker-fr.js
+          - /js/list-table-striped.js
 
     dashboard:
         blocks:
@@ -261,10 +262,8 @@ sonata_admin:
                       label:        Crédits / Paiment
                       roles:        [ROLE_CLIENT]
 
-                    - route:        sonata_admin_user
-                      label:        Facture
-                      roles:        [ROLE_CLIENT]
-
                     - admin.users.connection
+
+                    - admin.mesfactures
 
 

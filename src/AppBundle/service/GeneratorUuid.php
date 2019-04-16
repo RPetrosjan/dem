@@ -24,8 +24,6 @@ class GeneratorUuid extends AbstractIdGenerator
      */
     public function generate(EntityManager $em, $entity)
     {
-        dump(date('ymd'));
-        exit();
         return date('ymd');
     }
 }

@@ -83,6 +83,28 @@ class PDFDevisGenerator
     }
 
     /**
+     * @param mixed $devis
+     * @param $type_output
+     * @throws \Twig\Error\Error
+     */
+    public function pdfShowDevis($devis, $type_output) {
+
+        $array_pdf = [
+            'pdf_show_devis' => 'admin/pdf/standard/pdf_show_devis.html.twig',
+        ];
+
+        $htmlRender = $this->container->get('templating')->render($array_pdf['pdf_show_devis'], [
+            'devisInfo' => $devis,
+        ]);
+
+        $pdf = $this->returnPDFResponseFromHTML();
+        $pdf->setPageMark();
+        $pdf->writeHTML($htmlRender, true, false, true, false, '');
+        $filename = '/ourcodeworld_pdf_demo';
+        return $pdf->Output($filename, $type_output);
+    }
+
+    /**
      * @param DevisEnvoye $devis
      * @param User $societe
      * @param $type_df

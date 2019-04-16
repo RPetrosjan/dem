@@ -136,13 +136,9 @@ class AdminController extends Controller
         $valable = $request->request->get('estimation_prix_form')['group4']['valable'];
         $distance = $request->request->get('estimation_prix_form')['group4']['distance'];
 
-
-
         $devis = $this->em->getRepository(DemandeDevis::class)->findOneBy([
             'uuid' => $uuid,
         ]);
-
-
 
         // We check if found devis with uuid in DemandeDevis
         if(is_null($devis)) {
@@ -245,15 +241,13 @@ class AdminController extends Controller
         $attachment = new Swift_Attachment($pdfDecVal, 'Déclaration de valeur.pdf', 'application/pdf');
         $message->attach($attachment);
 
-        if ($reponse = $mailer->send($message))
-        {
+        if ($reponse = $mailer->send($message)) {
             $this->addFlash(
                 'sonata_flash_success',
                 '<i class="far fa-check-circle"></i> Votre estimation du devis a bien été envoyé '.$devis->getNom().' '.$devis->getPrenom().' ('.$devis->getEmail().')'
             );
         }
-        else
-        {
+        else {
             $this->addFlash('errore','Errore d\'envie message');
         }
 
@@ -312,6 +306,43 @@ class AdminController extends Controller
         ]);
     }
 
+
+    /**
+     * @Route("espace/app/{adminpage}/{uuid}/{type}",  requirements={"type" = "pdf"} ,name="devis_show_pdf")
+     * @param $adminpage
+     * @param $uuid
+     * @param $type
+     * @return
+     */
+     public function DevisShowPdf(Request $request, $adminpage, $uuid, $type) {
+
+         $class = null;
+         switch ($adminpage) {
+             case 'demandedevis':
+                 $class =  DemandeDevis::class;
+                 break;
+             case 'mesdevis':
+                 $class =  MesDevis::class;
+                 break;
+             case 'devisenvoye':
+                 $class =  DevisEnvoye::class;
+                 break;
+         }
+
+        if(!is_null($class)) {
+            $devis = $this->getDoctrine()
+                ->getRepository($class)
+                ->findOneBy([
+                    'uuid' => $uuid,
+                ]);
+
+            if(!is_null($devis)) {
+                return $this->container->get('pdf.devis.generator')->pdfShowDevis($devis, 'I');
+            }
+        }
+        exit();
+     }
+
     /**
      * @Route("espace/app/devisenvoye/{uuid}/{type}",  requirements={"type" = "devis|declaration_valeur|condition_generale|facture|lettre_chargement|lettre_dechargement"} ,name="devis_doc_generator")
      * @param $uuid
@@ -328,6 +359,7 @@ class AdminController extends Controller
             ]);
 
         return $this->container->get('pdf.devis.generator')->pdfGenerate($devis, $this->getUserEntity(), $type, 'I');
+
 
     }
 
@@ -424,6 +456,8 @@ class AdminController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function DevisConfigMaSocietePages(Request $request) {
+
+        $this->container->get('admin.facture')->addFacture(1, rand(5, 15), "PayPal");
 
         // Get info user for fulling Form
         $maSocieteConfig =  $this->em->getRepository(User::class)->find($this->userEntity);

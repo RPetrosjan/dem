@@ -3,6 +3,7 @@
 
 ## Ruben SEARCH for this
 # dump($this->getBaseRole($admin));
+# RoleSecurityHandler isGranted(AdminInterface $admin, $attributes, $object = null)
 security:
 
     encoders:
@@ -21,7 +22,8 @@ security:
           - ROLE_ADMIN_USERS_CONNECTION_LIST
           - ROLE_ADMIN_SOUSTRAITANCE_LIST
           - ROLE_ADMIN_SOUSTRAITANCE_VIEW
-
+          - ROLE_ADMIN_MESFACTURES_LIST
+          - ROLE_ADMIN_MESFACTURES_VIEW
 
 
         ROLE_ADMIN:  ROLE_ADMIN

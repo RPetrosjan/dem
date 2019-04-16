@@ -321,13 +321,6 @@ class DevisEnvoyeAdmin extends AbstractAdmin
                 'user_id' => $userEntity,
         ]));
 
-        $sendDevis = (current($em
-            ->getRepository(DevisEnvoye::class)
-            ->findBy([
-                'uuid' => $this->object->getUuid(),
-            ])));
-
-
         // Generate URL of admin devis
         /** @var string $url */
         $url = $container->get('router')->generate('admin_app_devisenvoye_show', [
@@ -335,25 +328,22 @@ class DevisEnvoyeAdmin extends AbstractAdmin
         ]);
         $url = substr($url,0,-4);
 
-        // $this->object
-        /*
-        $sendDevis->setTva($devisConfig == false ? 20: $devisConfig->getTva());
-        $sendDevis->setAcompte($devisConfig->getAcompte());
-        $sendDevis->setFranchise($devisConfig->getFranchise());
-        $sendDevis->setValglobale($devisConfig->getValglobale());
-        $sendDevis->setParobjet($devisConfig->getParobjet());
-        $sendDevis->setValable($devisConfig->getValable());
-        */
+
+        // Add show button for PDF Imprimer le Devis
+        $this->getConfigurationPool()->getContainer()->get('twig')->addGlobal('pdf_button_name', [
+            'label' => $this->trans('imprimer.devis'),
+            'icon' => '<i class="fas fa-print"></i>'
+        ]);
 
 
-        $formEstimationPrix = $container->get('form.factory')->create(EstimationPrixForm::class, $sendDevis, [
+        $formEstimationPrix = $container->get('form.factory')->create(EstimationPrixForm::class, $this->object, [
             'action' => $container->get('router')->generate('sonata_sendDevis_post', [
                 'uuid' => $this->object->getUuid(),
             ]),
         ])->createView();
 
         $showMapper
-            ->tab($this->trans('Devis '.$sendDevis->getDevisNumber()), [
+            ->tab($this->trans('Devis '.$this->object->getDevisNumber()), [
                 'attr' => [
                     'icon' => '<i class="fas fa-mail-bulk"></i>'
                 ]
@@ -373,7 +363,7 @@ class DevisEnvoyeAdmin extends AbstractAdmin
                 ]
             ])
             ->end()
-            ->with('Devis '.$sendDevis->getDevisNumber(), [
+            ->with('Devis '.$this->object->getDevisNumber(), [
                 'class' => 'col-md-7',
                 'attr' => [
                     'icon' => '<i class="fas fa-mail-bulk"></i>',

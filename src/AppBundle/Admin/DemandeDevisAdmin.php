@@ -379,6 +379,12 @@ class DemandeDevisAdmin extends AbstractAdmin
             $em->flush();
         }
 
+        // Add show button for PDF Imprimer le Devis
+        $this->getConfigurationPool()->getContainer()->get('twig')->addGlobal('pdf_button_name', [
+            'label' => $this->trans('imprimer.devis'),
+            'icon' => '<i class="fas fa-print"></i>'
+        ]);
+
 
         $devisConfig = current($em
             ->getRepository(DevisConfig::class)

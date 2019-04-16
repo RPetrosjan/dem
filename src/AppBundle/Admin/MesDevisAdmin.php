@@ -519,6 +519,13 @@ class MesDevisAdmin extends AbstractAdmin
         $em->flush();
 
 
+        // Add show button for PDF Imprimer le Devis
+        $this->getConfigurationPool()->getContainer()->get('twig')->addGlobal('pdf_button_name', [
+            'label' => $this->trans('imprimer.devis'),
+            'icon' => '<i class="fas fa-print"></i>'
+        ]);
+
+
         $userEntity = $container->get('security.token_storage')->getToken()->getUser();
 
         $devisConfig = current($em
@@ -716,12 +723,13 @@ class MesDevisAdmin extends AbstractAdmin
      */
     protected function configureListFields(ListMapper $listMapper) {
 
-        $roles = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser()->getRoles();
+       /* $roles = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser()->getRoles();
         if(array_search('ROLE_SUPER_ADMIN', $roles) === false)
         {
             unset($this->listModes['list']);
         }
         // Remove list mode in top panel
+       */
         unset($this->listModes['mosaic']);
 
         $listMapper

@@ -71,6 +71,11 @@ services:
           - '@doctrine.orm.entity_manager'
         public: true
 
+    admin.facture:
+        class: AppBundle\service\AddFactureSocieteService
+        arguments:
+          - '@doctrine.orm.entity_manager'
+        public: true
 
     admin.users:
         class: AppBundle\Admin\UsersAdmin
@@ -121,7 +126,7 @@ services:
         class: AppBundle\Admin\SousTraitanceAdmin
         arguments:
             - ~
-            - AppBundle\Entity\MesDevis
+            - AppBundle\Entity\SousTraitance
             - ~
             - '@admin.view.devis.count'
             - '@service_container'
@@ -168,6 +173,23 @@ services:
               group: 'Web'
         public: true
 
+
+    admin.mesfactures:
+            class: AppBundle\Admin\FactureAdmin
+            arguments:
+                - ~
+                - AppBundle\Entity\Facture
+                - ~
+                - '@admin.view.devis.count'
+                - '@service_container'
+            tags:
+                -
+                  name: sonata.admin
+                  manager_type: orm
+                  route: '/facture'
+                  label: 'Mes Facture'
+                  group: 'mon_compte'
+            public: true
 
     admin.view.devis.count:
         class: AppBundle\service\ViewDevisCountService
