@@ -87,6 +87,18 @@ services:
             - { name: sonata.admin, manager_type: orm, label: Users, group : 'Admin', icon: '<i class="fa fa-users"></i>' }
         public: true
 
+
+    admin.group:
+      class: AppBundle\Admin\GroupAdmin
+      arguments:
+          - ~
+          - AppBundle\Entity\Group
+          - ~
+      tags:
+          - { name: sonata.admin, manager_type: orm, group: 'Admin', label: "groups" }
+      public: true;
+
+
     admin.users.connection:
         class: AppBundle\Admin\UserConnectAdmin
         arguments:
@@ -172,7 +184,6 @@ services:
               label: 'Mes Devis'
               group: 'Web'
         public: true
-
 
     admin.mesfactures:
             class: AppBundle\Admin\FactureAdmin

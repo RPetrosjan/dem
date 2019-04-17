@@ -35,6 +35,7 @@ class User extends BaseUser
      */
     protected $age;
 
+
     /**
      * @ORM\OneToMany(targetEntity="DevisConfig", mappedBy="user_id")
      */
@@ -45,7 +46,17 @@ class User extends BaseUser
      */
     private $id_devis_envoye;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", cascade={"all"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="parent_user_id", referencedColumnName="id")
+     */
+    private $parent;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="Group", mappedBy="user_id", fetch="EXTRA_LAZY", orphanRemoval=true)
+     */
+    private $id_devis_goup;
 
     /**
      * @ORM\OneToMany(targetEntity="UserConnect", mappedBy="user_id")
@@ -552,5 +563,39 @@ class User extends BaseUser
     {
         $this->id_user_view_devis = $id_user_view_devis;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIdDevisGoup()
+    {
+        return $this->id_devis_goup;
+    }
+
+    /**
+     * @param mixed $id_devis_goup
+     */
+    public function setIdDevisGoup($id_devis_goup)
+    {
+        $this->id_devis_goup = $id_devis_goup;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param mixed $parent
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+    }
+
+
 
 }

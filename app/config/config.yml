@@ -113,6 +113,8 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: AppBundle\Entity\User
+    group:
+        group_class: AppBundle\Entity\Group
     from_email:
         address: "%mailer_user%"
         sender_name: "%mailer_user%"
@@ -227,6 +229,7 @@ sonata_admin:
                 icon:               '<i class="fa fa-users"></i>'
                 items:
                     - admin.users
+                    - admin.group
 
             espace:
                 keep_open:          true
@@ -247,11 +250,11 @@ sonata_admin:
                 items:
                    - route:        sonata_admin_ma_societe
                      label:        Ma Societe
-                     roles:        [ROLE_CLIENT]
+                     roles:        [ROLE_SOCIETE]
 
                    - route:        sonata_admin_devis_conf
                      label:        devis.tarification
-                     roles:        [ROLE_CLIENT]
+                     roles:        [ROLE_SOCIETE]
 
             mon_compte:
                 keep_open:          true
@@ -260,10 +263,9 @@ sonata_admin:
                 items:
                     - route:        sonata_admin_user
                       label:        Crédits / Paiment
-                      roles:        [ROLE_CLIENT]
+                      roles:        [ROLE_SOCIETE]
 
                     - admin.users.connection
-
                     - admin.mesfactures
 
 

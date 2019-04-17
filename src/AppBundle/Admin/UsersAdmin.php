@@ -57,7 +57,7 @@ class UsersAdmin extends AbstractAdmin
         $allroles = (current($kernel->getContainer()->get('security.role_hierarchy')));
         $roleslist =[];
         foreach ($allroles as $key=>$values){
-            $roleslist[$key]=$values[0];
+            $roleslist[$key]=$key;
         }
 
         $passwordoptions=array(

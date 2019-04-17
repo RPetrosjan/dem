@@ -327,6 +327,7 @@ class AdminController extends Controller
              case 'devisenvoye':
                  $class =  DevisEnvoye::class;
                  break;
+
          }
 
         if(!is_null($class)) {
