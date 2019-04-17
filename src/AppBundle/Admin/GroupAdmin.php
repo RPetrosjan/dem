@@ -31,6 +31,27 @@ class GroupAdmin extends AbstractAdmin
         $object->getUserId()->setParent($currentUSerId);
     }
 
+    /**
+     * @param string $context
+     * @return \Sonata\AdminBundle\Datagrid\ProxyQueryInterface
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var $query */
+        $query = parent::createQuery($context);
+        $alias = $query->getRootAliases()[0];
+        $user_idparent = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
+        $query
+            ->innerJoin($alias.'.user_id','user_id')
+            ->innerJoin('user_id.parent','user_idparent')
+            ->where('user_idparent = :user_idparent')
+            ->setParameters([
+                'user_idparent' => $user_idparent
+            ]);
+
+        return $query;
+    }
+
 
     /**
      * @param FormMapper $formMapper

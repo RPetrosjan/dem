@@ -61,8 +61,12 @@ class MesDevisAdmin extends AbstractAdmin
     public function preValidate($object) {
 
         $this->user = $this->container->get('security.token_storage')->getToken()->getUser();
-        $object->setUserId($this->user);
 
+        if(!is_null($this->user->getParent())) {
+            $this->user = $this->user->getParent();
+        }
+
+        $object->setUserId($this->user);
 
         $objectToArray = (array)($object);
         $devis = [];
@@ -79,7 +83,6 @@ class MesDevisAdmin extends AbstractAdmin
             if($result == true) {
                 // Add user 2 devis for show
                 $this->viewDevisCountService->addDevisCount(2);
-
                 $ready = new ReadyDemandeDevis();
                 $ready->setIdUser($this->user);
                 $ready->setUuidDevis($this->getSubject()->getUuid());
@@ -254,6 +257,8 @@ class MesDevisAdmin extends AbstractAdmin
         $em = $container->get('doctrine.orm.entity_manager');
         $userEntity = $container->get('security.token_storage')->getToken()->getUser();
 
+
+
         $devisConfig = current($em
             ->getRepository(DevisConfig::class)
             ->findBy([
@@ -267,16 +272,22 @@ class MesDevisAdmin extends AbstractAdmin
                 'attr' => [
                     'icon' => '<i class="fas fa-info-circle"></i>',
                 ]
-            ])
-            ->add('share', CheckboxType::class, [
-                'label' => $this->trans('partager'),
-                'help' => $this->trans('partgae.info'),
-                'required' => false,
-                'disabled' => $this->object ? $this->object->isShare():false,
-                'attr' => [
-                    'div-group-class' => 'div-group-class col-md-12 nopadding',
-                ]
-            ])
+            ]);
+
+            if(is_null($userEntity->getParent())) {
+                $formMapper
+                ->add('share', CheckboxType::class, [
+                    'label' => $this->trans('partager'),
+                    'help' => $this->trans('partgae.info'),
+                    'required' => false,
+                    'disabled' => $this->object ? $this->object->isShare():false,
+                    'attr' => [
+                        'div-group-class' => 'div-group-class col-md-12 nopadding',
+                    ]
+                ]);
+            }
+
+            $formMapper
             ->add('signee', CheckboxType::class, [
                 'help' => 'Client accepteé ce devis',
                 'required' => false,
