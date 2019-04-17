@@ -19,6 +19,40 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  */
 class GroupAdmin extends AbstractAdmin
 {
+
+    // We wel recreate getObject in par Defaut it will be show with id getObject find
+    public function getObject($id)
+    {
+        $object = $this->getModelManager()->findOneBy($this->getClass(), [
+            'uuid' => $id
+        ]);
+        $this->object = $object;
+        return $object;
+    }
+
+
+    // We call new function for generating URL sonata
+    public function getUrlsafeIdentifier($entity)
+    {
+        ///$this->getRoutes();
+        return $this->getNormalizedIdentifier($entity);
+    }
+
+    // Here url make new paramters tu URL uuid
+    public function getNormalizedIdentifier($entity)
+    {
+        // If id not exist it wille be create
+        if(is_null($entity->getId()))
+        {
+            return parent::getNormalizedIdentifier($entity);
+        }
+        // If id exist wie show url with UUID paramter
+        else{
+            return $entity->getUuid();
+        }
+    }
+
+
     /**
      * MesDevisAdmin constructor.
      * @param $object
