@@ -107,6 +107,10 @@ class DevisEnvoyeAdmin extends AbstractAdmin
         }
 
 
+        if(!is_null($userEntity->getParent())) {
+            $userEntity = $userEntity->getParent();
+        }
+
         $query
             ->where($alias.'.user_id = :user_id')
             ->andWhere($searchQuery)

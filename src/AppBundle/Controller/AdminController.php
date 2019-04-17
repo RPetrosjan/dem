@@ -190,6 +190,11 @@ class AdminController extends Controller
         $this->em->flush();
 
         $societe = $this->getUser();
+        if(!is_null($this->getUser()->getParent())) {
+            $societe = $this->getUser()->getParent();
+        }
+
+        dump($societe);
 
         $message = (new \Swift_Message('Votre Devis du déménagement'))
             ->setFrom([$this->container->getParameter('mailer_user') => $societe->getCompanyName()])
@@ -224,19 +229,19 @@ class AdminController extends Controller
         /** @var  pdfGenerateService */
         $this->pdfGenerateService = $this->container->get('pdf.devis.generator');
         // Creating PDF Devis
-        $pdfDevis = $this->pdfGenerateService->pdfGenerate($devis, $this->getUser(), 'devis', 'S');
+        $pdfDevis = $this->pdfGenerateService->pdfGenerate($devis, $societe, 'devis', 'S');
         // Attach PDF as String in Mail
         $attachment = new Swift_Attachment($pdfDevis, 'devis.pdf', 'application/pdf');
         $message->attach($attachment);
 
         //Creating PDF CondGenerlae
-        $pdfCondGen = $this->pdfGenerateService->pdfGenerate($devis, $this->getUser(), 'condition_generale', 'S');
+        $pdfCondGen = $this->pdfGenerateService->pdfGenerate($devis, $societe, 'condition_generale', 'S');
         // Attach PDF as String in Mail
         $attachment = new Swift_Attachment($pdfCondGen, 'Condition Generale.pdf', 'application/pdf');
         $message->attach($attachment);
 
         //Creating PDF Déclaration de valeur
-        $pdfDecVal = $this->pdfGenerateService->pdfGenerate($devis, $this->getUser(), 'declaration_valeur', 'S');
+        $pdfDecVal = $this->pdfGenerateService->pdfGenerate($devis, $societe, 'declaration_valeur', 'S');
         // Attach PDF as String in Mail
         $attachment = new Swift_Attachment($pdfDecVal, 'Déclaration de valeur.pdf', 'application/pdf');
         $message->attach($attachment);
@@ -263,10 +268,15 @@ class AdminController extends Controller
      */
     public function getUserEntity() {
 
+        $user = $this->tokenStorage->getToken()->getUser();
+        if(!is_null($user->getParent())) {
+            $user = $user->getParent();
+        }
+
         return $this
             ->em
             ->getRepository(User::class)
-            ->find($this->tokenStorage->getToken()->getUser()->getId());
+            ->find($user->getId());
     }
 
     private $vars = array();
@@ -327,7 +337,6 @@ class AdminController extends Controller
              case 'devisenvoye':
                  $class =  DevisEnvoye::class;
                  break;
-
          }
 
         if(!is_null($class)) {
@@ -359,9 +368,9 @@ class AdminController extends Controller
                'uuid' => $uuid,
             ]);
 
+
+
         return $this->container->get('pdf.devis.generator')->pdfGenerate($devis, $this->getUserEntity(), $type, 'I');
-
-
     }
 
     /**
