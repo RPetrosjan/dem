@@ -283,7 +283,7 @@ class SonataController extends CRUDController
         $societe = $societe->findOneBy(array('siege' => true));
 
         $prestation = $this->getDoctrine()->getManager()->getRepository('AppBundle:Prestation');
-        $prestation = $prestation->findOneBy(['prestation' =>  ($devis->getPrestation() == 'Standard') ? 'Classique' : $devis->getPrestation() ]);
+        $prestation = $prestation->findOneBy(['prestation' =>  ($devis->getPrestation()->getPrestation() == 'Standard') ? 'Classique' : $devis->getPrestation()->getPrestation() ]);
 
 
         $array_pdf = [
