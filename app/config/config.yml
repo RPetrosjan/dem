@@ -160,7 +160,7 @@ sonata_admin:
           - bundles/sonataadmin/css/layout.css
           - bundles/sonataadmin/css/tree.css
           - bundles/sonataadmin/css/colors.css
-          - /css/admin/dashboard/custom.css?vkl
+          - /css/admin/dashboard/custom.css?v2
           - /css/admin/datepicker.css
 
         javascripts:
