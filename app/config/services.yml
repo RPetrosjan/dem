@@ -77,6 +77,12 @@ services:
           - '@doctrine.orm.entity_manager'
         public: true
 
+    admin.send.mail.devis:
+      class: AppBundle\service\SendEmailDevisClient
+      arguments:
+        - '@service_container'
+        - '@mailer'
+
     admin.users:
         class: AppBundle\Admin\UsersAdmin
         arguments:
@@ -176,6 +182,7 @@ services:
             - ~
             - '@admin.view.devis.count'
             - '@service_container'
+            - '@admin.send.mail.devis'
         tags:
             -
               name: sonata.admin

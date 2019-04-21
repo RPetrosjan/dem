@@ -16,7 +16,7 @@
 </table>
 <table cellpadding="0" cellspacing="0">
     <tr>
-        <td style=" width:83%;  text-align: right; font-size: 20px; font-weight: bold ">Devis - {{ devisInfo.getDevisNumber() }}</td>
+        <td style=" width:83%;  text-align: right; font-size: 20px; font-weight: bold ">Devis - {{ devisConfig.devisnum }}</td>
         <td style="width: 17%"></td>
     </tr>
     <tr>
@@ -134,19 +134,19 @@
     </tr>
     <tr>
         <td style="width: 65%;"><br/><br/>
-            <table cellspacing="0" cellpadding="0" style="width: 90%"><tr><td>Assurance comprise, garantie dommage (franchise <span style="color: #9b0000">{{ devisInfo.franchise }} €</span>),
-                        valeur globale de <span style="color: #9b0000">{{ devisInfo.valglobale }} €</span> et <span style="color: #9b0000">{{ devisInfo.parobjet }} €</span> par objet non listé.
+            <table cellspacing="0" cellpadding="0" style="width: 90%"><tr><td>Assurance comprise, garantie dommage (franchise <span style="color: #9b0000">{{ devisConfig.franchise }} €</span>),
+                        valeur globale de <span style="color: #9b0000">{{ devisConfig.valglobale }} €</span> et <span style="color: #9b0000">{{ devisConfig.parobjet }} €</span> par objet non listé.
                     </td></tr></table><br/>
            </td>
         <td style="width: 35%"><br/><br/>
             <table cellspacing="0" cellpadding="0" style="font-size: 15px" class="tdline">
                 <tr>
                     <td style="width: 50%;font-size: 14px">Prix H.T</td>
-                    <td style="width: 50%;font-size: 14px; text-align: right"> {{ devisInfo.prixht|number_format(2, ',', '') }} €</td>
+                    <td style="width: 50%;font-size: 14px; text-align: right"> {{ devisConfig.prixht|number_format(2, ',', '') }} €</td>
                 </tr>
                 <tr>
-                    <td style="width: 50%; font-weight: normal; font-size: 13px">TVA {{ devisInfo.tva }}%</td>
-                    <td style="width: 50%; text-align: right; font-weight: normal; font-size: 13px">{% set pricetva =  (devisInfo.tva * devisInfo.prixht) / 100  %}{% set pricettc =  pricetva + devisInfo.prixht  %} {{ pricetva|number_format(2, ',', '') }} €</td>
+                    <td style="width: 50%; font-weight: normal; font-size: 13px">TVA {{ devisConfig.tva }}%</td>
+                    <td style="width: 50%; text-align: right; font-weight: normal; font-size: 13px">{% set pricetva =  (devisConfig.tva * devisConfig.prixht) / 100  %}{% set pricettc =  pricetva + devisConfig.prixht  %} {{ pricetva|number_format(2, ',', '') }} €</td>
                 </tr>
                 <tr>
                     <td style="width: 50%;color: #9b0000">Prix T.T.C.:</td>
@@ -157,24 +157,24 @@
         </td>
     </tr>
     <tr>
-        <td style="width: 65%;"><table cellspacing="0" cellpadding="0" style="width: 90%;"><tr><td>Tarif valable <span style="color: #9b0000">{{ devisInfo.valable }}</span> mois, les informations annoncées et sous
+        <td style="width: 65%;"><table cellspacing="0" cellpadding="0" style="width: 90%;"><tr><td>Tarif valable <span style="color: #9b0000">{{ devisConfig.valable }}</span> mois, les informations annoncées et sous
             des accés au départ et à l'arrivée. Ci-joint un exemplaire
             des conditions générales et un exemplaire de la
             déclaration de valeur.
             En accord avec les termes de ce présent devis et des
             conditions générales de vente ci-jointes, merci à nous
             retourner daté et signé accompagnés du chèque
-                        de l'acompte correspondant <span style="color: #9b0000">{{ devisInfo.acompte }}%</span> à la commande.
+                        de l'acompte correspondant <span style="color: #9b0000">{{ devisConfig.acompte }}%</span> à la commande.
                     </td></tr></table><br/>
 
         </td>
         <td style="width: 35%; text-align: right"><br/><br/>
             <table cellspacing="0" cellpadding="0">
                 <tr>
-                    <td>{{ devisInfo.acompte }}% Acompte de à la commande</td>
+                    <td>{{ devisConfig.acompte }}% Acompte de à la commande</td>
                 </tr>
                 <tr>
-                    <td style="color: #9b0000; font-size: 15px">{% set priceAccompte = (devisInfo.acompte * pricettc) / 100  %} {{ priceAccompte|number_format(2, ',', '') }} €</td>
+                    <td style="color: #9b0000; font-size: 15px">{% set priceAccompte = (devisConfig.acompte * pricettc) / 100  %} {{ priceAccompte|number_format(2, ',', '') }} €</td>
                 </tr>
                 <tr>
                     <td>Solde livraison</td>

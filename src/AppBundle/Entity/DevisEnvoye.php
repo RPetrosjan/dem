@@ -5,8 +5,8 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
 use AppBundle\Entity\Traits\Devis as Devis;
-use Symfony\Component\Validator\Constraints\Date;
-use Symfony\Component\Validator\Tests\Fixtures\ToString;
+use AppBundle\Entity\Traits\DevisCustomConfig as DevisConfig;
+
 
 
 /**
@@ -17,8 +17,8 @@ use Symfony\Component\Validator\Tests\Fixtures\ToString;
  */
 class DevisEnvoye
 {
-
     use Devis;
+    use DevisConfig;
 
     /**
      * @var bool
@@ -26,6 +26,7 @@ class DevisEnvoye
      * @ORM\Column(name="readed", type="boolean")
      */
     private $readed;
+
 
     private $createdDataText;
 
@@ -87,6 +88,9 @@ class DevisEnvoye
      */
     private $parobjet;
 
+
+    ////////////////////////////////// CUSTOM ///////////////////////////////////////
+
     /**
      * @return bool
      */
@@ -94,7 +98,6 @@ class DevisEnvoye
     {
         return $this->signee;
     }
-
 
 
     /**

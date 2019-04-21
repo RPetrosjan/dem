@@ -10,6 +10,7 @@ namespace AppBundle\service;
 
 
 
+use AppBundle\Entity\DevisConfig;
 use AppBundle\Entity\DevisEnvoye;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -66,7 +67,6 @@ class PDFDevisGenerator
             }
         }
 
-
         $img_file = $pdf_dir.'admin/pdf/standard/image/bacpap8.png';
 
         $pdf->Image(
@@ -105,14 +105,16 @@ class PDFDevisGenerator
     }
 
     /**
-     * @param DevisEnvoye $devis
+     * @param $devis
+     * @param array $devisconfig
      * @param User $societe
      * @param $type_df
      * @param $type_output
-     * @return
-     * @throws \Exception
+     * @param array|null $twig_custom
+     * @return string
+     * @throws \Twig\Error\Error
      */
-    public function pdfGenerate(DevisEnvoye $devis, User $societe ,$type_df, $type_output) {
+    public function pdfGenerate($devis, array $devisconfig, User $societe, $type_df, $type_output, array $twig_custom = null) {
 
         $array_pdf = [
             'lettre_dechargement' => 'admin/pdf/standard/lettre_dechargement.html.twig',
@@ -123,7 +125,15 @@ class PDFDevisGenerator
             'declaration_valeur' => 'admin/pdf/standard/declaration_valeur.html.twig',
         ];
 
-        $htmlRender = $this->container->get('templating')->render($array_pdf[$type_df], [
+        $template = $array_pdf[$type_df];
+
+        if(!is_null($twig_custom)) {
+            $template = $twig_custom;
+        }
+
+
+        $htmlRender = $this->container->get('templating')->render($template, [
+            'devisConfig' => $devisconfig,
             'devisInfo' => $devis,
             'societeInfo' => $societe
         ]);
@@ -132,6 +142,7 @@ class PDFDevisGenerator
 
         $pdf = $this->returnPDFResponseFromHTML();
         $pdf->setPageMark();
+        $pdf->SetTitle($type_df.' '.$devisconfig['devisnum']);
         // C:\Users\rpetrosjan\Desktop\ticket\site-admin-symfony\espace-demenageur3\web\image\5c83220050751.png?5c8322005f1c4
         // C:\Users\rpetrosjan\Desktop\ticket\site-admin-symfony\espace-demenageur3\web\image\company_icon\5c83220050751.png
         $pdf->Image($logo_societe, 90, '', 30);
@@ -141,6 +152,5 @@ class PDFDevisGenerator
         // Write HTML PDF page First
         $filename = '/ourcodeworld_pdf_demo';
         return $pdf->Output($filename, $type_output);
-
     }
 }

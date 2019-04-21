@@ -1,26 +1,36 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: rpetrosjan
- * Date: 23/01/2019
- * Time: 01:44
- */
 
-namespace AppBundle\Form;
+
+namespace AppBundle\Form\Custom;
+
 
 
 use AppBundle\Entity\DevisEnvoye;
-use AppBundle\Entity\SendDevis;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatorInterface;
 
-class EstimationPrixForm extends AbstractType
+class DevisConf4 extends AbstractType
 {
+    /** @var TranslatorInterface  */
+    private $translator;
+
+    /**
+     * DevisConfigForm constructor.
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator) {
+
+        $this->translator = $translator;
+    }
+
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -163,6 +173,120 @@ class EstimationPrixForm extends AbstractType
                     ])
             )
 
+            ->add(
+                $builder->create('group5', FormType::class, [
+                    'label' => ' sds',
+                    'inherit_data' => true,
+                    'attr' => [
+                        'class' => 'col-md-12',
+
+                    ],
+
+                ])
+                    ->add('client',TextType::class, [
+                        'label' => $this->translator->trans('client'),
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4',
+
+                        ],
+                    ])
+
+                    ->add('passagefenetre',ChoiceType::class, [
+                        'label' => $this->translator->trans('passage.fenetre'),
+                        'choices'  => [
+                            'Oui' => 'Oui',
+                            'Non' => 'Non',
+                        ],
+                        'data' => 'Non',
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4',
+
+                        ],
+
+                    ])
+                    ->add('digicode',ChoiceType::class, [
+                        'label' => $this->translator->trans('digicode'),
+                        'choices'  => [
+                            'Oui' => 'Oui',
+                            'Non' => 'Non',
+                        ],
+                        'data' => 'Non',
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4'
+                        ],
+                        'required' => false,
+                    ])
+                    ->add('portage',ChoiceType::class, [
+                        'label' => $this->translator->trans('portage'),
+                        'choices'  => [
+                            'Oui' => 'Oui',
+                            'Non' => 'Non',
+                        ],
+                        'data' => 'Non',
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4'
+                        ],
+                        'required' => false,
+                    ])
+                    ->add('montemeubles',ChoiceType::class, [
+                        'label' => $this->translator->trans('montemeubles'),
+                        'choices'  => [
+                            'Oui' => 'Oui',
+                            'Non' => 'Non',
+                        ],
+                        'data' => 'Non',
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4'
+                        ],
+                        'required' => false,
+                    ])
+                    ->add('transbordement',ChoiceType::class, [
+                        'label' => $this->translator->trans('transbordement'),
+                        'choices'  => [
+                            'Oui' => 'Oui',
+                            'Non' => 'Non',
+                        ],
+                        'data' => 'Non',
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4'
+                        ],
+                        'required' => false,
+                    ])
+                    ->add('stationement',ChoiceType::class, [
+                        'label' => $this->translator->trans('stationement'),
+                        'choices'  => [
+                            'Oui' => 'Oui',
+                            'Non' => 'Non',
+                        ],
+                        'data' => 'Non',
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4'
+                        ],
+                        'required' => false,
+                    ])
+                    ->add('nature',ChoiceType::class, [
+                        'label' => $this->translator->trans('nature'),
+                        'choices'  => [
+                            'Organisé' => 'organise',
+                            'choix1' => 'choix1',
+                            'choix2' => 'choix2',
+                        ],
+                        'data' => 'organise',
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4'
+                        ],
+                        'required' => false,
+                    ])
+            )
+
             ->add('json', HiddenType::class, [
                 'attr' => [
                     'class' => 'hiddenjson'
@@ -190,3 +314,4 @@ class EstimationPrixForm extends AbstractType
         ));
     }
 }
+

@@ -16,7 +16,7 @@
 </table>
 <table cellpadding="0" cellspacing="0">
     <tr>
-        <td style=" width:83%;  text-align: right; font-size: 20px; font-weight: bold ">Facture - {{ devisInfo.getDevisNumber() }}</td>
+        <td style=" width:83%;  text-align: right; font-size: 20px; font-weight: bold ">Facture - {{ devisConfig.devisnum }}</td>
         <td style="width: 17%"></td>
     </tr>
     <tr>
@@ -133,12 +133,12 @@
                 <tr>
                     <td style="width: 20%"></td>
                     <td style="width: 50%"><strong>Prix H.T.: </strong></td>
-                    <td style="width: 50%; text-align: right">{{ devisInfo.prixht|number_format(2, ',', '') }} &euro;</td>
+                    <td style="width: 50%; text-align: right">{{ devisConfig.prixht|number_format(2, ',', '') }} &euro;</td>
                 </tr>
                 <tr>
                     <td style="width: 20%"></td>
-                    <td style="width: 50%; border-bottom-width: 1px; border-bottom-color: black; border-bottom-style: solid"><strong>TVA {{ devisInfo.tva }}% </strong></td>
-                    <td style="width: 50%; text-align: right; border-bottom-width: 1px; border-bottom-color: black; border-bottom-style: solid">{% set pricetva =  (devisInfo.tva * devisInfo.prixht) / 100  %}{% set pricettc =  pricetva + devisInfo.prixht  %} {{ pricetva|number_format(2, ',', '') }} &euro;</td>
+                    <td style="width: 50%; border-bottom-width: 1px; border-bottom-color: black; border-bottom-style: solid"><strong>TVA {{ devisConfig.tva }}% </strong></td>
+                    <td style="width: 50%; text-align: right; border-bottom-width: 1px; border-bottom-color: black; border-bottom-style: solid">{% set pricetva =  (devisConfig.tva * devisConfig.prixht) / 100  %}{% set pricettc =  pricetva + devisConfig.prixht  %} {{ pricetva|number_format(2, ',', '') }} &euro;</td>
                 </tr>
                 <tr>
                     <td style="width: 20%"></td>
@@ -154,11 +154,11 @@
             <table style="font-size: 14px; width: 70%" cellspacing="0" cellpadding="0" >
                 <tr>
                     <td style="width: 20%"></td>
-                    <td style="width: 100%; text-align: right; font-weight: normal">Acompte de {{ devisInfo.acompte }}% à la commande</td>
+                    <td style="width: 100%; text-align: right; font-weight: normal">Acompte de {{ devisConfig.acompte }}% à la commande</td>
                 </tr>
                 <tr>
                     <td style="width: 20%"></td>
-                    <td style="width: 100%; color: #9b0000; text-align: right;">{% set priceAccompte = (devisInfo.acompte * pricettc) / 100  %} {{ priceAccompte|number_format(2, ',', '') }} &euro;</td>
+                    <td style="width: 100%; color: #9b0000; text-align: right;">{% set priceAccompte = (devisConfig.acompte * pricettc) / 100  %} {{ priceAccompte|number_format(2, ',', '') }} &euro;</td>
                 </tr>
                 <tr>
                     <td style="width: 20%"></td>

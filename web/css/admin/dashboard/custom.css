@@ -246,6 +246,10 @@ div.input-group{
     padding-bottom: 6px;
 }
 
+.form-group div.select2-container{
+    display: block;
+}
+
 
 .sonata-ba-collapsed-fields > .form-group {
     margin-bottom: 0px;

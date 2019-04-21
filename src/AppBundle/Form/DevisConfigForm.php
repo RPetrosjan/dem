@@ -18,9 +18,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface;
 
+/**
+ * Class DevisConfigForm
+ * @package AppBundle\Form
+ */
 class DevisConfigForm extends AbstractType
 {
 
+    /** @var TranslatorInterface  */
     private $translator;
 
     /**
@@ -87,7 +92,6 @@ class DevisConfigForm extends AbstractType
                         ]
                     ])
             )
-
 
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer',

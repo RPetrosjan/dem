@@ -19,15 +19,13 @@ use AppBundle\Form\DevisConfigForm;
 use AppBundle\Form\MaSocieteForm;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Admin\FieldDescriptionCollection;
-
-use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
 use Swift_Attachment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -120,6 +118,9 @@ class AdminController extends Controller
         return $devisEnvoye;
     }
 
+
+
+    // TODO: REMOVE IN FUTURE !!!!!!!!!!!!!!!!!!!!!!!!
     /**
      * @param Request $request
      * @param $uuid
@@ -127,6 +128,15 @@ class AdminController extends Controller
      */
     public function sendDevisPost(Request $request, $uuid, \Swift_Mailer $mailer) {
 
+
+        $json = current(current($request->request))['json'];
+        $devisconfig = json_decode($json, true);
+        dump($devisconfig);
+
+       /// $devisconfig = json_decode($json, true);
+        exit();
+
+        /*
         $prixht = $request->request->get('estimation_prix_form')['group1']['prixht'];
         $tva = $request->request->get('estimation_prix_form')['group1']['tva'];
         $acompte = $request->request->get('estimation_prix_form')['group2']['acompte'];
@@ -135,6 +145,7 @@ class AdminController extends Controller
         $parobjet = $request->request->get('estimation_prix_form')['group3']['parobjet'];
         $valable = $request->request->get('estimation_prix_form')['group4']['valable'];
         $distance = $request->request->get('estimation_prix_form')['group4']['distance'];
+        */
 
         $devis = $this->em->getRepository(DemandeDevis::class)->findOneBy([
             'uuid' => $uuid,
@@ -182,7 +193,6 @@ class AdminController extends Controller
                 $devis->setValable($valable);
                 $devis->setDistance($distance);
 
-
             }
         }
 
@@ -193,8 +203,6 @@ class AdminController extends Controller
         if(!is_null($this->getUser()->getParent())) {
             $societe = $this->getUser()->getParent();
         }
-
-        dump($societe);
 
         $message = (new \Swift_Message('Votre Devis du déménagement'))
             ->setFrom([$this->container->getParameter('mailer_user') => $societe->getCompanyName()])
@@ -368,17 +376,22 @@ class AdminController extends Controller
                'uuid' => $uuid,
             ]);
 
-
-
         return $this->container->get('pdf.devis.generator')->pdfGenerate($devis, $this->getUserEntity(), $type, 'I');
     }
 
     /**
-     * @Route("espace/app/devisprevisualise/{uuid}/{type}/{prixtht}/{tva}/{acompte}/{franchise}/{valglobale}/{parobjet}/{valable}/{distance}",  requirements={"type" = "devis|declaration_valeur|condition_generale|facture|lettre_chargement|lettre_dechargement"} ,name="devis_prev_doc_generator")
+     * @Route("espace/app/devisprevisualise/{uuid}/{type}/{json}",  requirements={"type" = "devis|declaration_valeur|condition_generale|facture|lettre_chargement|lettre_dechargement"} ,name="devis_prev_doc_generator")
      * @param Request $request
      * @return
+     * @throws \Exception
      */
     public function DevisPrevisualiserPdfGenerator(Request $request) {
+
+
+        $json = $request->get('json');
+        $devisconfig = json_decode($json, true);
+
+
         /** @var DevisEnvoye $devis */
         $devis = $this->getDoctrine()
             ->getRepository(DemandeDevis::class)
@@ -405,47 +418,8 @@ class AdminController extends Controller
                 ]);
         }
 
-
-
         if(!is_null($devis))  {
-            // Check If we have class in DevisEnvoye
-            if(strpos(get_class($devis),'DevisEnvoye') === false) {
-                $devis = $this->DemandeDevisToDevisEnvoye($devis,[
-                    'prixht' => $request->get('prixtht'),
-                    'tva'    => $request->get('tva'),
-                    'acompte'=> $request->get('acompte'),
-                    'franchise' => $request->get('franchise'),
-                    'valglobale' => $request->get('valglobale'),
-                    'parobjet'   => $request->get('parobjet'),
-                    'valable'   => $request->get('valable'),
-                    'distance'  => $request->get('distance'),
-                ]);
-
-                /*
-                 *  $devisEnvoye->setPrixht($param['prixht']);
-        $devisEnvoye->setTva($param['tva']);
-        $devisEnvoye->setAcompte($param['acompte']);
-        $devisEnvoye->setFranchise($param['franchise']);
-        $devisEnvoye->setValglobale($param['valglobale']);
-        $devisEnvoye->setParobjet($param['parobjet']);
-        $devisEnvoye->setValable($param['valable']);
-        $devisEnvoye->setDistance($param['distance']);
-                 */
-
-            }
-            else {
-                $devis->setPrixht($request->get('prixtht'));
-                $devis->setTva($request->get('tva'));
-                $devis->setAcompte($request->get('acompte'));
-                $devis->setFranchise($request->get('franchise'));
-                $devis->setValglobale($request->get('valglobale'));
-                $devis->setParobjet($request->get('parobjet'));
-                $devis->setValable($request->get('valable'));
-                $devis->setDistance($request->get('distance'));
-            }
-
-
-            return $this->container->get('pdf.devis.generator')->pdfGenerate($devis, $this->getUserEntity(), $request->get('type'), 'I');
+            return $this->container->get('pdf.devis.generator')->pdfGenerate($devis, $devisconfig, $this->getUserEntity(), $request->get('type'), 'I');
         }
         else {
             throw new NotFoundHttpException('Devis not found '.$request->get('uuid'));
@@ -463,7 +437,7 @@ class AdminController extends Controller
     /**
      * @Route("espace/app/ma-societe", name="masociete")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function DevisConfigMaSocietePages(Request $request) {
 
@@ -508,7 +482,8 @@ class AdminController extends Controller
     /**
      * @Route("espace/app/devisconfig", name="devisconfig")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function DevisConfigPages(Request $request){
 
@@ -524,14 +499,26 @@ class AdminController extends Controller
             $devisConfig = new DevisConfig();
         }
 
+
+        $load_class = DevisConfigForm::class;
+        if(!is_null($this->userEntity->getDevisPersonelle())) {
+            $class = $this->userEntity->getDevisPersonelle();
+            $load_class = "AppBundle\Form\Custom\\".$class;
+        }
+
+
         /** @var Form $devisConfigForm */
-        $devisConfigForm = $this->createForm(DevisConfigForm::class, $devisConfig, [
+        $devisConfigForm = $this->createForm($load_class, $devisConfig, [
             'action' => $this->generateUrl('devisconfig'),
             'label' => false,
             'attr' => [
                 'class' => 'registration_form'
             ]
         ]);
+
+
+
+
 
         $devisConfigForm->handleRequest($request);
         if($devisConfigForm->isSubmitted() && $devisConfigForm->isSubmitted()) {

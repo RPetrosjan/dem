@@ -88,14 +88,25 @@ class UsersAdmin extends AbstractAdmin
                 'required' => false,
             ))
             ->add('username','text')
-            ->add('email','text')
-            ->add('age','text')
+            ->add('email',TextType::class, [
+                'label' => $this->trans('email')
+            ])
+            ->add('age',TextType::class, [
+                'label' => $this->trans('age'),
+                'required' => false,
+            ])
             ->add('plainPassword', 'repeated', $passwordoptions)
             ->add('roles',ChoiceType::class,array(
                 'choices' => $roleslist,
                 'multiple' => true,
             ))
             ->add('viewDevisCount', 'text')
+
+            ->add('devisPersonelle', TextType::class, [
+                'label' => $this->trans('devis.config.personnel'),
+                'required' => false,
+            ])
+
             ->end()
             ->with('Company Info', [
                 'class'       => 'col-md-6',

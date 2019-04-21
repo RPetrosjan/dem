@@ -244,5 +244,6 @@ class DevisConfig
         return $this->valable;
     }
 
+
 }
 

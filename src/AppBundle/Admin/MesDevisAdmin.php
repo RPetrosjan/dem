@@ -19,6 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class MesDevisAdmin extends AbstractAdmin
@@ -46,7 +47,6 @@ class MesDevisAdmin extends AbstractAdmin
     {
         $this->container = $container;
         $this->em = $container->get('doctrine.orm.entity_manager');
-
 
         $this->viewDevisCountService = $viewDevisCountService;
         parent::__construct($code, $class, $baseControllerName);
@@ -556,13 +556,97 @@ class MesDevisAdmin extends AbstractAdmin
         $sendDevis->setParobjet($devisConfig == false ? 500 : $devisConfig->getParobjet());
         $sendDevis->setValable($devisConfig == false ? 3 : $devisConfig->getValable());
 
+        $load_template = 'admin/demandedevis/estimation_prix.html.twig';
+        $loadFormType = EstimationPrixForm::class;
+        if(!is_null($userEntity->getDevisPersonelle())){
+            $loadFormType = 'AppBundle\Form\Custom\\'.$userEntity->getDevisPersonelle();
+            $load_template = 'admin/demandedevis/devis_custom/'.$userEntity->getDevisPersonelle().'.html.twig';
+        }
 
-        $formEstimationPrix = $container->get('form.factory')->create(EstimationPrixForm::class, $sendDevis, [
-            'action' => $container->get('router')->generate('sonata_sendDevis_post', [
-                'uuid' => $this->object->getUuid(),
-            ]),
-        ])->createView();
 
+        $formEstimationPrix = $container->get('form.factory')->create($loadFormType, $sendDevis, [
+           // 'action' => $container->get('router')->generate('sonata_sendDevis_post', [
+            //    'uuid' => $this->object->getUuid(),
+            //]),
+        ]);
+
+
+
+        $formEstimationPrix->handleRequest($this->request);
+        if($formEstimationPrix->isSubmitted() && $formEstimationPrix->isValid()) {
+
+            $json = current(current($this->request->request))['json'];
+            $devisconfig = json_decode($json, true);
+
+            if(!is_null($userEntity->getParent())) {
+                $userEntity = $userEntity->getParent();
+            }
+
+            $devisenvoye = $formEstimationPrix->getData();
+            $devisenvoye->setNom($this->object->getNom());
+            $devisenvoye->setTelephone($this->object->getTelephone());
+            $devisenvoye->setPortable($this->object->getPortable());
+            $devisenvoye->setEmail($this->object->getEmail());
+            $devisenvoye->setPrenom($this->object->getPrenom());
+
+            $devisenvoye->setAdresse1($this->object->getAdresse1());
+            $devisenvoye->setAdresse2($this->object->getAdresse2());
+            $devisenvoye->setCp1($this->object->getCp1());
+            $devisenvoye->setCp2($this->object->getCp2());
+            $devisenvoye->setVille1($this->object->getVille1());
+            $devisenvoye->setVille2($this->object->getVille2());
+            $devisenvoye->setEtage1($this->object->getEtage1());
+            $devisenvoye->setEtage2($this->object->getEtage2());
+            $devisenvoye->setDate1($this->object->getDate1());
+            $devisenvoye->setDate2($this->object->getDate2());
+            $devisenvoye->setPays1($this->object->getPays1());
+            $devisenvoye->setPays2($this->object->getPays2());
+            $devisenvoye->setComment1($this->object->getComment1());
+            $devisenvoye->setComment2($this->object->getComment2());
+            $devisenvoye->setAscenseur1($this->object->getAscenseur1());
+            $devisenvoye->setAscenseur2($this->object->getAscenseur2());
+
+            $devisenvoye->setPrestation($this->object->getPrestation());
+            $devisenvoye->setVolume($this->object->getVolume());
+            $devisenvoye->setBudget($this->object->getBudget());
+
+            $devisenvoye->setDevisNumber($devisconfig['devisnum']);
+            // $devisenvoye->setDistance($this->object->getDistance());
+
+            /** @var  pdfGenerateService */
+            $pdfGenerateService = $this->container->get('pdf.devis.generator');
+
+            $files = [];
+            // Creating PDF Devis
+            $files['devis.pdf'] = $pdfGenerateService->pdfGenerate($devisenvoye, $devisconfig, $userEntity, 'devis', 'S');
+            //Creating PDF CondGenerlae
+            $files['condition_generale'] = $pdfGenerateService->pdfGenerate($devisenvoye, $devisconfig, $userEntity, 'condition_generale', 'S');
+            //Creating PDF Déclaration de valeur
+            $files['declaration_valeur'] = $pdfGenerateService->pdfGenerate($devisenvoye, $devisconfig, $userEntity, 'declaration_valeur', 'S');
+
+
+            $flashbag = $this->getRequest()->getSession()->getFlashBag();
+
+            ///admin.send.mail.devis
+            ///
+            $sendDevisMailservice = $this->container->get('admin.send.mail.devis');
+            $reponse = $sendDevisMailservice->sendDevisEmailClient('Votre Devis du déménagement', $devisenvoye, $userEntity, $devisconfig, $files);
+            if($reponse == true) {
+
+                $flashbag->add('sonata_flash_success','<i class="far fa-check-circle"></i> Votre estimation du devis a bien été envoyé '.$devisenvoye->getNom().' '.$devisenvoye->getPrenom().' ('.$devisenvoye->getEmail().')');
+/*                $this->session->addFlash(
+                    'sonata_flash_success',
+                    '<i class="far fa-check-circle"></i> Votre estimation du devis a bien été envoyé '.$devis->getNom().' '.$devis->getPrenom().' ('.$devis->getEmail().')'
+                ); */
+            }
+            else {
+                $flashbag->add('errore','Errore d\'envie message');
+  ///              $this->addFlash('errore','Errore d\'envie message');
+            }
+
+            $this->em->persist($devisenvoye);
+            $this->em->flush();
+        }
 
         $showMapper
             ->tab($this->trans('Devis Info'), [
@@ -710,10 +794,10 @@ class MesDevisAdmin extends AbstractAdmin
                 ]
             ])
             ->add('prixform', EstimationPrixForm::class, [
-                "template" => "admin/demandedevis/estimation_prix.html.twig",
+                "template" => $load_template,
                 'label' => 'Prix',
                 'attr' => [
-                    'form' => $formEstimationPrix,
+                    'form' => $formEstimationPrix->createView(),
                 ]
             ])
             ->end()

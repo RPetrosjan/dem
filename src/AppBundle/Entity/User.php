@@ -81,6 +81,13 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @ORM\Column(name="devis_personelle", type="string", length=64, nullable=true)
+     */
+    private $devisPersonelle;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="firstName", type="string", length=36, nullable=true)
      */
     private $firstName;
@@ -595,6 +602,23 @@ class User extends BaseUser
     {
         $this->parent = $parent;
     }
+
+    /**
+     * @return string
+     */
+    public function getDevisPersonelle()
+    {
+        return $this->devisPersonelle;
+    }
+
+    /**
+     * @param string $devisPersonelle
+     */
+    public function setDevisPersonelle($devisPersonelle)
+    {
+        $this->devisPersonelle = $devisPersonelle;
+    }
+
 
 
 

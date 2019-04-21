@@ -66,6 +66,7 @@
 
     {{ sonata_block_render_event('sonata.admin.show.bottom', { 'admin': admin, 'object': object }) }}
 
+    {#
     {% set url = path('devis_prev_doc_generator', {
         'uuid' : '2222',
         'type' :'devis',
@@ -80,25 +81,14 @@
 
     }) %}
 
+
     {%  set pdf_url = url[:url|strpos('2222')]  %}
+      #}
 
     <script>
 
         var devisId = '{{ object.getUuid() }}';
 
-        function MakeUrlPrevisualisation(prixht,tva,acompte,franchise,valglobale,parobjet,valable,distance) {
-
-            $urlval = prixht+'/'+tva+'/'+acompte+'/'+franchise+'/'+valglobale+'/'+parobjet+'/'+valable+'/'+distance;
-
-            $('.devisPrev.js').html('' +
-                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/devis/'+$urlval+'"><i class="far fa-file-pdf"></i> Devis</a>' +
-                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/declaration_valeur/'+$urlval+'"><i class="far fa-file-pdf"></i> Declaration Valeur </a>' +
-                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/condition_generale/'+$urlval+'"><i class="far fa-file-pdf"></i> Condition Générale </a>' +
-                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/facture/'+$urlval+'"><i class="far fa-file-pdf"></i> Facture </a>' +
-                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/lettre_chargement/'+$urlval+'"><i class="far fa-file-pdf"></i> Lettre Chargement  </a>' +
-                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/lettre_dechargement/'+$urlval+'"><i class="far fa-file-pdf"></i> Lettre Dechargement  </a>' +
-                '');
-        }
 
         function UpdatePriceShow() {
             var prixht = $("input[name*='prixht']").val();
@@ -121,13 +111,13 @@
 
             $("input[name*='acomptecommande']").val(accompte_commande);
             $("input[name*='soldelivraison']").val(prixttc - accompte_commande);
-
-
         }
+
+
+        /*
 
         $("input[name*='prixht'], input[name*='tva'], input[name*='acompte'], input[name*='distance'] ").keyup(function () {
             UpdatePriceShow();
-
             $distance = $("input[name*='distance']").val();
             if($distance.length == 0) {
                 $distance = 0;
@@ -146,6 +136,8 @@
                 $distance
             );
         });
+        */
+
 
         if($("input[name*='prixht']").val().length>0) {
             UpdatePriceShow();
