@@ -63,6 +63,20 @@ trait DevisCustomConfig
     private $client;
 
     /**
+     * DevisCustomConfig constructor.
+     */
+    public function DevisCustomTraitConstruct()
+    {
+        $this->passagefenetre = false;
+        $this->portage = false;
+        $this->digicode = false;
+        $this->montemeubles = false;
+        $this->transbordement = false;
+        $this->stationement = false;
+    }
+
+
+    /**
      * @return bool
      */
     public function isPassagefenetre()

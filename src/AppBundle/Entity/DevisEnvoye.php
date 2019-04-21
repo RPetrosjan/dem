@@ -129,6 +129,17 @@ class DevisEnvoye
      */
     private $prix_soustraitance;
 
+    /**
+     * DevisCustomConfig constructor.
+     */
+    public function __construct()
+    {
+        // We make construct of trait
+        $this->DevisTraitConstruct();
+        $this->DevisCustomTraitConstruct();
+    }
+
+
 
     /**
      * @return string
@@ -275,17 +286,6 @@ class DevisEnvoye
     {
         $this->readed = $readed;
     }
-
-
-    /**
-     * DemandeDevis constructor.
-     */
-    public function __construct()
-    {
-        // We make construct of trait
-        $this->DevisTraitConstruct();
-    }
-
 
     /**
      * @return User
