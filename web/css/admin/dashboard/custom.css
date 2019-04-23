@@ -345,7 +345,7 @@ form .well .btn {
 }
 .form-actions.stuck
 {
-    position: relative;
+    position: inherit;
 }
 
 /* Panel top */

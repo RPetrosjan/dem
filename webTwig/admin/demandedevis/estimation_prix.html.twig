@@ -5,14 +5,9 @@
 
 {{ form_start(form) }}
     <div class="box-body">
-        {{ form_row(form.group1) }}
-        {{ form_row(form.group2) }}
-        {{ form_row(form.group3) }}
-        {{ form_row(form.group4) }}
         {% block formrow %}
         {% endblock %}
     </div>
-    {{ form_row(form.save) }}
 {{ form_end(form) }}
 
 {% set elements = [] %}

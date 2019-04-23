@@ -12,15 +12,20 @@ namespace AppBundle\Admin;
 use AppBundle\Entity\DevisConfig;
 use AppBundle\Entity\DevisEnvoye;
 use AppBundle\Form\EstimationPrixForm;
+use AppBundle\service\ViewDevisCountService;
+use Doctrine\ORM\EntityManager;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use AppBundle\Entity\Traits\EstimationPrixSubmitForm as PrixSubmitform;
 
 /**
  * Class DevisEnvoyeAdmin
@@ -28,8 +33,16 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class DevisEnvoyeAdmin extends AbstractAdmin
 {
+    use PrixSubmitform;
 
+    /** @var  */
     private $object;
+
+    /** @var ContainerInterface|null  */
+    private $container;
+
+    /** @var EntityManager|object  */
+    private $em;
 
     // Creating Sort By DateTime ASC
     protected $datagridValues = [
@@ -44,6 +57,20 @@ class DevisEnvoyeAdmin extends AbstractAdmin
 
         $this->setTemplate('edit','admin/calculDevisEnvoyeAdminEdit.html.twig');
         $this->setTemplate('show','admin/calculDevisAdminShow.html.twig');
+    }
+
+    /**
+     * @param string $code
+     * @param string $class
+     * @param string $baseControllerName
+     * @param ViewDevisCountService $viewDevisCountService
+     */
+    public function __construct($code, $class, $baseControllerName, Container $container)
+    {
+        $this->container = $container;
+        $this->em = $container->get('doctrine.orm.entity_manager');
+
+        parent::__construct($code, $class, $baseControllerName);
     }
 
     /**
@@ -91,7 +118,7 @@ class DevisEnvoyeAdmin extends AbstractAdmin
         }
 
         $this->getConfigurationPool()->getContainer()->get('twig')->addGlobal('search_in_table', $inSearch);
-        $filterMapped = ['devis_number', 'prixht', 'nom', 'prenom', 'email', 'CreatedDate'];
+        $filterMapped = ['devisnumber', 'prixht', 'nom', 'prenom', 'email', 'CreatedDate'];
 
         // Creation Query OR OR OR
         $searchQuery = '';
@@ -299,7 +326,7 @@ class DevisEnvoyeAdmin extends AbstractAdmin
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-            ->add('devis_number')
+            ->add('devisnumber')
             ->add('nom')
             ->add('prenom')
 
@@ -318,6 +345,10 @@ class DevisEnvoyeAdmin extends AbstractAdmin
         $em->flush();
 
         $userEntity = $container->get('security.token_storage')->getToken()->getUser();
+        // We check if user have parent
+        if(!is_null($userEntity->getParent())) {
+            $userEntity = $userEntity->getParent();
+        }
 
         $devisConfig = current($em
             ->getRepository(DevisConfig::class)
@@ -339,12 +370,7 @@ class DevisEnvoyeAdmin extends AbstractAdmin
             'icon' => '<i class="fas fa-print"></i>'
         ]);
 
-
-        $formEstimationPrix = $container->get('form.factory')->create(EstimationPrixForm::class, $this->object, [
-            'action' => $container->get('router')->generate('sonata_sendDevis_post', [
-                'uuid' => $this->object->getUuid(),
-            ]),
-        ])->createView();
+        $this->loadSubmitForm($userEntity);
 
         $showMapper
             ->tab($this->trans('Devis '.$this->object->getDevisNumber()), [
@@ -360,10 +386,10 @@ class DevisEnvoyeAdmin extends AbstractAdmin
                 ]
             ])
             ->add('prixform', EstimationPrixForm::class, [
-                "template" => "admin/demandedevis/estimation_prix.html.twig",
+                "template" => $this->load_template,
                 'label' => 'Prix',
                 'attr' => [
-                    'form' => $formEstimationPrix,
+                    'form' => $this->formEstimationPrix->createView(),
                 ]
             ])
             ->end()
@@ -506,7 +532,7 @@ class DevisEnvoyeAdmin extends AbstractAdmin
         unset($this->listModes['mosaic']);
 
         $listMapper
-            ->addIdentifier('devis_number', null, [
+            ->addIdentifier('devisnumber', null, [
                 'label' => 'Numero Devis',
                 'route' => [
                     'name' => 'show',

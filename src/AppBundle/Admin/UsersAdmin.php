@@ -4,21 +4,26 @@ namespace AppBundle\Admin;
 
 use AppBundle\Entity\Roles;
 
-use AppBundle\service\ImageResize;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 class UsersAdmin extends AbstractAdmin
 {
-    public function configureShowFields(ShowMapper $showMapper)
-    {
 
+    /** @var ContainerInterface|null  */
+    private $container;
+
+    public function __construct($code, $class, $baseControllerName, Container $container)
+    {
+        $this->container = $container;
+        parent::__construct($code, $class, $baseControllerName);
     }
 
     public function prePersist($object) {
@@ -76,6 +81,15 @@ class UsersAdmin extends AbstractAdmin
             $passwordoptions['required'] = true;
         }
 
+        // Get list devis personnels for societe
+        $arrayDevisConf = $this->container->getParameter('DevisCustom');
+        $choixDevisconf = [];
+        foreach ($arrayDevisConf as $key=>$value) {
+            $choixDevisconf[$key] = $key;
+        }
+
+
+
         $formMapper
             ->with($this->trans('general'), [
                     'class'       => 'col-md-6',
@@ -102,7 +116,8 @@ class UsersAdmin extends AbstractAdmin
             ))
             ->add('viewDevisCount', 'text')
 
-            ->add('devisPersonelle', TextType::class, [
+            ->add('devisPersonelle', ChoiceType::class, [
+                'choices' => $choixDevisconf,
                 'label' => $this->trans('devis.config.personnel'),
                 'required' => false,
             ])

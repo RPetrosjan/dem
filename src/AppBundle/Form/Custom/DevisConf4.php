@@ -42,13 +42,12 @@ class DevisConf4 extends AbstractType
                         'class' => 'col-md-12',
                     ],
                 ])
-                    ->add('devisnum', TextType::class, [
+                    ->add('devisnumber', TextType::class, [
                         'label' => 'Devis Numero',
                         'attr' => [
                             'class' => 'form-control',
                             'divclass' => 'col-md-12'
                         ],
-                        'mapped' => false
                     ])
                     ->add('prixht',TextType::class, [
                         'label' => 'Prix HT €',

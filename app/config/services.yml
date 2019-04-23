@@ -89,6 +89,7 @@ services:
            - ~
            - AppBundle\Entity\User
            - ~
+           - '@service_container'
         tags:
             - { name: sonata.admin, manager_type: orm, label: Users, group : 'Admin', icon: '<i class="fa fa-users"></i>' }
         public: true
@@ -129,7 +130,7 @@ services:
             - AppBundle\Entity\DemandeDevis
             - ~
             - "@doctrine.orm.default_entity_manager"
-            - "@security.token_storage"
+            - '@service_container'
         tags:
             -
               name: sonata.admin
@@ -164,7 +165,7 @@ services:
             - ~
             - AppBundle\Entity\DevisEnvoye
             - ~
-            - "@doctrine.orm.default_entity_manager"
+            - '@service_container'
         tags:
             -
              name: sonata.admin

@@ -376,7 +376,23 @@ class AdminController extends Controller
                'uuid' => $uuid,
             ]);
 
-        return $this->container->get('pdf.devis.generator')->pdfGenerate($devis, $this->getUserEntity(), $type, 'I');
+
+        // TODO::Remove in future
+
+/*
+        $htmlRender = $this->render('admin/pdf/standard/test.html.twig', [
+            'devisConfig' => null,
+            'devisInfo' => $devis,
+            'societeInfo' => $this->getUserEntity()
+        ]);
+
+        return $htmlRender;
+*/
+
+
+        /// pdfGenerate($devis, array $devisconfig, User $societe, $type_df, $type_output, array $twig_custom = null) {
+
+        return $this->container->get('pdf.devis.generator')->pdfGenerate($devis, null, $this->getUserEntity(), $type, 'I');
     }
 
     /**

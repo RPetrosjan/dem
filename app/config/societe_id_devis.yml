@@ -1,0 +1,8 @@
+parameters:
+  DevisCustom:
+    DevisConf4:
+      EstimationPrixForm : 'AppBundle\Form\Custom\DevisConf4'
+    DevisConf6:
+      EstimationPrixForm : 'AppBundle\Form\Custom\DevisConf6'
+
+

@@ -18,14 +18,13 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
+use AppBundle\Entity\Traits\EstimationPrixSubmitForm as PrixSubmitform;
 
 /**
  * Class DemandeDevisAdmin
@@ -34,11 +33,16 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class DemandeDevisAdmin extends AbstractAdmin
 {
 
+    use PrixSubmitform;
+
     /** @var object  */
     private $object;
 
     /** @var  */
     private $em;
+
+    /** @var Container  */
+    private $container;
 
     // Creating Sort By DateTime ASC
     protected $datagridValues = [
@@ -101,11 +105,15 @@ class DemandeDevisAdmin extends AbstractAdmin
      * @param string $code
      * @param string $class
      * @param string $baseControllerName
+     * @param $em
+     * @param Container $container
      */
-    public function __construct($code, $class, $baseControllerName, $em)
+    public function __construct($code, $class, $baseControllerName, $em, Container $container)
     {
-        parent::__construct($code, $class, $baseControllerName);
         $this->em = $em;
+        $this->container = $container;
+
+        parent::__construct($code, $class, $baseControllerName);
     }
 
     public function getDashboardActions()
@@ -385,29 +393,7 @@ class DemandeDevisAdmin extends AbstractAdmin
             'icon' => '<i class="fas fa-print"></i>'
         ]);
 
-
-        $devisConfig = current($em
-            ->getRepository(DevisConfig::class)
-            ->findBy([
-                'user_id' => $userEntity,
-            ]));
-
-        $sendDevis = new DevisEnvoye();
-        $sendDevis->setTva($devisConfig == false ? 20: $devisConfig->getTva());
-        $sendDevis->setAcompte($devisConfig == false ? 30 : $devisConfig->getAcompte());
-        $sendDevis->setFranchise($devisConfig == false ? 250 : $devisConfig->getFranchise());
-        $sendDevis->setValglobale($devisConfig == false ? 20000 : $devisConfig->getValglobale());
-        $sendDevis->setParobjet($devisConfig == false ? 500 : $devisConfig->getParobjet());
-        $sendDevis->setValable($devisConfig == false ? 3 : $devisConfig->getValable());
-
-
-        $formEstimationPrix = $container->get('form.factory')->create(EstimationPrixForm::class, $sendDevis, [
-            'action' => $container->get('router')->generate('sonata_sendDevis_post', [
-                'uuid' => $this->object->getUuid(),
-            ]),
-        ])->createView();
-
-
+        $this->loadSubmitForm($userEntity);
 
         $showMapper
             ->tab($this->trans('Devis Info'), [
@@ -497,7 +483,7 @@ class DemandeDevisAdmin extends AbstractAdmin
                 "template" => "admin/demandedevis/estimation_prix.html.twig",
                 'label' => 'Prix',
                 'attr' => [
-                    'form' => $formEstimationPrix,
+                    'form' => $this->formEstimationPrix->createView(),
                 ]
             ])
             ->end()
@@ -511,10 +497,7 @@ class DemandeDevisAdmin extends AbstractAdmin
                 'template' => 'admin/demandedevis/previsualisation_devis.html.twig',
                 'mapped' => false,
             ])
-
-
             ->end()
-
             ->end()
         ;
     }

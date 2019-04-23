@@ -40,9 +40,9 @@ class DevisEnvoye
     /**
      * @var string
      *
-     * @ORM\Column(name="devis_number", type="string", length=64, nullable=true))
+     * @ORM\Column(name="devisnumber", type="string", length=64, nullable=true))
      */
-    private $devis_number;
+    private $devisnumber;
 
 
     /**
@@ -139,23 +139,23 @@ class DevisEnvoye
         $this->DevisCustomTraitConstruct();
     }
 
-
-
     /**
      * @return string
      */
-    public function getDevisNumber()
+    public function getDevisnumber()
     {
-        return $this->devis_number;
+        return $this->devisnumber;
     }
 
     /**
-     * @param string $devis_number
+     * @param string $devisnumber
      */
-    public function setDevisNumber($devis_number)
+    public function setDevisnumber($devisnumber)
     {
-        $this->devis_number = $devis_number;
+        $this->devisnumber = $devisnumber;
     }
+
+
 
     /**
      * @return string
@@ -349,6 +349,10 @@ class DevisEnvoye
     public function getCreatedDataText()
     {
         return $this->CreatedDate->format('d/m/Y');
+    }
+
+    public function setId($id){
+        $this->id = $id;
     }
 
 

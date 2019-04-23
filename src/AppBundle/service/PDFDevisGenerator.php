@@ -114,7 +114,7 @@ class PDFDevisGenerator
      * @return string
      * @throws \Twig\Error\Error
      */
-    public function pdfGenerate($devis, array $devisconfig, User $societe, $type_df, $type_output, array $twig_custom = null) {
+    public function pdfGenerate($devis, array $devisConfig = null, User $societe, $type_df, $type_output, array $twig_custom = null) {
 
         $array_pdf = [
             'lettre_dechargement' => 'admin/pdf/standard/lettre_dechargement.html.twig',
@@ -125,15 +125,28 @@ class PDFDevisGenerator
             'declaration_valeur' => 'admin/pdf/standard/declaration_valeur.html.twig',
         ];
 
+
+
         $template = $array_pdf[$type_df];
+
+
 
         if(!is_null($twig_custom)) {
             $template = $twig_custom;
         }
 
 
+
+        if(is_null($devisConfig)) {
+            $devisConfig = $devis;
+            $devisNumber = $devisConfig->getDevisnumber();
+        }
+        else {
+            $devisNumber = $devisConfig['devisnumber'];
+        }
+
         $htmlRender = $this->container->get('templating')->render($template, [
-            'devisConfig' => $devisconfig,
+            'devisConfig' => $devisConfig,
             'devisInfo' => $devis,
             'societeInfo' => $societe
         ]);
@@ -142,7 +155,7 @@ class PDFDevisGenerator
 
         $pdf = $this->returnPDFResponseFromHTML();
         $pdf->setPageMark();
-        $pdf->SetTitle($type_df.' '.$devisconfig['devisnum']);
+        $pdf->SetTitle($type_df.' '.$devisNumber);
         // C:\Users\rpetrosjan\Desktop\ticket\site-admin-symfony\espace-demenageur3\web\image\5c83220050751.png?5c8322005f1c4
         // C:\Users\rpetrosjan\Desktop\ticket\site-admin-symfony\espace-demenageur3\web\image\company_icon\5c83220050751.png
         $pdf->Image($logo_societe, 90, '', 30);

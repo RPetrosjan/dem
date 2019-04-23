@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: '@AppBundle/yml/menu/topmenu.yml' }
+    - { resource: societe_id_devis.yml }
 
 
 # Put parameters here that don't need to change on each machine where the app is deployed
@@ -160,7 +161,7 @@ sonata_admin:
           - bundles/sonataadmin/css/layout.css
           - bundles/sonataadmin/css/tree.css
           - bundles/sonataadmin/css/colors.css
-          - /css/admin/dashboard/custom.css?v2
+          - /css/admin/dashboard/custom.css?v3.1
           - /css/admin/datepicker.css
 
         javascripts:
