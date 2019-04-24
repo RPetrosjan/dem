@@ -316,7 +316,22 @@ class WebController extends Controller
         $demandedevis->setAscenseur2($this->get('session')->get('tasktotal')->getAscenseur2());
         $demandedevis->setComment2($this->get('session')->get('tasktotal')->getComment2());
 
-        $demandedevis->setPrestation($this->get('session')->get('tasktotal')->getPrestation());
+
+        $prestation = 1;
+        switch ($this->get('session')->get('tasktotal')->getPrestation()) {
+            case 'Standard':
+                $prestation = 2;
+                break;
+            case 'Économique':
+                $prestation = 1;
+                break;
+            case 'Luxe':
+                $prestation = 3;
+                break;
+        }
+
+        $prestationEntity = $this->getDoctrine()->getManager()->getRepository(Prestation::class)->find($prestation);
+        $demandedevis->setPrestation($prestationEntity);
         $demandedevis->setVolume($this->get('session')->get('tasktotal')->getVolume());
 
         $em = $this->getDoctrine()->getManager();
