@@ -628,6 +628,27 @@ class WebController extends Controller
             $devisform->getData()->setVille1($ville1);
             $devisform->getData()->setVille2($ville2);
 
+
+            /// IDEOTIZMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM!!!!
+            ///
+            ///
+
+            $prestation = 1;
+            switch ($devisform->getData()->getPrestation()) {
+                case 'Standard':
+                    $prestation = 2;
+                    break;
+                case 'Économique':
+                    $prestation = 1;
+                    break;
+                case 'Luxe':
+                    $prestation = 3;
+                    break;
+            }
+            $prestationEntity = $this->getDoctrine()->getManager()->getRepository(Prestation::class)->find($prestation);
+            $devisform->getData()->setPrestation($prestationEntity);
+
+
             $em->persist($devisform->getData());
             $em->flush();
 

@@ -26,6 +26,8 @@ class DevisForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
+
+
         $builder
             ->add(
                 $builder->create('Coordonnes', FormType::class, array(
@@ -216,6 +218,39 @@ class DevisForm extends AbstractType
                     'required' => false,
                     'label_attr' => array('class' => 'topformtoplabel devis general'),
                 ))
+
+                    ->add('prestation','choice',array(
+
+                        'empty_data'  => 'Économique',
+
+                        'choices' => array(
+
+                            'Économique' => 'Économique',
+
+                            'Standard' => 'Standard',
+
+                            'Luxe' => 'Luxe',
+
+                        ),
+
+                        'attr' => [
+
+                            'class' => 'prestation',
+
+                            'readonly' => true,
+
+                            'autocomplete' => 'off',
+
+                        ],
+
+                        'required' => false,
+
+
+
+
+
+                    ))
+                    /*
                 ->add('prestation',EntityType::class, array(
                     'class' => Prestation::class,
                     'required' => false,
@@ -225,6 +260,7 @@ class DevisForm extends AbstractType
                         'autocomplete' => 'off',
                     ],
                 ))
+                    */
                 ->add('volume',TextType::class,array(
                     'empty_data'  => '0',
                     'label' => 'Volume',
