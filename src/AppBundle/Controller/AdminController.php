@@ -362,7 +362,10 @@ class AdminController extends Controller
      }
 
     /**
-     * @Route("espace/app/devisenvoye/{uuid}/{type}",  requirements={"type" = "devis|declaration_valeur|condition_generale|facture|lettre_chargement|lettre_dechargement"} ,name="devis_doc_generator")
+     *
+     * Negociated all route with show|edit|delete
+     *
+     * @Route("espace/app/devisenvoye/{uuid}/{type}", requirements={"type" = "^(?!.*show|.*edit|.*delete).*$"} ,name="devis_doc_generator")
      * @param $uuid
      * @param $type
      * @return
@@ -396,7 +399,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("espace/app/devisprevisualise/{uuid}/{type}/{json}",  requirements={"type" = "devis|declaration_valeur|condition_generale|facture|lettre_chargement|lettre_dechargement"} ,name="devis_prev_doc_generator")
+     * @Route("espace/app/devisprevisualise/{uuid}/{type}/{json}" ,name="devis_prev_doc_generator")
      * @param Request $request
      * @return
      * @throws \Exception
@@ -425,7 +428,6 @@ class AdminController extends Controller
         }
 
         // Check if devis null it will be check in MesDevis
-
         if(is_null($devis)) {
             $devis = $this->getDoctrine()
                 ->getRepository(MesDevis::class)

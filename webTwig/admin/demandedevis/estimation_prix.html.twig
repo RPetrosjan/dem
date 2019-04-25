@@ -56,14 +56,32 @@
 
     function MakeUrlPrevisualisation(jsonurl) {
 
+
+        {% if admin.show.listdocs.options.attr.societecustom is not empty %}
         $('.devisPrev.js').html('' +
-            '<a target="_blank" href="{{ pdf_url }}'+devisId+'/devis/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> Devis</a>' +
-            '<a target="_blank" href="{{ pdf_url }}'+devisId+'/declaration_valeur/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> Declaration Valeur </a>' +
-            '<a target="_blank" href="{{ pdf_url }}'+devisId+'/condition_generale/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> Condition Générale </a>' +
-            '<a target="_blank" href="{{ pdf_url }}'+devisId+'/facture/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> Facture </a>' +
-            '<a target="_blank" href="{{ pdf_url }}'+devisId+'/lettre_chargement/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> Lettre Chargement  </a>' +
-            '<a target="_blank" href="{{ pdf_url }}'+devisId+'/lettre_dechargement/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> Lettre Dechargement  </a>' +
+        {% for key, custom in admin.show.listdocs.options.attr.societecustom  %}
+
+
+            '<a target="_blank" href="{{ pdf_url }}'+devisId+'/{{ key }}/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> {{ custom.Label }}</a>' +
+
+
+        {#    <a target="_blank" href="{{ field_description.options.attr.url_devis}}{{ key }}"><i class="far fa-file-pdf"></i> {{ custom.Label }}</a> #}
+        {% endfor %}
             '');
+        {% else %}
+            $('.devisPrev.js').html('' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/devis/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> Devis</a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/declaration_valeur/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> Declaration Valeur </a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/condition_generale/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> Condition Générale </a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/facture/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> Facture </a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/lettre_chargement/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> Lettre Chargement  </a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/lettre_dechargement/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> Lettre Dechargement  </a>' +
+            '');
+
+        {% endif %}
+
+
+
     }
 
     function createElementsUrl(){

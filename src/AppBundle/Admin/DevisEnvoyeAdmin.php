@@ -188,9 +188,7 @@ class DevisEnvoyeAdmin extends AbstractAdmin
     // Show Result in the Page
     protected function configureFormFields(FormMapper $formMapper) {
 
-
         $formMapper
-
             ->with($this->trans('info.devis'), [
                 'class' => 'div-group-class col-md-12',
                 'attr' => [
@@ -416,6 +414,9 @@ class DevisEnvoyeAdmin extends AbstractAdmin
             ->add('listdocs', null, [
                 'template' => 'admin/demandedevis/previsualisation_devis.html.twig',
                 'mapped' => false,
+                'attr' => [
+                    'societecustom' => $this->custom_twig_company,
+                ]
             ])
 
             ->end()

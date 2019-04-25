@@ -127,15 +127,24 @@ class PDFDevisGenerator
 
 
 
-        $template = $array_pdf[$type_df];
 
+        //Check if user enabled custom pdf show
+        $custom_twig_company = [];
+        if(!is_null($societe->getDevisPersonelle())){
+            $custom_twig_company = array_merge($custom_twig_company, $this->container->getParameter('DevisCustom')[$societe->getDevisPersonelle()]['FilesForSendClient'], $this->container->getParameter('DevisCustom')[$societe->getDevisPersonelle()]['FilesForSendCompany']);
+
+            $template = $custom_twig_company[$type_df]['Twig'];
+            $pdfName  = $custom_twig_company[$type_df]['Label'];
+        }
+        else {
+            $template = $array_pdf[$type_df];
+            $pdfName = $type_df;
+        }
 
 
         if(!is_null($twig_custom)) {
             $template = $twig_custom;
         }
-
-
 
         if(is_null($devisConfig)) {
             $devisConfig = $devis;
@@ -155,7 +164,7 @@ class PDFDevisGenerator
 
         $pdf = $this->returnPDFResponseFromHTML();
         $pdf->setPageMark();
-        $pdf->SetTitle($type_df.' '.$devisNumber);
+        $pdf->SetTitle($pdfName.' '.$devisNumber);
         // C:\Users\rpetrosjan\Desktop\ticket\site-admin-symfony\espace-demenageur3\web\image\5c83220050751.png?5c8322005f1c4
         // C:\Users\rpetrosjan\Desktop\ticket\site-admin-symfony\espace-demenageur3\web\image\company_icon\5c83220050751.png
         $pdf->Image($logo_societe, 90, '', 30);

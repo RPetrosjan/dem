@@ -20,6 +20,9 @@ trait EstimationPrixSubmitForm
     /** @var string */
     private $load_template;
 
+    /** @var  */
+    private $custom_twig_company;
+
     /**
      * @param $userEntity
      */
@@ -34,13 +37,15 @@ trait EstimationPrixSubmitForm
         $this->load_template = 'admin/demandedevis/estimation_prix.html.twig';
         $loadFormType = EstimationPrixForm::class;
 
+        $this->custom_twig_company = [];
+
         // Creat methos for a usung info for societe_id_devis.yml
         if(!is_null($userEntity->getDevisPersonelle())){
+            $this->custom_twig_company = array_merge($this->custom_twig_company, $this->container->getParameter('DevisCustom')[$userEntity->getDevisPersonelle()]['FilesForSendClient'], $this->custom_twig_company, $this->container->getParameter('DevisCustom')[$userEntity->getDevisPersonelle()]['FilesForSendCompany']);
             $loadFormType = $this->container->getParameter('DevisCustom')[$userEntity->getDevisPersonelle()]['EstimationPrixForm'];
         }
 
         $devisObj = $this->object;
-
         if (strpos(get_class($this->object), 'DevisEnvoye') === false) {
 
             $devisConfig = $em
@@ -56,7 +61,6 @@ trait EstimationPrixSubmitForm
             $devisObj->setValglobale($devisConfig == false ? 20000 : $devisConfig->getValglobale());
             $devisObj->setParobjet($devisConfig == false ? 500 : $devisConfig->getParobjet());
             $devisObj->setValable($devisConfig == false ? 3 : $devisConfig->getValable());
-
         }
 
         $this->formEstimationPrix = $container->get('form.factory')->create($loadFormType, $devisObj, [
@@ -114,18 +118,25 @@ trait EstimationPrixSubmitForm
             $pdfGenerateService = $this->container->get('pdf.devis.generator');
 
             $files = [];
-            // Creating PDF Devis
-            $files['devis.pdf'] = $pdfGenerateService->pdfGenerate($devisenvoye, $devisconfig, $userEntity, 'devis', 'S');
-            //Creating PDF CondGenerlae
-            $files['condition_generale'] = $pdfGenerateService->pdfGenerate($devisenvoye, $devisconfig, $userEntity, 'condition_generale', 'S');
-            //Creating PDF Déclaration de valeur
-            $files['declaration_valeur'] = $pdfGenerateService->pdfGenerate($devisenvoye, $devisconfig, $userEntity, 'declaration_valeur', 'S');
-
+            // Check if company have custom pdf for sending Files to Client
+            if(!empty($this->custom_twig_company)) {
+                $customFiles = $this->container->getParameter('DevisCustom')[$userEntity->getDevisPersonelle()]['FilesForSendClient'];
+                foreach ($customFiles as $key => $customFile) {
+                    $files[$customFile['Label']] = $pdfGenerateService->pdfGenerate($devisenvoye, $devisconfig, $userEntity, $key, 'S');
+                }
+            }
+            else {
+                // Creating PDF Devis
+                $files['devis.pdf'] = $pdfGenerateService->pdfGenerate($devisenvoye, $devisconfig, $userEntity, 'devis', 'S');
+                //Creating PDF CondGenerlae
+                $files['condition_generale'] = $pdfGenerateService->pdfGenerate($devisenvoye, $devisconfig, $userEntity, 'condition_generale', 'S');
+                //Creating PDF Déclaration de valeur
+                $files['declaration_valeur'] = $pdfGenerateService->pdfGenerate($devisenvoye, $devisconfig, $userEntity, 'declaration_valeur', 'S');
+            }
 
             $flashbag = $this->getRequest()->getSession()->getFlashBag();
 
             ///admin.send.mail.devis
-            ///
             $sendDevisMailservice = $this->container->get('admin.send.mail.devis');
             $reponse = $sendDevisMailservice->sendDevisEmailClient('Votre Devis du déménagement', $devisenvoye, $userEntity, $devisconfig, $files);
             if($reponse == true) {

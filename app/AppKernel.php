@@ -23,14 +23,10 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
-
             new FOS\UserBundle\FOSUserBundle(),
             new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
-
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-
-            new Liip\ImagineBundle\LiipImagineBundle(),
-
+            new Tetranz\Select2EntityBundle\TetranzSelect2EntityBundle(),
 
         ];
 
