@@ -209,6 +209,10 @@ class SonataController extends CRUDController
         $message->attach($attachment);
 
 
+        echo $this->container->getParameter('mailer_user').' - ';
+        echo $societe->getNamesociete().' - ';
+        echo $devis->getEmail();
+
 
         if ($mailer->send($message))
         {

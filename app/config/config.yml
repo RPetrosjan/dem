@@ -51,8 +51,8 @@ twig:
         jsFileName: '%jsFileName%'
         topmenu: '%topmenu%'
         top_sous_menu: '%topmenu_sous_menu%'
-        sitehost: 'xn--dmnagements-bbbb.fr'
-       # sitehost: 'demadmin.dd'
+        # sitehost: 'xn--dmnagements-bbbb.fr'
+        sitehost: 'demadmin.dd'
 
 
 # Doctrine Configuration
