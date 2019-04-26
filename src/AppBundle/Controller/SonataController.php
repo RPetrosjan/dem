@@ -157,8 +157,9 @@ class SonataController extends CRUDController
 
 
         $message = (new \Swift_Message('Votre Devis du déménagement'))
-            ->setFrom([$societe->getEmail() => $societe->getNamesociete()])
+            ->setFrom([$this->container->getParameter('mailer_user') => $societe->getNamesociete()])
             ->setTo($devis->getEmail())
+            ->setReplyTo($societe->getEmail())
             ->setBcc('contact@demenagement-express.fr', 'Ruben Admin')
           ///  ->setReplyTo('rubenann@mail.ru', 'Ruben')
             ->setBody(
