@@ -1,0 +1,105 @@
+<html>
+<head>
+
+
+    <style>
+        .colorBlue{
+            color: #000183
+        }
+        .colorRed {
+            color: red;
+        }
+        .colorGreen {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<table border="0">
+    <tr>
+        <td style="width: 250px"><br/><br/>
+            <b style="font-size: 15px; text-align: center" class="colorBlue">DEMENAGEMENT SERVICE FRANCE</b><br/>
+            <span class="colorBlue">Rue de la Chabannerie</span><br/>
+            26500 BOURG LES VALENCE<br/>
+            <span class="colorRed">Tél:</span> <span class="colorGreen">09.63.66.47.54</span><br/>
+            <span class="colorRed">Tél:</span> <span class="colorBlue">04.75.85.47.54</span><br/>
+            <span class="colorRed">Mail: demservice.france@gmail.com</span>
+        </td>
+        <td><img src="{{ asset('image/pdf/DevisConf4/logoConf4.jpg') }}"></td>
+        <td style="text-align: center">
+            <img style="height: 100px" src="{{ asset('image/pdf/DevisConf4/logo1Conf4.jpg') }}"><br/>
+            <b style="font-size: 14px;" class="colorBlue">Mme CHABROL CHRISTELLE</b><br/>
+            62 AVENUE DE VERDUN
+            26000 VALENCE
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>Madame,<br/><br/>Suite à votre demande, veuillez trouver ci-après un devis concernant votre déménagement, ainsi que le détail de la prestation <b>Economique.</b></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<table border="1">
+    <tr>
+        <td style="text-align: center; background-color: #DCDCDC; line-height: 30px"><b class="colorBlue">Prestation que nous faisons </b></td>
+        <td style="text-align: center; background-color: #DCDCDC; line-height: 30px"><b class="colorBlue">Prestation qu'il vous reste à faire </b></td>
+    </tr>
+    <tr>
+        <td style="font-size: 14px;">
+            <ul>
+                <li style="margin-left: 0px; padding-left: 0px; text-align: left;">Procédure des demandes de stationnement
+                   éventuelles
+               </li>
+               <li>Chargement - Transport - Livraison, Mise en place du
+                   Mobilier
+               </li>
+                <li>Livraison au domicile des fournitures après signature
+                </li>
+                <li>Protection du mobilier sous couvertures
+                </li>
+                <li>Protection de la literie sous housses
+                </li>
+                <li>Protection de la HI-FI et de l'électronique
+                </li>
+                <li>Emballage des vêtements sur cintres en penderies
+                </li>
+           </ul>
+        </td>
+        <td>
+            <ul>
+                <li style="margin-left: 0px; padding-left: 0px; text-align: left;">Démontage et remontage du mobilier non fixé au mur</li>
+                <li>Emballage et déballage des objets fragiles</li>
+                <li>Emballage et déballage de la vaisselle fragile</li>
+                <li>Protection des éléments fragiles</li>
+                <li>Décrochage mural (hors électricité et vissé)</li>
+                <li>Emballage des objets non fragiles</li>
+                <li>Emballage des vêtements non sur cintres</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<b style="text-decoration: underline" class="colorBlue">Afin de confimer votre déménagement, vous devez nous faire parvenir :</b>
+
+<ul style="font-size: 13px">
+    <li>Votre devis signé et daté.</li>
+    <li>Les conditions générales de ventes en piéce jointe avec la date et votre signature.</li>
+    <li>Votre chèque d’arrhes d’un montant de 623.10 € à l'ordre de DEMENAGEMENTS SERVICE FRANCE.</li>
+    <li>Votre déclaration de valeur complétée.</li>
+</ul>
+</body>
+</html>

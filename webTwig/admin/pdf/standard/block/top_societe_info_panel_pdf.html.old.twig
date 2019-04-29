@@ -10,11 +10,11 @@
         <td style=" width: 50%; text-align: right"> <strong>N SIRET {{ societeInfo.siret }}</strong></td>
     </tr>
     <tr>
-        <td>
-            <span class="colred">Tel :</span> {{ societeInfo.tel }}
+        <td><span style="color: #9b0000">Tel :</span> {{ societeInfo.tel }}
             {% if societeInfo.mobile is defined %}
-                <div style="color: #9b0000; padding-left: 25px; width: 160px ">Por : <span style="color: black">{{ societeInfo.mobile }}</span></div>
+                <span>   </span><span style="color: #9b0000">Por</span> : {{ societeInfo.mobile }}
             {% endif %}
+
         </td>
         <td style="text-align: right">
             <span>{{ societeInfo.companyEmail }}</span>

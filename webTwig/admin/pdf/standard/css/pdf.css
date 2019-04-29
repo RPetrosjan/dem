@@ -1,15 +1,18 @@
-body{
-    color: #343434;
-    font-size: 12px;
-    line-height: 18px;
-    margin: 0;
-
-    font-family: "Open Sans script=all rev=1", "Adobe Blank";
-    font-weight: bold;
+.body{
+    font-family: "Open Sans", "Adobe Blank";
+    font-weight: normal;
 }
 .colred{
     color: #a72222;
 }
+
+.arial{
+    font-family: Arial;
+}
+
+table tr th, table tr td { padding-top: 5px; }
+
+
 
 strong{
     color: black;
@@ -34,10 +37,9 @@ table{
     content: "\f0a4"
 }
 
-.tdline>tr>td {
-    border-bottom-style: solid;
-    border-bottom-color: #f0f0f0;
-    border-bottom-width: 1px;
+.tdline{
+    border-bottom: 1px #f0f0f0 solid;
+    padding-bottom: 3px;
 }
 
 .div_title{

@@ -24,7 +24,6 @@ class AppKernel extends Kernel
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Tetranz\Select2EntityBundle\TetranzSelect2EntityBundle(),
 

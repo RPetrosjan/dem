@@ -12,6 +12,7 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 
 class UsersAdmin extends AbstractAdmin

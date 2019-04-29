@@ -33,20 +33,28 @@ class DevisConf4 extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+         $builder
             ->add(
                 $builder->create('group1', FormType::class, [
-                    'label' => ' sds',
+                    'label' => false,
                     'inherit_data' => true,
                     'attr' => [
                         'class' => 'col-md-12',
                     ],
                 ])
                     ->add('devisnumber', TextType::class, [
-                        'label' => 'Devis Numero',
+                        'label' => $this->translator->trans('devis.n'),
                         'attr' => [
                             'class' => 'form-control',
                             'divclass' => 'col-md-12'
+                        ],
+                    ])
+                    ->add('client',TextType::class, [
+                        'label' => $this->translator->trans('client.n'),
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-12',
+
                         ],
                     ])
                     ->add('prixht',TextType::class, [
@@ -76,7 +84,7 @@ class DevisConf4 extends AbstractType
             )
             ->add(
                 $builder->create('group2', FormType::class, [
-                    'label' => ' sds',
+                    'label' => false,
                     'inherit_data' => true,
                     'attr' => [
                         'class' => 'col-md-12',
@@ -113,7 +121,7 @@ class DevisConf4 extends AbstractType
 
             ->add(
                 $builder->create('group3', FormType::class, [
-                    'label' => ' sds',
+                    'label' => false,
                     'inherit_data' => true,
                     'attr' => [
                         'class' => 'col-md-12',
@@ -147,7 +155,7 @@ class DevisConf4 extends AbstractType
 
             ->add(
                 $builder->create('group4', FormType::class, [
-                    'label' => ' sds',
+                    'label' => false,
                     'inherit_data' => true,
                     'attr' => [
                         'class' => 'col-md-12',
@@ -174,30 +182,21 @@ class DevisConf4 extends AbstractType
 
             ->add(
                 $builder->create('group5', FormType::class, [
-                    'label' => ' sds',
+                    'label' => '<i class="fas fa-map-signs"></i> '.$this->translator->trans('depart'),
                     'inherit_data' => true,
                     'attr' => [
                         'class' => 'col-md-12',
 
                     ],
-
                 ])
-                    ->add('client',TextType::class, [
-                        'label' => $this->translator->trans('client'),
-                        'attr' => [
-                            'class' => 'form-control',
-                            'divclass' => 'col-md-4',
 
-                        ],
-                    ])
-
-                    ->add('passagefenetre',ChoiceType::class, [
+                    ->add('passagefenetre1',ChoiceType::class, [
                         'label' => $this->translator->trans('passage.fenetre'),
                         'choices'  => [
-                            'Oui' => 'Oui',
-                            'Non' => 'Non',
+                            'Oui' => 0,
+                            'Non' => 1,
                         ],
-                        'data' => 'Non',
+                        'data' => $options['data']->isPassagefenetre1(),
                         'attr' => [
                             'class' => 'form-control',
                             'divclass' => 'col-md-4',
@@ -205,79 +204,184 @@ class DevisConf4 extends AbstractType
                         ],
 
                     ])
-                    ->add('digicode',ChoiceType::class, [
+                    ->add('digicode1',ChoiceType::class, [
                         'label' => $this->translator->trans('digicode'),
                         'choices'  => [
-                            'Oui' => 'Oui',
-                            'Non' => 'Non',
+                            'Oui' => 0,
+                            'Non' => 1,
                         ],
-                        'data' => 'Non',
+                        'data' => $options['data']->isDigicode1(),
                         'attr' => [
                             'class' => 'form-control',
                             'divclass' => 'col-md-4'
                         ],
                         'required' => false,
                     ])
-                    ->add('portage',ChoiceType::class, [
+                    ->add('portage1',ChoiceType::class, [
                         'label' => $this->translator->trans('portage'),
                         'choices'  => [
-                            'Oui' => 'Oui',
-                            'Non' => 'Non',
+                            'Oui' => 0,
+                            'Non' => 1,
                         ],
-                        'data' => 'Non',
+                        'data' => $options['data']->isPortage1(),
                         'attr' => [
                             'class' => 'form-control',
                             'divclass' => 'col-md-4'
                         ],
                         'required' => false,
                     ])
-                    ->add('montemeubles',ChoiceType::class, [
+                    ->add('montemeubles1',ChoiceType::class, [
                         'label' => $this->translator->trans('montemeubles'),
                         'choices'  => [
-                            'Oui' => 'Oui',
-                            'Non' => 'Non',
+                            'Oui' => 0,
+                            'Non' => 1,
                         ],
-                        'data' => 'Non',
+                        'data' => $options['data']->isMontemeubles1(),
                         'attr' => [
                             'class' => 'form-control',
                             'divclass' => 'col-md-4'
                         ],
                         'required' => false,
                     ])
-                    ->add('transbordement',ChoiceType::class, [
+                    ->add('transbordement1',ChoiceType::class, [
                         'label' => $this->translator->trans('transbordement'),
                         'choices'  => [
-                            'Oui' => 'Oui',
-                            'Non' => 'Non',
+                            'Oui' => 0,
+                            'Non' => 1,
                         ],
-                        'data' => 'Non',
+                        'data' => $options['data']->isTransbordement1(),
                         'attr' => [
                             'class' => 'form-control',
                             'divclass' => 'col-md-4'
                         ],
                         'required' => false,
                     ])
-                    ->add('stationement',ChoiceType::class, [
+                    ->add('stationement1',ChoiceType::class, [
                         'label' => $this->translator->trans('stationement'),
                         'choices'  => [
-                            'Oui' => 'Oui',
-                            'Non' => 'Non',
+                            'Oui' => 0,
+                            'Non' => 1,
                         ],
-                        'data' => 'Non',
+                        'data' => $options['data']->isStationement1(),
                         'attr' => [
                             'class' => 'form-control',
                             'divclass' => 'col-md-4'
                         ],
                         'required' => false,
                     ])
-                    ->add('nature',ChoiceType::class, [
+                    ->add('nature1',ChoiceType::class, [
                         'label' => $this->translator->trans('nature'),
                         'choices'  => [
                             'Organisé' => 'organise',
                             'choix1' => 'choix1',
                             'choix2' => 'choix2',
                         ],
-                        'data' => 'organise',
+                        'data' => $options['data']->getNature1(),
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4'
+                        ],
+                        'required' => false,
+                    ])
+            )
+
+            ->add(
+                $builder->create('group6', FormType::class, [
+                    'label' => '<i class="fas fa-map-signs"></i> '.$this->translator->trans('arrivee'),
+                    'inherit_data' => true,
+                    'attr' => [
+                        'class' => 'col-md-12',
+
+                    ],
+                ])
+
+                    ->add('passagefenetre2',ChoiceType::class, [
+                        'label' => $this->translator->trans('passage.fenetre'),
+                        'choices'  => [
+                            'Oui' => 0,
+                            'Non' => 1,
+                        ],
+                        'data' => $options['data']->isPassagefenetre2(),
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4',
+
+                        ],
+
+                    ])
+                    ->add('digicode2',ChoiceType::class, [
+                        'label' => $this->translator->trans('digicode'),
+                        'choices'  => [
+                            'Oui' => 0,
+                            'Non' => 1,
+                        ],
+                        'data' => $options['data']->isDigicode2(),
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4'
+                        ],
+                        'required' => false,
+                    ])
+                    ->add('portage2',ChoiceType::class, [
+                        'label' => $this->translator->trans('portage'),
+                        'choices'  => [
+                            'Oui' => 0,
+                            'Non' => 1,
+                        ],
+                        'data' => $options['data']->isPortage2(),
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4'
+                        ],
+                        'required' => false,
+                    ])
+                    ->add('montemeubles2',ChoiceType::class, [
+                        'label' => $this->translator->trans('montemeubles'),
+                        'choices'  => [
+                            'Oui' => 0,
+                            'Non' => 1,
+                        ],
+                        'data' => $options['data']->isMontemeubles2(),
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4'
+                        ],
+                        'required' => false,
+                    ])
+                    ->add('transbordement2',ChoiceType::class, [
+                        'label' => $this->translator->trans('transbordement'),
+                        'choices'  => [
+                            'Oui' => 0,
+                            'Non' => 1,
+                        ],
+                        'data' => $options['data']->isTransbordement2(),
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4'
+                        ],
+                        'required' => false,
+                    ])
+                    ->add('stationement2',ChoiceType::class, [
+                        'label' => $this->translator->trans('stationement'),
+                        'choices'  => [
+                            'Oui' => 0,
+                            'Non' => 1,
+                        ],
+                        'data' => $options['data']->isStationement2(),
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4'
+                        ],
+                        'required' => false,
+                    ])
+                    ->add('nature2',ChoiceType::class, [
+                        'label' => $this->translator->trans('nature'),
+                        'choices'  => [
+                            'Organisé' => 'organise',
+                            'choix1' => 'choix1',
+                            'choix2' => 'choix2',
+                        ],
+                        'data' => $options['data']->getNature2(),
                         'attr' => [
                             'class' => 'form-control',
                             'divclass' => 'col-md-4'

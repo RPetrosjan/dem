@@ -1,20 +1,6 @@
-<html>
-<head>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-
-    <style>
-        {{ include('admin/pdf/standard/css/pdf.css') }}
-    </style>
-</head>
-<body>
-{{ include ('admin/pdf/standard/block/top_societe_info_panel_pdf.html.twig') }}
-<table>
-    <tr>
-        <td></td>
-    </tr>
-</table>
-<table cellpadding="0" cellspacing="0">
+{% extends 'admin/pdf/standard/base.html.twig' %}
+{% block body %}
+<table cellpadding="0" cellspacing="0" style="margin-top: 30px;">
     <tr>
         <td style=" width:83%;  text-align: right; font-size: 20px; font-weight: bold ">Facture - {{ devisConfig.devisnumber }}</td>
         <td style="width: 17%"></td>
@@ -25,96 +11,72 @@
     </tr>
 
 </table>
-<table style="height: 20px;">
+
+    <table style="margin-top: 40px" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td class="tdline" style="font-size: 14px; width: 75%">{{ devisInfo.nom }} {{ devisInfo.prenom }}</td>
+            <td  colspan="2" class="tdline" style="font-size: 14px; width: 15%"></td>
+        </tr>
+        <tr>
+            <td class="tdline" style="width: 75%">{{ devisInfo.adresse1  }}</td>
+            <td class="tdline" style="width: 15%; text-align: right;"><strong style="color: #9b0000;">Prestation : </strong></td>
+            <td class="tdline" style="width: 10%"> {{ devisInfo.prestation }}</td>
+        </tr>
+        <tr>
+            <td class="tdline" style="width: 75%">{{ devisInfo.cp1 }} {{ devisInfo.ville1 }}</td>
+            <td class="tdline" style="width: 15%; text-align: right;"><strong style="color: #9b0000;">Volume : </strong></td>
+            <td class="tdline" style=" width: 10%"> {{ devisInfo.volume }} m&sup3;</td>
+        </tr>
+        <tr>
+            <td class="tdline" style="width: 75%"><span style="color: #9b0000">{{ devisInfo.telephone }}</span></td>
+            <td class="tdline" style="width: 15%; text-align: right;"><strong style="color: #9b0000;">Distance : </strong></td>
+            <td class="tdline" style="width: 10%"> {{ devisInfo.distance }} km</td>
+        </tr>
+    </table>
+
+    <table style="margin-top: 50px" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td class="tdline" colspan="2" style="width: 50%; font-size: 14px;">DÉPART</td>
+            <td class="tdline" colspan="2" style="width: 50%; font-size: 14px;">ARRIVÉE</td>
+        </tr>
+        <tr>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Date </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.date1 }}</td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Date </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.date2 }}</td>
+        </tr>
+        <tr>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Adresse </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.adresse1 }}</td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Adresse </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.adresse2 }}</td>
+        </tr>
+        <tr>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Ville </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.cp1 }} {{ devisInfo.ville1 }}</td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Ville </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.cp2 }} {{ devisInfo.ville2 }}</td>
+        </tr>
+        <tr>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Etage </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.etage1 }} </td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Etage </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.etage2 }}</td>
+        </tr>
+        <tr>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Ascenseur </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.ascenseur1 }} </td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Ascenseur </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.ascenseur2 }}</td>
+        </tr>
+    </table>
+
+<table style="width: 100%; margin-top: 30px">
     <tr>
-        <td></td>
-    </tr>
-</table>
-<table border="0" cellspacing="0" cellpadding="0" class="tdline">
-    <tr>
-        <td style="font-size: 14px;">{{ devisInfo.nom }} {{ devisInfo.prenom }}</td>
-    </tr>
-    <tr>
-        <td style="width: 75%">{{ devisInfo.adresse1  }}</td>
-        <td style="width: 15%; text-align: right;"><strong style="color: #9b0000;">Prestation : </strong></td>
-        <td style="width: 10%"> {{ devisInfo.prestation }}</td>
-    </tr>
-    <tr>
-        <td style="width: 75%">{{ devisInfo.cp1 }} {{ devisInfo.ville1 }}
-        </td>
-        <td style="width: 15%; text-align: right;"><strong style="color: #9b0000;">Volume : </strong></td>
-        <td style=" width: 10%"> {{ devisInfo.volume }} m&sup3;</td>
-    </tr>
-    <tr>
-        <td style="width: 75%"><span style="color: #9b0000">{{ devisInfo.telephone }}</span>
-        </td>
-        <td style="width: 15%; text-align: right;"><strong style="color: #9b0000;">Distance : </strong></td>
-        <td style="width: 10%"> {{ devisInfo.distance }} km</td>
-    </tr>
-</table>
-<table>
-    <tr>
-        <td></td>
-    </tr>
-</table>
-<table>
-    <tr>
-        <td></td>
-    </tr>
-</table>
-<table border="0" cellspacing="0" cellpadding="0" class="tdline">
-    <tr>
-        <td style="width: 50%; font-size: 14px;">DÉPART</td>
-        <td style="width: 50%; font-size: 14px;">ARRIVÉE</td>
-    </tr>
-    <tr>
-        <td style="width: 12%"><span style="color: #9b0000">Date </span></td>
-        <td style="width: 38%">{{ devisInfo.date1 }}</td>
-        <td style="width: 12%"><span style="color: #9b0000">Date </span></td>
-        <td style="width: 38%">{{ devisInfo.date2 }}</td>
-    </tr>
-    <tr>
-        <td style="width: 12%"><span style="color: #9b0000">Adresse </span></td>
-        <td style="width: 38%">{{ devisInfo.adresse1 }}</td>
-        <td style="width: 12%"><span style="color: #9b0000">Adresse </span></td>
-        <td style="width: 38%">{{ devisInfo.adresse2 }}</td>
-    </tr>
-    <tr>
-        <td style="width: 12%"><span style="color: #9b0000">Ville </span></td>
-        <td style="width: 38%">{{ devisInfo.cp1 }} {{ devisInfo.ville1 }}</td>
-        <td style="width: 12%"><span style="color: #9b0000">Ville </span></td>
-        <td style="width: 38%">{{ devisInfo.cp2 }} {{ devisInfo.ville2 }}</td>
-    </tr>
-    <tr>
-        <td style="width: 12%"><span style="color: #9b0000">Etage </span></td>
-        <td style="width: 38%">{{ devisInfo.etage1 }} </td>
-        <td style="width: 12%"><span style="color: #9b0000">Etage </span></td>
-        <td style="width: 38%">{{ devisInfo.etage2 }}</td>
-    </tr>
-    <tr>
-        <td style="width: 12%"><span style="color: #9b0000">Ascenseur </span></td>
-        <td style="width: 38%">{{ devisInfo.ascenseur1 }} </td>
-        <td style="width: 12%"><span style="color: #9b0000">Ascenseur </span></td>
-        <td style="width: 38%">{{ devisInfo.ascenseur2 }}</td>
-    </tr>
-</table>
-<table>
-    <tr>
-        <td></td>
-    </tr>
-</table>
-<table>
-    <tr>
-        <td></td>
-    </tr>
-</table>
-<table >
-    <tr >
         <td style="font-size: 18px; width: 50%; border-right-color: black; border-right-style: solid; border-right-width: 1px; border-bottom-width: 1px; border-bottom-color: black; border-bottom-style: solid"> <span style="color: #9b0000">Designation</span></td>
         <td style="font-size: 18px; width: 50%;  border-bottom-width: 1px; border-bottom-color: black; border-bottom-style: solid">
              <span style="color: #9b0000">Montant</span>
         </td>
-
     </tr>
     <tr>
         <td style="width: 50%; border-right-color: black; border-right-style: solid; border-right-width: 1px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: black">
@@ -193,5 +155,4 @@
 <div>Aucun escompte n'est applicable sur le paiement comptant, lois sécurité des transports : Article L-441-6, qui limite strictement les conditions de paiement à un maximum de 30 jours date de facture. <br/>Tout paiement différé fera l'objet d'une pénalité équivalente.
 </div>
 
-</body>
-</html>
+{% endblock %}

@@ -14,6 +14,7 @@ use AppBundle\Entity\DevisConfig;
 use AppBundle\Entity\DevisEnvoye;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Spipu\Html2Pdf\Html2Pdf;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -36,7 +37,7 @@ class PDFDevisGenerator
     }
 
     // Generation du PDF
-    public function returnPDFResponseFromHTML(){
+    public function returnPDFResponseFromHTML($mode=null){
 
         $pdf = $this->container->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->AddPage();
@@ -46,6 +47,7 @@ class PDFDevisGenerator
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
         // set margins
         $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
         $pdf->SetHeaderMargin(0);
         $pdf->SetFooterMargin(0);
         // remove default footer
@@ -67,7 +69,13 @@ class PDFDevisGenerator
             }
         }
 
-        $img_file = $pdf_dir.'admin/pdf/standard/image/bacpap8.png';
+        if(is_null($mode)) {
+            $img_file = $pdf_dir.'admin/pdf/standard/image/bacpap8.png';
+        }
+        else {
+            $img_file = $pdf_dir.'admin/pdf/standard/image/white.png';
+            $pdf->setListIndentWidth(5);
+        }
 
         $pdf->Image(
             $img_file,
@@ -77,6 +85,8 @@ class PDFDevisGenerator
             false
         );
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+
 
         return $pdf;
 
@@ -162,17 +172,31 @@ class PDFDevisGenerator
 
         $logo_societe = $this->parent->getProjectDir().'\web\image\\'.$societe->getPath().'\\'.substr($societe->filename, 0, strpos($societe->filename, "?"));
 
-        $pdf = $this->returnPDFResponseFromHTML();
-        $pdf->setPageMark();
-        $pdf->SetTitle($pdfName.' '.$devisNumber);
-        // C:\Users\rpetrosjan\Desktop\ticket\site-admin-symfony\espace-demenageur3\web\image\5c83220050751.png?5c8322005f1c4
-        // C:\Users\rpetrosjan\Desktop\ticket\site-admin-symfony\espace-demenageur3\web\image\company_icon\5c83220050751.png
-        $pdf->Image($logo_societe, 90, '', 30);
-        $pdf->writeHTML($htmlRender, true, false, true, false, '');
 
-        //Arrivée
-        // Write HTML PDF page First
-        $filename = '/ourcodeworld_pdf_demo';
-        return $pdf->Output($filename, $type_output);
+        // left, top, right, bottom
+
+        $html2pdf = new Html2Pdf('P','A4','fr', true, 'UTF-8', array(10, 10, 10, 0));
+
+        /** @var string $directory */
+        $directory = "admin/pdf/standard/font";
+        // We get all ttf files for adding font
+        /** @var array $fontsttf */
+        $pdf_dir  = __DIR__.'/../../../webTwig/';
+
+        $fontsttf = scandir($pdf_dir.$directory);
+        foreach ($fontsttf as $objectttf) {
+            if (stripos($objectttf, "ttf") !== false) {
+                \TCPDF_FONTS::addTTFfont($pdf_dir.$directory.'/'.$objectttf, 'TrueTypeUnicode', "", 32);
+               /// $html2pdf->addFont('Open Sans', '', $pdf_dir.$directory.'/'.$objectttf);
+            }
+        }
+      ///  $html2pdf->setDefaultFont('Open Sans');
+        $html2pdf->pdf->SetDisplayMode('fullpage');
+        $html2pdf->pdf->SetTitle($pdfName.' '.$devisNumber);
+
+        $html2pdf->writeHTML($htmlRender);
+        $filename = 'pdf.pdf';
+        return $html2pdf->output($filename, $type_output);
+
     }
 }

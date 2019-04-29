@@ -1,0 +1,46 @@
+.colorBlue{
+    color: #000183
+}
+.colorRed {
+    color: red;
+}
+.colorGreen {
+    color: green;
+}
+
+.backgray{
+    background: #CCC
+}
+
+.bordertop{
+    border-top: 1px black solid;
+}
+.borderright{
+    border-right: 1px black solid;
+}
+.borderleft{
+    border-left: 1px black solid;
+}
+.borderbottom{
+    border-bottom: 1px black solid;
+}
+
+
+ul.listul { width: 350px; margin-left: -5mm; }
+table.aligncenter td{
+   text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-right: 1px black solid;
+    border-top: 1px black solid;
+    font-weight: bold;
+}
+
+tr.tdbottom td{
+    border-bottom: 1px black solid;
+}
+
+tr.notbtop td{
+    border-top: none;
+    border-bottom: 1px black solid;
+}

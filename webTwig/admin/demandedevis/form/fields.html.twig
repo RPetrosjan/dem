@@ -2,9 +2,16 @@
 
 {% block form_row %}
 
+
     {% if 'group' not in form.vars.name %}
         <div class=" text-nowrap form-group {% if form.vars.attr.divclass is defined %}{{ form.vars.attr.divclass }}{% endif %}" style="margin-bottom: 20px">
         {{ form_label(form) }}
+        {%  else %}
+                {% if form.vars.label != false %}
+                    <div class="box-header grouplabel"><h4 class="box-title">
+                        {{ form.vars.label|raw }}
+                    </h4></div>
+                {% endif %}
     {% endif %}
 
     {{ form_widget(form) }}

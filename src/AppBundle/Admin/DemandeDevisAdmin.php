@@ -496,6 +496,9 @@ class DemandeDevisAdmin extends AbstractAdmin
             ->add('listdocs', null, [
                 'template' => 'admin/demandedevis/previsualisation_devis.html.twig',
                 'mapped' => false,
+                'attr' => [
+                    'societecustom' => $this->custom_twig_company,
+                ]
             ])
             ->end()
             ->end()

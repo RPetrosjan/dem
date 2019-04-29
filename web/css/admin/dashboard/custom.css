@@ -11,6 +11,15 @@
     color: #141415;
 }
 
+.table-responsive{
+    overflow: inherit;
+}
+.grouplabel{
+    margin-top: 19px;
+    display: inline-block;
+    width: 100%;
+    background-color: #ededed;
+}
 .skin-black .sidebar-menu > li > a{
     border-left: none;
     cursor: inherit;

@@ -9,51 +9,101 @@ trait DevisCustomConfig
     /**
      * @var bool
      *
-     * @ORM\Column(name="passge_fenetre", type="boolean")
+     * @ORM\Column(name="passge_fenetre1", type="boolean")
      */
-    private $passagefenetre;
+    private $passagefenetre1;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="portage", type="boolean")
+     * @ORM\Column(name="portage1", type="boolean")
      */
-    private $portage;
+    private $portage1;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="digicode", type="boolean")
+     * @ORM\Column(name="digicode1", type="boolean")
      */
-    private $digicode;
+    private $digicode1;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="monte_meubles", type="boolean")
+     * @ORM\Column(name="monte_meubles1", type="boolean")
      */
-    private $montemeubles;
+    private $montemeubles1;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="transbordement", type="boolean")
+     * @ORM\Column(name="transbordement1", type="boolean")
      */
-    private $transbordement;
+    private $transbordement1;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="stationement", type="boolean")
+     * @ORM\Column(name="stationement1", type="boolean")
      */
-    private $stationement;
+    private $stationement1;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nature", type="string", length=64, nullable=true)
+     * @ORM\Column(name="nature1", type="string", length=64, nullable=true)
      */
-    private $nature;
+    private $nature1;
+
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="passge_fenetre2", type="boolean")
+     */
+    private $passagefenetre2;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="portage2", type="boolean")
+     */
+    private $portage2;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="digicode2", type="boolean")
+     */
+    private $digicode2;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="monte_meubles2", type="boolean")
+     */
+    private $montemeubles2;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="transbordement2", type="boolean")
+     */
+    private $transbordement2;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="stationement2", type="boolean")
+     */
+    private $stationement2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nature2", type="string", length=64, nullable=true)
+     */
+    private $nature2;
 
     /**
      * @var string
@@ -67,125 +117,243 @@ trait DevisCustomConfig
      */
     public function DevisCustomTraitConstruct()
     {
-        $this->passagefenetre = false;
-        $this->portage = false;
-        $this->digicode = false;
-        $this->montemeubles = false;
-        $this->transbordement = false;
-        $this->stationement = false;
-    }
+        $this->passagefenetre1 = false;
+        $this->portage1 = false;
+        $this->digicode1 = false;
+        $this->montemeubles1 = false;
+        $this->transbordement1 = false;
+        $this->stationement1 = false;
 
-
-    /**
-     * @return bool
-     */
-    public function isPassagefenetre()
-    {
-        return $this->passagefenetre;
-    }
-
-    /**
-     * @param bool $passagefenetre
-     */
-    public function setPassagefenetre($passagefenetre)
-    {
-        $this->passagefenetre = $passagefenetre;
+        $this->passagefenetre2 = false;
+        $this->portage2 = false;
+        $this->digicode2 = false;
+        $this->montemeubles2 = false;
+        $this->transbordement2 = false;
+        $this->stationement2 = false;
     }
 
     /**
      * @return bool
      */
-    public function isPortage()
+    public function isPassagefenetre1()
     {
-        return $this->portage;
+        return $this->passagefenetre1;
     }
 
     /**
-     * @param bool $portage
+     * @param bool $passagefenetre1
      */
-    public function setPortage($portage)
+    public function setPassagefenetre1($passagefenetre1)
     {
-        $this->portage = $portage;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDigicode()
-    {
-        return $this->digicode;
-    }
-
-    /**
-     * @param bool $digicode
-     */
-    public function setDigicode($digicode)
-    {
-        $this->digicode = $digicode;
+        $this->passagefenetre1 = $passagefenetre1;
     }
 
     /**
      * @return bool
      */
-    public function isMontemeubles()
+    public function isPortage1()
     {
-        return $this->montemeubles;
+        return $this->portage1;
     }
 
     /**
-     * @param bool $montemeubles
+     * @param bool $portage1
      */
-    public function setMontemeubles($montemeubles)
+    public function setPortage1($portage1)
     {
-        $this->montemeubles = $montemeubles;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isTransbordement()
-    {
-        return $this->transbordement;
-    }
-
-    /**
-     * @param bool $transbordement
-     */
-    public function setTransbordement($transbordement)
-    {
-        $this->transbordement = $transbordement;
+        $this->portage1 = $portage1;
     }
 
     /**
      * @return bool
      */
-    public function isStationement()
+    public function isDigicode1()
     {
-        return $this->stationement;
+        return $this->digicode1;
     }
 
     /**
-     * @param bool $stationement
+     * @param bool $digicode1
      */
-    public function setStationement($stationement)
+    public function setDigicode1($digicode1)
     {
-        $this->stationement = $stationement;
+        $this->digicode1 = $digicode1;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMontemeubles1()
+    {
+        return $this->montemeubles1;
+    }
+
+    /**
+     * @param bool $montemeubles1
+     */
+    public function setMontemeubles1($montemeubles1)
+    {
+        $this->montemeubles1 = $montemeubles1;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTransbordement1()
+    {
+        return $this->transbordement1;
+    }
+
+    /**
+     * @param bool $transbordement1
+     */
+    public function setTransbordement1($transbordement1)
+    {
+        $this->transbordement1 = $transbordement1;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStationement1()
+    {
+        return $this->stationement1;
+    }
+
+    /**
+     * @param bool $stationement1
+     */
+    public function setStationement1($stationement1)
+    {
+        $this->stationement1 = $stationement1;
     }
 
     /**
      * @return string
      */
-    public function getNature()
+    public function getNature1()
     {
-        return $this->nature;
+        return $this->nature1;
     }
 
     /**
-     * @param string $nature
+     * @param string $nature1
      */
-    public function setNature($nature)
+    public function setNature1($nature1)
     {
-        $this->nature = $nature;
+        $this->nature1 = $nature1;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPassagefenetre2()
+    {
+        return $this->passagefenetre2;
+    }
+
+    /**
+     * @param bool $passagefenetre2
+     */
+    public function setPassagefenetre2($passagefenetre2)
+    {
+        $this->passagefenetre2 = $passagefenetre2;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPortage2()
+    {
+        return $this->portage2;
+    }
+
+    /**
+     * @param bool $portage2
+     */
+    public function setPortage2($portage2)
+    {
+        $this->portage2 = $portage2;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDigicode2()
+    {
+        return $this->digicode2;
+    }
+
+    /**
+     * @param bool $digicode2
+     */
+    public function setDigicode2($digicode2)
+    {
+        $this->digicode2 = $digicode2;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMontemeubles2()
+    {
+        return $this->montemeubles2;
+    }
+
+    /**
+     * @param bool $montemeubles2
+     */
+    public function setMontemeubles2($montemeubles2)
+    {
+        $this->montemeubles2 = $montemeubles2;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTransbordement2()
+    {
+        return $this->transbordement2;
+    }
+
+    /**
+     * @param bool $transbordement2
+     */
+    public function setTransbordement2($transbordement2)
+    {
+        $this->transbordement2 = $transbordement2;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStationement2()
+    {
+        return $this->stationement2;
+    }
+
+    /**
+     * @param bool $stationement2
+     */
+    public function setStationement2($stationement2)
+    {
+        $this->stationement2 = $stationement2;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNature2()
+    {
+        return $this->nature2;
+    }
+
+    /**
+     * @param string $nature2
+     */
+    public function setNature2($nature2)
+    {
+        $this->nature2 = $nature2;
     }
 
     /**
