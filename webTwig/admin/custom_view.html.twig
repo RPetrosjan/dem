@@ -3,7 +3,7 @@
 
     {% include '@SonataCore/FlashMessage/render.html.twig' %}
 
-    {% form_theme form 'admin/demandedevis/form/fields.html.twig' %}
+
 
     {#
     {{ dump(form.children.group1.vars.attr.icon) }}
@@ -35,7 +35,8 @@
 
      {%
       #}
-
+     {% if form is defined %}
+         {% form_theme form 'admin/demandedevis/form/fields.html.twig' %}
     {{ form_start(form) }}
 
     {% for child in form.children %}
@@ -67,5 +68,7 @@
     {% endif %}
     {{ form_end(form) }}
     <div>
+
+        {% endif %}
 
 {% endblock %}

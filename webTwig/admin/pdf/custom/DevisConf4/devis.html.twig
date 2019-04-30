@@ -3,7 +3,7 @@
 
 <table style="margin-top: 20px;">
     <tr>
-        <td>Madame,<br/><br/>Suite à votre demande, veuillez trouver ci-après un devis concernant votre déménagement, ainsi que le détail de la prestation <b>Economique.</b></td>
+        <td>Madame,<br/><br/>Suite à votre demande, veuillez trouver ci-après un devis concernant votre déménagement, ainsi que le détail de la prestation <b>{{ devisConfig.prestation }}.</b></td>
     </tr>
 </table>
 
@@ -59,11 +59,13 @@
 </table>
 
 <b style="text-decoration: underline" class="colorBlue">Afin de confimer votre déménagement, vous devez nous faire parvenir :</b>
-
+    {% set pricetva =  (devisConfig.tva * devisConfig.prixht) / 100  %}
+    {% set pricettc =  pricetva + devisConfig.prixht  %}
+    {% set priceAccompte = (devisConfig.acompte * pricettc) / 100  %}
 <ul style="font-size: 13px">
     <li>Votre devis signé et daté.</li>
     <li>Les conditions générales de ventes en piéce jointe avec la date et votre signature.</li>
-    <li>Votre chèque d’arrhes d’un montant de 623.10 € à l'ordre de DEMENAGEMENTS SERVICE FRANCE.</li>
+    <li>Votre chèque d’arrhes d’un montant de {{ priceAccompte|number_format(2, ',', '') }} € à l'ordre de DEMENAGEMENTS SERVICE FRANCE.</li>
     <li>Votre déclaration de valeur complétée.</li>
 </ul>
 
@@ -76,12 +78,12 @@
     <table style="margin-top: 30px; width: 100%;">
         <tr>
             <td style="width: 450px">
-                <b>VANEL Noel<br/>
+                <b>{{ societeInfo.firstName }} {{ societeInfo.lastName }}<br/>
                 Le service commercial<br/>
-                <span class="colorBlue">DEMENAGEMENT SERVICE PICARDIE</span></b><br/>
-                <span class="colorRed">Téléphone :</span> 09.63.66.47.54 / 04.75.85.47.54<br/>
-                <span class="colorRed">Portable :</span> 07.69.10.79.94<br/>
-                <span class="colorRed">Email: demservice.france@gmail.com</span>
+                <span class="colorBlue">{{ societeInfo.companyName }}</span></b><br/>
+                <span class="colorRed">Téléphone :</span> {{ societeInfo.tel }}<br/>
+                <span class="colorRed">Portable :</span> {{ societeInfo.mobile }}<br/>
+                <span class="colorRed">Email: {{ societeInfo.companyEmail }}</span>
 
             </td>
             <td style="text-align: right">
@@ -93,22 +95,24 @@
 {% endblock %}
 
 {% block addPage %}
-
+    {% set pricetva =  (devisConfig.tva * devisConfig.prixht) / 100  %}
+    {% set pricettc =  pricetva + devisConfig.prixht  %}
+    {% set priceAccompte = (devisConfig.acompte * pricettc) / 100  %}
     {{ include ('admin/pdf/custom/DevisConf4/block/top.html.twig') }}
     {% block addPagebody %}
         <table class="aligncenter" style="width: 100%; margin-top: 30px;" cellpadding="0" cellspacing="0">
             <tr class="tdbottom">
-                <td class="backgray colorBlue" style="width: 12.5%; border-left: 1px black solid;">Client n°</td><td style="width: 12.5%;">190300091</td>
-                <td class="backgray colorBlue" style="width: 12.5%;">Devis n°</td><td style="width: 12.5%;">1900098/1</td>
-                <td class="backgray colorBlue" style="width: 12.5%;">Date</td><td style="width: 12.5%;">14/03/2019</td>
-                <td class="backgray colorBlue" style="width: 12.5%;">Validité</td><td style="width: 12.5%;">14/04/2019</td>
+                <td class="backgray colorBlue" style="width: 12.5%; border-left: 1px black solid;">Client n°</td><td style="width: 12.5%;">{{ devisConfig.client }}</td>
+                <td class="backgray colorBlue" style="width: 12.5%;">Devis n°</td><td style="width: 12.5%;">{{ devisConfig.devisnumber }}</td>
+                <td class="backgray colorBlue" style="width: 12.5%;">Date</td><td style="width: 12.5%;">{{ devisInfo.CreatedDate|date("m/d/Y") }}</td>
+                <td class="backgray colorBlue" style="width: 12.5%;">Validité</td><td style="width: 12.5%;">{{ devisInfo.CreatedDate|date_modify("+ "~devisConfig.valable~" month")|date("d/m/Y") }}</td>
 
             </tr>
             <tr class="notbtop">
-                <td class="backgray colorBlue" style="border-left: 1px black solid;">Volume</td><td>35 m3</td>
-                <td class="backgray colorBlue">Distance</td><td>258 km</td>
-                <td class="backgray colorBlue">Nature</td><td>Organisé</td>
-                <td class="backgray colorBlue">Prestation</td><td>Economique</td>
+                <td class="backgray colorBlue" style="border-left: 1px black solid;">Volume</td><td>{{ devisInfo.volume }} m3</td>
+                <td class="backgray colorBlue">Distance</td><td>{{ devisConfig.distance }}</td>
+                <td class="backgray colorBlue">Nature</td><td>{{ devisConfig.nature1 }}</td>
+                <td class="backgray colorBlue">Prestation</td><td>{{ devisConfig.prestation }}</td>
             </tr>
         </table>
 
@@ -120,20 +124,20 @@
             </tr>
             <tr>
                 <td class="backgray borderleft bordertop borderright" style="padding-top: 10px; padding-bottom: 10px; padding-right: 5px; text-align: right"><b class="colorBlue">Période</b></td>
-                <td style="padding-left: 5px">Du 25/03/2019 au 26/03/2019</td>
-                <td class="borderleft borderright" style="padding-left: 5px">Du 25/03/2019 au 26/03/2019
+                <td style="padding-left: 5px">Du {{ devisInfo.date1 }} au {{ devisInfo.date2 }}</td>
+                <td class="borderleft borderright" style="padding-left: 5px">Du {{ devisInfo.date1 }} au {{ devisInfo.date2 }}
                 </td>
             </tr>
 
             <tr>
                 <td class="backgray borderleft borderright" style="padding-top: 10px; padding-bottom: 10px; padding-right: 5px; text-align: right"><b class="colorBlue">Adresse</b></td>
-                <td style="padding-left: 5px">62 AVENUE DE VERDUN<br/>26000 VALENCE<br/>FRANCE</td>
-                <td class="borderleft borderright" style="padding-left: 5px">35 AV. DU DOCTEUR BESSERVE<br/>63430 PONT-DU-CHÂTEAU<br/>FRANCE</td>
+                <td style="padding-left: 5px">{{ devisInfo.adresse1 }}<br/>{{ devisInfo.cp1 }} {{ devisInfo.ville1 }}<br/>{{ devisInfo.pays1 }}</td>
+                <td class="borderleft borderright" style="padding-left: 5px">{{ devisInfo.adresse2 }}<br/>{{ devisInfo.cp2 }} {{ devisInfo.ville2 }}<br/>{{ devisInfo.pays2 }}</td>
             </tr>
             <tr>
                 <td class="backgray borderleft borderright" style="padding-top: 10px; padding-bottom: 10px; padding-right: 5px; text-align: right"><b class="colorBlue">Téléphone</b></td>
-                <td style="padding-left: 5px">06.28.80.60.61 </td>
-                <td class="borderleft borderright" style="padding-left: 5px">06.28.80.60.61 </td>
+                <td style="padding-left: 5px">{{ devisInfo.telephone }} </td>
+                <td class="borderleft borderright" style="padding-left: 5px">{{ devisInfo.telephone }} </td>
             </tr>
 
             <tr>
@@ -143,27 +147,27 @@
                     <table cellpadding="0" cellspacing="0">
                         <tr>
                             <td style="width: 70px"><b class="colorBlue">Etage</b></td>
-                            <td style="width: 20px; padding-left: 5px;">4</td>
+                            <td style="width: 20px; padding-left: 5px;">{{ devisInfo.etage1 }}</td>
                             <td style="width: 70px"><b class="colorBlue">Digicode</b></td>
-                            <td style="width: 20px; padding-left: 5px;">Oui</td>
+                            <td style="width: 20px; padding-left: 5px;">{{ devisConfig.digicode1 ? 'Oui' : 'Non' }}</td>
                         </tr>
                         <tr>
                             <td><b class="colorBlue">Ascenseur</b></td>
-                            <td style="padding-left: 5px">Non</td>
+                            <td style="padding-left: 5px">{{ devisInfo.ascenseur1 }}</td>
                             <td><b class="colorBlue">Monte-meubles</b></td>
-                            <td style="padding-left: 5px">Non</td>
+                            <td style="padding-left: 5px">{{ devisConfig.montemeubles1 ? 'Oui' : 'Non' }}</td>
                         </tr>
                         <tr>
                             <td><b class="colorBlue">Passage fenêtre</b></td>
-                            <td style="padding-left: 5px">Non</td>
+                            <td style="padding-left: 5px">{{ devisConfig.passagefenetre1 ? 'Oui' : 'Non' }}</td>
                             <td><b class="colorBlue">Transbordement</b></td>
-                            <td style="padding-left: 5px">Non</td>
+                            <td style="padding-left: 5px">{{ devisConfig.transbordement1 ? 'Oui' : 'Non' }}</td>
                         </tr>
                         <tr>
                             <td><b class="colorBlue">Portage</b></td>
-                            <td style="padding-left: 5px">Non</td>
+                            <td style="padding-left: 5px">{{ devisConfig.portage1 ? 'Oui' : 'Non' }}</td>
                             <td><b class="colorBlue">Stationnement</b></td>
-                            <td style="padding-left: 5px">Non</td>
+                            <td style="padding-left: 5px">{{ devisConfig.stationement1 ? 'Oui' : 'Non' }}</td>
                         </tr>
                     </table>
 
@@ -173,27 +177,27 @@
                     <table cellpadding="0" cellspacing="0">
                         <tr>
                             <td style="width: 70px"><b class="colorBlue">Etage</b></td>
-                            <td style="width: 20px; padding-left: 5px;">1</td>
+                            <td style="width: 20px; padding-left: 5px;">{{ devisInfo.etage2 }}</td>
                             <td style="width: 70px"><b class="colorBlue">Digicode</b></td>
-                            <td style="width: 20px; padding-left: 5px;">Oui</td>
+                            <td style="width: 20px; padding-left: 5px;">{{ devisConfig.digicode2 ? 'Oui' : 'Non' }}</td>
                         </tr>
                         <tr>
                             <td><b class="colorBlue">Ascenseur</b></td>
-                            <td style="padding-left: 5px">Non</td>
+                            <td style="padding-left: 5px">{{ devisInfo.ascenseur2 }}</td>
                             <td><b class="colorBlue">Monte-meubles</b></td>
-                            <td style="padding-left: 5px">Non</td>
+                            <td style="padding-left: 5px">{{ devisConfig.montemeubles2 ? 'Oui' : 'Non' }}</td>
                         </tr>
                         <tr>
                             <td><b class="colorBlue">Passage fenêtre</b></td>
-                            <td style="padding-left: 5px">Non</td>
+                            <td style="padding-left: 5px">{{ devisConfig.passagefenetre2 ? 'Oui' : 'Non' }}</td>
                             <td><b class="colorBlue">Transbordement</b></td>
-                            <td style="padding-left: 5px">Non</td>
+                            <td style="padding-left: 5px">{{ devisConfig.transbordement2 ? 'Oui' : 'Non' }}</td>
                         </tr>
                         <tr>
                             <td><b class="colorBlue">Portage</b></td>
-                            <td style="padding-left: 5px">Non</td>
+                            <td style="padding-left: 5px">{{ devisConfig.portage2 ? 'Oui' : 'Non' }}</td>
                             <td><b class="colorBlue">Stationnement</b></td>
-                            <td style="padding-left: 5px">Non</td>
+                            <td style="padding-left: 5px">{{ devisConfig.stationement2 ? 'Oui' : 'Non' }}</td>
                         </tr>
                     </table>
 
@@ -216,35 +220,35 @@
                 <td class="borderright" style="text-align: right; padding-right: 5px;">83.33 €</td>
             </tr>
             <tr>
-                <td class="borderleft" style="padding-top: 50px; padding-left:5px;"><b class="colorBlue">Garantie Dommage pour une valeur de 10 000.00 €</b></td>
+                <td class="borderleft" style="padding-top: 50px; padding-left:5px;"><b class="colorBlue">Garantie Dommage pour une valeur de {{ devisConfig.valglobale|number_format(2, ',', '') }} €</b></td>
                 <td class="borderright" style="text-align: right"></td>
             </tr>
             <tr>
                 <td class="backgray bordertop borderleft borderright" style="width: 70%; padding-right: 5px; text-align: right; padding-top: 5px; padding-bottom: 5px;" ><b class="colorBlue">TOTAL HT</b></td>
-                <td class="bordertop borderright" style="width: 30%; padding-right: 5px; text-align: right">1 730.83 €</td>
+                <td class="bordertop borderright" style="width: 30%; padding-right: 5px; text-align: right">{{ devisConfig.prixht|number_format(2, ',', '') }} €</td>
             </tr>
             <tr>
                 <td class="backgray borderleft borderright" style="width: 70%; padding-right: 5px; text-align: right; padding-top: 5px; padding-bottom: 5px;" ><b class="colorBlue">Montant TVA</b></td>
-                <td class="borderright" style="width: 30%; padding-right: 5px; text-align: right">346.17 €</td>
+                <td class="borderright" style="width: 30%; padding-right: 5px; text-align: right">{{ pricetva|number_format(2, ',', '') }} €</td>
             </tr>
             <tr>
                 <td class="backgray borderleft borderright" style="width: 70%; padding-right: 5px; text-align: right; padding-top: 5px; padding-bottom: 5px;" ><b class="colorBlue">Total TTC</b></td>
-                <td class="borderright" style="width: 30%; padding-right: 5px; text-align: right"><b>2 077.00 €</b></td>
+                <td class="borderright" style="width: 30%; padding-right: 5px; text-align: right"><b>{{ pricettc|number_format(2, ',', '') }} €</b></td>
             </tr>
 
             <tr>
-                <td class="backgray borderleft borderright borderbottom" style="width: 70%; padding-right: 5px; text-align: right; padding-top: 5px; padding-bottom: 5px;" ><b class="colorBlue">30% d'arrhes à la commande, Solde à la livraison</b></td>
-                <td class="borderright borderbottom" style="width: 30%; padding-right: 5px; text-align: right"><b>623.10 €</b></td>
+                <td class="backgray borderleft borderright borderbottom" style="width: 70%; padding-right: 5px; text-align: right; padding-top: 5px; padding-bottom: 5px;" ><b class="colorBlue">{{ devisConfig.acompte }}% d'arrhes à la commande, Solde à la livraison</b></td>
+                <td class="borderright borderbottom" style="width: 30%; padding-right: 5px; text-align: right"><b>{{ priceAccompte|number_format(2, ',', '') }} €</b></td>
             </tr>
         </table>
 
         <div style="text-align: center"><b>En cas de difficultés non signalées (art. 1 des conditions générales) un supplément sera appliqué.</b></div>
         <div style="margin-top: 20px;">En accord avec les termes de ce présent devis et de nos conditions générales de vente ci-jointes, nous vous prions de bien vouloir
-            nous retourner ces documents signés et accompagnés du chèque d'arrhes (623.10 €) afin de confirmer votre déménagement. Le
+            nous retourner ces documents signés et accompagnés du chèque d'arrhes ({{ priceAccompte|number_format(2, ',', '') }} €) afin de confirmer votre déménagement. Le
             solde sera à régler à la livraison de votre mobilier.</div>
 
         <div style="margin-top: 30px; text-align: left; padding-left: 350px;">
-            <b class="colorBlue">Fait à Bourg les Valence, le 17/04/2019<br/>
+            <b class="colorBlue">Fait à Bourg les Valence, le {{ devisInfo.CreatedDate|date("m/d/Y") }}<br/>
                 Signature du client:
             </b>
         </div>

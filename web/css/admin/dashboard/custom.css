@@ -11,6 +11,28 @@
     color: #141415;
 }
 
+
+.sonata-collection-row .form-group {
+    border-top: none;
+    padding-bottom: 0px;
+}
+
+.sonata-collection-row .sonata-ba-field.sonata-ba-field-standard-natural {
+    width: 100%;
+}
+.sonata-collection-row .row{
+    background-color: #f4f4f4;
+    margin-bottom: 10px;
+}
+
+.sonata-collection-row .row a.btn-link, .sonata-collection-add, .sonata-collection-add:hover{
+    background-color: #024928;
+    margin-top: 12px
+}
+.sonata-collection-row .row i.fa, .sonata-collection-add>i.fa{
+    color: white;
+}
+
 .table-responsive{
     overflow: inherit;
 }

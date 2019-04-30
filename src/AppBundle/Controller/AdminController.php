@@ -395,7 +395,7 @@ class AdminController extends Controller
 
         /// pdfGenerate($devis, array $devisconfig, User $societe, $type_df, $type_output, array $twig_custom = null) {
 
-        return $this->container->get('pdf.devis.generator')->pdfGenerate($devis, null, $this->getUserEntity(), $type, 'I');
+        return $this->container->get('pdf.devis.generator')->pdfGenerate($devis, null, $this->getUserEntity(), $type, 'I', null, $this->tokenStorage->getToken()->getUser());
     }
 
     /**
@@ -497,6 +497,7 @@ class AdminController extends Controller
         ));
     }
 
+
     /**
      * @Route("espace/app/devisconfig", name="devisconfig")
      * @param Request $request
@@ -505,25 +506,21 @@ class AdminController extends Controller
      */
     public function DevisConfigPages(Request $request){
 
+
         //Check if user have DevisConfig in DataBase
         /** @var DevisConfig $devisConfig */
-        $devisConfig = current($this->getDoctrine()
+        $devisConfig = $this->getDoctrine()
             ->getRepository(DevisConfig::class)
-            ->findBy([
+            ->findOneBy([
                 'user_id' => $this->userEntity,
-            ]));
+            ]);
+
 
         if(empty($devisConfig)) {
             $devisConfig = new DevisConfig();
         }
 
-
         $load_class = DevisConfigForm::class;
-        if(!is_null($this->userEntity->getDevisPersonelle())) {
-            $class = $this->userEntity->getDevisPersonelle();
-            $load_class = "AppBundle\Form\Custom\\".$class;
-        }
-
 
         /** @var Form $devisConfigForm */
         $devisConfigForm = $this->createForm($load_class, $devisConfig, [

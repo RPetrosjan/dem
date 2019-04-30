@@ -47,6 +47,11 @@ class User extends BaseUser
     private $id_devis_envoye;
 
     /**
+     * @ORM\OneToMany(targetEntity="PrestationCustom", mappedBy="user_id")
+     */
+    private $id_mes_prestation;
+
+    /**
      * @ORM\ManyToOne(targetEntity="User", cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(name="parent_user_id", referencedColumnName="id")
      */
@@ -617,6 +622,22 @@ class User extends BaseUser
     public function setDevisPersonelle($devisPersonelle)
     {
         $this->devisPersonelle = $devisPersonelle;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdMesPrestation()
+    {
+        return $this->id_mes_prestation;
+    }
+
+    /**
+     * @param mixed $id_mes_prestation
+     */
+    public function setIdMesPrestation($id_mes_prestation)
+    {
+        $this->id_mes_prestation = $id_mes_prestation;
     }
 
 

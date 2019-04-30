@@ -33,6 +33,7 @@ class DevisConf4 extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
          $builder
             ->add(
                 $builder->create('group1', FormType::class, [

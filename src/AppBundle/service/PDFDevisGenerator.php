@@ -124,7 +124,7 @@ class PDFDevisGenerator
      * @return string
      * @throws \Twig\Error\Error
      */
-    public function pdfGenerate($devis, array $devisConfig = null, User $societe, $type_df, $type_output, array $twig_custom = null) {
+    public function pdfGenerate($devis, array $devisConfig = null, User $societe, $type_df, $type_output, array $twig_custom = null, User $childUser = null) {
 
         $array_pdf = [
             'lettre_dechargement' => 'admin/pdf/standard/lettre_dechargement.html.twig',
@@ -134,9 +134,6 @@ class PDFDevisGenerator
             'condition_generale' => 'admin/pdf/standard/condition_generale.html.twig',
             'declaration_valeur' => 'admin/pdf/standard/declaration_valeur.html.twig',
         ];
-
-
-
 
         //Check if user enabled custom pdf show
         $custom_twig_company = [];
@@ -164,10 +161,14 @@ class PDFDevisGenerator
             $devisNumber = $devisConfig['devisnumber'];
         }
 
+       //dump($childUser, $societe, $devisConfig, $devis);
+       //exit();
+
         $htmlRender = $this->container->get('templating')->render($template, [
             'devisConfig' => $devisConfig,
             'devisInfo' => $devis,
-            'societeInfo' => $societe
+            'societeInfo' => $societe,
+            'childUser' => $childUser
         ]);
 
         $logo_societe = $this->parent->getProjectDir().'\web\image\\'.$societe->getPath().'\\'.substr($societe->filename, 0, strpos($societe->filename, "?"));

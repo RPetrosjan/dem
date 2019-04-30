@@ -140,6 +140,20 @@ services:
               group: 'Web'
         public: true
 
+    admin.prestation:
+        class: AppBundle\Admin\PrestationCustomAdmin
+        arguments:
+          - ~
+          - AppBundle\Entity\PrestationCustom
+          - ~
+          - '@service_container'
+        tags:
+          - name: sonata.admin
+            manager_type: orm
+            route: '/prestationcustom'
+            label:  personal.prestation
+            group: 'parametres'
+        public: true
 
     admin.soustraitance:
         class: AppBundle\Admin\SousTraitanceAdmin

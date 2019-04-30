@@ -233,6 +233,8 @@ sonata_admin:
                      label:        devis.tarification
                      roles:        [ROLE_SOCIETE]
 
+                   - admin.prestation
+
             mon_compte:
                 keep_open:          true
                 label:              Mon Compte
