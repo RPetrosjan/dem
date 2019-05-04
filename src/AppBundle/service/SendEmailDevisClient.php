@@ -86,7 +86,6 @@ class SendEmailDevisClient
 
         if(sizeof($files)>0) {
             foreach ($files as $title=>$file) {
-                dump($title);
                 $attachment = new Swift_Attachment($file, $title, 'application/pdf');
                 $message->attach($attachment);
             }
