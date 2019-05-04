@@ -276,8 +276,8 @@ class DevisConf4 extends AbstractType
                     ->add('passagefenetre1',ChoiceType::class, [
                         'label' => $this->translator->trans('passage.fenetre'),
                         'choices'  => [
-                            'Oui' => 0,
-                            'Non' => 1,
+                            'Oui' => 1,
+                            'Non' => 0,
                         ],
                         'data' => $options['data']->isPassagefenetre1(),
                         'attr' => [
@@ -290,8 +290,8 @@ class DevisConf4 extends AbstractType
                     ->add('digicode1',ChoiceType::class, [
                         'label' => $this->translator->trans('digicode'),
                         'choices'  => [
-                            'Oui' => 0,
-                            'Non' => 1,
+                            'Oui' => 1,
+                            'Non' => 0,
                         ],
                         'data' => $options['data']->isDigicode1(),
                         'attr' => [
@@ -303,8 +303,8 @@ class DevisConf4 extends AbstractType
                     ->add('portage1',ChoiceType::class, [
                         'label' => $this->translator->trans('portage'),
                         'choices'  => [
-                            'Oui' => 0,
-                            'Non' => 1,
+                            'Oui' => 1,
+                            'Non' => 0,
                         ],
                         'data' => $options['data']->isPortage1(),
                         'attr' => [
@@ -316,8 +316,8 @@ class DevisConf4 extends AbstractType
                     ->add('montemeubles1',ChoiceType::class, [
                         'label' => $this->translator->trans('montemeubles'),
                         'choices'  => [
-                            'Oui' => 0,
-                            'Non' => 1,
+                            'Oui' => 1,
+                            'Non' => 0,
                         ],
                         'data' => $options['data']->isMontemeubles1(),
                         'attr' => [
@@ -329,8 +329,8 @@ class DevisConf4 extends AbstractType
                     ->add('transbordement1',ChoiceType::class, [
                         'label' => $this->translator->trans('transbordement'),
                         'choices'  => [
-                            'Oui' => 0,
-                            'Non' => 1,
+                            'Oui' => 1,
+                            'Non' => 0,
                         ],
                         'data' => $options['data']->isTransbordement1(),
                         'attr' => [
@@ -342,8 +342,8 @@ class DevisConf4 extends AbstractType
                     ->add('stationement1',ChoiceType::class, [
                         'label' => $this->translator->trans('stationement'),
                         'choices'  => [
-                            'Oui' => 0,
-                            'Non' => 1,
+                            'Oui' => 1,
+                            'Non' => 0,
                         ],
                         'data' => $options['data']->isStationement1(),
                         'attr' => [
@@ -368,8 +368,8 @@ class DevisConf4 extends AbstractType
                     ->add('passagefenetre2',ChoiceType::class, [
                         'label' => $this->translator->trans('passage.fenetre'),
                         'choices'  => [
-                            'Oui' => 0,
-                            'Non' => 1,
+                            'Oui' => 1,
+                            'Non' => 0,
                         ],
                         'data' => $options['data']->isPassagefenetre2(),
                         'attr' => [
@@ -382,8 +382,8 @@ class DevisConf4 extends AbstractType
                     ->add('digicode2',ChoiceType::class, [
                         'label' => $this->translator->trans('digicode'),
                         'choices'  => [
-                            'Oui' => 0,
-                            'Non' => 1,
+                            'Oui' => 1,
+                            'Non' => 0,
                         ],
                         'data' => $options['data']->isDigicode2(),
                         'attr' => [
@@ -395,8 +395,8 @@ class DevisConf4 extends AbstractType
                     ->add('portage2',ChoiceType::class, [
                         'label' => $this->translator->trans('portage'),
                         'choices'  => [
-                            'Oui' => 0,
-                            'Non' => 1,
+                            'Oui' => 1,
+                            'Non' => 0,
                         ],
                         'data' => $options['data']->isPortage2(),
                         'attr' => [
@@ -408,8 +408,8 @@ class DevisConf4 extends AbstractType
                     ->add('montemeubles2',ChoiceType::class, [
                         'label' => $this->translator->trans('montemeubles'),
                         'choices'  => [
-                            'Oui' => 0,
-                            'Non' => 1,
+                            'Oui' => 1,
+                            'Non' => 0,
                         ],
                         'data' => $options['data']->isMontemeubles2(),
                         'attr' => [
@@ -421,8 +421,8 @@ class DevisConf4 extends AbstractType
                     ->add('transbordement2',ChoiceType::class, [
                         'label' => $this->translator->trans('transbordement'),
                         'choices'  => [
-                            'Oui' => 0,
-                            'Non' => 1,
+                            'Oui' => 1,
+                            'Non' => 0,
                         ],
                         'data' => $options['data']->isTransbordement2(),
                         'attr' => [
@@ -434,8 +434,8 @@ class DevisConf4 extends AbstractType
                     ->add('stationement2',ChoiceType::class, [
                         'label' => $this->translator->trans('stationement'),
                         'choices'  => [
-                            'Oui' => 0,
-                            'Non' => 1,
+                            'Oui' => 1,
+                            'Non' => 0,
                         ],
                         'data' => $options['data']->isStationement2(),
                         'attr' => [
