@@ -141,19 +141,20 @@ trait DevisCustomConfig
      */
     public function DevisCustomTraitConstruct()
     {
-        $this->passagefenetre1 = false;
-        $this->portage1 = false;
-        $this->digicode1 = false;
-        $this->montemeubles1 = false;
-        $this->transbordement1 = false;
-        $this->stationement1 = false;
+        // Oui = false Non = true
+        $this->passagefenetre1 = true;
+        $this->portage1 = true;
+        $this->digicode1 = true;
+        $this->montemeubles1 = true;
+        $this->transbordement1 = true;
+        $this->stationement1 = true;
 
-        $this->passagefenetre2 = false;
-        $this->portage2 = false;
-        $this->digicode2 = false;
-        $this->montemeubles2 = false;
-        $this->transbordement2 = false;
-        $this->stationement2 = false;
+        $this->passagefenetre2 = true;
+        $this->portage2 = true;
+        $this->digicode2 = true;
+        $this->montemeubles2 = true;
+        $this->transbordement2 = true;
+        $this->stationement2 = true;
     }
 
     /**

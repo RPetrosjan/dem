@@ -539,7 +539,7 @@ class MesDevisAdmin extends AbstractAdmin
         ]);
 
 
-        $userEntity = $container->get('security.token_storage')->getToken()->getUser();
+        $userEntity = $userEntityGroup = $container->get('security.token_storage')->getToken()->getUser();
         // We check if user have parent
         if(!is_null($userEntity->getParent())) {
             $userEntity = $userEntity->getParent();
@@ -551,7 +551,7 @@ class MesDevisAdmin extends AbstractAdmin
                 'user_id' => $userEntity,
             ]);
 
-        $this->loadSubmitForm($userEntity);
+        $this->loadSubmitForm($userEntity, $userEntityGroup);
 
         $showMapper
             ->tab($this->trans('Devis Info'), [

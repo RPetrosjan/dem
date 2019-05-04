@@ -57,15 +57,10 @@
 
     function MakeUrlPrevisualisation(jsonurl) {
 
-
         {% if admin.show.listdocs.options.attr.societecustom is not empty %}
         $('.devisPrev.js').html('' +
         {% for key, custom in admin.show.listdocs.options.attr.societecustom  %}
-
-
             '<a target="_blank" href="{{ pdf_url }}'+devisId+'/{{ key }}/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> {{ custom.Label }}</a>' +
-
-
         {#    <a target="_blank" href="{{ field_description.options.attr.url_devis}}{{ key }}"><i class="far fa-file-pdf"></i> {{ custom.Label }}</a> #}
         {% endfor %}
             '');

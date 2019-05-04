@@ -26,7 +26,7 @@ trait EstimationPrixSubmitForm
     /**
      * @param $userEntity
      */
-    public function loadSubmitForm($userEntity, $userEntityGroup) {
+    public function loadSubmitForm($userEntity, $userEntityGroup = null) {
 
         /** @var  $container */
         $container = $this->getConfigurationPool()->getContainer();
