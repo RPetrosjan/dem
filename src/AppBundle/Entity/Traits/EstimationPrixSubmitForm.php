@@ -128,6 +128,7 @@ trait EstimationPrixSubmitForm
             if(!empty($this->custom_twig_company)) {
                 $customFiles = $this->container->getParameter('DevisCustom')[$userEntity->getDevisPersonelle()]['FilesForSendClient'];
                 foreach ($customFiles as $key => $customFile) {
+
                     $files[$customFile['Label']] = $pdfGenerateService->pdfGenerate($devisenvoye, $devisconfig, $userEntity, $key, 'S');
                 }
             }
@@ -135,9 +136,9 @@ trait EstimationPrixSubmitForm
                 // Creating PDF Devis
                 $files['devis.pdf'] = $pdfGenerateService->pdfGenerate($devisenvoye, $devisconfig, $userEntity, 'devis', 'S');
                 //Creating PDF CondGenerlae
-                $files['condition_generale'] = $pdfGenerateService->pdfGenerate($devisenvoye, $devisconfig, $userEntity, 'condition_generale', 'S');
+                $files['condition_generale.pdf'] = $pdfGenerateService->pdfGenerate($devisenvoye, $devisconfig, $userEntity, 'condition_generale', 'S');
                 //Creating PDF Déclaration de valeur
-                $files['declaration_valeur'] = $pdfGenerateService->pdfGenerate($devisenvoye, $devisconfig, $userEntity, 'declaration_valeur', 'S');
+                $files['declaration_valeur.pdf'] = $pdfGenerateService->pdfGenerate($devisenvoye, $devisconfig, $userEntity, 'declaration_valeur', 'S');
             }
 
             $flashbag = $this->getRequest()->getSession()->getFlashBag();

@@ -4,26 +4,33 @@ parameters:
       EstimationPrixForm : 'AppBundle\Form\Custom\DevisConf4'
       FilesForSendClient:
          DevisPdf:
-            Label: 'Devis Conf4'
+            Label: 'Devis.pdf'
+            Type:  'application/pdf'
             Twig:  '/admin/pdf/custom/DevisConf4/devis.html.twig'
          DeclValeurPdf:
-            Label: 'Declaration Valeur Conf4'
+            Label: 'Declaration Valeur.pdf'
+            Type:  'application/pdf'
             Twig:  '/admin/pdf/custom/DevisConf4/declaration_de_valeur.html.twig'
          CondGeneralePdf:
-            Label: 'Condition Générale Conf4'
+            Label: 'Condition Générale.pdf'
+            Type:  'application/pdf'
             Twig:  '/admin/pdf/custom/DevisConf4/condition_generale.html.twig'
          ConseillesPdf:
-            Label: 'Conseilles Déménagement'
+            Label: 'Conseilles Déménagement.pdf'
+            Type:  'application/pdf'
             Twig:  '/admin/pdf/custom/DevisConf4/conseilles.html.twig'
       FilesForSendCompany:
          FacturePdf:
-            Label: 'Facture Conf4'
+            Label: 'Facture.pdf'
+            Type:  'application/pdf'
             Twig:  '/admin/pdf/custom/DevisConf4/facture.html.twig'
          LettreChargPdf:
-            Label: 'Lettre Chargement Conf4'
+            Label: 'Lettre Chargement.pdf'
+            Type:  'application/pdf'
             Twig:  '/admin/pdf/custom/DevisConf4/lettre_chargement.html.twig'
          LettreDechargPdf:
-            Label: 'Lettre Dechargement Conf4'
+            Label: 'Lettre Dechargement.pdf'
+            Type:  'application/pdf'
             Twig:  '/admin/pdf/custom/DevisConf4/lettre_dechargement.html.twig'
     DevisConf6:
       EstimationPrixForm : 'AppBundle\Form\Custom\DevisConf6'
