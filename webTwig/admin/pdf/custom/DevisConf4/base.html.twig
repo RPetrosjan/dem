@@ -1,26 +1,32 @@
 <style type="text/css">
     {{ include('admin/pdf/custom/DevisConf4/css/pdf.css') }}
 </style>
+{% block body %}
 <page class="body" backcolor="#FEFEFE">
-
-    {{ include ('admin/pdf/custom/DevisConf4/block/top.html.twig') }}
-
-    {% block body %}{% endblock %}
+    <page_header>
+        {{ include ('admin/pdf/custom/DevisConf4/block/top.html.twig') }}
+    </page_header>
     <page_footer>
         <div class="colorBlue" style="text-align: center; border-top: 2px black solid; padding-bottom: 20px;">
             DEMENAGEMENTS SERVICE FRANCE au capital de 2 000.00 € -<br/>
             SIRET: 83031828300017
         </div>
     </page_footer>
+
+
 </page>
+{% endblock %}
 {% block addPage %}
     <page>
-        {% block addPagebody %}{% endblock %}
+        <page_header>
+            {{ include ('admin/pdf/custom/DevisConf4/block/top.html.twig') }}
+        </page_header>
         <page_footer>
             <div class="colorBlue" style="text-align: center; border-top: 2px black solid; padding-bottom: 20px;">
                 DEMENAGEMENTS SERVICE FRANCE au capital de 2 000.00 € -<br/>
                 SIRET: 83031828300017
             </div>
         </page_footer>
+
     </page>
 {% endblock %}

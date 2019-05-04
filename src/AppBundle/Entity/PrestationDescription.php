@@ -32,6 +32,12 @@ class PrestationDescription
 
 
     /**
+     * @ORM\ManyToMany(targetEntity="PrestationCustom", mappedBy="descriptions")
+     */
+    private $custom_description;
+
+
+    /**
      * @return string
      */
     public function __toString(){
@@ -39,6 +45,23 @@ class PrestationDescription
         return $this->description;
 
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCustomDescription()
+    {
+        return $this->custom_description;
+    }
+
+    /**
+     * @param mixed $custom_description
+     */
+    public function setCustomDescription($custom_description)
+    {
+        $this->custom_description = $custom_description;
+    }
+
 
 
     /**

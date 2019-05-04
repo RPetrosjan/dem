@@ -3,6 +3,7 @@
 
 {% form_theme form 'admin/demandedevis/form/fields.html.twig' %}
 
+
 {{ form_start(form) }}
     <div class="box-body">
         {% block formrow %}
@@ -96,15 +97,16 @@
     }
 
 
-    // Convdert in jqeurt command line
+    // Convert in jqeurt command line
     var jquerytext = '';
     devislements.forEach(function (elements) {
-        jquerytext += "input[name*='"+elements+"'], ";
+        jquerytext += "[name*='"+elements+"'], ";
     });
     // Remove 2 last character
     jquerytext = jquerytext.substr(0,jquerytext.length-2);
+    console.log(jquerytext);
     // Activated all elements for jquery command keyup
-    $(jquerytext).keyup(function () {
+    $(jquerytext).on('keyup change', function () {
         // Calcul price
         UpdatePriceShow();
         createElementsUrl();

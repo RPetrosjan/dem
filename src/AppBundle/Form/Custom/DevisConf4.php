@@ -3,9 +3,9 @@
 
 namespace AppBundle\Form\Custom;
 
-
-
 use AppBundle\Entity\DevisEnvoye;
+use AppBundle\Entity\PrestationCustom;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -14,6 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class DevisConf4 extends AbstractType
@@ -21,19 +23,29 @@ class DevisConf4 extends AbstractType
     /** @var TranslatorInterface  */
     private $translator;
 
+    /** @var object|string  */
+    private $user;
+
+    /** @var EntityManagerInterface  */
+    private $em;
+
     /**
      * DevisConfigForm constructor.
      * @param TranslatorInterface $translator
+     * @param TokenStorage $token
+     * @param EntityManagerInterface $em
      */
-    public function __construct(TranslatorInterface $translator) {
+    public function __construct(TranslatorInterface $translator, EntityManagerInterface $em, TokenStorageInterface $token) {
 
         $this->translator = $translator;
+        $this->user = $token->getToken()->getUser();
+        $this->em = $em;
+
     }
 
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
          $builder
             ->add(
                 $builder->create('group1', FormType::class, [
@@ -58,6 +70,70 @@ class DevisConf4 extends AbstractType
 
                         ],
                     ])
+            )
+
+             ->add(
+                 $builder->create('group10', FormType::class, [
+                     'label' => false,
+                     'inherit_data' => true,
+                     'attr' => [
+                         'class' => 'col-md-12',
+
+                     ],
+
+                 ])
+
+                     ->add('userprestation', ChoiceType::class, [
+                         'label' => $this->translator->trans('votre.prestation'),
+                         'choices'  =>  $this->em->getRepository(PrestationCustom::class)->findUserPrestations($this->user),  // $this->em->getRepository(PrestationCustom::class)->findByCompetence(),
+                         'attr' => [
+                             'class' => 'form-control',
+                             'divclass' => 'col-md-4'
+                         ],
+                     ])
+
+             )
+
+            ->add(
+                $builder->create('group11', FormType::class, [
+                    'label' => false,
+                    'inherit_data' => true,
+                    'attr' => [
+                        'class' => 'col-md-12',
+
+                    ],
+
+                ])
+
+                    ->add('propositionforfaitaire',TextType::class, [
+                        'label' => $this->translator->trans('propositionforfaitaire'),
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4'
+                        ],
+                    ])
+
+                    ->add('decharge',TextType::class, [
+                        'label' => $this->translator->trans('decharge'),
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4'
+                        ],
+                    ])
+
+
+            )
+            ->add(
+                $builder->create('group2', FormType::class, [
+                    'label' => false,
+                    'inherit_data' => true,
+                    'attr' => [
+                        'class' => 'col-md-12',
+
+                    ],
+
+                ])
+
                     ->add('prixht',TextType::class, [
                         'label' => 'Prix HT €',
                         'attr' => [
@@ -82,17 +158,7 @@ class DevisConf4 extends AbstractType
                         'mapped' => false,
                     ])
 
-            )
-            ->add(
-                $builder->create('group2', FormType::class, [
-                    'label' => false,
-                    'inherit_data' => true,
-                    'attr' => [
-                        'class' => 'col-md-12',
 
-                    ],
-
-                ])
                     ->add('acompte',TextType::class, [
                         'label' => 'Acompte %',
                         'attr' => [
@@ -179,6 +245,22 @@ class DevisConf4 extends AbstractType
                         ],
                         'required' => false
                     ])
+
+                    ->add('nature1',ChoiceType::class, [
+                        'label' => $this->translator->trans('nature'),
+                        'choices'  => [
+                            'Organisé' => 'organise',
+                            'choix1' => 'choix1',
+                            'choix2' => 'choix2',
+                        ],
+                        'data' => $options['data']->getNature1() == null ? 'organise' : $options['data']->getNature1(),
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4'
+                        ],
+                        'required' => false,
+                    ])
+
             )
 
             ->add(
@@ -270,20 +352,7 @@ class DevisConf4 extends AbstractType
                         ],
                         'required' => false,
                     ])
-                    ->add('nature1',ChoiceType::class, [
-                        'label' => $this->translator->trans('nature'),
-                        'choices'  => [
-                            'Organisé' => 'organise',
-                            'choix1' => 'choix1',
-                            'choix2' => 'choix2',
-                        ],
-                        'data' => $options['data']->getNature1(),
-                        'attr' => [
-                            'class' => 'form-control',
-                            'divclass' => 'col-md-4'
-                        ],
-                        'required' => false,
-                    ])
+
             )
 
             ->add(
@@ -369,20 +438,6 @@ class DevisConf4 extends AbstractType
                             'Non' => 1,
                         ],
                         'data' => $options['data']->isStationement2(),
-                        'attr' => [
-                            'class' => 'form-control',
-                            'divclass' => 'col-md-4'
-                        ],
-                        'required' => false,
-                    ])
-                    ->add('nature2',ChoiceType::class, [
-                        'label' => $this->translator->trans('nature'),
-                        'choices'  => [
-                            'Organisé' => 'organise',
-                            'choix1' => 'choix1',
-                            'choix2' => 'choix2',
-                        ],
-                        'data' => $options['data']->getNature2(),
                         'attr' => [
                             'class' => 'form-control',
                             'divclass' => 'col-md-4'

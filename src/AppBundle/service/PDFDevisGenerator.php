@@ -10,8 +10,10 @@ namespace AppBundle\service;
 
 
 
+use AppBundle\Admin\PrestationCustomAdmin;
 use AppBundle\Entity\DevisConfig;
 use AppBundle\Entity\DevisEnvoye;
+use AppBundle\Entity\PrestationCustom;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Spipu\Html2Pdf\Html2Pdf;
@@ -26,14 +28,18 @@ class PDFDevisGenerator
     /** @var KernelInterface  */
     private $parent;
 
+    /** @var EntityManagerInterface  */
+    private $em;
+
     /**
      * PDFDevisGenerator constructor.
      * @param EntityManagerInterface $em
      * @param Container $container
      */
-    public function __construct(Container $container, KernelInterface $parent) {
+    public function __construct(Container $container, KernelInterface $parent, EntityManagerInterface $em) {
         $this->container = $container;
         $this->parent = $parent;
+        $this->em = $em;
     }
 
     // Generation du PDF
@@ -135,6 +141,26 @@ class PDFDevisGenerator
             'declaration_valeur' => 'admin/pdf/standard/declaration_valeur.html.twig',
         ];
 
+
+        $prestation = 'Economique';
+        if(!is_null($devisConfig)) {
+            $prestation = $devisConfig['userprestation'];
+
+        }
+        else if(!is_null($devis->getUserPrestation())) {
+            $prestation = $devis->getUserPrestation();
+        }
+        else{
+            $devis->setUserPrestation($prestation);
+        }
+
+
+     ///   if(is_null()$devis->getUserPrestation())
+
+        // Get Custom Prestation of company
+        $prestationResult = $this->em->getRepository(PrestationCustom::class)->findByCompetence($societe, $prestation);
+
+
         //Check if user enabled custom pdf show
         $custom_twig_company = [];
         if(!is_null($societe->getDevisPersonelle())){
@@ -161,14 +187,12 @@ class PDFDevisGenerator
             $devisNumber = $devisConfig['devisnumber'];
         }
 
-       //dump($childUser, $societe, $devisConfig, $devis);
-       //exit();
-
         $htmlRender = $this->container->get('templating')->render($template, [
             'devisConfig' => $devisConfig,
             'devisInfo' => $devis,
             'societeInfo' => $societe,
-            'childUser' => $childUser
+            'childUser' => $childUser,
+            'prestation' => $prestationResult,
         ]);
 
         $logo_societe = $this->parent->getProjectDir().'\web\image\\'.$societe->getPath().'\\'.substr($societe->filename, 0, strpos($societe->filename, "?"));

@@ -53,7 +53,7 @@ class PrestationCustom
     private $chargepar;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\PrestationDescription", cascade={"all"}, fetch="EAGER")
+     * @ORM\ManyToMany(targetEntity="PrestationDescription", inversedBy="custom_description", cascade={"persist"})
      */
     public $descriptions;
 
@@ -92,6 +92,23 @@ class PrestationCustom
     {
         $this->chargepar = $chargepar;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDescriptions()
+    {
+        return $this->descriptions;
+    }
+
+    /**
+     * @param mixed $descriptions
+     */
+    public function setDescriptions($descriptions)
+    {
+        $this->descriptions = $descriptions;
+    }
+
 
 
     /**

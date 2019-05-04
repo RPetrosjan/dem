@@ -10,23 +10,52 @@ namespace AppBundle\Form;
 
 
 use AppBundle\Entity\DevisEnvoye;
+use AppBundle\Entity\PrestationCustom;
 use AppBundle\Entity\SendDevis;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class EstimationPrixForm extends AbstractType
 {
+
+    /** @var TranslatorInterface  */
+    private $translator;
+
+    /** @var object|string  */
+    private $user;
+
+    /** @var EntityManagerInterface  */
+    private $em;
+
+    /**
+     * DevisConfigForm constructor.
+     * @param TranslatorInterface $translator
+     * @param TokenStorage $token
+     * @param EntityManagerInterface $em
+     */
+    public function __construct(TranslatorInterface $translator, EntityManagerInterface $em, TokenStorageInterface $token) {
+
+        $this->translator = $translator;
+        $this->user = $token->getToken()->getUser();
+        $this->em = $em;
+
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add(
                 $builder->create('group1', FormType::class, [
-                    'label' => ' sds',
+                    'label' => false,
                     'inherit_data' => true,
                     'attr' => [
                         'class' => 'col-md-12',
@@ -39,6 +68,26 @@ class EstimationPrixForm extends AbstractType
                             'divclass' => 'col-md-12'
                         ],
                     ])
+
+                    ->add('userprestation', ChoiceType::class, [
+                        'label' => $this->translator->trans('votre.prestation'),
+                        'choices'  =>  $this->em->getRepository(PrestationCustom::class)->findUserPrestations($this->user),  // $this->em->getRepository(PrestationCustom::class)->findByCompetence(),
+                        'attr' => [
+                            'class' => 'form-control',
+                            'divclass' => 'col-md-4'
+                        ],
+                    ])
+            )
+
+            ->add(
+                $builder->create('group11', FormType::class, [
+                    'label' => false,
+                    'inherit_data' => true,
+                    'attr' => [
+                        'class' => 'col-md-12',
+                    ],
+                ])
+
                     ->add('prixht',TextType::class, [
                         'label' => 'Prix HT €',
                         'attr' => [
@@ -66,7 +115,7 @@ class EstimationPrixForm extends AbstractType
             )
             ->add(
                 $builder->create('group2', FormType::class, [
-                    'label' => ' sds',
+                    'label' => false,
                     'inherit_data' => true,
                     'attr' => [
                         'class' => 'col-md-12',
@@ -103,7 +152,7 @@ class EstimationPrixForm extends AbstractType
 
             ->add(
                 $builder->create('group3', FormType::class, [
-                    'label' => ' sds',
+                    'label' =>  false,
                     'inherit_data' => true,
                     'attr' => [
                         'class' => 'col-md-12',
@@ -137,7 +186,7 @@ class EstimationPrixForm extends AbstractType
 
             ->add(
                 $builder->create('group4', FormType::class, [
-                    'label' => ' sds',
+                    'label' => false,
                     'inherit_data' => true,
                     'attr' => [
                         'class' => 'col-md-12',

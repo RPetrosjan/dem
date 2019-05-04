@@ -165,6 +165,9 @@
                                     {{ show_group.label|trans({}, show_group.translation_domain|default(admin.translationDomain)) }}
                                 {% endblock %}
                             </h4>
+                            {% if show_group.attr.subinfotext is defined %}
+                              {{ show_group.attr.subinfotext|raw }}
+                            {% endif %}
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <table class="table">

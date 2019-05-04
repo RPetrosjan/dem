@@ -1,9 +1,9 @@
 {% extends 'admin/pdf/custom/DevisConf4/base.html.twig' %}
 {% block body %}
-
-<table style="margin-top: 20px;">
+{{ parent() }}
+<table style="margin-top: 250px;">
     <tr>
-        <td>Madame,<br/><br/>Suite à votre demande, veuillez trouver ci-après un devis concernant votre déménagement, ainsi que le détail de la prestation <b>{{ devisConfig.prestation }}.</b></td>
+        <td>Madame,<br/><br/>Suite à votre demande, veuillez trouver ci-après un devis concernant votre déménagement, ainsi que le détail de la prestation <b>{{ devisConfig.userprestation }}.</b></td>
     </tr>
 </table>
 
@@ -13,45 +13,24 @@
         <td style="text-align: center; width: 50%; background-color: #DCDCDC; padding-top: 10px; padding-bottom: 10px; "><b class="colorBlue">Prestation qu'il vous reste à faire </b></td>
     </tr>
     <tr>
-        <td style="position: relative">
+        <td style="position: relative; vertical-align: top">
             <ul class="listul" >
-                <li>Procédure des demandes de stationnement
-                    éventuelles
-                </li>
-                <li>Chargement - Transport - Livraison, Mise en place du
-                    Mobilier
-                </li>
-                <li>Livraison au domicile des fournitures après signature
-                </li>
-                <li>Protection du mobilier sous couvertures
-                </li>
-                <li>Protection de la literie sous housses
-                </li>
-                <li>Protection de la HI-FI et de l'électronique
-                </li>
-                <li>Emballage des vêtements sur cintres en penderies
-                </li>
+
+                {% if prestation.Societe  is defined %}
+                    {% for description in prestation.Societe  %}
+                        <li>{{ description }}</li>
+                    {% endfor %}
+                {% endif %}
             </ul>
         </td>
 
-        <td style="position: relative">
+        <td style="position: relative; vertical-align: top">
             <ul class="listul">
-                <li>Procédure des demandes de stationnement
-                   éventuelles
-               </li>
-               <li>Chargement - Transport - Livraison, Mise en place du
-                   Mobilier
-               </li>
-                <li>Livraison au domicile des fournitures après signature
-                </li>
-                <li>Protection du mobilier sous couvertures
-                </li>
-                <li>Protection de la literie sous housses
-                </li>
-                <li>Protection de la HI-FI et de l'électronique
-                </li>
-                <li>Emballage des vêtements sur cintres en penderies
-                </li>
+                {% if prestation.Client is defined  %}
+                    {% for description in prestation.Client  %}
+                        <li>{{ description }}</li>
+                    {% endfor %}
+                {% endif %}
            </ul>
         </td>
 
@@ -95,12 +74,14 @@
 {% endblock %}
 
 {% block addPage %}
+
+    {{ parent() }}
     {% set pricetva =  (devisConfig.tva * devisConfig.prixht) / 100  %}
     {% set pricettc =  pricetva + devisConfig.prixht  %}
     {% set priceAccompte = (devisConfig.acompte * pricettc) / 100  %}
-    {{ include ('admin/pdf/custom/DevisConf4/block/top.html.twig') }}
-    {% block addPagebody %}
-        <table class="aligncenter" style="width: 100%; margin-top: 30px;" cellpadding="0" cellspacing="0">
+
+
+        <table class="aligncenter" style="width: 100%; margin-top: 250px;" cellpadding="0" cellspacing="0">
             <tr class="tdbottom">
                 <td class="backgray colorBlue" style="width: 12.5%; border-left: 1px black solid;">Client n°</td><td style="width: 12.5%;">{{ devisConfig.client }}</td>
                 <td class="backgray colorBlue" style="width: 12.5%;">Devis n°</td><td style="width: 12.5%;">{{ devisConfig.devisnumber }}</td>
@@ -112,7 +93,7 @@
                 <td class="backgray colorBlue" style="border-left: 1px black solid;">Volume</td><td>{{ devisInfo.volume }} m3</td>
                 <td class="backgray colorBlue">Distance</td><td>{{ devisConfig.distance }}</td>
                 <td class="backgray colorBlue">Nature</td><td>{{ devisConfig.nature1 }}</td>
-                <td class="backgray colorBlue">Prestation</td><td>{{ devisConfig.prestation }}</td>
+                <td class="backgray colorBlue">Prestation</td><td>{{ devisConfig.userprestation }}</td>
             </tr>
         </table>
 
@@ -213,11 +194,11 @@
         <table cellspacing="0" cellpadding="0" style="width: 100%; margin-top: 10px;">
             <tr>
                 <td class="borderleft bordertop" style="padding-left: 5px;"><b class="colorBlue">Notre proposition forfaitaire</b></td>
-                <td class="borderright bordertop" style="text-align: right; padding-right: 5px;">1 647.50 €</td>
+                <td class="borderright bordertop" style="text-align: right; padding-right: 5px;">{{ devisConfig.propositionforfaitaire }} €</td>
             </tr>
             <tr>
                 <td class="borderleft" style="padding-left:5px;"><b class="colorBlue">DECHARGE</b></td>
-                <td class="borderright" style="text-align: right; padding-right: 5px;">83.33 €</td>
+                <td class="borderright" style="text-align: right; padding-right: 5px;">{{ devisConfig.decharge }} €</td>
             </tr>
             <tr>
                 <td class="borderleft" style="padding-top: 50px; padding-left:5px;"><b class="colorBlue">Garantie Dommage pour une valeur de {{ devisConfig.valglobale|number_format(2, ',', '') }} €</b></td>
@@ -252,7 +233,5 @@
                 Signature du client:
             </b>
         </div>
-
-    {% endblock %}
 
 {% endblock %}

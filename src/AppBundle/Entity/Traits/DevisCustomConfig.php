@@ -55,6 +55,21 @@ trait DevisCustomConfig
      */
     private $nature1;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="proposition_forfaitaire", type="string", length=64, nullable=true)
+     */
+    private $propositionforfaitaire;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="decharge", type="string", length=64, nullable=true)
+     */
+    private $decharge;
+
+
 
     /**
      * @var bool
@@ -112,6 +127,15 @@ trait DevisCustomConfig
      */
     private $client;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="userprestation", type="string", length=64, nullable=true)
+     */
+    private $userprestation;
+
+
     /**
      * DevisCustomConfig constructor.
      */
@@ -131,6 +155,57 @@ trait DevisCustomConfig
         $this->transbordement2 = false;
         $this->stationement2 = false;
     }
+
+    /**
+     * @return string
+     */
+    public function getPropositionforfaitaire()
+    {
+        return $this->propositionforfaitaire;
+    }
+
+    /**
+     * @param string $propositionforfaitaire
+     */
+    public function setPropositionforfaitaire($propositionforfaitaire)
+    {
+        $this->propositionforfaitaire = $propositionforfaitaire;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserPrestation()
+    {
+        return $this->userprestation;
+    }
+
+    /**
+     * @param string $userprestation
+     */
+    public function setUserPrestation($userprestation)
+    {
+        $this->userprestation = $userprestation;
+    }
+
+
+
+    /**
+     * @return string
+     */
+    public function getDecharge()
+    {
+        return $this->decharge;
+    }
+
+    /**
+     * @param string $decharge
+     */
+    public function setDecharge($decharge)
+    {
+        $this->decharge = $decharge;
+    }
+
 
     /**
      * @return bool

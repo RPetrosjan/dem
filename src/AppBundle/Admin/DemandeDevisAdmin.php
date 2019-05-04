@@ -480,7 +480,7 @@ class DemandeDevisAdmin extends AbstractAdmin
                 ]
             ])
             ->add('prixform', EstimationPrixForm::class, [
-                "template" => "admin/demandedevis/estimation_prix.html.twig",
+                "template" => $this->load_template,
                 'label' => 'Prix',
                 'attr' => [
                     'form' => $this->formEstimationPrix->createView(),

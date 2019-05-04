@@ -26,7 +26,7 @@ trait EstimationPrixSubmitForm
     /**
      * @param $userEntity
      */
-    public function loadSubmitForm($userEntity) {
+    public function loadSubmitForm($userEntity, $userEntityGroup) {
 
         /** @var  $container */
         $container = $this->getConfigurationPool()->getContainer();
@@ -75,14 +75,10 @@ trait EstimationPrixSubmitForm
             $json = current(current($this->request->request))['json'];
             $devisconfig = json_decode($json, true);
 
-            if(!is_null($userEntity->getParent())) {
-                $userEntity = $userEntity->getParent();
-            }
-
             /** @var DevisEnvoye $devisenvoye */
+
             $devisenvoye = $this->formEstimationPrix->getData();
             // Stop autorewrite of existing data
-            $devisenvoye->setId(null);
             $devisenvoye->setNom($this->object->getNom());
             $devisenvoye->setTelephone($this->object->getTelephone());
             $devisenvoye->setPortable($this->object->getPortable());
@@ -111,6 +107,16 @@ trait EstimationPrixSubmitForm
             $devisenvoye->setBudget($this->object->getBudget());
 
             $devisenvoye->setUserId($userEntity);
+            $devisenvoye->setUserSendId($userEntityGroup);
+
+            $this->em->persist($devisenvoye);
+            $this->em->flush();
+
+
+
+            if(!is_null($userEntity->getParent())) {
+                $userEntity = $userEntity->getParent();
+            }
 
             // $devisenvoye->setDistance($this->object->getDistance());
 
@@ -152,8 +158,7 @@ trait EstimationPrixSubmitForm
                 ///              $this->addFlash('errore','Errore d\'envie message');
             }
 
-            $this->em->persist($devisenvoye);
-            $this->em->flush();
+
         }
     }
 }

@@ -79,8 +79,7 @@ class DevisEnvoyeAdmin extends AbstractAdmin
      * @param string $action
      * @param null $object
      */
-    public function checkAccess($action, $object = null)
-    {
+    public function checkAccess($action, $object = null) {
 
         if(strcmp('list', $action) !=0 ) {
 
@@ -342,7 +341,7 @@ class DevisEnvoyeAdmin extends AbstractAdmin
         $em->persist($contact);
         $em->flush();
 
-        $userEntity = $container->get('security.token_storage')->getToken()->getUser();
+        $userEntity = $userEntityGroup = $container->get('security.token_storage')->getToken()->getUser();
         // We check if user have parent
         if(!is_null($userEntity->getParent())) {
             $userEntity = $userEntity->getParent();
@@ -368,7 +367,15 @@ class DevisEnvoyeAdmin extends AbstractAdmin
             'icon' => '<i class="fas fa-print"></i>'
         ]);
 
-        $this->loadSubmitForm($userEntity);
+        $this->loadSubmitForm($userEntity, $userEntityGroup);
+
+        if(!is_null($this->object->getUserSendId())) {
+            $nomprenom = $this->object->getUserSendId()->getFirstName().' '.$this->object->getUserSendId()->getLastName();
+        }
+        else{
+            $nomprenom = $this->object->getUserId()->getFirstName().' '.$this->object->getUserId()->getLastName();
+        }
+
 
         $showMapper
             ->tab($this->trans('Devis '.$this->object->getDevisNumber()), [
@@ -381,6 +388,7 @@ class DevisEnvoyeAdmin extends AbstractAdmin
                 'class'       => 'col-md-5',
                 'attr' => [
                     'icon' => '<i class="fas fa-paper-plane"></i>',
+                    'subinfotext' => '<i style="float: right">'.$this->trans('devis.ete.envoye').' <b>'.$nomprenom.'</b> '.$this->object->getCreatedDateText2().'</i>',
                 ]
             ])
             ->add('prixform', EstimationPrixForm::class, [
@@ -484,7 +492,7 @@ class DevisEnvoyeAdmin extends AbstractAdmin
             ->add('volume', null, [
                 'label' => 'Volume',
             ])
-            ->add('prestation', null, [
+            ->add('userprestation', null, [
                 'label' => 'Prestation'
             ])
             ->add('budget', TextType::class, [

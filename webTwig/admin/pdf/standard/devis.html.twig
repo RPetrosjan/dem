@@ -22,7 +22,7 @@
         <tr>
             <td class="tdline" style="width: 75%">{{ devisInfo.adresse1  }}</td>
             <td class="tdline" style="width: 15%; text-align: right;"><strong style="color: #9b0000;">Prestation : </strong></td>
-            <td class="tdline" style="width: 10%"> {{ devisInfo.prestation }}</td>
+            <td class="tdline" style="width: 10%"> {{ devisConfig.userprestation }}</td>
         </tr>
         <tr>
             <td class="tdline" style="width: 75%">{{ devisInfo.cp1 }} {{ devisInfo.ville1 }}</td>
@@ -75,11 +75,15 @@
 
     <table style="margin-top: 20px" border="0" cellspacing="0" cellpadding="0">
         <tr>
-            <td class="tdline" style="font-size: 14px;">Prestation : <span style="color: #9b0000">{{ devisInfo.prestation }}</span></td>
+            <td class="tdline" style="font-size: 14px;">Prestation : <span style="color: #9b0000">{{ devisConfig.userprestation }}</span></td>
         </tr>
         <tr>
-            <td style="padding-top: 15px; padding-bottom: 15px" class="arial tdline">Montage démontage, emballage et déballage meubles. Protection meubles, emballage matelas TV HI-FI.
-                Penderie déménagement gratuit
+            <td style="padding-top: 15px; padding-bottom: 15px" class="arial tdline">
+                {% if prestation.Societe  is defined %}
+                    {% for description in prestation.Societe  %}
+                        {{ description }}.
+                    {% endfor %}
+                {% endif %}
             </td>
         </tr>
     </table>

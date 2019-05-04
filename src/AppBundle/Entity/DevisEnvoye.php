@@ -38,6 +38,13 @@ class DevisEnvoye
     private $user_id;
 
     /**
+     * @var User
+     *
+     * @ManyToOne(targetEntity="User", cascade={"persist"})
+     */
+    private $user_send_id;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="devisnumber", type="string", length=64, nullable=true))
@@ -351,10 +358,40 @@ class DevisEnvoye
         return $this->CreatedDate->format('d/m/Y');
     }
 
-    public function setId($id){
-        $this->id = $id;
+    /**
+     * @return string
+     */
+    public function getCreatedDateText2()
+    {
+        return $this->CreatedDate->format('d/m/Y H:s');
     }
 
+    /**
+     * @return User
+     */
+    public function getUserSendId()
+    {
+        return $this->user_send_id;
+    }
+
+    /**
+     * @param User $user_send_id
+     */
+    public function setUserSendId($user_send_id)
+    {
+        $this->user_send_id = $user_send_id;
+    }
+
+
+
+    /**
+     * @return $this
+     */
+    public function clearId()
+    {
+        $this->id = null; // également essayé avec "", 0, valeur de l'auto-incrément, true, false, -1
+        return $this;
+    }
 
 }
 

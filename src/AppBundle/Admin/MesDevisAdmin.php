@@ -4,6 +4,7 @@ namespace AppBundle\Admin;
 
 use AppBundle\Entity\DevisConfig;
 use AppBundle\Entity\DevisEnvoye;
+use AppBundle\Entity\PrestationCustom;
 use AppBundle\Entity\ReadyDemandeDevis;
 use AppBundle\Form\EstimationPrixForm;
 use AppBundle\service\ViewDevisCountService;
@@ -258,6 +259,7 @@ class MesDevisAdmin extends AbstractAdmin
         $em = $container->get('doctrine.orm.entity_manager');
         $userEntity = $container->get('security.token_storage')->getToken()->getUser();
 
+        $this->user = $container->get('security.token_storage')->getToken()->getUser();
 
 
         $devisConfig = current($em
@@ -412,11 +414,7 @@ class MesDevisAdmin extends AbstractAdmin
             ])
             ->add('prestation', ChoiceType::class, [
                 'label' => 'Prestation',
-                'choices'  => array(
-                    'Economique' => 'Economique',
-                    'Standard' => 'Standard',
-                    'Luxe' => 'Luxe'
-                ),
+                'choices'  => $this->em->getRepository(PrestationCustom::class)->findUserPrestations($this->user),
             ])
             ->add('budget', TextType::class, [
                 'label' => 'Budget prevu',

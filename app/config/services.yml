@@ -14,7 +14,10 @@ services:
     pdf.devis.generator:
         public: true
         class:     AppBundle\service\PDFDevisGenerator
-        arguments: ['@service_container']
+        arguments:
+          - '@service_container'
+          - '@kernel'
+          - '@doctrine.orm.entity_manager'
 
     admin.stat:
         public: true
