@@ -4,17 +4,20 @@
             <div style="font-size: 15px; width: 200px; font-weight: bold; text-align: center" class="colorBlue">{{ societeInfo.companyName }}</div><br/>
             <span class="colorBlue">{{ societeInfo.street }}</span><br/>
             {{ societeInfo.codePostal }} {{ societeInfo.country }}<br/>
-            <span class="colorRed">Tél:</span> <span class="colorGreen">{{ societeInfo.tel }}</span><br/>
-            <span class="colorRed">Tél:</span> <span class="colorBlue">{{ societeInfo.mobile }}</span><br/>
+
+            {% for fix in societeInfo.getIdTelephone['telephone.fix'] %}
+                <span class="colorRed">Tél:</span> <span class="colorGreen">{{ fix }}</span><br/>
+            {% endfor %}
+
             <span class="colorRed">Mail: {{ societeInfo.companyEmail }}</span>
         </td>
 
-        <td><img style="width: 260px" src="image/pdf/DevisConf4/logoConf4.jpg"></td>
+        <td style="width: 260px"><img style="width: 200px" src="image/pdf/DevisConf4/logoConf4.jpg"></td>
         <td style="text-align: center; width: 200px;">
             <img style="height: 100px" src="image/pdf/DevisConf4/logo1Conf4.jpg"><br/>
-            <b style="font-size: 14px;" class="colorBlue">Mme CHABROL CHRISTELLE</b><br/>
-            62 AVENUE DE VERDUN
-            26000 VALENCE
+            <b style="font-size: 14px;" class="colorBlue">{{ devisInfo.nom }} {{ devisInfo.prenom }}</b><br/>
+            {{ devisInfo.adresse1 }}
+            {{ devisInfo.cp1 }} {{ devisInfo.ville1 }}
         </td>
     </tr>
 </table>

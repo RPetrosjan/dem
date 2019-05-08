@@ -71,44 +71,12 @@ class MaSocieteForm extends AbstractType
 
                 ]
             ])
-            ->add('tel', TextType::class, [
-                'label' => 'Téléphone',
-                'attr' => [
-                    'class' => 'form-control',
-                    'divclass' => 'col-md-6'
-                ]
-            ])
-            ->add('mobile', TextType::class, [
-                'label' => 'Portable',
-                'attr' => [
-                    'class' => 'form-control',
-                    'divclass' => 'col-md-6'
-                ]
-            ])
-
             ->add('companyEmail', TextType::class, [
                 'label' => 'E-mail Société',
                 'attr' => [
                     'class' => 'form-control',
                     'divclass' => 'col-md-12'
                 ]
-            ])
-
-            ->add('website', TextType::class, [
-                'label' => 'Site Web',
-                'attr' => [
-                    'class' => 'form-control',
-                    'divclass' => 'col-md-6'
-                ],
-                'required' => false,
-            ])
-            ->add('fax', TextType::class, [
-                'label' => 'Fax',
-                'attr' => [
-                    'class' => 'form-control',
-                    'divclass' => 'col-md-6'
-                ],
-                'required' => false,
             ])
             ->add('street', TextType::class, [
                 'label' => 'Adress',
@@ -124,14 +92,23 @@ class MaSocieteForm extends AbstractType
                     'divclass' => 'col-md-6'
                 ]
             ])
-                ->add('city', TextType::class, [
-                    'label' => 'Ville',
-                    'attr' => [
-                        'class' => 'form-control',
-                        'divclass' => 'col-md-6'
-                    ]
-                ])
-        )
+            ->add('city', TextType::class, [
+                'label' => 'Ville',
+                'attr' => [
+                    'class' => 'form-control',
+                    'divclass' => 'col-md-6'
+                ]
+            ])
+
+            ->add('website', TextType::class, [
+                'label' => 'Site Web',
+                'attr' => [
+                    'class' => 'form-control',
+                    'divclass' => 'col-md-6'
+                ],
+                'required' => false,
+            ])
+    )
         ->add(
             $builder->create('group2', FormType::class, [
                 'label' => 'Info Gerant',
@@ -150,7 +127,7 @@ class MaSocieteForm extends AbstractType
                 ]
             ])
                 ->add('lastName', TextType::class, [
-                    'label' => 'Nom',
+                    'label' => 'Prenom',
                     'attr' => [
                         'class' => 'form-control',
                         'divclass' => 'col-md-6'
@@ -174,7 +151,8 @@ class MaSocieteForm extends AbstractType
                     'class' => 'form-control',
                     'divclass' => 'col-md-6',
                     'image_path' => $image_path,
-                ]
+                ],
+                'required' => false,
             ])
         )
 

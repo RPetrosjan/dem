@@ -16,9 +16,9 @@ parameters:
             Type:  'application/pdf'
             Twig:  '/admin/pdf/custom/DevisConf4/condition_generale.html.twig'
          ConseillesPdf:
-            Label: 'Conseilles Déménagement.pdf'
+            Label: 'Facture.pdf'
             Type:  'application/pdf'
-            Twig:  '/admin/pdf/custom/DevisConf4/conseilles.html.twig'
+            Twig:  '/admin/pdf/custom/DevisConf4/facture.html.twig'
       FilesForSendCompany:
          FacturePdf:
             Label: 'Facture.pdf'

@@ -1,1 +1,115 @@
-Declaration Valeur Conf4 HTML TWIG DevisConF4
+{% extends 'admin/pdf/custom/DevisConf4/base.html.twig' %}
+
+{% block body %}
+{{ parent() }}
+    <div style="margin-top: 200px;  padding-left: 200px;"><h3 class="colorBlue">DECLARATION DE VALEUR</h3></div>
+    <table style="width: 100%">
+        <tr>
+            <td  style="padding-left: 200px; width: 100%" colspan="2">Condition d’indemnisation des pertes et avaries</td>
+        </tr>
+        <tr>
+            <td  style=" text-align: center; width: 100%; font-size: 10px;" colspan="2"><b>A REMPLIR QUEL QUE SOIT LE MODE DE GARANTIE CHOISI : GARANTIE DE RESPONSABILITE CONTRACTUELLE OU ASSURANCE DOMMAGE</b></td>
+        </tr>
+        <tr>
+            <td style="width: 50%; font-size: 11px; padding-right: 10px; text-align: justify">
+                Vous confiez le déménagement de votre mobilier à un déménageur
+                professionnel. L’entreprise de déménagement sera responsable des
+                dommages éventuels pouvant survenir au mobilier confié dans les
+                conditions fixées à l’article 13 des conditions générales de vente.
+                Par ailleurs, conformément à l’art. 14 des conditions générales de vente,
+                l’indemnisation pour pertes et avaries est limitée à la valeur totale du
+                mobilier et, pour chaque objet ou élément de mobilier, à _________ €.
+            </td>
+            <td style="width: 50%; vertical-align: top; font-size: 11px; padding-right: 10px; text-align: justify">
+                Dans certains cas, la responsabilité de l’entreprise peut ne pas être
+                retenue (accident ou incendie non responsable, vol avec agression, les
+                cas de force majeure) : vous pouvez alors estimer que la garantie de
+                responsabilité contractuelle de l’entreprise est insuffisante et opter pour la
+                souscription d’une assurance dommage (article 4 des conditions
+                générales de vente), dont les conditions sont tenues à votre dispositions
+                sur demande.
+
+            </td>
+        </tr>
+    </table>
+
+    <div style="font-size: 15px" class="colorBlue"><b>1) VALEUR TOTALE DU MOBILIER</b></div>
+    <div style="font-size: 11px;">Indiquez, en lettre et en chiffres, la valeur totale du mobilier, y compris les objets ou éléments de mobilier désignés individuellement en 2:</div>
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 80%; vertical-align: bottom; text-align: right">.............................................................................................................................................(lettres)</td>
+            <td style="width: 20%; padding-left: 10px;">
+        <div style="border: 1px black solid; padding-top: 10px; padding-right: 5px; text-align: right"><b> &euro;</b></div>
+            </td>
+        </tr>
+    </table>
+
+    <div style="margin-top:10px; font-size: 15px" class="colorBlue"><b>2) VALEUR INDIVIDUELLES</b></div>
+    <ul style="font-size: 11px;">
+        <li><b>Vous avez choisi la garantie de responsabilité contractuelle :</b> indiquez et valorisez les objets ou éléments de mobilier dont la valeur
+            individuelle est supérieure à l’indemnisation maximale par objet ou élément de mobilier.
+        </li>
+        <li>
+            <b>Vous avez opté pour l’assurance dommage :</b> vous pouvez également lister et valoriser les objets ou éléments de mobilier de votre choix
+        </li>
+    </ul>
+
+    <table style="width: 100%" cellpadding="0" cellspacing="0">
+        <tr>
+            <td class="backgray colorBlue" style="width: 30%; text-align: center"><b>Désignation</b></td>
+            <td class="backgray colorBlue" style="width: 20%; text-align: center"><b>Valeur (€)</b></td>
+            <td class="backgray colorBlue" style="width: 30%; text-align: center"><b>Désignation</b></td>
+            <td class="backgray colorBlue" style="width: 20%; text-align: center"><b>Valeur (€)</b></td>
+        </tr>
+
+        {% for i in 0..12 %}
+           <tr>
+               <td style="width: 30%; padding-right: 10px"><div style="border-bottom: 1px black solid; height: 20px"></div></td>
+               <td style="width: 20%; padding-right: 10px"><div style="border-bottom: 1px black solid; height: 20px"></div></td>
+               <td style="width: 30%; padding-right: 10px"><div style="border-bottom: 1px black solid; height: 20px"></div></td>
+               <td style="width: 20%; "><div style="border-bottom: 1px black solid; height: 20px"></div></td>
+           </tr>
+        {% endfor %}
+    </table>
+
+    <div class="colorBlue"><b>MODE DE GARANTIE CHOISIE :</b></div>
+    <table style="width: 100%">
+        <tr>
+
+            <td style="width: 50%">
+                <table>
+                    <tr>
+                        <td style="width: 10px;"><div style="border: 1px black solid; width: 10px; height: 10px;"></div></td>
+                        <td style="font-size: 13px" class="colorBlue"> GARANTIE DE RESPONSABILITE CONTRACTUELLE</td>
+
+                    </tr>
+                    <tr>
+                        <td style="width: 10px;"><div style="border: 1px black solid; width: 10px; height: 10px;"></div></td>
+                        <td style="font-size: 13px"  class="colorBlue"> ASSURANCE DOMMAGE</td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 50%;">
+            <table>
+                <tr>
+                    <td style="font-size: 13px; text-align: right" ><b class="colorBlue">TOTAL DES VALEURS INDIVIDUELLES</b></td>
+                    <td><div style="border: 1px black solid; text-align: right;  padding-right: 5px; padding-top: 10px; width: 100px; height: 25px;">€</div></td>
+                </tr>
+            </table>
+            </td>
+
+        </tr>
+
+    </table>
+
+    <div style="margin-top: 25px">
+        Cette déclaration de valeur est à retenir comme base de calcul du coût du mode de garantie choisi figurant au devis.
+        Madame CHABROL CHRISTELLE déclare que les valeurs énoncées ci-dessus sont sincères et réelles
+    </div>
+    <div style="text-align: right; padding-right: 85px; margin-top: 10px;">
+        <b class="colorBlue">Signature du Client : </b>
+    </div>
+
+{% endblock %}
+{% block addPage %}
+{% endblock %}

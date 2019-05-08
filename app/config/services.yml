@@ -158,6 +158,21 @@ services:
             group: 'parametres'
         public: true
 
+    admin.telephone:
+      class: AppBundle\Admin\TelephoneAdmin
+      arguments:
+        - ~
+        - AppBundle\Entity\Telephone
+        - ~
+        - '@service_container'
+      tags:
+        - name: sonata.admin
+          manager_type: orm
+          route: '/telephone'
+          label:  societe.telephone
+          group: 'parametres'
+      public: true
+
     admin.soustraitance:
         class: AppBundle\Admin\SousTraitanceAdmin
         arguments:

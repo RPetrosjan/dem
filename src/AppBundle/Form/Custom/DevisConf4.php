@@ -250,8 +250,8 @@ class DevisConf4 extends AbstractType
                         'label' => $this->translator->trans('nature'),
                         'choices'  => [
                             'Organisé' => 'organise',
-                            'choix1' => 'choix1',
-                            'choix2' => 'choix2',
+                            'Urbain'   => 'Urbain',
+                            'Special'  => 'Special',
                         ],
                         'data' => $options['data']->getNature1() == null ? 'organise' : $options['data']->getNature1(),
                         'attr' => [

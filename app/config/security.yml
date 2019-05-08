@@ -26,6 +26,7 @@ security:
           - ROLE_CLIENT
           - ROLE_ADMIN_GROUP_ALL
           - ROLE_ADMIN_PRESTATION_ALL
+          - ROLE_ADMIN_TELEPHONE_ALL
           - ROLE_ADMIN_DEMANDEDEVIS_LIST
           - ROLE_ADMIN_DEMANDEDEVIS_VIEW
           - ROLE_ADMIN_DEVISENVOYE_LIST
@@ -41,7 +42,7 @@ security:
 
         ROLE_ADMIN:  ROLE_ADMIN
         ROLE_ALL_DEVIS_ENVOYE_READER:
-           - ROLE_ALL_DEVIS_ENVOYE_READER
+          - ROLE_ALL_DEVIS_ENVOYE_READER
 
         ROLE_SUPER_ADMIN: [ROLE_CLIENT, ROLE_CLIENT_GROUP, ROLE_ADMIN, ROLE_ALL_DEVIS_ENVOYE_READER ,ROLE_ALLOWED_TO_SWITCH]
 
@@ -83,6 +84,5 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-
         - { path: ^/%admin%/, roles: ROLE_CLIENT }
 

@@ -13,12 +13,15 @@ use AppBundle\Entity\DemandeDevis;
 use AppBundle\Entity\DevisConfig;
 use AppBundle\Entity\DevisEnvoye;
 use AppBundle\Entity\MesDevis;
+use AppBundle\Entity\RIB;
 use AppBundle\Entity\User;
 use AppBundle\Field\CustomFiledInterface;
 use AppBundle\Form\DevisConfigForm;
 use AppBundle\Form\MaSocieteForm;
+use AppBundle\Form\RibForm;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sonata\AdminBundle\Admin\FieldDescriptionCollection;
 use Swift_Attachment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -436,8 +439,16 @@ class AdminController extends Controller
                 ]);
         }
 
+
+        $childuser = $this->tokenStorage->getToken()->getUser();
+        // We check if user have parent
+        if(!is_null($this->tokenStorage->getToken()->getUser()->getParent())) {
+            $childuser = $this->tokenStorage->getToken()->getUser();
+        }
+
+
         if(!is_null($devis))  {
-            return $this->container->get('pdf.devis.generator')->pdfGenerate($devis, $devisconfig, $this->getUserEntity(), $request->get('type'), 'I');
+            return $this->container->get('pdf.devis.generator')->pdfGenerate($devis, $devisconfig, $this->getUserEntity(), $request->get('type'), 'I', null,  $childuser);
         }
         else {
             throw new NotFoundHttpException('Devis not found '.$request->get('uuid'));
@@ -499,6 +510,85 @@ class AdminController extends Controller
 
 
     /**
+     * @Security("is_granted('ROLE_SOCIETE')")
+     * @Route("espace/app/rib", name="rib")
+     * @param Request $request
+     * @return Response
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function RibConfigPages(Request $request){
+
+        //Check if user have DevisConfig in DataBase
+        /** @var DevisConfig $devisConfig */
+        $ribConfig = $this->getDoctrine()
+            ->getRepository(RIB::class)
+            ->findOneBy([
+                'user_id' => $this->userEntity,
+            ]);
+
+
+        if(empty($ribConfig)) {
+            $ribConfig = new RIB();
+        }
+
+        $load_class = RibForm::class;
+
+        /** @var Form $devisConfigForm */
+        $ribConfigForm = $this->createForm($load_class, $ribConfig, [
+            'action' => $this->generateUrl('rib'),
+            'label' => false,
+            'attr' => [
+                'class' => 'registration_form'
+            ]
+        ]);
+
+
+        $ribConfigForm->handleRequest($request);
+        if($ribConfigForm->isSubmitted() && $ribConfigForm->isSubmitted()) {
+
+            // Trouver les donnes /normalement single par cette entrepirse et supprimer avant d'ajouter
+            $ribConfig = $this->getDoctrine()
+                ->getRepository(RIB::class)
+                ->findBy([
+                    'user_id' => $this->userEntity,
+                ]);
+
+            // Peut arrive une errore que un user a plusiers donnes
+            if(!empty($ribConfig)) {
+                foreach ($ribConfig as $obj) {
+                    $this->em->remove($obj);
+                }
+                $this->em->flush();
+
+                $this->addFlash(
+                    'sonata_flash_success',
+                    '<i class="far fa-check-circle"></i> Les données sont mises à jour'
+                );
+            }
+            else{
+                $this->addFlash(
+                    'sonata_flash_success',
+                    '<i class="far fa-check-circle"></i> Les valeurs sont enregistré'
+                );
+            }
+
+            /** @var DevisConfig $devisConfig */
+            $ribConfig = $ribConfigForm->getData();
+            $ribConfig ->setUserId($this->userEntity);
+            $this->em->persist($ribConfig);
+            $this->em->flush();
+
+            return $this->redirectToRoute('rib');
+        }
+
+        return $this->render('admin/custom_view.html.twig', array(
+            'form' => $ribConfigForm->createView(),
+        ));
+
+    }
+
+    /**
+     * @Security("is_granted('ROLE_SOCIETE')")
      * @Route("espace/app/devisconfig", name="devisconfig")
      * @param Request $request
      * @return Response

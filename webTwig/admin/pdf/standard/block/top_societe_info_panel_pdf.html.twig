@@ -5,16 +5,40 @@
     </tr>
 
     <tr>
-        <td style="width: 50%">{{ societeInfo.street }} <span>   </span><span>{{ societeInfo.codePostal }} {{ societeInfo.city }}</span>
+        <td style="width: 50%">{{ societeInfo.street }} <span>   </span><br/><span>{{ societeInfo.codePostal }} {{ societeInfo.city }}</span>
         </td>
         <td style=" width: 50%; text-align: right"> <strong>N SIRET {{ societeInfo.siret }}</strong></td>
     </tr>
     <tr>
         <td>
-            <span class="colred">Tel :</span> {{ societeInfo.tel }}
+
+            <div style="width: 270px;">
+                <span class="colred">Tel :</span>
+            {% for index,fix in societeInfo.getIdTelephone['telephone.fix']  if  index < 2  %}
+                {% if index > 0 %}
+                    <span style="color: #9b0000">/</span>
+                {% endif %}
+               {{ fix }}
+            {% endfor %}
+
+                {% if societeInfo.getIdTelephone['portable'] is defined %}<br/>
+                 <div style="margin-top: 5px">
+                     <span style="color: #9b0000">Por : </span>
+                     {% for index,portable in societeInfo.getIdTelephone['portable']  if  index < 2  %}
+                         {% if index > 0 %}
+                             <span style="color: #9b0000">/</span>
+                         {% endif %}
+                        {{ portable }}
+                     {% endfor %}
+                 </div>
+                {% endif %}
+
+            {#
             {% if societeInfo.mobile is defined %}
                 <div style="color: #9b0000; padding-left: 25px; width: 160px ">Por : <span style="color: black">{{ societeInfo.mobile }}</span></div>
             {% endif %}
+            #}
+            </div>
         </td>
         <td style="text-align: right">
             <span>{{ societeInfo.companyEmail }}</span>

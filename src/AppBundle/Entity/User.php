@@ -47,6 +47,11 @@ class User extends BaseUser
     private $id_devis_envoye;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\RIB", mappedBy="user_id")
+     */
+    private $id_rib;
+
+    /**
      * @ORM\OneToMany(targetEntity="PrestationCustom", mappedBy="user_id")
      */
     private $id_mes_prestation;
@@ -72,6 +77,11 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="ViewDevisCount", mappedBy="user_id")
      */
     private $id_user_view_devis;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Telephone", mappedBy="user_id")
+     */
+    private $id_telephone;
 
     /**
      * @ORM\OneToMany(targetEntity="MesDevis", mappedBy="user_id")
@@ -117,28 +127,6 @@ class User extends BaseUser
      * @ORM\Column(name="company_email", type="string", length=36, nullable=true)
      */
     private $companyEmail;
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="tel", type="string", length=36, nullable=true)
-     */
-    private $tel;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="mobile", type="string", length=36, nullable=true)
-     */
-    private $mobile;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="fax", type="string", length=36, nullable=true)
-     */
-    private $fax;
 
     /**
      * @var string
@@ -346,22 +334,6 @@ class User extends BaseUser
     /**
      * @return string
      */
-    public function getFax()
-    {
-        return $this->fax;
-    }
-
-    /**
-     * @param string $fax
-     */
-    public function setFax($fax)
-    {
-        $this->fax = $fax;
-    }
-
-    /**
-     * @return string
-     */
     public function getCountry()
     {
         return $this->country;
@@ -389,38 +361,6 @@ class User extends BaseUser
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTel()
-    {
-        return $this->tel;
-    }
-
-    /**
-     * @param string $tel
-     */
-    public function setTel($tel)
-    {
-        $this->tel = $tel;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMobile()
-    {
-        return $this->mobile;
-    }
-
-    /**
-     * @param string $mobile
-     */
-    public function setMobile($mobile)
-    {
-        $this->mobile = $mobile;
     }
 
     /**
@@ -640,7 +580,37 @@ class User extends BaseUser
         $this->id_mes_prestation = $id_mes_prestation;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIdTelephone()
+    {
+        return $this->id_telephone;
+    }
 
+    /**
+     * @param mixed $id_telephone
+     */
+    public function setIdTelephone($id_telephone)
+    {
+        $this->id_telephone = $id_telephone;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdRib()
+    {
+        return $this->id_rib;
+    }
+
+    /**
+     * @param mixed $id_rib
+     */
+    public function setIdRib($id_rib)
+    {
+        $this->id_rib = $id_rib;
+    }
 
 
 }

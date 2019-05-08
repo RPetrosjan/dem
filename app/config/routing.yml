@@ -23,6 +23,9 @@ sonata_admin_user:
 sonata_admin_devis_conf:
     path: /%admin%/app/devisconfig
 
+sonata_admin_rib:
+    path: /%admin%/app/rib
+
 sonata_admin_ma_societe:
     path: /%admin%/app/ma-societe
 

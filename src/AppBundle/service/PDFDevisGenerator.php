@@ -14,6 +14,7 @@ use AppBundle\Admin\PrestationCustomAdmin;
 use AppBundle\Entity\DevisConfig;
 use AppBundle\Entity\DevisEnvoye;
 use AppBundle\Entity\PrestationCustom;
+use AppBundle\Entity\Telephone;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Spipu\Html2Pdf\Html2Pdf;
@@ -186,6 +187,8 @@ class PDFDevisGenerator
         else {
             $devisNumber = $devisConfig['devisnumber'];
         }
+
+        $societe->setIdTelephone($this->em->getRepository(Telephone::class)->findUserAllTelephone($societe));
 
         $htmlRender = $this->container->get('templating')->render($template, [
             'devisConfig' => $devisConfig,

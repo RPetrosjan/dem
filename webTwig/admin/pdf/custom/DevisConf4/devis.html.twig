@@ -57,11 +57,17 @@
     <table style="margin-top: 30px; width: 100%;">
         <tr>
             <td style="width: 450px">
-                <b>{{ societeInfo.firstName }} {{ societeInfo.lastName }}<br/>
+
+                {% if devisInfo.UserSendId is defined %}
+                <b>{{ devisInfo.UserSendId.firstName }} {{ devisInfo.UserSendId.lastName }}<br/>
+                    {% else %}
+                    <b>{{ childUser.firstName }} {{ childUser.lastName }}<br/>
+                {% endif %}
                 Le service commercial<br/>
                 <span class="colorBlue">{{ societeInfo.companyName }}</span></b><br/>
-                <span class="colorRed">Téléphone :</span> {{ societeInfo.tel }}<br/>
-                <span class="colorRed">Portable :</span> {{ societeInfo.mobile }}<br/>
+                {% for fix in societeInfo.getIdTelephone['telephone.fix'] %}
+                    <span class="colorRed">Tél:</span> <span class="colorGreen">{{ fix }}</span><br/>
+                {% endfor %}
                 <span class="colorRed">Email: {{ societeInfo.companyEmail }}</span>
 
             </td>

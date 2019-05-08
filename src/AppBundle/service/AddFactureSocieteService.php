@@ -38,7 +38,6 @@ class AddFactureSocieteService
      */
     public function __construct(EntityManagerInterface $em)
     {
-        $em->contains();
         $this->em = $em;
         $this->factureRepository = $em->getRepository(Facture::class);
         $this->userRepository = $em->getRepository(User::class);

@@ -123,6 +123,8 @@ trait EstimationPrixSubmitForm
             /** @var  pdfGenerateService */
             $pdfGenerateService = $this->container->get('pdf.devis.generator');
 
+
+
             $files = [];
             // Check if company have custom pdf for sending Files to Client
             if(!empty($this->custom_twig_company)) {
@@ -141,11 +143,12 @@ trait EstimationPrixSubmitForm
                 $files['declaration_valeur.pdf'] = $pdfGenerateService->pdfGenerate($devisenvoye, $devisconfig, $userEntity, 'declaration_valeur', 'S');
             }
 
+
             $flashbag = $this->getRequest()->getSession()->getFlashBag();
 
             ///admin.send.mail.devis
             $sendDevisMailservice = $this->container->get('admin.send.mail.devis');
-            $reponse = $sendDevisMailservice->sendDevisEmailClient('Votre Devis du déménagement', $devisenvoye, $userEntity, $devisconfig, $files);
+            $reponse = $sendDevisMailservice->sendDevisEmailClient('Votre Devis du déménagement', $devisenvoye, $userEntity, $userEntityGroup, $devisconfig, $files);
             if($reponse == true) {
 
                 $flashbag->add('sonata_flash_success','<i class="far fa-check-circle"></i> Votre estimation du devis a bien été envoyé '.$devisenvoye->getNom().' '.$devisenvoye->getPrenom().' ('.$devisenvoye->getEmail().')');
@@ -158,6 +161,7 @@ trait EstimationPrixSubmitForm
                 $flashbag->add('errore','Errore d\'envie message');
                 ///              $this->addFlash('errore','Errore d\'envie message');
             }
+
 
 
         }

@@ -233,7 +233,12 @@ sonata_admin:
                      label:        devis.tarification
                      roles:        [ROLE_SOCIETE]
 
+                   - route:        sonata_admin_rib
+                     label:        rib.societe
+                     roles:        [ROLE_SOCIETE]
+
                    - admin.prestation
+                   - admin.telephone
 
             mon_compte:
                 keep_open:          true

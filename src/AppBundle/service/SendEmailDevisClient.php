@@ -45,7 +45,7 @@ class SendEmailDevisClient
      * @param array $devisconf
      * @param array $files
      */
-    public function sendDevisEmailClient($titleMessage, $devis, User $societe, array $devisConfig = null, array $files = [], $message_html_twig = null) {
+    public function sendDevisEmailClient($titleMessage, $devis, User $societe, User $userEntityGroup, array $devisConfig = null, array $files = [], $message_html_twig = null) {
 
         if(is_null($message_html_twig)) {
             $message_html_twig = 'admin/email/standard/devis/send_devis_post.html.twig';

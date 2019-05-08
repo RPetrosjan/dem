@@ -1,0 +1,123 @@
+{% extends 'admin/pdf/custom/DevisConf4/base.html.twig' %}
+
+{% block body %}
+{{ parent() }}
+
+    {% set pricetva =  (devisConfig.tva * devisConfig.prixht) / 100  %}
+    {% set pricettc =  pricetva + devisConfig.prixht  %}
+    {% set priceAccompte = (devisConfig.acompte * pricettc) / 100  %}
+
+
+    <table style="width: 100%;margin-top: 200px;">
+        <tr>
+            <td style="width: 50%; padding-right: 25px; text-align: right"><h3 class="colorBlue">Facture</h3></td>
+            <td>
+                <table>
+                    <tr>
+                        <td>Facture n° </td><td><b>{{ devisConfig.devisnumber }}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Date</td><td><b>{{ devisConfig.CreatedDate|date('d/m/Y') }}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Echéance</td><td><b>{{ devisConfig.CreatedDate|date_modify('+2 month')|date('d/m/Y') }}</b></td>
+                    </tr>
+                    <tr>
+                        <td>N° client</td><td><b>{{ devisConfig.client }}</b></td>
+                    </tr>
+                </table>
+            </td>
+
+        </tr>
+    </table>
+    <div style="padding-left: 0px;"><b>EXEMPLAIRE ORIGINAL</b></div>
+    <table style="width: 100%; margin-top: 25px;" cellspacing="0" cellpadding="0">
+        <tr>
+            <td class="backgray bordertop borderleft" style="width: 55%; padding-top: 5px; padding-bottom: 5px; text-align: center"><b>Désignation</b></td>
+            <td class="backgray bordertop borderleft" style="width: 10%; text-align: center"><b>Qté</b></td>
+            <td class="backgray bordertop borderleft" style="width: 20%; text-align: center"><b>Total HT</b></td>
+            <td class="backgray bordertop borderleft borderright" style="width: 15%; text-align: center"><b>Tva</b></td>
+        </tr>
+        <tr>
+            <td class="bordertop borderleft" style="padding-left: 5px; width: 55%;">
+                <div>Concerne le déménagement de votre mobilier</div>
+                <div style="margin-top: 30px;">CHARGEMENT : Du {{ devisInfo.date1 }} au {{ devisInfo.date2 }}</div>
+                <div>{{ devisInfo.adresse1 }}</div>
+                <div>{{ devisInfo.cp1 }} {{ devisInfo.ville1 }}</div>
+
+                <div style="margin-top: 30px;">LIVRAISON : Du {{ devisInfo.date1 }} au {{ devisInfo.date2 }}</div>
+                <div>{{ devisInfo.adresse2 }}</div>
+                <div>{{ devisInfo.cp2 }} {{ devisInfo.ville2 }}</div>
+
+                <div style="margin-top: 30px;">VOLUME : {{ devisInfo.volume }} m3</div>
+            </td>
+            <td class="bordertop borderleft" style="width: 10%"></td>
+            <td class="bordertop borderleft" style="width: 20%"></td>
+            <td class="bordertop borderleft borderright" style="width: 15%"></td>
+        </tr>
+        <tr>
+            <td class="borderleft borderbottom" style="width: 55%; padding-left: 5px; padding-bottom: 30px;">
+                <div>Selon devis n°{{ devisConfig.devisnumber }} - LV n°{{ devisConfig.client }}</div>
+            </td>
+            <td class="borderleft borderbottom" style="width: 10%; text-align: right; padding-right: 5px; vertical-align: top">1.00</td>
+            <td class="borderleft borderbottom" style="width: 20%; text-align: right; padding-right: 5px; vertical-align: top">{{ devisConfig.prixht|number_format(2, ',', '') }} €</td>
+            <td class="borderleft borderright borderbottom" style="width: 15%; text-align: right; padding-right: 5px; vertical-align: top">{{ devisConfig.tva }}%</td>
+        </tr>
+    </table>
+
+    <table style="width: 100%" cellpadding="0" cellspacing="0">
+        <tr>
+            <td class="borderrights" style="width: 45%; vertical-align: top">
+
+                <table style="width: 330px" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td class="backgray borderleft borderbottom" style="text-align: center; width: 33%; padding-top: 5px; padding-bottom: 5px"><b>Montant HT</b></td>
+                        <td class="backgray borderleft borderbottom" style="text-align: center; width: 33%; padding-top: 5px; padding-bottom: 5px"><b>TVA</b></td>
+                        <td class="backgray borderleft borderbottom" style="text-align: center; width: 33%; padding-top: 5px; padding-bottom: 5px"><b>Montant TVA</b></td>
+                    </tr>
+                    <tr>
+                        <td class="borderleft borderbottom" style="text-align: right; padding-right: 5px">{{ devisConfig.prixht|number_format(2, ',', '') }} €</td>
+                        <td class="borderleft borderbottom" style="text-align: right; padding-right: 5px">{{ devisConfig.tva }} %</td>
+
+                        <td class="borderleft borderbottom" style="text-align: right; padding-right: 5px">{{ pricetva|number_format(2, ',', '') }} €</td>
+                    </tr>
+                </table>
+
+            </td>
+            <td class="borderleft borderright borderbottom" style="vertical-align: top">
+                <table style="width: 385px" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="borderright" style="width: 50%; padding-right: 5px; padding-bottom: 10px; text-align: right">Total H.T</td>
+                        <td style="width: 50%; padding-right: 5px; padding-bottom: 10px; text-align: right">{{ devisConfig.prixht|number_format(2, ',', '') }}€</td>
+                    </tr>
+                    <tr>
+                        <td class="borderright" style="width: 50%; padding-right: 5px; padding-bottom: 10px; text-align: right">Total T.V.A</td>
+                        <td style="width: 50%; padding-right: 5px; padding-bottom: 10px; text-align: right">{{ pricetva|number_format(2, ',', '') }} €</td>
+                    </tr>
+                    <tr>
+                        <td class="borderright" style="width: 50%; padding-right: 5px; padding-bottom: 10px; text-align: right">TOTAL T.T.C.</td>
+                        <td style="width: 50%; padding-right: 5px; padding-bottom: 10px; text-align: right">{{ pricettc|number_format(2, ',', '') }} €</td>
+                    </tr>
+                    <tr>
+                        <td class="borderright" style="width: 50%; padding-right: 5px; padding-bottom: 10px; text-align: right">Règlements à déduire</td>
+                        <td style="width: 50%; padding-right: 5px; padding-bottom: 10px; text-align: right">0 €</td>
+                    </tr>
+                    <tr>
+                        <td class="borderright " style="width: 50%; padding-right: 5px; padding-bottom: 10px; text-align: right"><b>RESTE DU</b></td>
+                        <td style="width: 50%; padding-right: 5px; padding-bottom: 10px; text-align: right">0.00 €</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <div style="margin-top: 20px;">
+        Arrêté la présente Facture à la somme de deux milles soixante-dix-sept euros .<br/>
+        Emettre tous les chèques à l'ordre de DEMENAGEMENTS SERVICE FRANCE.<br/>
+        Aucun escompte sur règlement anticipé.<br/>
+        Montant de l'indemnité forfaitaire pour les frais de recouvrement due au créancier en cas de retard de paiement, conformément à
+        l'article 121-II de la loi n°2012-387 du 22 mars 2012. Cette indemnité est fixée à 40€ par le décret n°2012-1115 de 2 octobre 2012.<br/>
+        TVA acquittée sur les encaissements.
+    </div>
+{% endblock %}
+{% block addPage %}
+{% endblock %}
