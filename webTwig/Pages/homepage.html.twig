@@ -1,4 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block topMenu %}
     {% include 'menu/topMenu.html.twig'%}
+    {% include 'menu/top_sous_menu.html.twig' %}
 {% endblock %}
+
+{% block topBody %}
+    {% include 'block/top_body_block.html.twig' %}
+{% endblock %}
+
+ {% block infoPage %}
+     {% include 'block/infoPage.html.twig' %}
+ {%  endblock %}
