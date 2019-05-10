@@ -77,7 +77,7 @@ class PDFDevisGenerator
         }
 
         if(is_null($mode)) {
-            $img_file = $pdf_dir.'admin/pdf/standard/image/bacpap8.png';
+            $img_file = $pdf_dir.'admin/pdf/standard/image/bacpap81.png';
         }
         else {
             $img_file = $pdf_dir.'admin/pdf/standard/image/white.png';
@@ -110,14 +110,40 @@ class PDFDevisGenerator
             'pdf_show_devis' => 'admin/pdf/standard/pdf_show_devis.html.twig',
         ];
 
+
         $htmlRender = $this->container->get('templating')->render($array_pdf['pdf_show_devis'], [
             'devisInfo' => $devis,
         ]);
 
+        $html2pdf = new Html2Pdf('P','A4','fr', true, 'UTF-8', array(10, 10, 10, 0));
+
+        /** @var string $directory */
+        $directory = "admin/pdf/standard/font";
+        // We get all ttf files for adding font
+        /** @var array $fontsttf */
+        $pdf_dir  = __DIR__.'/../../../webTwig/';
+
+        $fontsttf = scandir($pdf_dir.$directory);
+        foreach ($fontsttf as $objectttf) {
+            if (stripos($objectttf, "ttf") !== false) {
+                \TCPDF_FONTS::addTTFfont($pdf_dir.$directory.'/'.$objectttf, 'TrueTypeUnicode', "", 32);
+                /// $html2pdf->addFont('Open Sans', '', $pdf_dir.$directory.'/'.$objectttf);
+            }
+        }
+        ///  $html2pdf->setDefaultFont('Open Sans');
+        $html2pdf->pdf->SetDisplayMode('fullpage');
+        $html2pdf->pdf->SetTitle('Devis ');
+
+
+        $html2pdf->writeHTML($htmlRender);
+        $filename = 'pdf.pdf';
+        return $html2pdf->output($filename, $type_output);
+
+        /*
         $pdf = $this->returnPDFResponseFromHTML();
         $pdf->setPageMark();
         $pdf->writeHTML($htmlRender, true, false, true, false, '');
-        $filename = '/ourcodeworld_pdf_demo';
+        $filename = '/ourcodeworld_pdf_demo'; */
         return $pdf->Output($filename, $type_output);
     }
 

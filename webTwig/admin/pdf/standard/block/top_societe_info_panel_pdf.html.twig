@@ -1,25 +1,40 @@
-<table border="0" cellspacing="0" cellpadding="0">
+
+{% if societeInfo is defined %}
+<table border="0" cellspacing="0" cellpadding="0" style="width: 100%; background-image: url(image/pdf/icon/icon.png); background-repeat: no-repeat; background-position: center 0px;">
+{% else %}
+    <table style="width: 100%">
+    {% endif %}
     <tr>
+        {% if societeInfo is defined %}
         <td style="font-size: 16px; width: 50%;">{{ societeInfo.companyName }}</td>
         <td style="font-size: 14px; width: 50%; text-align: right">{% if societeInfo.website is defined %}{{ societeInfo.website }}{% endif %}</td>
+        {% else %}
+        <td style="width: 50%; font-size: 25px">Espace-Demenageur.fr</td>
+            <td>
+                <img style="height: 100px" src="image/pdf/icon/icon.png"><br/>
+            </td>
+        {% endif %}
     </tr>
 
     <tr>
-        <td style="width: 50%">{{ societeInfo.street }} <span>   </span><br/><span>{{ societeInfo.codePostal }} {{ societeInfo.city }}</span>
-        </td>
-        <td style=" width: 50%; text-align: right"> <strong>N SIRET {{ societeInfo.siret }}</strong></td>
+        {% if societeInfo is defined %}
+        <td style="width: 50%">{{ societeInfo.street }} <span>   </span><br/><span>{{ societeInfo.codePostal }} {{ societeInfo.city }}</span></td>
+        <td style="width: 50%; text-align: right"> <strong>N SIRET {{ societeInfo.siret }}</strong></td>
+        {% endif %}
     </tr>
     <tr>
         <td>
-
+            {% if societeInfo is defined %}
             <div style="width: 270px;">
                 <span class="colred">Tel :</span>
-            {% for index,fix in societeInfo.getIdTelephone['telephone.fix']  if  index < 2  %}
-                {% if index > 0 %}
-                    <span style="color: #9b0000">/</span>
+                {% if societeInfo.getIdTelephone['telephone.fix']  is defined %}
+                    {% for index,fix in societeInfo.getIdTelephone['telephone.fix']  if  index < 2  %}
+                        {% if index > 0 %}
+                            <span style="color: #9b0000">/</span>
+                        {% endif %}
+                       {{ fix }}
+                    {% endfor %}
                 {% endif %}
-               {{ fix }}
-            {% endfor %}
 
                 {% if societeInfo.getIdTelephone['portable'] is defined %}<br/>
                  <div style="margin-top: 5px">
@@ -39,9 +54,12 @@
             {% endif %}
             #}
             </div>
+            {% endif %}
         </td>
         <td style="text-align: right">
-            <span>{{ societeInfo.companyEmail }}</span>
+            {% if societeInfo is defined %}
+                <span>{{ societeInfo.companyEmail }}</span>
+            {% endif %}
         </td>
     </tr>
 </table>

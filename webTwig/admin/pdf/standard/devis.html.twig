@@ -14,26 +14,33 @@
         </tr>
     </table>
 
-    <table style="margin-top: 40px" border="0" cellspacing="0" cellpadding="0">
+    <table style="margin-top: 50px" border="0" cellspacing="0" cellpadding="0">
+
         <tr>
-            <td class="tdline" style="font-size: 14px; width: 75%">{{ devisInfo.nom }} {{ devisInfo.prenom }}</td>
-            <td  colspan="2" class="tdline" style="font-size: 14px; width: 15%"></td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Nom </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.nom }} {{ devisInfo.prenom }}</td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Prestation </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.prestation }}</td>
         </tr>
         <tr>
-            <td class="tdline" style="width: 75%">{{ devisInfo.adresse1  }}</td>
-            <td class="tdline" style="width: 15%; text-align: right;"><strong style="color: #9b0000;">Prestation : </strong></td>
-            <td class="tdline" style="width: 10%"> {{ devisConfig.userprestation }}</td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Adresse </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.adresse1 }}</td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Volume</span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.volume }} m&sup3;</td>
         </tr>
         <tr>
-            <td class="tdline" style="width: 75%">{{ devisInfo.cp1 }} {{ devisInfo.ville1 }}</td>
-            <td class="tdline" style="width: 15%; text-align: right;"><strong style="color: #9b0000;">Volume : </strong></td>
-            <td class="tdline" style=" width: 10%"> {{ devisInfo.volume }} m&sup3;</td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">CP Ville </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.cp1 }} {{ devisInfo.ville1 }}</td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Distance </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.distance }} km</td>
         </tr>
         <tr>
-            <td class="tdline" style="width: 75%"><span style="color: #9b0000">{{ devisInfo.telephone }}</span></td>
-            <td class="tdline" style="width: 15%; text-align: right;"><strong style="color: #9b0000;">Distance : </strong></td>
-            <td class="tdline" style="width: 10%"> {{ devisInfo.distance }} km</td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Téléphone </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.telephone }} </td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Portable </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.portable }}</td>
         </tr>
+
     </table>
 
     <table style="margin-top: 50px" border="0" cellspacing="0" cellpadding="0">
