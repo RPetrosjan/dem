@@ -1,3 +1,63 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+admin_area:
+    resource: '@AppBundle/Resources/config/routing/sonata_admin.xml'
+    prefix: %admin%
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /%admin%
+
+sonata_societe:
+    path: /%admin%/app/societe/list
+
+sonata_admin_user:
+    path: /%admin%/app/user/list
+
+sonata_admin_devis_conf:
+    path: /%admin%/app/devisconfig
+
+sonata_admin_rib:
+    path: /%admin%/app/rib
+
+sonata_admin_ma_societe:
+    path: /%admin%/app/ma-societe
+
+sonata_admin_mes_devis:
+    path: /%admin%/app/mesdevis/list
+
+sonata_admin_devis_envoye:
+    path:  /%admin%/app/devisenvoye/list
+
+sonata_admin:
+    path: /%admin%/
+
+sonata_sendDevis_post:
+    path: /%admin%/app/demandedevis/{uuid}/post
+    controller: AppBundle\Controller\AdminController::sendDevisPost
+
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile

@@ -1,0 +1,6 @@
+{{ '/public/css/form.html.css'|cssloader }}
+{{ '/public/js/form.html.js'|jsloader }}
+{% form_theme form 'form/fields_custom.html.twig' %}
+{{ form_start(form) }}
+{{ form_row(form) }}
+{{ form_end(form) }}

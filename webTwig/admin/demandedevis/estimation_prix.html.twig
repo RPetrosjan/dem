@@ -1,0 +1,113 @@
+{% set form = field_description.options.attr.form %}
+
+
+{% form_theme form 'admin/demandedevis/form/fields.html.twig' %}
+
+
+{{ form_start(form) }}
+    <div class="box-body">
+        {% block formrow %}
+        {% endblock %}
+    </div>
+{{ form_end(form) }}
+
+{% set elements = [] %}
+{% for children in form.children %}
+    {% for key, value in children.children  %}
+        {% set elements = elements|merge([key]) %}
+    {% endfor %}
+{% endfor %}
+
+<script>
+
+    // GEt all elements d'un form Estimation Prix
+    var devislements = {{ elements|json_encode()|raw }};
+
+
+    function UpdatePriceShow() {
+        var prixht = $("input[name*='prixht']").val();
+        if($.isNumeric(prixht) == false) {
+            prixht = 0;
+        }
+        var tva = $("input[name*='tva']").val();
+        if($.isNumeric(tva) == false) {
+            tva = 0;
+        }
+
+        var prixttc = parseFloat(prixht*tva / 100) + parseFloat(prixht);
+        $("input[name*='prixttc']").val(prixttc);
+
+
+        var accompte_commande = prixttc * $("input[name*='acompte']").val() / 100;
+        if($.isNumeric(accompte_commande) == false) {
+            accompte_commande = 0;
+        }
+
+        $("input[name*='acomptecommande']").val(accompte_commande);
+        $("input[name*='soldelivraison']").val(prixttc - accompte_commande);
+    }
+
+    {% set url = path('devis_prev_doc_generator', {
+        'uuid' : '2222',
+        'type' :'devis',
+        'json' : 'df'
+    }) %}
+
+    {%  set pdf_url = url[:url|strpos('2222')]  %}
+
+    function MakeUrlPrevisualisation(jsonurl) {
+
+        {% if admin.show.listdocs.options.attr.societecustom is not empty %}
+        $('.devisPrev.js').html('' +
+        {% for key, custom in admin.show.listdocs.options.attr.societecustom  %}
+            '<a target="_blank" href="{{ pdf_url }}'+devisId+'/{{ key }}/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> {{ custom.Label }}</a>' +
+        {#    <a target="_blank" href="{{ field_description.options.attr.url_devis}}{{ key }}"><i class="far fa-file-pdf"></i> {{ custom.Label }}</a> #}
+        {% endfor %}
+            '');
+        {% else %}
+            $('.devisPrev.js').html('' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/devis/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> Devis</a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/declaration_valeur/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> Declaration Valeur </a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/condition_generale/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> Condition Générale </a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/facture/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> Facture </a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/lettre_chargement/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> Lettre Chargement  </a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/lettre_dechargement/'+encodeURI(jsonurl)+'"><i class="far fa-file-pdf"></i> Lettre Dechargement  </a>' +
+            '');
+
+        {% endif %}
+
+
+
+    }
+
+    function createElementsUrl(){
+        var urlkey = {};
+        devislements.forEach(function (elements) {
+            urlkey[elements] = $("[name*= '"+elements+"']").val();
+        });
+
+        $(".hiddenjson").val(JSON.stringify(urlkey));
+        MakeUrlPrevisualisation(JSON.stringify(urlkey))
+        /// console.log(JSON.stringify(urlkey));
+    }
+
+
+    // Convert in jqeurt command line
+    var jquerytext = '';
+    devislements.forEach(function (elements) {
+        jquerytext += "[name*='"+elements+"'], ";
+    });
+    // Remove 2 last character
+    jquerytext = jquerytext.substr(0,jquerytext.length-2);
+    console.log(jquerytext);
+    // Activated all elements for jquery command keyup
+    $(jquerytext).on('keyup change', function () {
+        // Calcul price
+        UpdatePriceShow();
+        createElementsUrl();
+    });
+
+ ///   console.log(jquerytext);
+///    input[name*='prixht'], input[name*='tva'], input[name*='acompte'], input[name*='distance']
+
+</script>

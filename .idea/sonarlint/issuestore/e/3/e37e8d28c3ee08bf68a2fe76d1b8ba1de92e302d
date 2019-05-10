@@ -1,0 +1,9 @@
+
+c	php:S1192"IDefine a constant instead of duplicating this literal "required" 4 times.(·ÌÖü8“’Ø•-
+c	php:S1192"IDefine a constant instead of duplicating this literal "col-md-6" 3 times.(ÅÑ¤Å8“’Ø•-
+`	php:S1192"FDefine a constant instead of duplicating this literal "class" 3 times.(ÅÑ¤Å8“’Ø•-
+a	php:S1192"GDefine a constant instead of duplicating this literal "label" 17 times.(âõ‡8“’Ø•-
+c	php:S1192"IDefine a constant instead of duplicating this literal "username" 3 times.(®Â»Ü8“’Ø•-
+=php:S125"Remove this commented out code.(İÔ•ùÿÿÿÿ8“’Ø•-
+=php:S125"Remove this commented out code.(èç°©ûÿÿÿÿ8“’Ø•-
+H	php:S1481".Remove this unused "$fullPath" local variable.(¿ú …8“’Ø•-

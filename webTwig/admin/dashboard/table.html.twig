@@ -1,0 +1,22 @@
+<table class="table table-bordered table-striped table-hover sonata-ba-list">
+    <thead>
+    <tr class="sonata-ba-list-field-header">
+        {% if page.table.thead is defined %}
+            {% for thead in page.table.thead  %}
+                <th class="sonata-ba-list-field-header-datetime  sonata-ba-list-field-header-order-asc ">{{ thead.name }}</th>
+            {% endfor %}
+        {% endif %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for tbody in page.table.tbody %}
+        <tr>
+            {% for td in tbody %}
+               <td class="sonata-ba-list-field sonata-ba-list-field-datetime" >{{ td }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+
+    </tbody>
+
+</table>

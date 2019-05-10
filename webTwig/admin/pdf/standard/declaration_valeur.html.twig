@@ -1,0 +1,78 @@
+{% extends 'admin/pdf/standard/base.html.twig' %}
+{% block body %}
+
+<table cellpadding="0" cellspacing="0" style="height: 30px; margin-top: 30px; margin-bottom: 30px;">
+    <tr>
+        <td style=" width:83%;  text-align: right; font-size: 20px; font-weight: bold ">Déclaration de valeur - {{ devisConfig.devisnumber }}</td>
+        <td style="width: 17%"></td>
+    </tr>
+    <tr>
+        <td style=" width:83%;  text-align: right; font-weight: normal ">{{ societeInfo.codePostal }} {{ societeInfo.city }} {{ devisInfo.CreatedDate|date("m/d/Y") }}</td>
+        <td style="width: 17%"></td>
+    </tr>
+
+</table>
+<table>
+    <tr>
+        <td style="padding-bottom: 30px;">Conditions d'indemnisation des pertes et avaries
+            A remplir quel que soit le mode de garantie choisie : Garantie de responsabilité contractuelle ou assurance dommage. Vous
+            confiez le déménagement de votre mobilier à un professionnel. L'entreprise de déménagement sera responsable des dommages
+            éventuels pouvant survenir au mobilier confié dans les conditions fixées à l'article 13 des conditions générales de vente. Par
+            ailleurs, conformément à l'article 14 des conditions générales, l'indemnisation pour pertes et pour avaries est limitée à la valeur
+            totale du mobilier et ce pour objet ou élément de mobilier à <b style="color: #9b0000">{{ devisConfig.parobjet }} €</b>.<br/><br/>
+            Dans certains cas, la responsabilité de l'entreprise peut ne pas être retenue (accident ou incendie non responsable, vol avec
+            agression, les cas de force majeurs) : vous pouvez alors estimer que la responsabilité contractuelle de l'entreprise est
+            insuffisante et opter pour la souscription d'une assurance dommage, article 4 des conditions générales de vente qui sont tenues
+            à votre disposition.
+        </td>
+    </tr>
+    <tr>
+        <td><b style="color: #9b0000">1 - VALEUR TOTALE DU MOBILIER</b><br/>
+            Indiquer en lettre la valeur totale du mobilier y compris les objets ou éléments de mobilier individuellement en.<br/><br/>
+            <b style="color: #9b0000">2 - VALEUR INDIVIDUELLE</b><br/>
+            Vous avez choisi la garantie de responsabilité contractuelle. Indiquer les objets ou éléments de mobilier dont la valeur individuelle
+            est supérieur à l'indemnisation maximale par objet ou éléments de mobilier. Si vous avez opté pour l'assurance dommage, vous
+            pouvez également lister et valoriser les objets ou éléments de votre choix.
+        </td>
+    </tr>
+</table>
+
+<table cellspacing="0" cellpadding="0"  style="margin-top: 30px; width: 100%;">
+    <tr>
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black;  width: 80%; padding-top: 10px; padding-bottom: 10px; text-align: center">Description de l'objet</td>
+        <td style="border-bottom: 1px solid black; width: 20%; padding-top: 10px; padding-bottom: 10px; text-align: center">Valeur (en €)</td>
+    </tr>
+
+    {% for i in 0..7 %}
+        <tr>
+            <td style="border-bottom: 1px solid black; border-right: 1px solid black; width: 80%; padding-top: 10px; padding-bottom: 10px; text-align: center"></td>
+            <td style="border-bottom: 1px solid black; width: 20%; text-align: center"></td>
+        </tr>
+    {% endfor %}
+
+
+    <tr>
+        <td style=" border-right: 1px solid black; width: 80%; text-align: right; padding-top: 10px; padding-bottom: 10px; padding-right: 5px">TOTAL VALEUR <span>   </span></td>
+        <td style="width: 20%; text-align: center"></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td style="font-weight: normal">Mode de garantie choisie:______________Garantie de responsabilité contractuelle______________Assurance
+            dommage, cette déclaration de valeur est à retenir comme base de calcul du coût du mode de garantie choisie figurant
+            au devis. Mr, Mme, Melle______________déclare que les valeurs énoncées ci-dessus sont sincères et réelles.
+
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>Retourner un exemplaire daté et signé à l'entreprise, le deuxiàme est à conservè par le client</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>Fait à: </td><td>le:</td><td>Signature du client</td>
+    </tr>
+</table>
+{% endblock %}

@@ -1,0 +1,4 @@
+
+¦php:S101"“Rename class "__TwigTemplate_931a89513732f3e5c586980a3e03c5eabf774ad9e2adc9ff2082ea2d339383ae" to match the regular expression ^[A-Z][a-zA-Z0-9]*$.(æÑÍİ
+9	php:S1110"!Remove these useless parentheses.(½¹¥éıÿÿÿÿ
+m	php:S1192"ZDefine a constant instead of duplicating this literal "Pages\\homepage.html.twig" 6 times.(ÎÕÃí

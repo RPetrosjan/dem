@@ -1,0 +1,174 @@
+{% extends 'admin/pdf/standard/base.html.twig' %}
+{% block body %}
+    <table style="height: 20px;">
+        <tr>
+            <td></td>
+        </tr>
+    </table>
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width:83%;  text-align: right; font-size: 20px; font-weight: bold ">Devis - {{ devisConfig.devisnumber }}</td>
+        </tr>
+        <tr>
+            <td style="width:83%; text-align: right" class="arial">{{ societeInfo.codePostal }} {{ societeInfo.city }} {{ devisInfo.CreatedDate|date("m/d/Y") }}</td>
+        </tr>
+    </table>
+
+    <table style="margin-top: 50px" border="0" cellspacing="0" cellpadding="0">
+
+        <tr>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Nom </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.nom }} {{ devisInfo.prenom }}</td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Prestation </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.prestation }}</td>
+        </tr>
+        <tr>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Adresse </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.adresse1 }}</td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Volume</span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.volume }} m&sup3;</td>
+        </tr>
+        <tr>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">CP Ville </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.cp1 }} {{ devisInfo.ville1 }}</td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Distance </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.distance }} km</td>
+        </tr>
+        <tr>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Téléphone </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.telephone }} </td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Portable </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.portable }}</td>
+        </tr>
+
+    </table>
+
+    <table style="margin-top: 50px" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td class="tdline" colspan="2" style="width: 50%; font-size: 14px;">DÉPART</td>
+            <td class="tdline" colspan="2" style="width: 50%; font-size: 14px;">ARRIVÉE</td>
+        </tr>
+        <tr>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Date </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.date1 }}</td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Date </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.date2 }}</td>
+        </tr>
+        <tr>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Adresse </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.adresse1 }}</td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Adresse </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.adresse2 }}</td>
+        </tr>
+        <tr>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Ville </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.cp1 }} {{ devisInfo.ville1 }}</td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Ville </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.cp2 }} {{ devisInfo.ville2 }}</td>
+        </tr>
+        <tr>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Etage </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.etage1 }} </td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Etage </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.etage2 }}</td>
+        </tr>
+        <tr>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Ascenseur </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.ascenseur1 }} </td>
+            <td class="tdline"  style="width: 12%"><span style="color: #9b0000">Ascenseur </span></td>
+            <td class="tdline"  style="width: 38%">{{ devisInfo.ascenseur2 }}</td>
+        </tr>
+    </table>
+
+    <table style="margin-top: 20px" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td class="tdline" style="font-size: 14px;">Prestation : <span style="color: #9b0000">{{ devisConfig.userprestation }}</span></td>
+        </tr>
+        <tr>
+            <td style="padding-top: 15px; padding-bottom: 15px" class="arial tdline">
+                {% if prestation.Societe  is defined %}
+                    {% for description in prestation.Societe  %}
+                        {{ description }}.
+                    {% endfor %}
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+
+    <table style="margin-top: 20px" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td style="font-size: 14px; width: 65% "><span style="color: #9b0000">OBSERVATIONS</span></td>
+            <td style="font-size: 14px; width: 35% "><span style="color: #9b0000; text-align: right">ESTIMATION DE VOTRE COÛT</span></td>
+        </tr>
+        <tr>
+            <td style="width: 65%;">
+
+                <table cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td style="width: 100%">Assurance comprise, garantie dommage (franchise <span style="color: #9b0000">{{ devisConfig.franchise }} €</span>),
+                            valeur globale de <span style="color: #9b0000">{{ devisConfig.valglobale }} €</span> et <span style="color: #9b0000">{{ devisConfig.parobjet }} €</span> par objet non listé.
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+            <td style="width: 35%">
+                <table cellspacing="0" cellpadding="0" style="font-size: 15px" >
+                    <tr>
+                        <td class="tdline" style="width: 50%;font-size: 14px">Prix H.T</td>
+                        <td class="tdline" style="width: 50%;font-size: 14px; text-align: right"> {{ devisConfig.prixht|number_format(2, ',', '') }} €</td>
+                    </tr>
+                    <tr>
+                        <td class="tdline" style="width: 50%; font-weight: normal; font-size: 13px">TVA {{ devisConfig.tva }}%</td>
+                        <td class="tdline" style="width: 50%; text-align: right; font-weight: normal; font-size: 13px">{% set pricetva =  (devisConfig.tva * devisConfig.prixht) / 100  %}{% set pricettc =  pricetva + devisConfig.prixht  %} {{ pricetva|number_format(2, ',', '') }} €</td>
+                    </tr>
+                    <tr>
+                        <td class="tdline" style="width: 50%;color: #9b0000">Prix T.T.C.:</td>
+                        <td class="tdline" style="width: 50%;color: #9b0000; text-align: right"> {{ pricettc|number_format(2, ',', '') }} €</td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td style="width: 65%;"><table cellspacing="0" cellpadding="0" style="width: 90%; font-size: 15px"><tr><td class="arial" style="width: 100%">
+                            Tarif valable <b style="color: #9b0000">{{ devisConfig.valable }}</b> mois, les informations annoncées et sous
+                            des accés au départ et à l'arrivée. Ci-joint un exemplaire
+                            des conditions générales et un exemplaire de la
+                            déclaration de valeur.
+                            En accord avec les termes de ce présent devis et des
+                            conditions générales de vente ci-jointes, merci à nous
+                            retourner daté et signé accompagnés du chèque
+                            de l'acompte correspondant <b style="color: #9b0000">{{ devisConfig.acompte }}%</b> à la commande.
+                        </td></tr></table><br/>
+
+            </td>
+            <td style="width: 35%; text-align: right"><br/><br/>
+                <table cellspacing="0" cellpadding="0">
+                    <tr >
+                        <td style="width: 100%">{{ devisConfig.acompte }}% Acompte de à la commande</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #9b0000; font-size: 15px">{% set priceAccompte = (devisConfig.acompte * pricettc) / 100  %} {{ priceAccompte|number_format(2, ',', '') }} €</td>
+                    </tr>
+                    <tr>
+                        <td>Solde livraison</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #9b0000">{% set priceSolde = pricettc - priceAccompte  %}{{ priceSolde|number_format(2, ',', '') }} €</td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 65%;color: #9b0000; padding-top: 20px">Signature du Client</td>
+            <td style="width: 35%; text-align: right;color: #9b0000; padding-top: 20px"">Signature d'entreprise</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="font-weight: normal">(précédée de la mention "bon pour accord")</td>
+        </tr>
+    </table>
+{% endblock %}

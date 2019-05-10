@@ -1,0 +1,39 @@
+parameters:
+  DevisCustom:
+    DevisConf4:
+      EstimationPrixForm : 'AppBundle\Form\Custom\DevisConf4'
+      SenMailCustomForm : '/admin/email/custom/DevisConf4/mailform.html.twig'
+      FilesForSendClient:
+         DevisPdf:
+            Label: 'Devis.pdf'
+            Type:  'application/pdf'
+            Twig:  '/admin/pdf/custom/DevisConf4/devis.html.twig'
+         DeclValeurPdf:
+            Label: 'Declaration Valeur.pdf'
+            Type:  'application/pdf'
+            Twig:  '/admin/pdf/custom/DevisConf4/declaration_de_valeur.html.twig'
+         CondGeneralePdf:
+            Label: 'Condition Générale.pdf'
+            Type:  'application/pdf'
+            Twig:  '/admin/pdf/custom/DevisConf4/condition_generale.html.twig'
+         FacturePdf:
+            Label: 'Facture.pdf'
+            Type:  'application/pdf'
+            Twig:  '/admin/pdf/custom/DevisConf4/facture.html.twig'
+         RIBPdf:
+            Label: 'rib.pdf'
+            Type:  'application/pdf'
+            Twig:  '/admin/pdf/custom/DevisConf4/rib.html.twig'
+      FilesForSendCompany:
+         LettreChargPdf:
+            Label: 'Lettre Chargement.pdf'
+            Type:  'application/pdf'
+            Twig:  '/admin/pdf/custom/DevisConf4/lettre_chargement.html.twig'
+         LettreDechargPdf:
+            Label: 'Lettre Dechargement.pdf'
+            Type:  'application/pdf'
+            Twig:  '/admin/pdf/custom/DevisConf4/lettre_dechargement.html.twig'
+    DevisConf6:
+      EstimationPrixForm : 'AppBundle\Form\Custom\DevisConf6'
+
+

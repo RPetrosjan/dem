@@ -1,0 +1,10 @@
+<style type="text/css">
+    {{ include('admin/pdf/standard/css/pdf.css') }}
+</style>
+<page class="body" backcolor="#FEFEFE" backimg="image/pdf/image/bacpap8.png" backimgx="center" backimgy="top" backimgw="100%" backtop="0" backbottom="0" footer="date;heure;page;">
+
+{{ include ('admin/pdf/standard/block/top_societe_info_panel_pdf.html.twig') }}
+
+    {% block body %}{% endblock %}
+
+</page>

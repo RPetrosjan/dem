@@ -1,0 +1,44 @@
+{% set TelFix = '' %}
+{% set TelPort = '' %}
+
+{% for telephone in societe_info.getIdTelephone %}
+    {% if telephone.type == 'telephone.fix' %}
+        {% set TelFix = TelFix ~ telephone.numero ~ ' / ' %}
+    {% elseif telephone.type == 'portable' %}
+        {% set TelPort = TelPort ~ telephone.numero ~ ' / ' %}
+    {% endif %}
+{% endfor %}
+
+{% set TelFix = TelFix|slice(0, -2)  %}
+{% set TelPort = TelPort|slice(0, -2)  %}
+
+{% set boderText = 'Bonjour <b>'~devis_info.nom~' '~devis_info.prenom~'</b>,<br/><br/>
+Je vous remercie pour votre demande. Je suis tout à fait disponible pour réaliser votre projet et me ferai un plaisir de vous aider.<br/>
+N’hésitez surtout pas à me contacter si vous avez la moindre question concernant mon expérience ou encore mes tarifs.<br/>
+<br/><br/>
+Bien à vous,<br/>
+<b>Mr NOEL</b>
+
+<br/><br/>
+<b>'~societe_info.companyName~'</b>
+<br/>
+<br/>
+'~societe_info.street~'<br/>
+'~societe_info.codePostal~' '~societe_info.country~'
+<br/><br/>
+<b>Tél:</b> '~TelFix~'<br/>
+<b>Port:</b> '~TelPort~'
+<br/>
+<br/>
+<br/>
+
+Mail. '~societe_info.email~'
+<br/><br/>
+'~societe_info.website~'' %}
+
+ {% if formatEmail == 'html' %}
+     {{ boderText|raw }}
+ {% else %}
+     {{ boderText|striptags|nl2br }}
+{% endif %}
+

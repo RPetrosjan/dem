@@ -1,0 +1,109 @@
+{% extends 'admin/calculDevisAdminEdit.html.twig' %}
+
+{% block form %}
+    {{ parent() }}
+
+    <script>
+
+        function BlockShowHide(obj, show) {
+
+            $parent = $(obj).closest('div[class*=col-md]');
+
+          ////  console.log($parent);
+
+            if(show == 'show') {
+                $parent.show();
+            }
+            else if(show == 'hide') {
+                $parent.hide();
+            }
+        }
+
+        jQuery(document).ready(function() {
+
+            // Definir Objets
+            var partagerObj = $('input[id*=_share]');
+            var signeeObj = $('input[id*=_signee]');
+            var prixhtObj = $('div[id*=prix_ht]');
+            var tvaObj = $('div[id*=prix_tva]');
+            var prixttcObj = $('div[id*=prix_ttc]');
+            var soustraitanceObj = $('input[id*=sous_traitance]');
+            var prixsoustraitanceObj = $('div[id*=prix_soustraitance]');
+
+
+            if(signeeObj.attr('checked')) {
+                BlockShowHide(prixhtObj, 'show');
+                BlockShowHide(tvaObj, 'show');
+                BlockShowHide(prixttcObj, 'show');
+                BlockShowHide(soustraitanceObj, 'show');
+                BlockShowHide(prixsoustraitanceObj, 'show');
+            }
+            else {
+                BlockShowHide(prixhtObj, 'hide');
+                BlockShowHide(tvaObj, 'hide');
+                BlockShowHide(prixttcObj, 'hide');
+                BlockShowHide(soustraitanceObj, 'hide');
+                BlockShowHide(prixsoustraitanceObj, 'hide');
+            }
+
+            if(soustraitanceObj.is(':checked')) {
+                BlockShowHide(prixsoustraitanceObj, 'show');
+            }
+            else {
+                BlockShowHide(prixsoustraitanceObj, 'hide');
+            }
+
+            partagerObj.change(function () {
+                if(partagerObj.is(':checked') && signeeObj.is(':checked') ) {
+                    signeeObj.parent().click();
+                    if(soustraitanceObj.is(':checked')) {
+                        soustraitanceObj.parent().click();
+                    }
+                }
+            });
+
+            signeeObj.change(function(){
+                if(signeeObj.is(':checked')) {
+                    // checked
+                    BlockShowHide(prixhtObj, 'show');
+                    BlockShowHide(tvaObj, 'show');
+                    BlockShowHide(prixttcObj, 'show');
+                    BlockShowHide(soustraitanceObj, 'show');
+                    if(soustraitanceObj.is(':checked') && signeeObj.is(':checked')) {
+                        BlockShowHide(prixsoustraitanceObj, 'show');
+                    }
+                    if(partagerObj.is(':checked')) {
+                        partagerObj.parent().click();
+                    }
+
+                }
+                else {
+                    // unchecked
+                    BlockShowHide(prixhtObj, 'hide');
+                    BlockShowHide(tvaObj, 'hide');
+                    BlockShowHide(prixttcObj, 'hide');
+                    BlockShowHide(soustraitanceObj, 'hide');
+                    BlockShowHide(prixsoustraitanceObj, 'hide');
+                }
+
+            });
+
+            soustraitanceObj.change(function(){
+                if(soustraitanceObj.is(':checked') && signeeObj.is(':checked')) {
+                    // checked
+                        BlockShowHide(prixsoustraitanceObj, 'show');
+                }
+                else {
+                    // unchecked
+                    BlockShowHide(prixsoustraitanceObj, 'hide');
+                }
+            });
+
+
+
+
+
+        });
+    </script>
+
+{% endblock %}
