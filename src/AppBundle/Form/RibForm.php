@@ -41,7 +41,7 @@ class RibForm extends AbstractType
                     'label' => $this->translator->trans('rib.societe'),
                     'inherit_data' => true,
                     'attr' => [
-                        'cutom_class' => 'col-md-6',
+                        'cutom_class' => 'col-md-8',
                         'icon' => '<i class="fas fa-money-check-alt"></i>'
 
                     ],

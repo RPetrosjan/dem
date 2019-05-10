@@ -1,0 +1,54 @@
+{% extends 'admin/pdf/custom/DevisConf4/base.html.twig' %}
+{% block body %}
+{{ parent() }}
+
+
+<table style="margin-top: 300px; width: 100%; font-size: 16px">
+    <tr>
+        <td colspan="5"><b>Titulaire</b></td>
+    </tr>
+    <tr>
+        <td style="padding-bottom: 20px" colspan="5">{{ societeInfo.getIdRib[0].getNomTitulaire }} {{ societeInfo.getIdRib[0].getPrenomTitulaire }}</td>
+    </tr>
+    <tr>
+        <td class="bordertop borderright" style="padding-right: 30px; padding-top: 5px"><b>Banque</b></td>
+        <td class="bordertop borderright" style="padding-left: 5px; padding-right: 30px;"><b>Guichet</b></td>
+        <td class="bordertop borderright" style="padding-left: 5px; padding-right: 30px;"><b>N de compte</b></td>
+        <td class="bordertop borderright" style="padding-left: 5px; padding-right: 30px;"><b>Clé RIB</b></td>
+        <td class="bordertop" style="padding-left: 5px; padding-right: 30px;"><b>Domiciliation</b></td>
+    </tr>
+    <tr>
+        <td class="borderbottom borderright" style="padding-right: 5px">{{ societeInfo.getIdRib[0].getBanque }}</td>
+        <td class="borderbottom borderright" style="padding-left: 5px; padding-right: 30px;">{{ societeInfo.getIdRib[0].getGuichet }}</td>
+        <td class="borderbottom borderright" style="padding-left: 5px; padding-right: 30px;">{{ societeInfo.getIdRib[0].getNdeCompte }}</td>
+        <td class="borderbottom borderright" style="padding-left: 5px; padding-right: 30px;">{{ societeInfo.getIdRib[0].getCleRib }}</td>
+        <td class="borderbottom" style="padding-left: 5px; padding-bottom: 5px; padding-right: 30px;">{{ societeInfo.getIdRib[0].getDomiciliation }}</td>
+    </tr>
+    <tr>
+        <td colspan="5" style="padding-top: 20px">
+            <b>Bank Identification Code</b>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            {{ societeInfo.getIdRib[0].getBIC }}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5" style="padding-top: 10px">
+            <b>N IBAN (international)</b>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            {{ societeInfo.getIdRib[0].getNIbanInternational }}
+        </td>
+    </tr>
+
+
+</table>
+
+
+{% endblock %}
+{% block addPage %}
+{% endblock %}

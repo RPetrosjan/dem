@@ -146,9 +146,16 @@ trait EstimationPrixSubmitForm
 
             $flashbag = $this->getRequest()->getSession()->getFlashBag();
 
+            $message_html_twig = null;
+            // Check if client have personal mail
+            if(isset($this->container->getParameter('DevisCustom')[$userEntity->getDevisPersonelle()]['SenMailCustomForm'])){
+                $message_html_twig = $this->container->getParameter('DevisCustom')[$userEntity->getDevisPersonelle()]['SenMailCustomForm'];
+            }
+
+
             ///admin.send.mail.devis
             $sendDevisMailservice = $this->container->get('admin.send.mail.devis');
-            $reponse = $sendDevisMailservice->sendDevisEmailClient('Votre Devis du déménagement', $devisenvoye, $userEntity, $userEntityGroup, $devisconfig, $files);
+            $reponse = $sendDevisMailservice->sendDevisEmailClient('Votre Devis du déménagement', $devisenvoye, $userEntity, $userEntityGroup, $devisconfig, $files, $message_html_twig);
             if($reponse == true) {
 
                 $flashbag->add('sonata_flash_success','<i class="far fa-check-circle"></i> Votre estimation du devis a bien été envoyé '.$devisenvoye->getNom().' '.$devisenvoye->getPrenom().' ('.$devisenvoye->getEmail().')');

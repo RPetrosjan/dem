@@ -46,10 +46,7 @@ class User extends BaseUser
      */
     private $id_devis_envoye;
 
-    /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\RIB", mappedBy="user_id")
-     */
-    private $id_rib;
+
 
     /**
      * @ORM\OneToMany(targetEntity="PrestationCustom", mappedBy="user_id")
@@ -82,6 +79,11 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="Telephone", mappedBy="user_id")
      */
     private $id_telephone;
+
+    /**
+     * @ORM\OneToMany(targetEntity="RIB", mappedBy="user_id")
+     */
+    private $id_rib;
 
     /**
      * @ORM\OneToMany(targetEntity="MesDevis", mappedBy="user_id")

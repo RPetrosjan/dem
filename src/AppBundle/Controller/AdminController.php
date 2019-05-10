@@ -583,6 +583,7 @@ class AdminController extends Controller
 
         return $this->render('admin/custom_view.html.twig', array(
             'form' => $ribConfigForm->createView(),
+            'user' => $this->userEntity
         ));
 
     }

@@ -116,14 +116,26 @@ class WebController extends Controller
     }
 
     /**
-     * @Route("/testemailtwig/{type}", name="testmailtwig_page")
+     * @Route("/testemailtwig", name="testmailtwig_page")
      */
     public function ShowEmailTwigTest(Request $request) {
 
 
-        $devis = $this->em->getRepository(DemandeDevis::class)->find(6);
+        $devis = $this->em->getRepository(DemandeDevis::class)->find(30);
 
-        $message= $this->render('admin/email/standard/devis/send_devis_post.html.twig', [
+        $userEntity = $this->getUser();
+        if(!is_null($userEntity->getParent())) {
+            $userEntity = $userEntity->getParent();
+        }
+
+        $message_html_twig = 'admin/email/standard/devis/send_devis_post.html.twig';
+        // Check if client have personal mail
+        if(isset($this->container->getParameter('DevisCustom')[$userEntity->getDevisPersonelle()]['SenMailCustomForm'])){
+            $message_html_twig = $this->container->getParameter('DevisCustom')[$userEntity->getDevisPersonelle()]['SenMailCustomForm'];
+        }
+
+
+        $message= $this->render($message_html_twig, [
             'societe_info' => $this->getUser(),
             'devis_info' => $devis,
             'prixht' => 1560,

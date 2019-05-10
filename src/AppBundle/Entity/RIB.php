@@ -3,7 +3,6 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
  * RIB
@@ -22,10 +21,11 @@ class RIB
      */
     private $id;
 
+
     /**
      * @var User
      *
-     * @ManyToOne(targetEntity="User", inversedBy="id_rib", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="id_rib", cascade={"persist"})
      */
     private $user_id;
 

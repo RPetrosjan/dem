@@ -2,6 +2,7 @@ parameters:
   DevisCustom:
     DevisConf4:
       EstimationPrixForm : 'AppBundle\Form\Custom\DevisConf4'
+      SenMailCustomForm : '/admin/email/custom/DevisConf4/mailform.html.twig'
       FilesForSendClient:
          DevisPdf:
             Label: 'Devis.pdf'
@@ -15,15 +16,15 @@ parameters:
             Label: 'Condition Générale.pdf'
             Type:  'application/pdf'
             Twig:  '/admin/pdf/custom/DevisConf4/condition_generale.html.twig'
-         ConseillesPdf:
-            Label: 'Facture.pdf'
-            Type:  'application/pdf'
-            Twig:  '/admin/pdf/custom/DevisConf4/facture.html.twig'
-      FilesForSendCompany:
          FacturePdf:
             Label: 'Facture.pdf'
             Type:  'application/pdf'
             Twig:  '/admin/pdf/custom/DevisConf4/facture.html.twig'
+         RIBPdf:
+            Label: 'rib.pdf'
+            Type:  'application/pdf'
+            Twig:  '/admin/pdf/custom/DevisConf4/rib.html.twig'
+      FilesForSendCompany:
          LettreChargPdf:
             Label: 'Lettre Chargement.pdf'
             Type:  'application/pdf'
