@@ -80,6 +80,19 @@ services:
           - '@doctrine.orm.entity_manager'
         public: true
 
+    admin.add.devis.user:
+      class: AppBundle\service\AddDevisUser
+      arguments:
+        - '@doctrine.orm.entity_manager'
+      public: true
+
+    admin.email.devis.checker:
+      class: AppBundle\service\CheckEmailDevis
+      arguments:
+        - '@service_container'
+        - '@doctrine.orm.entity_manager'
+      public: true
+
     admin.send.mail.devis:
       class: AppBundle\service\SendEmailDevisClient
       arguments:

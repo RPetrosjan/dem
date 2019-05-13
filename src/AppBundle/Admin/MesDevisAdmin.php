@@ -109,10 +109,13 @@ class MesDevisAdmin extends AbstractAdmin
      */
     public function createQuery($context = 'list')
     {
+
         /** @var  $container */
         $container = $this->getConfigurationPool()->getContainer();
         /** @var  $userEntity */
         $userEntity = $container->get('security.token_storage')->getToken()->getUser();
+
+
 
         /** @var $query */
         $query = parent::createQuery($context);
@@ -143,6 +146,8 @@ class MesDevisAdmin extends AbstractAdmin
         if(!is_null($userEntity->getParent())) {
             $userEntity = $userEntity->getParent();
         }
+
+        $container->get('admin.email.devis.checker')->CheckDevis($userEntity);
 
         $query
             ->where($alias.'.user_id = :user_id')

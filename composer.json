@@ -16,6 +16,7 @@
     "require": {
         "php": ">=5.5.9",
         "bmatzner/fontawesome-bundle": "^4.7",
+        "ddeboer/imap": "^0.5.2",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
         "egeloen/ordered-form-bundle": "^3.0",

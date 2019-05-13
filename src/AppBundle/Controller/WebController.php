@@ -16,7 +16,11 @@ use AppBundle\Entity\User;
 use AppBundle\Form\LoginForm;
 use AppBundle\Form\RegistrationForm;
 
+use Ddeboer\Imap\Search\Flag\Unseen;
+use Ddeboer\Imap\Search\Text\Body;
+use Ddeboer\Imap\SearchExpression;
 use Doctrine\ORM\EntityManagerInterface;
+use DOMDocument;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -24,6 +28,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Twig_Environment;
+use Ddeboer\Imap\Server;
 
 class WebController extends Controller
 {
@@ -113,6 +118,162 @@ class WebController extends Controller
         $em->flush();
 
         return  new JsonResponse($json, 200);
+    }
+
+
+
+    public function findInArrayIfContent(string $text, array $array) {
+        foreach ($array as $key=>$value) {
+            if(strpos($value, $text) !== false) {
+                return $key;
+            }
+        }
+    }
+
+    /**
+     * @param $htmlmail
+     * @return array
+     */
+    public function  readallodemenageur($htmlmail) {
+
+        $dom = new domDocument;
+        $dom->loadHTML(mb_convert_encoding($htmlmail, 'HTML-ENTITIES', 'UTF-8'));
+        $dom->preserveWhiteSpace = false;
+        $tables = $dom->getElementsByTagName('table');
+        foreach ($tables as $table) {
+            foreach(preg_split("/((\r?\n)|(\r\n?))/", $table->textContent) as $line){
+                $resultArray[] = $line;
+            }
+        }
+
+        return  [
+            'nom' => [$resultArray[array_search('Nom :',$resultArray)+1]],
+            'prenom' => [$resultArray[array_search('Prénom :',$resultArray)+1]],
+            'telephone' => [$resultArray[array_search('Tél :',$resultArray)+1]],
+            'email' => [$resultArray[array_search('Email :',$resultArray)+1]],
+            'adresse' => [
+                     $resultArray[array_search('Adresse :',$resultArray)+1],
+                     $resultArray[array_search('Adresse :',$resultArray)+3],
+                ],
+            'cp' => [
+                    $resultArray[array_search('Code postal :',$resultArray)+1],
+                    $resultArray[array_search('Code postal :',$resultArray)+3],
+                ],
+            'ville' => [
+                    $resultArray[array_search('Ville départ :',$resultArray)+1],
+                    $resultArray[array_search('Ville arrivée :',$resultArray)+1],
+                ],
+            'pays' => [
+                    $resultArray[array_search('Pays :',$resultArray)+1],
+                    $resultArray[array_search('Pays :',$resultArray)+3],
+                ],
+            'etage' => [
+                    $resultArray[array_search('Etage :',$resultArray)+1],
+                    $resultArray[array_search('Etage :',$resultArray)+3],
+                ],
+            'ascenseur' => [
+                    $resultArray[array_search('Ascenseur :',$resultArray)+1],
+                    $resultArray[array_search('Ascenseur :',$resultArray)+3],
+                ],
+            ///     'Surface en m2' => 'volume',
+            ///'prestation' => [$resultArray[array_search('Formule :',$resultArray)+1]],
+            'prestation' => [substr($resultArray[$this->findInArrayIfContent('Formule :', $resultArray)], strlen('Formule :')+1, 11)],
+            'volume' => [$resultArray[array_search('Surface :',$resultArray)+1]],
+            'date1' => [substr($resultArray[$this->findInArrayIfContent('Date départ :', $resultArray)], strlen('Date départ :')+1)],
+            'date2' => [substr($resultArray[$this->findInArrayIfContent('Date arrivée :', $resultArray)], strlen('Date arrivée :')+1)],
+            'comment' => [$resultArray[array_search('Observations :',$resultArray)+1]]
+        ];
+
+    }
+
+    /**
+     * @param $textmail
+     * @return array
+     */
+    public function readlesartisansdemenageurs($textmail){
+
+        $resultArray = [];
+
+        $devisArrayWords = [
+            'Nom' => 'nom',
+            'Prénom' => 'prenom',
+            'Téléphone fixe' => 'telephone',
+            'Adresse email' => 'email',
+            'Adresse' => 'adresse',
+            'Code Postal' => 'cp',
+            'Ville' => 'ville',
+            'Pays'=> 'pays',
+            ///     'Surface en m2' => 'volume',
+            'Type de déménagement' => 'prestation',
+            'Estimation du volume' => 'volume',
+            'Période de déménagement min' => 'date1',
+            'Période de déménagement max' => 'date2',
+            'Commentaires' => 'comment'
+        ];
+
+        foreach(preg_split("/((\r?\n)|(\r\n?))/", $textmail) as $line){
+            foreach ($devisArrayWords as $keys=>$value) {
+                if(($pos = strpos($line, $keys)) !== false){
+                    $resultArray[$value][] = trim(substr($line, strlen($keys)));
+                }
+            }
+        }
+
+        $resultArray['adresse'][0] = $resultArray['adresse'][2];
+        $resultArray['adresse'][1] = $resultArray['adresse'][4];
+
+        $resultArray['email'][0] = substr($resultArray['email'][0],0, strpos($resultArray['email'][0],'<'));
+
+
+        unset($resultArray['adresse'][2]);
+        unset($resultArray['adresse'][3]);
+        unset($resultArray['adresse'][4]);
+
+        return $resultArray;
+    }
+
+    /**
+     * @Route("/mailer", name="mailer_page")
+     */
+    public function MailerPage(Request $request) {
+
+
+
+
+        $resultArray = [];
+        $message_html_twig = 'admin/email/standard/devis/send_devis_post.html.twig';
+
+        $server = new Server('world-368.fr.planethoster.net');
+        $connection = $server->authenticate('service@espace-demenageur.fr', '3XQ8rzb4vfVMBusSGW');
+        $mailboxes = $connection->getMailboxes();
+        $mailboxINBOX = $connection->getMailbox('INBOX');
+
+
+        $search = new SearchExpression();
+
+        $search->addCondition(new Unseen());
+        $messages = $mailboxINBOX->getMessages($search);
+
+        foreach ($messages as $message) {
+
+            $textmail = $message->getBodyText();
+            if(strpos($textmail,'contact@lesartisansdemenageurs.fr') !== false){
+                $resultArray = $this->readlesartisansdemenageurs($textmail);
+                dump($resultArray);
+            }
+            else if(strpos($textmail,'contact@allodemenageur.fr') !== false){
+                $resultArray = $this->readallodemenageur($message->getBodyHtml());
+                dump($resultArray);
+            }
+
+            $user = $this->em->getRepository(User::class)->find(4);
+            $this->get('admin.add.devis.user')->AddDevis($user, $resultArray);
+
+        }
+        exit();
+
+         return $this->render($message_html_twig, [
+            ]);
     }
 
     /**
@@ -218,8 +379,6 @@ class WebController extends Controller
                 $lastName = $request->request->get('registration_form')['lastName'];
                 $companyName = $request->request->get('registration_form')['companyName'];
                 $siret = $request->request->get('registration_form')['siret'];
-                $tel = $request->request->get('registration_form')['tel'];
-                $mobile = $request->request->get('registration_form')['mobile'];
                 $codePostal = $request->request->get('registration_form')['codePostal'];
                 $country = $request->request->get('registration_form')['country'];
                 $city = $request->request->get('registration_form')['city'];
@@ -232,8 +391,6 @@ class WebController extends Controller
                 $user->setSiret($siret);
                 $user->setCodePostal($codePostal);
                 $user->setLastName($lastName);
-                $user->setTel($tel);
-                $user->setMobile($mobile);
                 $user->setStreet($street);
                 $user->setCountry($country);
 

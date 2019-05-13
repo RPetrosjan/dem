@@ -31,12 +31,6 @@ class RegistrationForm extends AbstractType
             ->add('siret', TextType::class, [
                 'label' => 'Siret',
             ])
-            ->add('tel', TextType::class, [
-                'label' => 'téléphone',
-            ])
-            ->add('mobile', TextType::class, [
-                'label' => 'Mobile',
-            ])
             ->add('codePostal', TextType::class, [
                 'label' => 'Code Postal',
             ])

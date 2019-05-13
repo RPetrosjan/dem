@@ -13,6 +13,10 @@ use AppBundle\Entity\Facture;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 
+/**
+ * Class AddFactureSocieteService
+ * @package AppBundle\service
+ */
 class AddFactureSocieteService
 {
 
