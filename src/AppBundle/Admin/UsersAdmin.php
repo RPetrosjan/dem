@@ -142,20 +142,11 @@ class UsersAdmin extends AbstractAdmin
             ->add('city', TextType::class, [
                 'label' => 'Ville'
             ])
-            ->add('tel', TextType::class, [
-                'label' => 'Téléphone'
-            ])
-            ->add('mobile', TextType::class, [
-                'label' => 'Portable'
-            ])
             ->add('companyEmail', TextType::class, [
                 'label' => 'E-mail Société'
             ])
             ->add('Website', TextType::class, [
                 'label' => 'Site Web'
-            ])
-            ->add('fax', TextType::class, [
-                'label' => 'Fax'
             ])
             ->end()
             ->with('Company Icon', [

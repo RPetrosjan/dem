@@ -64,7 +64,6 @@ class ExceptionListener
                $user = $token->getUser();
                 if(strcmp($user,'anon.') !=0) {
                     $result = $this->em->getRepository(ViewDevisCount::class)->ifAddTodayCount($user);
-
                     if(empty($result)) {
                       ///  $this->viewDevisCountService->addDevisCount(1);
                         $this->viewDevisCountService->addCreateDateDevisCount();
