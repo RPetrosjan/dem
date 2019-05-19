@@ -1,17 +1,37 @@
 {% set form = field_description.options.attr.form %}
 
 
+
 {% form_theme form 'admin/demandedevis/form/fields.html.twig' %}
 
+{#
+{% form_theme form '@SonataAdmin/Form/form_admin_fields.html.twig' %}
+
+{#
+{% form_theme form 'admin/demandedevis/form/form_admin_fields.html.twig' %}
+#}
 
 {{ form_start(form) }}
-    <div class="box-body">
-        {% block formrow %}
-        {% endblock %}
-    </div>
+   {{ form_widget(form) }}
 {{ form_end(form) }}
 
+
+
+<script type="text/javascript">
+
+
+/*
+    $(document).ready(function() {
+        $("button[type=submit]").click(function(e) {   //bind handlers
+            e.preventDefault();
+        });
+
+    });
+*/
+</script>
+
 {% set elements = [] %}
+
 {% for children in form.children %}
     {% for key, value in children.children  %}
         {% set elements = elements|merge([key]) %}
@@ -80,10 +100,36 @@
 
     }
 
+    function getadvalorem() {
+        var advalorem = [];
+        $('div[id*=advalorem_]').each(function(){
+
+            description = $(this).find("input.description").val();
+            price       = $(this).find("input.prix").val();
+
+            if(description.length>0 && price.length>0)
+            {
+                advalorem.push({
+                    'description': $(this).find("input.description").val(),
+                    'price'       : $(this).find("input.prix").val()
+                });
+            }
+        })
+///        console.log(JSON.stringify(advalorem));
+        return advalorem;
+
+    }
+
     function createElementsUrl(){
         var urlkey = {};
         devislements.forEach(function (elements) {
-            urlkey[elements] = $("[name*= '"+elements+"']").val();
+
+            if(elements == 'advalorem' ) {
+                urlkey[elements] = getadvalorem();
+            }
+            else {
+                urlkey[elements] = $("[name*= '"+elements+"']").val();
+            }
         });
 
         $(".hiddenjson").val(JSON.stringify(urlkey));
@@ -107,7 +153,39 @@
         createElementsUrl();
     });
 
+    $('.sonata-collection-add').unbind('click').click(function () {
+
+        setTimeout(function () {
+            InitialisePrixTTC();
+            $(jquerytext).unbind('on').on('keyup change', function () {
+                // Calcul price
+                UpdatePriceShow();
+                createElementsUrl();
+            });
+        }, 1000);
+    })
+
+    function calculPrixTTC(){
+        $prixttc = 0;
+        $('input.prix').each(function(){
+            if($(this).val().length>0 && $.isNumeric($(this).val())) {
+                $prixttc += parseFloat($(this).val());
+            }
+        });
+        $("input[name*= 'prixht']").val($prixttc);
+    }
+    function InitialisePrixTTC() {
+        $('input.prix').unbind('keyup').keyup(function(){
+            calculPrixTTC();
+        })
+    }
+
+    calculPrixTTC();
+    InitialisePrixTTC();
+
+
  ///   console.log(jquerytext);
 ///    input[name*='prixht'], input[name*='tva'], input[name*='acompte'], input[name*='distance']
+
 
 </script>

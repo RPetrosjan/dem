@@ -1,10 +1,8 @@
 {% use "bootstrap_base_layout.html.twig" %}
 
 {% block form_row %}
-
-
     {% if 'group' not in form.vars.name %}
-        <div class=" text-nowrap form-group {% if form.vars.attr.divclass is defined %}{{ form.vars.attr.divclass }}{% endif %}" style="margin-bottom: 20px">
+        <div class="text-nowrap form-group {% if form.vars.attr.divclass is defined %}{{ form.vars.attr.divclass }}{% endif %}" style="margin-bottom: 20px">
         {{ form_label(form) }}
         {%  else %}
                 {% if form.vars.label != false %}
@@ -13,6 +11,16 @@
                     </h4></div>
                 {% endif %}
     {% endif %}
+
+    {#
+    {% if form.vars.name == 'id_advalorem' %}
+
+        {% include '@SonataAdmin/Form/form_admin_fields.html.twig' %}
+
+        <div><a href="#" class="btn btn-link sonata-collection-add"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></div>
+
+    {% endif %}
+    #}
 
     {{ form_widget(form) }}
     {% if 'group' not in form.vars.name %}
@@ -65,3 +73,45 @@
     </div>
 {%- endblock submit_widget %}
 
+{% block sonata_type_native_collection_widget_row %}
+    {% spaceless %}
+        <div class="sonata-collection-row">
+            {% if allow_delete %}
+            <div class="row">
+                <div class="col-xs-1">
+                    <a href="#" class="btn btn-link sonata-collection-delete">
+                        <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div class="col-xs-11">
+                    {% endif %}
+                    {{ form_row(child, { label: false }) }}
+                    {% if allow_delete %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    {% endspaceless %}
+{% endblock sonata_type_native_collection_widget_row %}
+
+{% block sonata_type_native_collection_widget %}
+    {% spaceless %}
+        {% if prototype is defined %}
+            {% set child = prototype %}
+            {% set allow_delete_backup = allow_delete %}
+            {% set allow_delete = true %}
+            {% set attr = attr|merge({'data-prototype': block('sonata_type_native_collection_widget_row'), 'data-prototype-name': prototype.vars.name, 'class': attr.class|default('') }) %}
+            {% set allow_delete = allow_delete_backup %}
+        {% endif %}
+        <div {{ block('widget_container_attributes') }}>
+            {{ form_errors(form) }}
+            {% for child in form %}
+                {{ block('sonata_type_native_collection_widget_row') }}
+            {% endfor %}
+            {{ form_rest(form) }}
+            {% if allow_add %}
+                <div><a href="#" class="btn btn-link sonata-collection-add"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></div>
+            {% endif %}
+        </div>
+    {% endspaceless %}
+{% endblock sonata_type_native_collection_widget %}

@@ -6,6 +6,7 @@ use AppBundle\Entity\DevisConfig;
 use AppBundle\Entity\DevisEnvoye;
 use AppBundle\Entity\PrestationCustom;
 use AppBundle\Entity\ReadyDemandeDevis;
+use AppBundle\Form\AdValoremForm;
 use AppBundle\Form\EstimationPrixForm;
 use AppBundle\service\ViewDevisCountService;
 use Doctrine\ORM\EntityManager;
@@ -411,6 +412,7 @@ class MesDevisAdmin extends AbstractAdmin
                     'autocomplete' => 'nope',
                 ]
             ])
+
             ->add('volume', TextType::class, [
                 'label' => 'Volume',
                 'attr' => [
@@ -779,6 +781,12 @@ class MesDevisAdmin extends AbstractAdmin
                 ]
             ])
             ->addIdentifier('prenom', null, [
+                'route' => [
+                    'name' => 'show',
+                ]
+            ])
+            ->addIdentifier('email', null, [
+                'label' => $this->trans('email'),
                 'route' => [
                     'name' => 'show',
                 ]

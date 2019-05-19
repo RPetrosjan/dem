@@ -17,10 +17,10 @@
                         <td>Facture n° </td><td><b>{{ devisConfig.devisnumber }}</b></td>
                     </tr>
                     <tr>
-                        <td>Date</td><td><b>{{ devisConfig.CreatedDate|date('d/m/Y') }}</b></td>
+                        <td>Date</td><td><b>{{ devisInfo.CreatedDate|date('d/m/Y') }}</b></td>
                     </tr>
                     <tr>
-                        <td>Echéance</td><td><b>{{ devisConfig.CreatedDate|date_modify('+2 month')|date('d/m/Y') }}</b></td>
+                        <td>Echéance</td><td><b>{{ devisInfo.CreatedDate|date_modify('+2 month')|date('d/m/Y') }}</b></td>
                     </tr>
                     <tr>
                         <td>N° client</td><td><b>{{ devisConfig.client }}</b></td>

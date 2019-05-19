@@ -3,11 +3,15 @@
 
 namespace AppBundle\Form\Custom;
 
+use AppBundle\Entity\AdValorem;
 use AppBundle\Entity\DevisEnvoye;
 use AppBundle\Entity\PrestationCustom;
+use AppBundle\Form\AdValoremForm;
+use Ddeboer\Imap\Search\Text\Text;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Sonata\AdminBundle\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -17,6 +21,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+
 
 class DevisConf4 extends AbstractType
 {
@@ -94,6 +99,30 @@ class DevisConf4 extends AbstractType
 
              )
 
+             ->add(
+                 $builder->create('group12', FormType::class, [
+                     'label' => false,
+                     'inherit_data' => true,
+                     'attr' => [
+                         'class' => 'col-md-12',
+
+                     ],
+
+                 ])
+                     ->add('id_advalorem', CollectionType::class, [
+                         'entry_type' => AdValoremForm::class,
+                         'allow_add' => true,
+                         'allow_delete' => true,
+                         'label' => $this->translator->trans('add.valorem'),
+                     ])
+
+                     ->add('advalorem', HiddenType::class, [
+                         'mapped' => false,
+                     ])
+             )
+
+
+
             ->add(
                 $builder->create('group11', FormType::class, [
                     'label' => false,
@@ -108,7 +137,7 @@ class DevisConf4 extends AbstractType
                     ->add('propositionforfaitaire',TextType::class, [
                         'label' => $this->translator->trans('propositionforfaitaire'),
                         'attr' => [
-                            'class' => 'form-control',
+                            'class' => 'form-control prix',
                             'divclass' => 'col-md-4'
                         ],
                     ])
@@ -116,7 +145,7 @@ class DevisConf4 extends AbstractType
                     ->add('decharge',TextType::class, [
                         'label' => $this->translator->trans('decharge'),
                         'attr' => [
-                            'class' => 'form-control',
+                            'class' => 'form-control prix',
                             'divclass' => 'col-md-4'
                         ],
                     ])
@@ -452,6 +481,7 @@ class DevisConf4 extends AbstractType
                 ],
                 'mapped' => false,
             ])
+
             ->add('save', SubmitType::class, [
                 'label' => 'Valider',
                 'attr' => [

@@ -1,11 +1,16 @@
 {% set TelFix = '' %}
 {% set TelPort = '' %}
 
-{% for telephone in societe_info.getIdTelephone %}
-    {% if telephone.type == 'telephone.fix' %}
-        {% set TelFix = TelFix ~ telephone.numero ~ ' / ' %}
-    {% elseif telephone.type == 'portable' %}
-        {% set TelPort = TelPort ~ telephone.numero ~ ' / ' %}
+
+{% for type,telephone in societe_info.getIdTelephone %}
+    {% if type == 'telephone.fix' %}
+        {% for numero in telephone %}
+            {% set TelFix = TelFix ~ numero ~ ' / ' %}
+        {% endfor %}
+    {% elseif type == 'portable' %}
+        {% for numero in telephone %}
+            {% set TelPort = TelPort ~ numero ~ ' / ' %}
+        {% endfor %}
     {% endif %}
 {% endfor %}
 

@@ -36,6 +36,30 @@ class PrestationDescription
      */
     private $custom_description;
 
+    // TODO: Remove in future
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\CollectionTest", mappedBy="descriptions")
+     */
+    private $collectiondescription;
+
+    /**
+     * @return mixed
+     */
+    public function getCollectiondescription()
+    {
+        return $this->collectiondescription;
+    }
+
+    /**
+     * @param mixed $collectiondescription
+     */
+    public function setCollectiondescription($collectiondescription)
+    {
+        $this->collectiondescription = $collectiondescription;
+    }
+
+
+
 
     /**
      * @return string

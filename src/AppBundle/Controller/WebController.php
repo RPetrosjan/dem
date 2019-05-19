@@ -13,11 +13,10 @@ use AppBundle\Entity\DemandeDevis;
 use AppBundle\Entity\OptimizerCss;
 use AppBundle\Entity\OptimizerJs;
 use AppBundle\Entity\User;
+use AppBundle\Form\CollectionTestForm;
 use AppBundle\Form\LoginForm;
 use AppBundle\Form\RegistrationForm;
-
 use Ddeboer\Imap\Search\Flag\Unseen;
-use Ddeboer\Imap\Search\Text\Body;
 use Ddeboer\Imap\SearchExpression;
 use Doctrine\ORM\EntityManagerInterface;
 use DOMDocument;
@@ -274,6 +273,25 @@ class WebController extends Controller
 
          return $this->render($message_html_twig, [
             ]);
+    }
+
+    /**
+     * @Route("/testarraycollection", name="testmailtwig_page")
+     */
+    public function arraycollection(Request $request) {
+
+        $loadFormType = CollectionTestForm::class;
+
+        $collectionform = $this->container->get('form.factory')->create($loadFormType);
+
+        $collectionform->handleRequest($this->request);
+
+        return $this->render('admin/collection.html.twig', [
+
+
+
+            ]);
+
     }
 
     /**

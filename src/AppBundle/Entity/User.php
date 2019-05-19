@@ -61,7 +61,7 @@ class User extends BaseUser
 
 
     /**
-     * @ORM\OneToMany(targetEntity="Group", mappedBy="user_id", fetch="EXTRA_LAZY", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Group", mappedBy="user_id")
      */
     private $id_devis_goup;
 

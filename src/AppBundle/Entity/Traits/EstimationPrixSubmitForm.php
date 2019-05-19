@@ -4,6 +4,7 @@
 namespace AppBundle\Entity\Traits;
 
 
+use AppBundle\Entity\AdValorem;
 use AppBundle\Entity\DevisConfig;
 use AppBundle\Entity\DevisEnvoye;
 use AppBundle\Form\EstimationPrixForm;
@@ -71,13 +72,11 @@ trait EstimationPrixSubmitForm
 
         $this->formEstimationPrix->handleRequest($this->request);
         if($this->formEstimationPrix->isSubmitted() && $this->formEstimationPrix->isValid()) {
-
             $json = current(current($this->request->request))['json'];
             $devisconfig = json_decode($json, true);
-
             /** @var DevisEnvoye $devisenvoye */
 
-            $devisenvoye = $this->formEstimationPrix->getData();
+            $newDevis = $devisenvoye = $this->formEstimationPrix->getData();
             // Stop autorewrite of existing data
             $devisenvoye->setNom($this->object->getNom());
             $devisenvoye->setTelephone($this->object->getTelephone());
@@ -109,10 +108,35 @@ trait EstimationPrixSubmitForm
             $devisenvoye->setUserId($userEntity);
             $devisenvoye->setUserSendId($userEntityGroup);
 
+
+            $result = $this->em->getRepository(AdValorem::class)->findBy([
+                'devis_id' => $devisenvoye->getId(),
+            ]);
+
+            foreach ($result as $element) {
+                $this->em->remove($element);
+            }
+
+            if(!is_null($devisconfig) && !empty($devisconfig['advalorem'])) {
+
+                foreach ($devisenvoye->getIdAdvalorem() as $advalorem) {
+                    $devisenvoye->getIdAdvalorem()->removeElement($advalorem);
+                }
+
+                $advaloremEntityArray = [];
+                foreach ($devisconfig['advalorem'] as $advalorem ) {
+
+                    $advaloremEntity = new AdValorem();
+                    $advaloremEntity->setDescription($advalorem['description']);
+                    $advaloremEntity->setPrice($advalorem['price']);
+                    $advaloremEntity->setDevisId($devisenvoye);
+                    array_push($advaloremEntityArray, $advaloremEntity);
+                }
+                $devisenvoye->setIdAdvalorem($advaloremEntityArray);
+            }
+
             $this->em->persist($devisenvoye);
             $this->em->flush();
-
-
 
             if(!is_null($userEntity->getParent())) {
                 $userEntity = $userEntity->getParent();

@@ -134,10 +134,10 @@ class AdminController extends Controller
 
         $json = current(current($request->request))['json'];
         $devisconfig = json_decode($json, true);
-        dump($devisconfig);
+
 
        /// $devisconfig = json_decode($json, true);
-        exit();
+
 
         /*
         $prixht = $request->request->get('estimation_prix_form')['group1']['prixht'];
@@ -317,7 +317,6 @@ class AdminController extends Controller
         $filedDescription = new FieldDescriptionCollection();
         $filedDescription->add($myCustomInterface);
 
-        dump($filedDescription);
 
 
         return $this->render('admin/soustraitance_info_view.html.twig', [
@@ -412,7 +411,6 @@ class AdminController extends Controller
 
         $json = $request->get('json');
         $devisconfig = json_decode($json, true);
-
 
         /** @var DevisEnvoye $devis */
         $devis = $this->getDoctrine()

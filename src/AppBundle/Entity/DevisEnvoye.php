@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
 use AppBundle\Entity\Traits\Devis as Devis;
@@ -26,7 +27,6 @@ class DevisEnvoye
      * @ORM\Column(name="readed", type="boolean")
      */
     private $readed;
-
 
     private $createdDataText;
 
@@ -95,8 +95,32 @@ class DevisEnvoye
      */
     private $parobjet;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AdValorem", mappedBy="devis_id", cascade={"persist", "remove"})
+     */
+    private $idadvalorem;
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getIdAdvalorem()
+    {
+        return $this->idadvalorem;
+    }
+
+    /**
+     * @param ArrayCollection $idadvalorem
+     */
+    public function setIdAdvalorem($idadvalorem)
+    {
+        $this->idadvalorem = $idadvalorem;
+    }
 
     ////////////////////////////////// CUSTOM ///////////////////////////////////////
+
+
 
     /**
      * @return bool
@@ -381,8 +405,6 @@ class DevisEnvoye
     {
         $this->user_send_id = $user_send_id;
     }
-
-
 
     /**
      * @return $this

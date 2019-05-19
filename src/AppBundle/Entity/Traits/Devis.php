@@ -9,8 +9,10 @@
 namespace AppBundle\Entity\Traits;
 
 
+use AppBundle\Entity\AdValorem;
 use DateTime;
 use DateTimeZone;
+use Doctrine\Common\Collections\ArrayCollection;
 
 trait Devis
 {
@@ -227,6 +229,8 @@ trait Devis
      * @ORM\Column(name="budget", type="string", length=32, nullable=true)
      */
     private $budget;
+
+
 
 
 

@@ -59,10 +59,12 @@
         <tr>
             <td style="width: 450px">
 
-                {% if devisInfo.UserSendId is defined %}
+                {% if devisInfo.UserSendId is defined and devisInfo.UserSendId is not null %}
                 <b>{{ devisInfo.UserSendId.firstName }} {{ devisInfo.UserSendId.lastName }}<br/>
-                    {% else %}
+                    {% elseif childUser is not null %}
                     <b>{{ childUser.firstName }} {{ childUser.lastName }}<br/>
+                        {% else %}
+                        <b>{{ societeInfo.firstName }} {{ societeInfo.lastName }}<br/>
                 {% endif %}
                 Le service commercial<br/>
                 <span class="colorBlue">{{ societeInfo.companyName }}</span></b><br/>
@@ -198,11 +200,27 @@
             </tr>
         </table>
 
+
+    {% if devisConfig.advalorem is defined %}
+        {% set advalorem = devisConfig.advalorem  %}
+    {% elseif devisInfo.idadvalorem is defined %}
+        {% set advalorem = devisInfo.idadvalorem  %}
+    {% endif %}
+
+
         <table cellspacing="0" cellpadding="0" style="width: 100%; margin-top: 10px;">
             <tr>
                 <td class="borderleft bordertop" style="padding-left: 5px;"><b class="colorBlue">Notre proposition forfaitaire</b></td>
                 <td class="borderright bordertop" style="text-align: right; padding-right: 5px;">{{ devisConfig.propositionforfaitaire }} €</td>
             </tr>
+            {% if advalorem is defined %}
+                {% for valorem in advalorem %}
+                    <tr>
+                        <td class="borderleft" style="padding-left: 5px;"><b class="colorBlue">{{ valorem.description }}</b></td>
+                        <td class="borderright" style="text-align: right; padding-right: 5px;">{{ valorem.price }} €</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
             <tr>
                 <td class="borderleft" style="padding-left:5px;"><b class="colorBlue">DECHARGE</b></td>
                 <td class="borderright" style="text-align: right; padding-right: 5px;">{{ devisConfig.decharge }} €</td>

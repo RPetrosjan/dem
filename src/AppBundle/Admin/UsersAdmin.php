@@ -114,8 +114,11 @@ class UsersAdmin extends AbstractAdmin
             ->add('roles',ChoiceType::class,array(
                 'choices' => $roleslist,
                 'multiple' => true,
+                'required' => false,
             ))
-            ->add('viewDevisCount', 'text')
+            ->add('viewDevisCount', TextType::class, [
+                'required' => false,
+            ])
 
             ->add('devisPersonelle', ChoiceType::class, [
                 'choices' => $choixDevisconf,
@@ -125,28 +128,35 @@ class UsersAdmin extends AbstractAdmin
 
             ->end()
             ->with('Company Info', [
-                'class'       => 'col-md-6',
+                'class' => 'col-md-6',
             ])
             ->add('companyName', TextType::class, [
-                'label' => 'Nom Société'
+                'label' => 'Nom Société',
+                'required' => false,
             ])
             ->add('siret', TextType::class, [
-                'label' => 'SIRET'
+                'label' => 'SIRET',
+                'required' => false,
             ])
             ->add('street', TextType::class, [
-                'label' => 'Adress'
+                'label' => 'Adress',
+                'required' => false,
             ])
             ->add('codePostal', TextType::class, [
-                'label' => 'Code Postal'
+                'label' => 'Code Postal',
+                'required' => false,
             ])
             ->add('city', TextType::class, [
-                'label' => 'Ville'
+                'label' => 'Ville',
+                'required' => false,
             ])
             ->add('companyEmail', TextType::class, [
-                'label' => 'E-mail Société'
+                'label' => 'E-mail Société',
+                'required' => false,
             ])
             ->add('Website', TextType::class, [
-                'label' => 'Site Web'
+                'label' => 'Site Web',
+                'required' => false,
             ])
             ->end()
             ->with('Company Icon', [
@@ -167,23 +177,48 @@ class UsersAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('age','text',array(
+            ->add('age',TextType::class, [
                 'label' => $this->trans('Age'),
-            ))
-            ->addIdentifier('username','text',array(
-                'label' => 'Nom',
-            ))
-            ->addIdentifier('email','text',array(
-                'label' => 'Email',
-            ))
-            ->add('enabled','boolean',array(
+            ])
+            ->addIdentifier('username',TextType::class, [
+                'label' => $this->trans('login'),
+            ])
+            ->add('firstName', TextType::class, [
+                'label' => $this->trans('firstName')
+            ])
+            ->add('lastName', TextType::class, [
+                'label' => $this->trans('lastName')
+            ])
+            ->addIdentifier('email',TextType::class, [
+                'label' => $this->trans('email'),
+            ])
+            ->addIdentifier('parent',TextType::class, [
+                'label' => $this->trans('company'),
+            ])
+            ->add('enabled','boolean', [
                 'label'=>$this->trans('Active'),
                 'editable'=> true,
-            ))
+            ])
+
             ->add('switch_to_user',TextType::class,[
                 'label'=>$this->trans('Switch'),
                 'template' => 'admin/switch/swhitch_to_user.html.twig'
             ])
+
+            ->add('_action', 'actions', [
+                    'label'=> 'Action',
+                    'actions' => array(
+                        'show' => [
+                            'template' => 'admin/action/show_action.html.twig'
+                        ],
+                        'edit' => [
+                            'template' => 'admin/action/edit_action.html.twig'
+                        ],
+                        'delete' => [
+                            'template' => 'admin/action/remove_action.html.twig'
+                        ],
+                    )]
+            );
         ;
     }
 }
