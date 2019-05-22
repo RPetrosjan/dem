@@ -36,12 +36,6 @@ class PrestationDescription
      */
     private $custom_description;
 
-    // TODO: Remove in future
-    /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\CollectionTest", mappedBy="descriptions")
-     */
-    private $collectiondescription;
-
     /**
      * @return mixed
      */
@@ -57,9 +51,6 @@ class PrestationDescription
     {
         $this->collectiondescription = $collectiondescription;
     }
-
-
-
 
     /**
      * @return string

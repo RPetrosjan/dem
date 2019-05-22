@@ -46,6 +46,7 @@ trait EstimationPrixSubmitForm
             $loadFormType = $this->container->getParameter('DevisCustom')[$userEntity->getDevisPersonelle()]['EstimationPrixForm'];
         }
 
+        // What is das?
         $devisObj = $this->object;
         if (strpos(get_class($this->object), 'DevisEnvoye') === false) {
 
@@ -62,9 +63,12 @@ trait EstimationPrixSubmitForm
             $devisObj->setValglobale($devisConfig == false ? 20000 : $devisConfig->getValglobale());
             $devisObj->setParobjet($devisConfig == false ? 500 : $devisConfig->getParobjet());
             $devisObj->setValable($devisConfig == false ? 3 : $devisConfig->getValable());
+            $devisObj->setNom($this->object->getNom());
+            $devisObj->setPrenom($this->object->getPrenom());
         }
 
         $this->formEstimationPrix = $container->get('form.factory')->create($loadFormType, $devisObj, [
+
             //'action' => $container->get('router')->generate('sonata_sendDevis_post', [
             //    'uuid' => $this->object->getUuid(),
             // ]),
@@ -72,12 +76,14 @@ trait EstimationPrixSubmitForm
 
         $this->formEstimationPrix->handleRequest($this->request);
         if($this->formEstimationPrix->isSubmitted() && $this->formEstimationPrix->isValid()) {
+            dump($this->request->request);
             $json = current(current($this->request->request))['json'];
             $devisconfig = json_decode($json, true);
             /** @var DevisEnvoye $devisenvoye */
 
             $newDevis = $devisenvoye = $this->formEstimationPrix->getData();
             // Stop autorewrite of existing data
+            $devisenvoye->setCivilite($this->object->getCivilite());
             $devisenvoye->setNom($this->object->getNom());
             $devisenvoye->setTelephone($this->object->getTelephone());
             $devisenvoye->setPortable($this->object->getPortable());

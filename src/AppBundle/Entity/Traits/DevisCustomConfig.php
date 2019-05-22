@@ -135,6 +135,13 @@ trait DevisCustomConfig
      */
     private $userprestation;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentsociete", type="string", length=256, nullable=true)
+     */
+    private $commentSociete;
+
 
     /**
      * DevisCustomConfig constructor.
@@ -156,6 +163,24 @@ trait DevisCustomConfig
         $this->transbordement2 = false;
         $this->stationement2 = false;
     }
+
+    /**
+     * @return string
+     */
+    public function getCommentSociete()
+    {
+        return $this->commentSociete;
+    }
+
+    /**
+     * @param string $commentSociete
+     */
+    public function setCommentSociete($commentSociete)
+    {
+        $this->commentSociete = $commentSociete;
+    }
+
+
 
     /**
      * @return string

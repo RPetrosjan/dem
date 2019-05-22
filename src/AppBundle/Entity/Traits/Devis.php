@@ -45,6 +45,12 @@ trait Devis
      */
     private $CreatedDate;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="civilite", type="string", length=8, nullable=true)
+     */
+    private $civilite;
 
     /**
      * @var string
@@ -665,6 +671,23 @@ trait Devis
     {
         $this->budget = $budget;
     }
+
+    /**
+     * @return string
+     */
+    public function getCivilite()
+    {
+        return $this->civilite;
+    }
+
+    /**
+     * @param string $civilite
+     */
+    public function setCivilite($civilite)
+    {
+        $this->civilite = $civilite;
+    }
+
 
 
     /**

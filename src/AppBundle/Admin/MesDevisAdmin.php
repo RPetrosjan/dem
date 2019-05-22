@@ -3,10 +3,8 @@ namespace AppBundle\Admin;
 
 
 use AppBundle\Entity\DevisConfig;
-use AppBundle\Entity\DevisEnvoye;
 use AppBundle\Entity\PrestationCustom;
 use AppBundle\Entity\ReadyDemandeDevis;
-use AppBundle\Form\AdValoremForm;
 use AppBundle\Form\EstimationPrixForm;
 use AppBundle\service\ViewDevisCountService;
 use Doctrine\ORM\EntityManager;
@@ -377,7 +375,6 @@ class MesDevisAdmin extends AbstractAdmin
 
             ->add('civilite', ChoiceType::class, [
                 'label' => $this->trans('civilite'),
-                'mapped' => false,
                 'choices'  => array(
                     'M ' => 'M',
                     'Mme ' => 'Mme',
@@ -417,10 +414,11 @@ class MesDevisAdmin extends AbstractAdmin
                 'label' => 'Volume',
                 'attr' => [
                     'autocomplete' => 'nope',
-                ]
+                ],
+                'required' => false,
             ])
             ->add('prestation', ChoiceType::class, [
-                'label' => 'Prestation',
+                 'label' => 'Prestation',
                 'choices'  => $this->em->getRepository(PrestationCustom::class)->findUserPrestations($this->user),
             ])
             ->add('budget', TextType::class, [
@@ -447,7 +445,8 @@ class MesDevisAdmin extends AbstractAdmin
             ->add('adresse1', TextType::class,  [
                 'attr' => [
                     'autocomplete' => 'nope',
-                ]
+                ],
+                'required' =>  false
             ])
             ->add('cp1', TextType::class,  [
                 'attr' => [
@@ -462,13 +461,14 @@ class MesDevisAdmin extends AbstractAdmin
             ->add('etage1', TextType::class, [
                 'attr' => [
                     'autocomplete' => 'nope',
-                ]
+                ],
+                'required' => false,
             ])
             ->add('ascenseur1',ChoiceType::class,[
                 'empty_data'  => true,
                 'choices'  => array(
                     'Oui' => 'Oui',
-                    'No' => 'No',
+                    'Non' => 'Non',
                 ),
             ])
             ->end()
@@ -482,34 +482,40 @@ class MesDevisAdmin extends AbstractAdmin
                 'attr' => [
                     'class' => 'datepicker',
                     'autocomplete' => 'nope',
-                ]
+                ],
+                'required' => false
             ])
             ->add('adresse2', TextType::class, [
                 'attr' => [
                     'autocomplete' => 'nope',
-                ]
+                ],
+                'required' => false,
             ])
             ->add('cp2', TextType::class, [
                 'attr' => [
                     'autocomplete' => 'nope',
-                ]
+                ],
+                'required' => false
             ])
             ->add('ville2', TextType::class, [
                 'attr' => [
                     'autocomplete' => 'nope',
-                ]
+                ],
+                'required' => false
             ])
             ->add('etage2', TextType::class, [
                 'attr' => [
                     'autocomplete' => 'nope',
-                ]
+                ],
+                'required' => false
             ])
             ->add('ascenseur2', ChoiceType::class,[
                 'empty_data'  => true,
-                'choices'  => array(
+                'choices'  => [
                     'Oui' => 'Oui',
-                    'No' => 'No',
-                ),
+                    'Non' => 'Non',
+                ],
+                'required' => false
             ])
             ->end()
 
@@ -634,10 +640,18 @@ class MesDevisAdmin extends AbstractAdmin
                     ],
                 ]
             )
-            ->add('nom')
-            ->add('prenom')
-            ->add('telephone')
-            ->add('email')
+            ->add('nom', null, [
+                'label' => $this->trans('nom')
+            ])
+            ->add('prenom', null, [
+                'label' => $this->trans('prenom')
+            ])
+            ->add('telephone', null, [
+                'label' => $this->trans('telephone')
+            ])
+            ->add('email', null, [
+                'label' => $this->trans('email')
+            ])
 
             ->end()
             ->with('Info Déménagement ',[
@@ -668,12 +682,27 @@ class MesDevisAdmin extends AbstractAdmin
                     'icon' => '<i class="fas fa-map-signs"></i>',
                 ]
             ])
-            ->add('date1')
-            ->add('adresse1')
-            ->add('cp1')
-            ->add('ville1')
-            ->add('etage1')
-            ->add('ascenseur1')
+            ->add('date1', null, [
+                'label' => $this->trans('date')
+            ])
+            ->add('adresse1', null, [
+                'label' => $this->trans('adresse')
+            ])
+            ->add('cp1', null, [
+                'label' => $this->trans('cp')
+            ])
+            ->add('ville1', null, [
+                'label' => $this->trans('ville')
+            ])
+            ->add('etage1', null, [
+                'label' => $this->trans('etage')
+                ])
+            ->add('ascenseur1', null, [
+                'label' => $this->trans('ascenseur')
+            ])
+            ->add('comment1', null, [
+                'label' => $this->trans('comment')
+            ])
             ->end()
             ->with('Info Arrivee' ,[
                 'class'       => 'col-md-6',
@@ -681,15 +710,28 @@ class MesDevisAdmin extends AbstractAdmin
                     'icon' => '<i class="fas fa-map-signs"></i>',
                 ]
             ])
-            ->add('date2')
-            ->add('adresse2')
-            ->add('cp2')
-            ->add('ville2')
-            ->add('etage2')
+            ->add('date2', null, [
+                'label' => $this->trans('date')
+            ])
+            ->add('adresse2', null, [
+                'label' => $this->trans('adresse')
+            ])
+            ->add('cp2', null, [
+                'label' => $this->trans('cp')
+            ])
+            ->add('ville2', null, [
+                'label' => $this->trans('ville')
+            ])
+            ->add('etage2', null, [
+                'label' => $this->trans('etage')
+            ])
             ->add('ascenseur2',ChoiceType::class,[
                 'attr' => [
                     'class' => 'asc_selector2',
                 ],
+            ])
+            ->add('comment2', null, [
+                'label' => $this->trans('comment')
             ])
             ->end()
             ->end()

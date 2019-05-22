@@ -60,49 +60,43 @@ class CheckEmailDevis
         $dom->loadHTML(mb_convert_encoding($htmlmail, 'HTML-ENTITIES', 'UTF-8'));
         $dom->preserveWhiteSpace = false;
         $tables = $dom->getElementsByTagName('table');
-        foreach ($tables as $table) {
-            foreach(preg_split("/((\r?\n)|(\r\n?))/", $table->textContent) as $line){
-                $resultArray[] = $line;
+
+        $devisArrayWords = [
+            'Nom :' => 'nom',
+            'Prénom :' => 'prenom',
+            'Tél :' => 'telephone',
+            'Email :' => 'email',
+            'Adresse :' => 'adresse',
+            'Code postal :' => 'cp',
+            'Ville départ :' => 'ville',
+            'Ville arrivée :' => 'ville',
+            'Pays :'=> 'pays',
+            'Volume :' => 'volume',
+            'Ascenseur :' => 'ascenseur',
+        ];
+
+        ///foreach ($tables as $table)
+        {
+            $tds = $tables[0]->getElementsByTagName('td');
+            for($i=1; $i<sizeof($tds);$i++) {
+
+                if(strpos($tds[$i]->textContent, 'Date départ :') !== false)
+                {
+                    $resultArray['date1'][] = substr($tds[$i]->textContent, strlen('Date départ :')+1);
+                }
+                else if(strpos($tds[$i]->textContent, 'Date arrivée :') !== false)
+                {
+                    $resultArray['date2'][] = substr($tds[$i]->textContent, strlen('Date arrivée :')+1);
+                }
+
+                if(isset($devisArrayWords[$tds[$i]->textContent])) {
+                    $resultArray[$devisArrayWords[$tds[$i]->textContent]][] = $tds[$i+1]->textContent;
+                }
             }
+
         }
 
-        return  [
-            'nom' => [$resultArray[array_search('Nom :',$resultArray)+1]],
-            'prenom' => [$resultArray[array_search('Prénom :',$resultArray)+1]],
-            'telephone' => [$resultArray[array_search('Tél :',$resultArray)+1]],
-            'email' => [$resultArray[array_search('Email :',$resultArray)+1]],
-            'adresse' => [
-                $resultArray[array_search('Adresse :',$resultArray)+1],
-                $resultArray[array_search('Adresse :',$resultArray)+3],
-            ],
-            'cp' => [
-                $resultArray[array_search('Code postal :',$resultArray)+1],
-                $resultArray[array_search('Code postal :',$resultArray)+3],
-            ],
-            'ville' => [
-                $resultArray[array_search('Ville départ :',$resultArray)+1],
-                $resultArray[array_search('Ville arrivée :',$resultArray)+1],
-            ],
-            'pays' => [
-                $resultArray[array_search('Pays :',$resultArray)+1],
-                $resultArray[array_search('Pays :',$resultArray)+3],
-            ],
-            'etage' => [
-                $resultArray[array_search('Etage :',$resultArray)+1],
-                $resultArray[array_search('Etage :',$resultArray)+3],
-            ],
-            'ascenseur' => [
-                $resultArray[array_search('Ascenseur :',$resultArray)+1],
-                $resultArray[array_search('Ascenseur :',$resultArray)+3],
-            ],
-            ///     'Surface en m2' => 'volume',
-            ///'prestation' => [$resultArray[array_search('Formule :',$resultArray)+1]],
-            'prestation' => [substr($resultArray[$this->findInArrayIfContent('Formule :', $resultArray)], strlen('Formule :')+1, 11)],
-            'volume' => [$resultArray[array_search('Surface :',$resultArray)+1]],
-            'date1' => [substr($resultArray[$this->findInArrayIfContent('Date départ :', $resultArray)], strlen('Date départ :')+1)],
-            'date2' => [substr($resultArray[$this->findInArrayIfContent('Date arrivée :', $resultArray)], strlen('Date arrivée :')+1)],
-            'comment' => [$resultArray[array_search('Observations :',$resultArray)+1]]
-        ];
+        $resultArray['volume'] = str_replace(' (M3)','', $resultArray['volume']);
 
     }
 
@@ -110,9 +104,12 @@ class CheckEmailDevis
      * @param $textmail
      * @return array
      */
-    private function readlesartisansdemenageurs($textmail){
+    private function readlesartisansdemenageurs($htmlmail){
 
-        $resultArray = [];
+        $dom = new domDocument;
+        $dom->loadHTML(mb_convert_encoding($htmlmail, 'HTML-ENTITIES', 'UTF-8'));
+        $dom->preserveWhiteSpace = false;
+        $tables = $dom->getElementsByTagName('table');
 
         $devisArrayWords = [
             'Nom' => 'nom',
@@ -131,22 +128,15 @@ class CheckEmailDevis
             'Commentaires' => 'comment'
         ];
 
-        foreach(preg_split("/((\r?\n)|(\r\n?))/", $textmail) as $line){
-            foreach ($devisArrayWords as $keys=>$value) {
-                if(($pos = strpos($line, $keys)) !== false){
-                    $resultArray[$value][] = trim(substr($line, strlen($keys)));
+        $resultArray = [];
+        foreach ($tables as $table) {
+            $tds = $table->getElementsByTagName('td');
+            for($i=0; $i<sizeof($tds);$i++) {
+                if(isset($devisArrayWords[$tds[$i]->textContent])) {
+                    $resultArray[$devisArrayWords[$tds[$i]->textContent]][] = $tds[$i+1]->textContent;
                 }
             }
         }
-
-        $resultArray['adresse'][0] = $resultArray['adresse'][2];
-        $resultArray['adresse'][1] = $resultArray['adresse'][4];
-
-        $resultArray['email'][0] = substr($resultArray['email'][0],0, strpos($resultArray['email'][0],'<'));
-
-        unset($resultArray['adresse'][2]);
-        unset($resultArray['adresse'][3]);
-        unset($resultArray['adresse'][4]);
 
         return $resultArray;
     }
@@ -174,13 +164,16 @@ class CheckEmailDevis
             $textmail = $message->getBodyText();
             // Check propriataire de devis
             if(strpos($textmail,'contact@lesartisansdemenageurs.fr') !== false){
-                $resultArray = $this->readlesartisansdemenageurs($textmail);
+                $resultArray = $this->readlesartisansdemenageurs($message->getBodyHtml());
             }
             else if(strpos($textmail,'contact@allodemenageur.fr') !== false){
                 $resultArray = $this->readallodemenageur($message->getBodyHtml());
             }
 
-            $this->container->get('admin.add.devis.user')->AddDevis($user, $resultArray);
+            if(!empty($resultArray)) {
+                $this->container->get('admin.add.devis.user')->AddDevis($user, $resultArray);
+            }
+
         }
     }
 }

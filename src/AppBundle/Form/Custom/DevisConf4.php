@@ -15,6 +15,7 @@ use Sonata\AdminBundle\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -48,9 +49,29 @@ class DevisConf4 extends AbstractType
 
     }
 
+    /**
+     * @param int $length
+     * @param string $characters
+     * @return string
+     */
+    public function generateRandomString($length = 16, $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    {
+        /** @var  $charactersLength */
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
 
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+         $initiale = substr($options['data']->getNom(),0,1).substr($options['data']->getPrenom(),0,1);
          $builder
             ->add(
                 $builder->create('group1', FormType::class, [
@@ -66,14 +87,15 @@ class DevisConf4 extends AbstractType
                             'class' => 'form-control',
                             'divclass' => 'col-md-12'
                         ],
+                        'data' => date('Ym').$this->generateRandomString(4),
                     ])
                     ->add('client',TextType::class, [
                         'label' => $this->translator->trans('client.n'),
                         'attr' => [
                             'class' => 'form-control',
                             'divclass' => 'col-md-12',
-
                         ],
+                        'data'=> $initiale.date('Ym'),
                     ])
             )
 
@@ -475,19 +497,34 @@ class DevisConf4 extends AbstractType
                     ])
             )
 
-            ->add('json', HiddenType::class, [
-                'attr' => [
-                    'class' => 'hiddenjson'
-                ],
-                'mapped' => false,
-            ])
+             ->add(
+                 $builder->create('group7', FormType::class, [
+                     'label' => false,
+                     'inherit_data' => true,
+                     'attr' => [
+                         'class' => 'col-md-12',
 
-            ->add('save', SubmitType::class, [
-                'label' => 'Valider',
-                'attr' => [
-                    'class' => 'btn btn-success'
-                ]
-            ])
+                     ],
+                 ])
+                     ->add('commentSociete', TextareaType::class, [
+                         'label' => $this->translator->trans('comment')
+                     ])
+
+
+                ->add('save', SubmitType::class, [
+                    'label' => 'Valider',
+                    'attr' => [
+                        'class' => 'btn btn-success'
+                    ]
+                ])
+             )
+
+             ->add('json', HiddenType::class, [
+                 'attr' => [
+                     'class' => 'hiddenjson'
+                 ],
+                 'mapped' => false,
+             ])
 
         ;
     }

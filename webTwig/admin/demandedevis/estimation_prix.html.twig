@@ -44,6 +44,7 @@
     var devislements = {{ elements|json_encode()|raw }};
 
 
+
     function UpdatePriceShow() {
         var prixht = $("input[name*='prixht']").val();
         if($.isNumeric(prixht) == false) {
@@ -124,17 +125,18 @@
         var urlkey = {};
         devislements.forEach(function (elements) {
 
-            if(elements == 'advalorem' ) {
-                urlkey[elements] = getadvalorem();
-            }
-            else {
-                urlkey[elements] = $("[name*= '"+elements+"']").val();
+            if(elements != 'json') {
+                if(elements == 'advalorem' ) {
+                    urlkey[elements] = getadvalorem();
+                }
+                else {
+                    urlkey[elements] = $("[name*= '"+elements+"']").val();
+                }
             }
         });
 
         $(".hiddenjson").val(JSON.stringify(urlkey));
         MakeUrlPrevisualisation(JSON.stringify(urlkey))
-        /// console.log(JSON.stringify(urlkey));
     }
 
 
@@ -145,23 +147,38 @@
     });
     // Remove 2 last character
     jquerytext = jquerytext.substr(0,jquerytext.length-2);
-    console.log(jquerytext);
     // Activated all elements for jquery command keyup
-    $(jquerytext).on('keyup change', function () {
-        // Calcul price
-        UpdatePriceShow();
-        createElementsUrl();
-    });
-
-    $('.sonata-collection-add').unbind('click').click(function () {
-
-        setTimeout(function () {
-            InitialisePrixTTC();
-            $(jquerytext).unbind('on').on('keyup change', function () {
-                // Calcul price
+    function InitialisePriceUpdate()
+    {
+        $(jquerytext).unbind('keyup').unbind('change').on('keyup change', function () {
+            // Calcul price
+            // Pas besoin reagir dans textArea  Coment
+            if($(this).attr('id').toLowerCase().indexOf('commentsociete') == -1) {
                 UpdatePriceShow();
                 createElementsUrl();
-            });
+            }
+        });
+    }
+    InitialisePriceUpdate();
+
+    function InitializeCollectionDelete() {
+        $('.sonata-collection-delete').unbind('click').click(function () {
+            setTimeout(function () {
+                InitialisePriceUpdate();
+                InitialisePrixTTC();
+                calculPrixTTC();
+                createElementsUrl();
+            }, 1000);
+          console.log('delete');
+        })
+    }
+
+
+    $('.sonata-collection-add').unbind('click').click(function () {
+        setTimeout(function () {
+            InitialisePriceUpdate();
+            InitialisePrixTTC();
+            InitializeCollectionDelete();
         }, 1000);
     })
 
@@ -174,18 +191,15 @@
         });
         $("input[name*= 'prixht']").val($prixttc);
     }
+
     function InitialisePrixTTC() {
-        $('input.prix').unbind('keyup').keyup(function(){
+        $(':input.prix').keyup(function(){
             calculPrixTTC();
         })
     }
 
     calculPrixTTC();
     InitialisePrixTTC();
-
-
- ///   console.log(jquerytext);
-///    input[name*='prixht'], input[name*='tva'], input[name*='acompte'], input[name*='distance']
 
 
 </script>

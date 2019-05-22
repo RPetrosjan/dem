@@ -34,7 +34,8 @@ class AddDevisUser
         if(!empty($devisParam))
         {
 
-            if($devisParam['prestation'][0] == 'CATEGORIE 3'){
+           // if($devisParam['prestation'][0] == 'CATEGORIE 3')
+            {
                 $devisParam['prestation'][0] = 'Economique';
             }
 
@@ -100,7 +101,7 @@ class AddDevisUser
                 $mesdevis->setAscenseur2($devisParam['ascenseur'][1]);
             }
             if(isset($devisParam['comment'])) {
-                $mesdevis->setComment1($devisParam['comment']);
+                $mesdevis->setComment1($devisParam['comment'][0]);
             }
 
             $mesdevis->setUserId($user);
