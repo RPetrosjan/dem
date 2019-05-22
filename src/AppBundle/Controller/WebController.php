@@ -194,7 +194,7 @@ class WebController extends Controller
         $tables = $dom->getElementsByTagName('table');
 
 
-
+        dump($htmlmail);
         $devisArrayWords = [
             'Nom' => 'nom',
             'Prénom' => 'prenom',
