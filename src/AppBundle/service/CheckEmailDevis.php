@@ -54,7 +54,7 @@ class CheckEmailDevis
      * @param $htmlmail
      * @return array
      */
-    private function  readallodemenageur($htmlmail) {
+    public function  readallodemenageur($htmlmail) {
 
         $dom = new domDocument;
         $dom->loadHTML(mb_convert_encoding($htmlmail, 'HTML-ENTITIES', 'UTF-8'));
@@ -78,25 +78,28 @@ class CheckEmailDevis
         ///foreach ($tables as $table)
         {
             $tds = $tables[0]->getElementsByTagName('td');
-            for($i=1; $i<sizeof($tds);$i++) {
+            foreach ($tds as $key=>$td) {
+                if($key>0) {
+                    if(strpos($td->textContent, 'Date départ :') !== false)
+                    {
+                        $resultArray['date1'][] = substr($td->textContent, strlen('Date départ :')+1);
+                    }
+                    else if(strpos($td->textContent, 'Date arrivée :') !== false)
+                    {
+                        $resultArray['date2'][] = substr($td->textContent, strlen('Date arrivée :')+1);
+                    }
 
-                if(strpos($tds[$i]->textContent, 'Date départ :') !== false)
-                {
-                    $resultArray['date1'][] = substr($tds[$i]->textContent, strlen('Date départ :')+1);
-                }
-                else if(strpos($tds[$i]->textContent, 'Date arrivée :') !== false)
-                {
-                    $resultArray['date2'][] = substr($tds[$i]->textContent, strlen('Date arrivée :')+1);
+                    if(isset($devisArrayWords[$td->textContent])) {
+                        $resultArray[$devisArrayWords[$td->textContent]][] = $tds[$key+1]->textContent;
+                    }
                 }
 
-                if(isset($devisArrayWords[$tds[$i]->textContent])) {
-                    $resultArray[$devisArrayWords[$tds[$i]->textContent]][] = $tds[$i+1]->textContent;
-                }
             }
-
         }
 
         $resultArray['volume'] = str_replace(' (M3)','', $resultArray['volume']);
+        return $resultArray;
+
 
     }
 
@@ -104,7 +107,8 @@ class CheckEmailDevis
      * @param $textmail
      * @return array
      */
-    private function readlesartisansdemenageurs($htmlmail){
+    public function readlesartisansdemenageurs($htmlmail){
+
 
         $dom = new domDocument;
         $dom->loadHTML(mb_convert_encoding($htmlmail, 'HTML-ENTITIES', 'UTF-8'));
@@ -131,9 +135,9 @@ class CheckEmailDevis
         $resultArray = [];
         foreach ($tables as $table) {
             $tds = $table->getElementsByTagName('td');
-            for($i=0; $i<sizeof($tds);$i++) {
-                if(isset($devisArrayWords[$tds[$i]->textContent])) {
-                    $resultArray[$devisArrayWords[$tds[$i]->textContent]][] = $tds[$i+1]->textContent;
+            foreach ($tds as $key=>$td) {
+                if(isset($devisArrayWords[$td->textContent])) {
+                    $resultArray[$devisArrayWords[$td->textContent]][] = $tds[$key+1]->textContent;
                 }
             }
         }
