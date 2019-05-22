@@ -156,22 +156,20 @@ class WebController extends Controller
         ///foreach ($tables as $table)
         {
             $tds = $tables[0]->getElementsByTagName('td');
-            for($i=1; $i<sizeof($tds);$i++) {
-
-                if(strpos($tds[$i]->textContent, 'Date départ :') !== false)
+            foreach ($tds as $key=>$td) {
+                if(strpos($td->textContent, 'Date départ :') !== false)
                 {
-                    $resultArray['date1'][] = substr($tds[$i]->textContent, strlen('Date départ :')+1);
+                    $resultArray['date1'][] = substr($td->textContent, strlen('Date départ :')+1);
                 }
-                else if(strpos($tds[$i]->textContent, 'Date arrivée :') !== false)
+                else if(strpos($td->textContent, 'Date arrivée :') !== false)
                 {
-                    $resultArray['date2'][] = substr($tds[$i]->textContent, strlen('Date arrivée :')+1);
+                    $resultArray['date2'][] = substr($td->textContent, strlen('Date arrivée :')+1);
                 }
 
-                if(isset($devisArrayWords[$tds[$i]->textContent])) {
-                    $resultArray[$devisArrayWords[$tds[$i]->textContent]][] = $tds[$i+1]->textContent;
+                if(isset($devisArrayWords[$td->textContent])) {
+                    $resultArray[$devisArrayWords[$td->textContent]][] = $tds[$key+1]->textContent;
                 }
             }
-
         }
 
         $resultArray['volume'] = str_replace(' (M3)','', $resultArray['volume']);
@@ -193,8 +191,6 @@ class WebController extends Controller
         $dom->preserveWhiteSpace = false;
         $tables = $dom->getElementsByTagName('table');
 
-
-        dump($htmlmail);
         $devisArrayWords = [
             'Nom' => 'nom',
             'Prénom' => 'prenom',
@@ -222,9 +218,6 @@ class WebController extends Controller
             }
         }
 
-
-        dump($resultArray);
-        exit();
         return $resultArray;
     }
 
