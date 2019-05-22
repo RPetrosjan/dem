@@ -1,75 +1,76 @@
 devis.already.exist: 'Devis exist deja'
 souhaite.sous.traitance: 'Sohaite vous proposer sous traitance'
 info.devis: 'Info Devis'
-partager: 'Partager'
+partager: Partager
 devis.sign: 'Devis signée'
-general: 'General'
-civilite: 'Civilité'
+general: General
+civilite: Civilité
 devis.tarification: 'Devis / Tarification'
 personal.prestation: 'Mes Prestations'
-partgae.info : "<i>Je partage ce devis et recuper <b style='color: #9b0000'>2</b> fishe des devis gratuit</i><div><strong> Je confirme que le devis  n'est pas encore signe et les donnes sont correct</strong></div><div><b style='color: #9b0000; font-size: 16px'>Attention!</b></div><div style='color: black'><b>Une fois Partage vous n'avez aucun possibilite changer le status</b></div><div><b style='color:black'><u>Des donnez froideux vous serez blockage de votre compte</u></b></div>"
-company: 'Société'
+partgae.info: '<i>Je partage ce devis et recuper <b style=''color: #9b0000''>2</b> fishe des devis gratuit</i><div><strong> Je confirme que le devis  n''est pas encore signe et les donnes sont correct</strong></div><div><b style=''color: #9b0000; font-size: 16px''>Attention!</b></div><div style=''color: black''><b>Une fois Partage vous n''avez aucun possibilite changer le status</b></div><div><b style=''color:black''><u>Des donnez froideux vous serez blockage de votre compte</u></b></div>'
+company: Société
 date1: 'Date Départ'
-cp1: 'Départ'
-cp2: 'Arrivée'
-firstName: 'Nom'
-lastName: 'Prenom'
-telefon: 'Téléphone'
-mobile: 'Portable'
+cp1: Départ
+cp2: Arrivée
+firstName: Nom
+lastName: Prenom
+telefon: Téléphone
+mobile: Portable
 numeroFacture: 'Numero Facture'
-montantPayement: 'Montant'
+montantPayement: Montant
 modePayement: 'Mode Payement'
 imprimer.facture: 'Imprimer Facture'
 imprimer.devis: 'Imprimer Devis'
 company.info: 'Info Société'
-facture: 'Facture'
-nature: 'Nature'
+facture: Facture
+nature: Nature
 devis.config.personnel: 'Devis Conf Pers'
-age: 'Age'
-email: 'E-mail'
+age: Age
+email: E-mail
 passage.fenetre: 'Passage fenêtre'
-digicode: 'Digicode'
-portage: 'Portage'
-montemeubles: 'Monte-meubles'
-transbordement: 'Transbordement'
-stationement: 'Stationement'
+digicode: Digicode
+portage: Portage
+montemeubles: Monte-meubles
+transbordement: Transbordement
+stationement: Stationement
 client.n: 'Client N°'
 devis.n: 'Devis N°'
-depart: 'Départ'
-arrivee: 'Arrivée'
+depart: Départ
+arrivee: Arrivée
 prestation.par: 'A faire par'
-description : 'Description'
+description: Description
 propositionforfaitaire: 'Proposition Forfaitaire'
-decharge: 'Decharge'
-votre.prestation: 'Prestation'
+decharge: Decharge
+votre.prestation: Prestation
 devis.ete.envoye: 'Le devis été envoyé par'
 societe.telephone: 'Société Téléphone'
-rib.societe:  'RIB Société'
-banque: 'Banque'
-guichet: 'Guichet'
+rib.societe: 'RIB Société'
+banque: Banque
+guichet: Guichet
 ndeCompte: 'N de compte'
 cleRib: 'Clé RIB'
 nomTitulaire: 'Nom du titulaire'
 prenomTitulaire: 'Prenom du titulaire'
-domiciliation: 'Domiciliation'
+domiciliation: Domiciliation
 nIbanInternational: 'N IBAN (international)'
 bIC: 'Bank Identification Code'
 chargepar: 'Realiser par notre entreprise'
-login : 'Indetifiant'
+login: Indetifiant
 type.telephone: 'Type Téléphone'
-numero.tel: 'Numero'
-action: 'Action'
+numero.tel: Numero
+action: Action
 password: 'Mot de Passe'
 user.info: 'Info Utilisateur'
-user.active: 'Active'
+user.active: Active
 add.valorem: 'Add Object'
-comment: 'Commentaire'
-date: 'Date'
-adresse: 'Adresse'
+comment: Commentaire
+date: Date
+adresse: Adresse
 cp: 'Code Postal'
-ville: 'Ville'
-etage: 'Etage'
-ascenseur: 'Ascenseur'
-nom: 'Nom'
-prenom: 'Prenom'
-telephone: 'Téléphone'
+ville: Ville
+etage: Etage
+ascenseur: Ascenseur
+nom: Nom
+prenom: Prenom
+telephone: Téléphone
+send.from: 'Été Envoyée par'

@@ -619,6 +619,15 @@ class DevisEnvoyeAdmin extends AbstractAdmin
                       'name' => 'show',
                   ]
               ])
+            ->addIdentifier('cp1', null, [
+                'label' => $this->trans('cp1')
+            ])
+            ->addIdentifier('cp2', null, [
+                'label' => $this->trans('cp2')
+            ])
+            ->addIdentifier('user_send_id', null, [
+                'label' => $this->trans('send.from')
+            ])
             ->addIdentifier('CreatedDate', null, array(
                 'format' => 'd/m/Y',
                 'label' => 'Devis Envoyée',
