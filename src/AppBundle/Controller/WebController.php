@@ -156,19 +156,23 @@ class WebController extends Controller
         ///foreach ($tables as $table)
         {
             $tds = $tables[0]->getElementsByTagName('td');
+
             foreach ($tds as $key=>$td) {
-                if(strpos($td->textContent, 'Date départ :') !== false)
-                {
-                    $resultArray['date1'][] = substr($td->textContent, strlen('Date départ :')+1);
-                }
-                else if(strpos($td->textContent, 'Date arrivée :') !== false)
-                {
-                    $resultArray['date2'][] = substr($td->textContent, strlen('Date arrivée :')+1);
+                if($key>0) {
+                    if(strpos($td->textContent, 'Date départ :') !== false)
+                    {
+                        $resultArray['date1'][] = substr($td->textContent, strlen('Date départ :')+1);
+                    }
+                    else if(strpos($td->textContent, 'Date arrivée :') !== false)
+                    {
+                        $resultArray['date2'][] = substr($td->textContent, strlen('Date arrivée :')+1);
+                    }
+
+                    if(isset($devisArrayWords[$td->textContent])) {
+                        $resultArray[$devisArrayWords[$td->textContent]][] = $tds[$key+1]->textContent;
+                    }
                 }
 
-                if(isset($devisArrayWords[$td->textContent])) {
-                    $resultArray[$devisArrayWords[$td->textContent]][] = $tds[$key+1]->textContent;
-                }
             }
         }
 
