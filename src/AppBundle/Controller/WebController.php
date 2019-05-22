@@ -216,6 +216,7 @@ class WebController extends Controller
         foreach ($tables as $table) {
             dump($table->textContent);
             $tds = $table->getElementsByTagName('td');
+            dump($tds);
             for($i=0; $i<sizeof($tds);$i++) {
                 dump($tds[$i]->textContent);
                if(isset($devisArrayWords[$tds[$i]->textContent])) {
