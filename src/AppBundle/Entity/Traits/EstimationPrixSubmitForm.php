@@ -76,7 +76,6 @@ trait EstimationPrixSubmitForm
 
         $this->formEstimationPrix->handleRequest($this->request);
         if($this->formEstimationPrix->isSubmitted() && $this->formEstimationPrix->isValid()) {
-            dump($this->request->request);
             $json = current(current($this->request->request))['json'];
             $devisconfig = json_decode($json, true);
             /** @var DevisEnvoye $devisenvoye */
