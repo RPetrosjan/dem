@@ -214,6 +214,7 @@ class WebController extends Controller
 
         $resultArray = [];
         foreach ($tables as $table) {
+            dump($table->textContent);
             $tds = $table->getElementsByTagName('td');
             for($i=0; $i<sizeof($tds);$i++) {
                 dump($tds[$i]->textContent);
