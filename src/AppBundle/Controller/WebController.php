@@ -187,6 +187,8 @@ class WebController extends Controller
      */
     public function readlesartisansdemenageurs($htmlmail){
 
+        dump($htmlmail);
+        exit();
         $dom = new domDocument;
         $dom->loadHTML(mb_convert_encoding($htmlmail, 'HTML-ENTITIES', 'UTF-8'));
         $dom->preserveWhiteSpace = false;
@@ -228,8 +230,6 @@ class WebController extends Controller
      * @Route("/mailer", name="mailer_page")
      */
     public function MailerPage(Request $request) {
-
-
 
 
         $resultArray = [];
