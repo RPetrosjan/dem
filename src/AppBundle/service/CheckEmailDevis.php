@@ -153,7 +153,7 @@ class CheckEmailDevis
 
         $resultArray = [];
         $server = new Server('world-368.fr.planethoster.net');
-        $connection = $server->authenticate('service@espace-demenageur.fr', '3XQ8rzb4vfVMBusSGW');
+        $connection = $server->authenticate('service@espace-demenageur.fr', '(nio]Eo}pNul');
        /// $mailboxes = $connection->getMailboxes();
         /// // Gett all emials in Folder inbox
         $mailboxINBOX = $connection->getMailbox('INBOX');

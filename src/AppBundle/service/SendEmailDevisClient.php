@@ -93,11 +93,9 @@ class SendEmailDevisClient
 
         if ($reponse = $this->mailer->send($message)) {
             return true;
-
         }
         else {
             return false;
-
         }
     }
 }
