@@ -65,6 +65,7 @@ class SendEmailDevisClient
                     $message_html_twig, [
                         'devis_info' => $devis,
                         'societe_info' => $societe,
+                        'societe_group' => $userEntityGroup,
                         'devisConfig' =>  $devisConfig,
                         'formatEmail' => 'html'
                     ]
@@ -76,6 +77,7 @@ class SendEmailDevisClient
                     $message_html_twig, [
                         'devis_info' => $devis,
                         'societe_info' => $societe,
+                        'societe_group' => $userEntityGroup,
                         'devisConfig' =>  $devisConfig,
                         'formatEmail' => 'text'
                     ]

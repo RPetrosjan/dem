@@ -144,36 +144,6 @@ class DevisConf4 extends AbstractType
              )
 
 
-
-            ->add(
-                $builder->create('group11', FormType::class, [
-                    'label' => false,
-                    'inherit_data' => true,
-                    'attr' => [
-                        'class' => 'col-md-12',
-
-                    ],
-
-                ])
-
-                    ->add('propositionforfaitaire',TextType::class, [
-                        'label' => $this->translator->trans('propositionforfaitaire'),
-                        'attr' => [
-                            'class' => 'form-control prix',
-                            'divclass' => 'col-md-4'
-                        ],
-                    ])
-
-                    ->add('decharge',TextType::class, [
-                        'label' => $this->translator->trans('decharge'),
-                        'attr' => [
-                            'class' => 'form-control prix',
-                            'divclass' => 'col-md-4'
-                        ],
-                    ])
-
-
-            )
             ->add(
                 $builder->create('group2', FormType::class, [
                     'label' => false,

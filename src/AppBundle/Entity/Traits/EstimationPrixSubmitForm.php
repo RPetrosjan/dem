@@ -184,6 +184,7 @@ trait EstimationPrixSubmitForm
 
             ///admin.send.mail.devis
             $sendDevisMailservice = $this->container->get('admin.send.mail.devis');
+
             $reponse = $sendDevisMailservice->sendDevisEmailClient('Votre Devis du déménagement', $devisenvoye, $userEntity, $userEntityGroup, $devisconfig, $files, $message_html_twig);
             if($reponse == true) {
 

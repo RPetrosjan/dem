@@ -59,6 +59,7 @@
         <tr>
             <td style="width: 450px">
 
+                {#
                 {% if devisInfo.UserSendId is defined and devisInfo.UserSendId is not null %}
                 <b>{{ devisInfo.UserSendId.firstName }} {{ devisInfo.UserSendId.lastName }}<br/>
                     {% elseif childUser is not null %}
@@ -66,6 +67,8 @@
                         {% else %}
                         <b>{{ societeInfo.firstName }} {{ societeInfo.lastName }}<br/>
                 {% endif %}
+                #}
+                <b>{{ societeInfo.firstName }} {{ societeInfo.lastName }}<br/>
                 Le service commercial<br/>
                 <span class="colorBlue">{{ societeInfo.companyName }}</span></b><br/>
                 {% for fix in societeInfo.getIdTelephone['telephone.fix'] %}
@@ -210,8 +213,8 @@
 
         <table cellspacing="0" cellpadding="0" style="width: 100%; margin-top: 10px;">
             <tr>
-                <td class="borderleft bordertop" style="padding-left: 5px;"><b class="colorBlue">Notre proposition forfaitaire</b></td>
-                <td class="borderright bordertop" style="text-align: right; padding-right: 5px;">{{ devisConfig.propositionforfaitaire }} €</td>
+                <td class="borderleft bordertop" style="padding-left: 5px;"></td>
+                <td class="borderright bordertop" style="text-align: right; padding-right: 5px;"></td>
             </tr>
             {% if advalorem is defined %}
                 {% for valorem in advalorem %}
@@ -221,10 +224,7 @@
                     </tr>
                 {% endfor %}
             {% endif %}
-            <tr>
-                <td class="borderleft" style="padding-left:5px;"><b class="colorBlue">DECHARGE</b></td>
-                <td class="borderright" style="text-align: right; padding-right: 5px;">{{ devisConfig.decharge }} €</td>
-            </tr>
+
             <tr>
                 <td class="borderleft" style="padding-top: 50px; padding-left:5px;"><b class="colorBlue">Garantie Dommage pour une valeur de {{ devisConfig.valglobale|number_format(2, ',', '') }} €</b></td>
                 <td class="borderright" style="text-align: right"></td>

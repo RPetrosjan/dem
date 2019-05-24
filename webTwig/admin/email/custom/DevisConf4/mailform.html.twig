@@ -17,12 +17,18 @@
 {% set TelFix = TelFix|slice(0, -2)  %}
 {% set TelPort = TelPort|slice(0, -2)  %}
 
+{% if societe_group is not null %}
+    {% set sendInfosPerson = 'Conseiller déménagment<br/><b>' ~ societe_group.firstName ~ ' ' ~ societe_group.lastName ~ '</b>' %}
+{% else %}
+    {% set sendInfosPerson = '<b>' ~ societe_group.firstName ~ ' ' ~ societe_group.lastName ~ '</b>' %}
+{% endif %}
+
 {% set boderText = 'Bonjour <b>'~devis_info.nom~' '~devis_info.prenom~'</b>,<br/><br/>
 Je vous remercie pour votre demande. Je suis tout à fait disponible pour réaliser votre projet et me ferai un plaisir de vous aider.<br/>
 N’hésitez surtout pas à me contacter si vous avez la moindre question concernant mon expérience ou encore mes tarifs.<br/>
 <br/><br/>
 Bien à vous,<br/>
-<b>Mr NOEL</b>
+'~ sendInfosPerson ~'
 
 <br/><br/>
 <b>'~societe_info.companyName~'</b>
