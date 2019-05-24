@@ -477,7 +477,8 @@ class DevisConf4 extends AbstractType
                      ],
                  ])
                      ->add('commentSociete', TextareaType::class, [
-                         'label' => $this->translator->trans('comment')
+                         'label' => $this->translator->trans('comment'),
+                         'required' => false,
                      ])
 
 
