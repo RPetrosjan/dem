@@ -263,7 +263,15 @@ services:
           - '@service_container'
 #          - "@=service('request_stack').getCurrentRequest().getClientIp()"
 
-    admin.listener:
+
+    admin.distancematrix:
+      class: AppBundle\service\DistancematrixService
+      arguments:
+        - '@service_container'
+        - '@doctrine.orm.entity_manager'
+      public: true
+
+      admin.listener:
         class: AppBundle\EventListener\ExceptionListener
         arguments:
           - '@doctrine.orm.entity_manager'

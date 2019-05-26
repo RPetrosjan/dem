@@ -190,6 +190,14 @@ class DemandeDevisAdmin extends AbstractAdmin
     // Show Result in the Page
     protected function configureFormFields(FormMapper $formMapper) {
 
+        $distance = $this->object->getDistance();
+        if(empty($distance) && !empty($this->object->getCp1()) && !empty($this->object->getCp2())) {
+            $distanctematrixService = $this->container->get('admin.distancematrix');
+            // We get distance in m and cwill be convert to km
+            $distance = $distanctematrixService->getDistance($this->object->getCp1(), $this->object->getCp2(), $this->object->getVille1(), $this->object->getVille2())['distance'] / 1000;
+            $distance = round($distance);
+        }
+
         $formMapper
 
             ->with($this->trans('general'), [
@@ -249,12 +257,13 @@ class DemandeDevisAdmin extends AbstractAdmin
                     'Luxe' => 'Luxe'
                 ),
             ])
-            ->add('budget', TextType::class, [
-                'label' => 'Budget prevu',
+            ->add('distance', TextType::class, [
+                'label' => 'distance',
                 'required' => false,
                 'attr' => [
                     'autocomplete' => 'nope',
-                ]
+                ],
+                'data' => $distance,
             ])
             ->end()
 

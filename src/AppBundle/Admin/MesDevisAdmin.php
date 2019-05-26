@@ -249,15 +249,14 @@ class MesDevisAdmin extends AbstractAdmin
     // Show Result in the Page
     protected function configureFormFields(FormMapper $formMapper) {
 
-        // Her we will get all Roles for user
-        /** @var  $roles
-        $roles = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser()->getRoles();
-        if(array_search('ROLE_SUPER_ADMIN', $roles) === false) {
-        if ($this->isCurrentRoute('edit')) {
-        throw new AccessDeniedException('Access Denied to the action and role');
+        $distance = $this->object->getDistance();
+        if(empty($distance) && !empty($this->object->getCp1()) && !empty($this->object->getCp2())) {
+            $distanctematrixService = $this->container->get('admin.distancematrix');
+            // We get distance in m and cwill be convert to km
+            $distance = $distanctematrixService->getDistance($this->object->getCp1(), $this->object->getCp2(), $this->object->getVille1(), $this->object->getVille2())['distance'] / 1000;
+            $distance = round($distance);
         }
-        }
-         * */
+
 
         $container = $this->getConfigurationPool()->getContainer();
         $em = $container->get('doctrine.orm.entity_manager');
@@ -421,12 +420,13 @@ class MesDevisAdmin extends AbstractAdmin
                  'label' => 'Prestation',
                 'choices'  => $this->em->getRepository(PrestationCustom::class)->findUserPrestations($this->user),
             ])
-            ->add('budget', TextType::class, [
-                'label' => 'Budget prevu',
+            ->add('distance', TextType::class, [
+                'label' => $this->trans('distance'),
                 'required' => false,
                 'attr' => [
                     'autocomplete' => 'nope',
-                ]
+                ],
+                'data' => $distance,
             ])
             ->end()
 

@@ -307,10 +307,9 @@ class DevisEnvoyeAdmin extends AbstractAdmin
                 'label' => 'Prestation',
                 'choices'  => $this->em->getRepository(PrestationCustom::class)->findUserPrestations($this->user),
             ])
-            ->add('budget', TextType::class, [
-                'label' => 'Budget prevu',
-                'disabled' => true,
-                'mapped' => false,
+            ->add('distance', TextType::class, [
+                'label' => $this->trans('distance'),
+                'required' => false,
             ])
             ->end()
 

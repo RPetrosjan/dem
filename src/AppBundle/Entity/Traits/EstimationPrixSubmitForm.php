@@ -32,7 +32,11 @@ trait EstimationPrixSubmitForm
         /** @var  $container */
         $container = $this->getConfigurationPool()->getContainer();
 
+
+
         $em = $container->get('doctrine.orm.entity_manager');
+
+        $distanctematrixService = $container->get('admin.distancematrix');
 
         /** @var string $load_template */
         $this->load_template = 'admin/demandedevis/estimation_prix.html.twig';
@@ -63,9 +67,24 @@ trait EstimationPrixSubmitForm
             $devisObj->setValglobale($devisConfig == false ? 20000 : $devisConfig->getValglobale());
             $devisObj->setParobjet($devisConfig == false ? 500 : $devisConfig->getParobjet());
             $devisObj->setValable($devisConfig == false ? 3 : $devisConfig->getValable());
+
+
             $devisObj->setNom($this->object->getNom());
             $devisObj->setPrenom($this->object->getPrenom());
+            $devisObj->setCp1($this->object->getCp1());
+            $devisObj->setVille1($this->object->getVille1());
+            $devisObj->setCp2($this->object->getCp2());
+            $devisObj->setVille2($this->object->getVille2());
         }
+
+        $distance = $this->object->getDistance();
+        if(empty($this->object->getDistance()) && !empty($this->object->getCp1()) && !empty($this->object->getCp2())) {
+            // We get distance in m and cwill be convert to km
+            $distance = $distanctematrixService->getDistance($this->object->getCp1(), $this->object->getCp2(), $this->object->getVille1(), $this->object->getVille2())['distance'] / 1000;
+            $distance = round($distance);
+        }
+
+        $devisObj->setDistance($distance);
 
         $this->formEstimationPrix = $container->get('form.factory')->create($loadFormType, $devisObj, [
 
