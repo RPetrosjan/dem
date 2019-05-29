@@ -37,61 +37,68 @@ class User extends BaseUser
 
 
     /**
-     * @ORM\OneToMany(targetEntity="DevisConfig", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="DevisConfig", mappedBy="user_id", cascade={"remove"})
      */
     private $id_devis_conf;
 
     /**
-     * @ORM\OneToMany(targetEntity="DevisEnvoye", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="DevisEnvoye", mappedBy="user_id", cascade={"remove"})
      */
     private $id_devis_envoye;
 
-
+    /**
+     * @ORM\OneToMany(targetEntity="DevisEnvoye", mappedBy="user_send_id")
+     */
+    private $id_user_group;
 
     /**
-     * @ORM\OneToMany(targetEntity="PrestationCustom", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ReadyDemandeDevis", mappedBy="idUser", cascade={"remove"})
+     */
+    private $id_ready_demande_devis;
+
+    /**
+     * @ORM\OneToMany(targetEntity="PrestationCustom", mappedBy="user_id", cascade={"remove"})
      */
     private $id_mes_prestation;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", cascade={"all"}, fetch="EAGER")
-     * @ORM\JoinColumn(name="parent_user_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="User", cascade={"persist"}, fetch="EAGER")
      */
     private $parent;
 
 
     /**
-     * @ORM\OneToMany(targetEntity="Group", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="Group", mappedBy="user_id", cascade={"remove"})
      */
     private $id_devis_goup;
 
     /**
-     * @ORM\OneToMany(targetEntity="UserConnect", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="UserConnect", mappedBy="user_id", cascade={"remove"})
      */
     private $id_user_connect;
 
     /**
-     * @ORM\OneToMany(targetEntity="ViewDevisCount", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="ViewDevisCount", mappedBy="user_id", cascade={"remove"})
      */
     private $id_user_view_devis;
 
     /**
-     * @ORM\OneToMany(targetEntity="Telephone", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="Telephone", mappedBy="user_id", cascade={"remove"})
      */
     private $id_telephone;
 
     /**
-     * @ORM\OneToMany(targetEntity="RIB", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="RIB", mappedBy="user_id", cascade={"remove"})
      */
     private $id_rib;
 
     /**
-     * @ORM\OneToMany(targetEntity="MesDevis", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="MesDevis", mappedBy="user_id", cascade={"remove"})
      */
     private $id_mes_devis;
 
     /**
-     * @ORM\OneToMany(targetEntity="DemandeDevis", mappedBy="ownerId")
+     * @ORM\OneToMany(targetEntity="DemandeDevis", mappedBy="ownerId", cascade={"remove"})
      */
     private $id_demande_devis;
 
@@ -613,6 +620,40 @@ class User extends BaseUser
     {
         $this->id_rib = $id_rib;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIdReadyDemandeDevis()
+    {
+        return $this->id_ready_demande_devis;
+    }
+
+    /**
+     * @param mixed $id_ready_demande_devis
+     */
+    public function setIdReadyDemandeDevis($id_ready_demande_devis)
+    {
+        $this->id_ready_demande_devis = $id_ready_demande_devis;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserSendId()
+    {
+        return $this->user_send_id;
+    }
+
+    /**
+     * @param mixed $user_send_id
+     */
+    public function setUserSendId($user_send_id)
+    {
+        $this->user_send_id = $user_send_id;
+    }
+
+
 
 
 }

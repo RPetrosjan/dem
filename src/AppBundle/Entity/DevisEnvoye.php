@@ -40,7 +40,8 @@ class DevisEnvoye
     /**
      * @var User
      *
-     * @ManyToOne(targetEntity="User", cascade={"persist"})
+     * @ManyToOne(targetEntity="User", inversedBy="id_user_group")
+     * @ORM\JoinColumn(name="group_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $user_send_id;
 

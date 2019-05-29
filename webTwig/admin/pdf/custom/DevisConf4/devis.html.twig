@@ -71,9 +71,11 @@
                 <b>{{ societeInfo.firstName }} {{ societeInfo.lastName }}<br/>
                 Le service commercial<br/>
                 <span class="colorBlue">{{ societeInfo.companyName }}</span></b><br/>
-                {% for fix in societeInfo.getIdTelephone['telephone.fix'] %}
-                    <span class="colorRed">Tél:</span> <span class="colorGreen">{{ fix }}</span><br/>
-                {% endfor %}
+                {% if  societeInfo.getIdTelephone['telephone.fix'] is defined %}
+                    {% for fix in societeInfo.getIdTelephone['telephone.fix'] %}
+                        <span class="colorRed">Tél:</span> <span class="colorGreen">{{ fix }}</span><br/>
+                    {% endfor %}
+                {% endif %}
                 <span class="colorRed">Email: {{ societeInfo.companyEmail }}</span>
 
             </td>

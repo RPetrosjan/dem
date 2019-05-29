@@ -10,8 +10,18 @@
 .skin-black .sidebar a{
     color: #141415;
 }
-
-
+.sonata-ba-list-field>a.aswitch{
+    background-color: #d84242;
+    color: white;
+    padding: 8px 16px;
+    font-weight: bold;
+    width: 100%;
+    font-size: 12px;
+    display: inline-block;
+}
+td.sonata-ba-list-field {
+    vertical-align: middle!important;
+}
 .sonata-collection-row .form-group {
     border-top: none;
     padding-bottom: 0px;

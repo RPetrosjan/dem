@@ -5,9 +5,11 @@
             <span class="colorBlue">{{ societeInfo.street }}</span><br/>
             {{ societeInfo.codePostal }} {{ societeInfo.city }}<br/>
 
+            {% if  societeInfo.getIdTelephone['telephone.fix'] is defined %}
             {% for fix in societeInfo.getIdTelephone['telephone.fix'] %}
                 <span class="colorRed">Tél:</span> <span class="colorGreen">{{ fix }}</span><br/>
             {% endfor %}
+            {% endif %}
 
             <span class="colorRed">Mail: {{ societeInfo.companyEmail }}</span>
         </td>

@@ -2,13 +2,15 @@
 {% block body %}
 {{ parent() }}
 
-
+    {% if  societeInfo.getIdRib[0] is defined %}
 <table style="margin-top: 300px; width: 100%; font-size: 16px">
     <tr>
         <td colspan="5"><b>Titulaire</b></td>
     </tr>
     <tr>
-        <td style="padding-bottom: 20px" colspan="5">{{ societeInfo.getIdRib[0].getNomTitulaire }} {{ societeInfo.getIdRib[0].getPrenomTitulaire }}</td>
+        <td style="padding-bottom: 20px" colspan="5">
+               {{ societeInfo.getIdRib[0].getNomTitulaire }} {{ societeInfo.getIdRib[0].getPrenomTitulaire }}
+        </td>
     </tr>
     <tr>
         <td class="bordertop borderright" style="padding-right: 30px; padding-top: 5px"><b>Banque</b></td>
@@ -31,7 +33,7 @@
     </tr>
     <tr>
         <td colspan="5">
-            {{ societeInfo.getIdRib[0].getBIC }}
+                {{ societeInfo.getIdRib[0].getBIC }}
         </td>
     </tr>
     <tr>
@@ -47,7 +49,7 @@
 
 
 </table>
-
+    {% endif %}
 
 {% endblock %}
 {% block addPage %}

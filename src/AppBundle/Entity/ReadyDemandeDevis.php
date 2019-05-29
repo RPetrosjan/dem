@@ -25,7 +25,7 @@ class ReadyDemandeDevis
     /**
      * @var User
      *
-     * @ManyToOne(targetEntity="User", inversedBy="id_ready_demande_devis", cascade={"persist"})
+     * @ManyToOne(targetEntity="User", inversedBy="id_ready_demande_devis", cascade={"remove"})
      */
     private $idUser;
 

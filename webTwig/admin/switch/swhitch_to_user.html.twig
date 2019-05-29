@@ -1,6 +1,6 @@
 {% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
 
 {% block field%}
-    <a href="{{ path('homepage', {'_switch_user': value }) }}"><i class="fas fa-sign-in-alt"></i> {{ value }} </a>
+    <a class="aswitch" href="{{ path('homepage', {'_switch_user': value }) }}"><i class="fas fa-sign-in-alt"></i> {{ value }} </a>
 {% endblock %}
 
