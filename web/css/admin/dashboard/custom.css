@@ -19,6 +19,10 @@
     font-size: 12px;
     display: inline-block;
 }
+.sonata-ba-list-field>a.aswitch:hover{
+    background-color: #024928;
+}
+
 td.sonata-ba-list-field {
     vertical-align: middle!important;
 }
