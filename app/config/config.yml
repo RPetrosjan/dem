@@ -115,7 +115,7 @@ sonata_admin:
         extra_stylesheets:
           - https://fonts.googleapis.com/css?family=Titillium+Web:400
           - https://use.fontawesome.com/releases/v5.3.1/css/all.css
-          - /css/admin/dashboard/custom.css
+          - /css/admin/dashboard/custom.css?v1
     dashboard:
         groups:
             admin:

@@ -26,40 +26,60 @@ class SocieteAdmin extends AbstractAdmin
         $formMapper
 
             ->tab($this->trans('Parametres Societe'))
-            ->add('siege',CheckboxType::class,array(
-                'label' => $this->trans('Sige Sociale')
-            ))
-            ->add('namesociete')
-            ->add('siret', null, [
-                'label' => 'N SIRET',
-            ])
-            ->add('adresse')
-            ->add('cpville',ModelAutocompleteType::class,array(
-                'property' => array(
-                    'cp','ville'
-                ),
-            ))
-            ->add('email')
-            ->add('tel',CollectionType::class,array(
-                'entry_type' => TelephoneType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-            ))
-            ->add('website', null, [
-                'label' => 'Web Site',
-                'required' => false,
-            ])
+               ->with('info.generame.societe', [
+                 'label' => $this->trans('info.generame.societe'),
+                 'class' => 'col-md-6',
+               ])
+                  ->add('siege',CheckboxType::class,array(
+                      'label' => $this->trans('Sige Sociale'),
+                  ))
+                  ->add('namesociete')
+                  ->add('siret', null, [
+                      'label' => 'N SIRET',
+                  ])
+                  ->add('adresse')
+                  ->add('cpville',ModelAutocompleteType::class,array(
+                      'property' => array(
+                          'cp','ville'
+                      ),
+                  ))
+                ->end()
+               ->with('Contact Info societe', [
+                    'label' => $this->trans('contact.info.societe'),
+                    'class' => 'col-md-6'
+                ])
+                  ->add('email')
+                  ->add('tel',CollectionType::class,array(
+                      'entry_type' => TelephoneType::class,
+                      'allow_add' => true,
+                      'allow_delete' => true,
+                  ))
+                  ->add('website', null, [
+                      'label' => 'Web Site',
+                      'required' => false,
+                  ])
+                ->end()
             ->end()
-            ->end()
-            ->tab($this->trans('Parametres Devis'))
-            ->add('prixtva', TextType::class, [
-                'label' => 'TVA % Devis'
+            ->tab( 'parametres.devis.tab', [
+              'label' => $this->trans('parametres.devis')
             ])
-            ->add('accompte', TextType::class, [
-                'label' => 'Accompte %'
-            ])
-            ->add('franchise', TextType::class, [
-                'label' => 'Franchise €'
+            ->with('parametres.devis', [
+                'label' => $this->trans('parametres.devis'),
+                'class' => 'col-md-6'
+              ])
+                ->add('prixtva', TextType::class, [
+                    'label' => 'TVA % Devis'
+                ])
+                ->add('accompte', TextType::class, [
+                    'label' => 'Accompte %'
+                ])
+                ->add('franchise', TextType::class, [
+                    'label' => 'Franchise €'
+                ])
+              ->end()
+            ->with('parametres.devis.tab1', [
+              'label' => $this->trans('parametres.devis'),
+              'class' => 'col-md-6'
             ])
             ->add('valeurglobale', TextType::class, [
                 'label' => 'Valeur globale €'

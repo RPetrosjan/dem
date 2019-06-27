@@ -69,6 +69,7 @@ services:
            - ~
            - AppBundle\Entity\Articles
            - ~
+           - '@service_container'
         tags:
             - { name: sonata.admin, manager_type: orm, route: '/articles', label: Article, group : 'Web' }
         public: true

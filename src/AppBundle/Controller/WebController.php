@@ -8,56 +8,33 @@
 
 namespace AppBundle\Controller;
 
-
-use AppBundle\AppBundle;
-use AppBundle\Entity\AvisSociete;
 use AppBundle\Entity\CalculDevis;
 use AppBundle\Entity\Carton;
 use AppBundle\Entity\CartonsForm;
 use AppBundle\Entity\Contact;
-use AppBundle\Entity\CpVille;
 use AppBundle\Entity\DemandeDevis;
 use AppBundle\Entity\GardeMeube;
 use AppBundle\Entity\OptimizerCss;
 use AppBundle\Entity\OptimizerJs;
 use AppBundle\Entity\Prestation;
 use AppBundle\Entity\SEO;
-use AppBundle\Entity\User;
-use AppBundle\Entity\VisiteTechnique;
-use AppBundle\Form\AvisFormType;
+use AppBundle\Entity\VisiteTechnique;;
 use AppBundle\Form\CalculDevisType;
 use AppBundle\Form\CartonForm;
 use AppBundle\Form\ContactForm;
 use AppBundle\Form\DevisForm;
 use AppBundle\Form\GardeMeubleForm;
-use AppBundle\Form\LoginForm;
-use AppBundle\Form\Type\TestCpForm;
 use AppBundle\Form\VisiteTechniqueForm;
-use AppBundle\Repository\BandeRepository;
-use AppBundle\Repository\CalculDevisRepository;
 use AppBundle\Service\AddDevisBase;
 use AppBundle\Service\CalculPrixService;
-use Doctrine\Common\Annotations\Annotation;
-use Symfony\Component\Config\Loader\FileLoader;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use Symfony\Component\Serializer\Encoder\CsvEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 use Twig_Environment;
 
 class WebController extends Controller
