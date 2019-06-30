@@ -4,6 +4,34 @@ parameters:
     #parameter_name: value
 
 services:
+
+    app.filter.imagine:
+        public: true
+        class:  AppBundle\service\ImagineFilter
+        arguments:
+          - '@service_container'
+
+    pdf.devis.generator:
+        public: true
+        class:     AppBundle\service\PDFDevisGenerator
+        arguments: ['@service_container']
+
+    admin.stat:
+        public: true
+        class: AppBundle\service\Statistique
+        arguments:
+          - '@doctrine.orm.entity_manager'
+          - '@security.token_storage'
+
+    AppBundle\Form\MaSocieteForm:
+        arguments: ['@security.authorization_checker']
+
+    access.denied:
+        class: AppBundle\Security\AccessDeniedHandler
+        arguments: [ '@templating' ]
+
+
+
     # default configuration for services in *this* file
     _defaults:
         # automatically injects dependencies in your services
@@ -28,6 +56,166 @@ services:
         resource: '../../src/AppBundle/Controller'
         public: true
         tags: ['controller.service_arguments']
+
+    admin.user.connect:
+        class: AppBundle\service\UserConnectService
+        arguments:
+          - '@doctrine.orm.entity_manager'
+          - "@=service('request_stack').getCurrentRequest().getClientIp()"
+        public: true
+
+    admin.add.in.demande.devis:
+        class: AppBundle\service\AddinDemandeDevis
+        arguments:
+          - '@service_container'
+          - '@doctrine.orm.entity_manager'
+        public: true
+
+    admin.facture:
+        class: AppBundle\service\AddFactureSocieteService
+        arguments:
+          - '@doctrine.orm.entity_manager'
+        public: true
+
+    admin.users:
+        class: AppBundle\Admin\UsersAdmin
+        arguments:
+           - ~
+           - AppBundle\Entity\User
+           - ~
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Users, group : 'Admin', icon: '<i class="fa fa-users"></i>' }
+        public: true
+
+    admin.users.connection:
+        class: AppBundle\Admin\UserConnectAdmin
+        arguments:
+           - ~
+           - AppBundle\Entity\UserConnect
+           - ~
+           - "@doctrine.orm.default_entity_manager"
+        tags:
+            -
+              name: sonata.admin
+              manager_type: orm
+              label: Mes Connections
+              route: '/mes_conncections'
+              group : 'mon_compte'
+        public: true
+
+
+    admin.demandedevis:
+        class: AppBundle\Admin\DemandeDevisAdmin
+        arguments:
+            - ~
+            - AppBundle\Entity\DemandeDevis
+            - ~
+            - "@doctrine.orm.default_entity_manager"
+            - "@security.token_storage"
+        tags:
+            -
+              name: sonata.admin
+              manager_type: orm
+              route: '/demandedevis'
+              label: 'Demande Devis'
+              group: 'Web'
+        public: true
+
+
+    admin.soustraitance:
+        class: AppBundle\Admin\SousTraitanceAdmin
+        arguments:
+            - ~
+            - AppBundle\Entity\SousTraitance
+            - ~
+            - '@admin.view.devis.count'
+            - '@service_container'
+        tags:
+            -
+              name: sonata.admin
+              manager_type: orm
+              route: '/soustraitance'
+              label: 'Sous Traitance'
+              group: 'Web'
+        public: true
+
+
+    admin.devisenvoye:
+        class: AppBundle\Admin\DevisEnvoyeAdmin
+        arguments:
+            - ~
+            - AppBundle\Entity\DevisEnvoye
+            - ~
+            - "@doctrine.orm.default_entity_manager"
+        tags:
+            -
+             name: sonata.admin
+             manager_type: orm
+             route: '/devisenvoye'
+             label: 'Envoye'
+             group: 'Web'
+        public: true
+
+    admin.mesdevis:
+        class: AppBundle\Admin\MesDevisAdmin
+        arguments:
+            - ~
+            - AppBundle\Entity\MesDevis
+            - ~
+            - '@admin.view.devis.count'
+            - '@service_container'
+        tags:
+            -
+              name: sonata.admin
+              manager_type: orm
+              route: '/mesdevis'
+              label: 'Mes Devis'
+              group: 'Web'
+        public: true
+
+
+    admin.mesfactures:
+            class: AppBundle\Admin\FactureAdmin
+            arguments:
+                - ~
+                - AppBundle\Entity\Facture
+                - ~
+                - '@admin.view.devis.count'
+                - '@service_container'
+            tags:
+                -
+                  name: sonata.admin
+                  manager_type: orm
+                  route: '/facture'
+                  label: 'Mes Facture'
+                  group: 'mon_compte'
+            public: true
+
+    admin.view.devis.count:
+        class: AppBundle\service\ViewDevisCountService
+        arguments:
+          - '@doctrine.orm.entity_manager'
+          - '@security.token_storage'
+          - '@service_container'
+#          - "@=service('request_stack').getCurrentRequest().getClientIp()"
+
+    admin.listener:
+        class: AppBundle\EventListener\ExceptionListener
+        arguments:
+          - '@doctrine.orm.entity_manager'
+          - '@security.token_storage'
+          - '@service_container'
+          - '@admin.view.devis.count'
+        tags:
+           -
+              name: kernel.event_listener
+              event: kernel.request
+              method: onKernelRequest
+
+
+
+
+
 
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:

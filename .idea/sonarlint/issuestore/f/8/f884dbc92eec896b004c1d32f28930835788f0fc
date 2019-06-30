@@ -1,0 +1,19 @@
+
+c	php:S1192"IDefine a constant instead of duplicating this literal "template" 6 times.(ÍÎ÷­8·Â®”-
+a	php:S1192"GDefine a constant instead of duplicating this literal "class" 14 times.(ÅÑ¤Å8·Â®”-
+L	php:S1481"-Remove this unused "$actions" local variable.(İ©²ıÿÿÿÿ8·Â®”-
+{	php:S1192"aDefine a constant instead of duplicating this literal "<i class="fas fa-map-signs"></i>" 4 times.(—íü¼8·Â®”-
+8php:S125"Remove this commented out code.(º”ÎÉ8·Â®”-
+_	php:S1192"FDefine a constant instead of duplicating this literal "route" 6 times.(ƒöŞ48·Â®”-
+k	php:S1192"LDefine a constant instead of duplicating this literal "CreatedDate" 5 times.(ïÒÈµûÿÿÿÿ8·Â®”-
+i	php:S1117"JRename "$object" which has the same name as the field declared at line 31.(ëğ¡ıÿÿÿÿ8·Â®”-
+f	php:S1192"GDefine a constant instead of duplicating this literal "mapped" 4 times.(òÖ¶´ûÿÿÿÿ8·Â®”-
+v	php:S1192"WDefine a constant instead of duplicating this literal "security.token_storage" 3 times.(Ğù³Öÿÿÿÿÿ8·Â®”-
+K	php:S1481"1Remove this unused "$devisConfig" local variable.(Ú×§ˆ8·Â®”-
+a	php:S1192"GDefine a constant instead of duplicating this literal "label" 13 times.(³õìï8·Â®”-
+`	php:S1192"GDefine a constant instead of duplicating this literal "prenom" 4 times.(ºô8·Â®”-
+8php:S125"Remove this commented out code.(ÆÄËœ8·Â®”-
+f	php:S1192"GDefine a constant instead of duplicating this literal "format" 3 times.(ÖƒÀõüÿÿÿÿ8·Â®”-
+M	php:S1135"4Complete the task associated to this "TODO" comment.(ˆ¢èn8·Â®”-
+b	php:S1192"HDefine a constant instead of duplicating this literal "choices" 3 times.(ãâı÷8·Â®”-
+c	php:S1192"IDefine a constant instead of duplicating this literal "col-md-6" 6 times.(ÅÑ¤Å8·Â®”-

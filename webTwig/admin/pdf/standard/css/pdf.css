@@ -1,0 +1,67 @@
+body{
+    color: #343434;
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0;
+
+    font-family: "Open Sans script=all rev=1", "Adobe Blank";
+    font-weight: bold;
+}
+.colred{
+    color: #a72222;
+}
+
+strong{
+    color: black;
+    margin-top: 0px;
+}
+table{
+    padding-top: 15px;
+}
+
+.td_label{
+    width: 80px;
+    font-weight: bold;
+}
+.td_label1 {
+    width: 20px;
+}
+.td_user_info{
+    width: 250px;
+}
+
+.fa-hand-o-right:before {
+    content: "\f0a4"
+}
+
+.tdline>tr>td {
+    border-bottom-style: solid;
+    border-bottom-color: #f0f0f0;
+    border-bottom-width: 1px;
+}
+
+.div_title{
+
+    font-size:  22px;
+    font-weight: normal;
+    font-family: 'OpenSans', sans-serif;
+}
+.div_title>span{
+    font-size: 12px;
+    font-weight: initial;
+    color: black;
+}
+.namesociete{
+    font-size: 18px;
+    font-weight: bold;
+}
+.topsocieteinfo{
+
+    padding-top: 15px;
+    border-bottom-style: solid;
+    border-bottom-color: black;
+    border-bottom-width: 0.15pt;
+    padding-bottom: 10px;
+    font-size: 10px;
+
+}

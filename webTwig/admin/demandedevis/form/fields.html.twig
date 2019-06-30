@@ -1,0 +1,61 @@
+{% use "bootstrap_base_layout.html.twig" %}
+
+{% block form_row %}
+
+    {% if 'group' not in form.vars.name %}
+        <div class=" text-nowrap form-group {% if form.vars.attr.divclass is defined %}{{ form.vars.attr.divclass }}{% endif %}" style="margin-bottom: 20px">
+        {{ form_label(form) }}
+    {% endif %}
+
+    {{ form_widget(form) }}
+    {% if 'group' not in form.vars.name %}
+             </div>
+    {% endif %}
+
+
+{% endblock form_row %}
+
+{% block file_widget %}
+
+    <div class="div_company_logo">
+        {% if form.vars.attr.image_path is not null %}
+            <img src="{{ form.vars.attr.image_path }}" />
+            <span>Cliquez sur l'image pour changer le logo</span>
+
+            <script>
+
+                function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            $('.div_company_logo>img').attr('src', e.target.result);
+                        }
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+                jQuery(window).load(function () {
+                    $('.div_company_logo>img').click(function () {
+                        $('.div_company_logo>input[type="file"]').click();
+                    });
+                    $('.div_company_logo>input[type="file"]').change(function () {
+
+
+                        readURL(this);
+                    });
+                });
+            </script>
+        {% endif %}
+        {% spaceless %}
+            {{ block('form_widget') }}
+        {% endspaceless %}
+    </div>
+
+{% endblock %}
+
+{% block submit_widget -%}
+    <div class="sonata-ba-form-actions well well-small form-actions">
+        {{ parent() }}
+    </div>
+{%- endblock submit_widget %}
+

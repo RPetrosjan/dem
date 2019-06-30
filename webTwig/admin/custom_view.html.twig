@@ -1,0 +1,69 @@
+{% extends 'admin/standard_layout.html.twig' %}
+{% block sonata_admin_content %}
+
+    {% include '@SonataCore/FlashMessage/render.html.twig' %}
+
+    {% form_theme form 'admin/demandedevis/form/fields.html.twig' %}
+
+    {#
+    {{ dump(form.children.group1.vars.attr.icon) }}
+
+
+    {{ form_start(form) }}
+
+    <div class="col-md-12">
+    <div class="col-md-6">
+    <div class="box box-primary">
+        <div class="box-header">
+            <h4 class="box-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                Devis / Tarification
+            </h4>
+        </div>
+    <div class="box-body">
+
+        {{ form_row(form.group1) }}
+        {{ form_row(form.group2) }}
+
+
+    </div>
+    </div>
+    </div>
+    </div>
+    {{ form_row(form.save) }}
+    {{ form_end(form) }}
+
+     {%
+      #}
+
+    {{ form_start(form) }}
+
+    {% for child in form.children %}
+        {%  if child.vars.name != '_token' and child.vars.name != 'save' %}
+
+
+            <div{% if child.vars.attr.cutom_class is defined %} class="{{ child.vars.attr.cutom_class }}" {% endif %}>
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h4 class="box-title">
+                            {% if child.vars.attr.icon is defined %}{{ child.vars.attr.icon|raw }}{% endif %}
+                            {% if child.vars.label is defined %}{{ child.vars.label }}{% endif %}
+                        </h4>
+                    </div>
+                    <div class="box-body">
+
+                        {{ form_row(child) }}
+
+                    </div>
+                </div>
+            </div>
+
+        {% endif %}
+    {% endfor %}
+
+    <div class="col-md-12">
+    {{ form_row(form.save) }}
+    {{ form_end(form) }}
+    <div>
+
+{% endblock %}

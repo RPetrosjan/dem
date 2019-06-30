@@ -1,0 +1,16 @@
+<div class="box-body table-responsive no-padding">
+    <div class="box-body">
+            {%  if field_description.options.attr.url_devis is defined %}
+            <div class="devisPrev">
+            <a target="_blank" href="{{ field_description.options.attr.url_devis}}devis"><i class="far fa-file-pdf"></i> Devis</a>
+            <a target="_blank" href="{{ field_description.options.attr.url_devis}}declaration_valeur"><i class="far fa-file-pdf"></i> Declaration Valeur</a>
+            <a target="_blank" href="{{ field_description.options.attr.url_devis}}condition_generale"><i class="far fa-file-pdf"></i> Condition Générale</a>
+            <a target="_blank" href="{{ field_description.options.attr.url_devis}}facture"><i class="far fa-file-pdf"></i> Facture</a>
+            <a target="_blank" href="{{ field_description.options.attr.url_devis}}lettre_chargement"><i class="far fa-file-pdf"></i> Lettre Chargement</a>
+            <a target="_blank" href="{{ field_description.options.attr.url_devis}}lettre_dechargement"><i class="far fa-file-pdf"></i> Lettre Dechargement</a>
+                {% else %}
+            <div class="devisPrev js">
+            {% endif %}
+        </div>
+    </div>
+</div>

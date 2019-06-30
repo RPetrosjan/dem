@@ -1,0 +1,199 @@
+{% extends 'SonataAdminBundle:CRUD:show.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block show %}
+    <div class="sonata-ba-view">
+
+        {{ sonata_block_render_event('sonata.admin.show.top', { 'admin': admin, 'object': object }) }}
+
+        {% set has_tab = (admin.showtabs|length == 1 and admin.showtabs|keys[0] != 'default') or admin.showtabs|length > 1 %}
+
+        {% if has_tab %}
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs" role="tablist">
+                    {% for name, show_tab in admin.showtabs %}
+                        {% set _tab_name = 'tab_'~admin.uniqid~'_'~loop.index %}
+                        <li{% if (not app.request.query.has('_tab') and loop.index == 1) or (app.request.query.get('_tab') == _tab_name) %} class="active"{% endif %}>
+                            <a href="#{{ _tab_name }}" class="changer-tab" aria-controls="{{ _tab_name }}" data-toggle="tab">
+                                {% if show_tab.attr.icon is defined %}
+                                    {{ show_tab.attr.icon|raw }}
+                                {% endif %}
+                                {{ show_tab.label|trans({}, show_tab.translation_domain ?: admin.translationDomain) }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div>
+
+                    {% if pdf_button_name is defined %}
+                        <a href="pdf" target="_blank" class="imprimer_devis">
+                            {{ pdf_button_name.icon|raw }}
+                            {{ pdf_button_name.label }}
+                        </a >
+                    {% endif %}
+
+                </div>
+
+                <div class="tab-content">
+                    {% for code, show_tab in admin.showtabs %}
+                        {% set _tab_name = 'tab_'~admin.uniqid~'_'~loop.index %}
+                        <div
+                                class="tab-pane fade{% if (not app.request.query.has('_tab') and loop.first) or (app.request.query.get('_tab') == _tab_name) %} in active{% endif %}"
+                                id="{{ _tab_name }}"
+                        >
+                            <div class="box-body  container-fluid">
+                                <div class="sonata-ba-collapsed-fields">
+                                    {% if show_tab.description != false %}
+                                        <p>{{ show_tab.description|raw }}</p>
+                                    {% endif %}
+
+                                    {% set groups = show_tab.groups %}
+                                    {{ block('show_groups') }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% elseif admin.showtabs is iterable %}
+            {% set groups = admin.showtabs.default.groups %}
+            {{ block('show_groups') }}
+        {% endif %}
+
+    </div>
+
+    {{ sonata_block_render_event('sonata.admin.show.bottom', { 'admin': admin, 'object': object }) }}
+
+    {% set url = path('devis_prev_doc_generator', {
+        'uuid' : '2222',
+        'type' :'devis',
+        'prixtht' : 0,
+        'tva' : 0,
+        'acompte' : 0,
+        'franchise' : 0,
+        'valglobale' : 0,
+        'parobjet' : 0,
+        'valable' : 0,
+        'distance' : 0
+
+    }) %}
+
+    {%  set pdf_url = url[:url|strpos('2222')]  %}
+
+    <script>
+
+        var devisId = '{{ object.getUuid() }}';
+
+        function MakeUrlPrevisualisation(prixht,tva,acompte,franchise,valglobale,parobjet,valable,distance) {
+
+            $urlval = prixht+'/'+tva+'/'+acompte+'/'+franchise+'/'+valglobale+'/'+parobjet+'/'+valable+'/'+distance;
+
+            $('.devisPrev.js').html('' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/devis/'+$urlval+'"><i class="far fa-file-pdf"></i> Devis</a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/declaration_valeur/'+$urlval+'"><i class="far fa-file-pdf"></i> Declaration Valeur </a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/condition_generale/'+$urlval+'"><i class="far fa-file-pdf"></i> Condition Générale </a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/facture/'+$urlval+'"><i class="far fa-file-pdf"></i> Facture </a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/lettre_chargement/'+$urlval+'"><i class="far fa-file-pdf"></i> Lettre Chargement  </a>' +
+                '<a target="_blank" href="{{ pdf_url }}'+devisId+'/lettre_dechargement/'+$urlval+'"><i class="far fa-file-pdf"></i> Lettre Dechargement  </a>' +
+                '');
+        }
+
+        function UpdatePriceShow() {
+            var prixht = $("input[name*='prixht']").val();
+            if($.isNumeric(prixht) == false) {
+                prixht = 0;
+            }
+            var tva = $("input[name*='tva']").val();
+            if($.isNumeric(tva) == false) {
+                tva = 0;
+            }
+
+            var prixttc = parseFloat(prixht*tva / 100) + parseFloat(prixht);
+            $("input[name*='prixttc']").val(prixttc);
+
+
+            var accompte_commande = prixttc * $("input[name*='acompte']").val() / 100;
+            if($.isNumeric(accompte_commande) == false) {
+                accompte_commande = 0;
+            }
+
+            $("input[name*='acomptecommande']").val(accompte_commande);
+            $("input[name*='soldelivraison']").val(prixttc - accompte_commande);
+
+
+        }
+
+        $("input[name*='prixht'], input[name*='tva'], input[name*='acompte'], input[name*='distance'] ").keyup(function () {
+            UpdatePriceShow();
+
+            $distance = $("input[name*='distance']").val();
+            if($distance.length == 0) {
+                $distance = 0;
+            }
+
+            console.log($distance)
+
+            MakeUrlPrevisualisation(
+                $("input[name*='prixht']").val(),
+                $("input[name*='tva']").val(),
+                $("input[name*='acompte']").val(),
+                $("input[name*='franchise']").val(),
+                $("input[name*='valglobale']").val(),
+                $("input[name*='parobjet']").val(),
+                $("input[name*='valable']").val(),
+                $distance
+            );
+        });
+
+        if($("input[name*='prixht']").val().length>0) {
+            UpdatePriceShow();
+        }
+
+    </script>
+
+{% endblock %}
+
+{% block show_groups %}
+    <div class="row">
+        {% block field_row %}
+            {% for code in groups %}
+                {% set show_group = admin.showgroups[code] %}
+
+                <div class="{{ show_group.class|default('col-md-12') }} {{ no_padding|default(false) ? 'nopadding' }}">
+                    <div class="{{ show_group.box_class }}">
+                        <div class="box-header">
+                            <h4 class="box-title">
+                                {% if show_group.attr.icon is defined %}
+                                   {{ show_group.attr.icon | raw }}
+                                {% endif %}
+
+                                {% block show_title %}
+                                    {{ show_group.label|trans({}, show_group.translation_domain|default(admin.translationDomain)) }}
+                                {% endblock %}
+                            </h4>
+                        </div>
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table">
+                                <tbody>
+                                {% for field_name in show_group.fields %}
+                                    {% block show_field %}
+                                        <tr class="sonata-ba-view-container">
+                                            {% if elements[field_name] is defined %}
+                                                {{ elements[field_name]|render_view_element(object)}}
+                                            {% endif %}
+                                        </tr>
+                                    {% endblock %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endblock %}
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,5 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field%}
+    <a href="{{ path('sous_traitance_info', {'uuid': object.uuid }) }}"><b>{{ value }}</b></a>
+{% endblock %}
