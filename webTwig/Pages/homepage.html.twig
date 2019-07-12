@@ -5,42 +5,63 @@
 
 {% block bodyPage %}
 
-    {% if form.loginForm is defined %}
 
-        <main>
+    <main>
+
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="flash {{type}}">{{message}}</div>
+            {% endfor %}
+        {% endfor %}
+
+    {% if noactive is defined %}
+        {{ '/public/css/form.html.css'|cssloader }}
+
         <figure>
+            <div class="divnoactive">
+                <h3 class="text-subheadline">Bonjour <b>{{ user.firstname }} {{ user.lastname }}</b><br/> Votre compte n'est pas encore activée.</h3>
+            </div>
+            <div class="divdeconnect">
+                <a href="/logout">
+                   <span>Se déconnecter</span>
+                </a>
+            </div>
+        </figure>
 
+    {% elseif form.loginForm is defined %}
+
+        <figure>
             <div class="headline">
                 <h2 class="text-headline">Espace Déménageur</h2>
                 <h3 class="text-subheadline">Devis, Facture, Lettre Voiture Chargement, Lettre Voiture livraison, Condition Générales, Déclaration valeur</h3>
             </div>
         </figure>
 
-
         {% include 'form/formbase.html.twig' with {'form': form.loginForm} %}
                 <span class="form_end">
                     <i>Naves-vous pas encore compte?</i>
-                    <a href="creer">Creer nouvelle compte</a>
+                    <a href="/creer">Creer nouvelle compte</a>
                 </span>
-        </main>
 
+    {% elseif form.registerFormUser is defined %}
+        {% include 'form/formbase.html.twig' with {'form': form.registerFormUser } %}
     {% elseif form.registerForm is defined %}
-        <main>
+
 
             <h3 class="register_info"> <i class="fas fa-exclamation-triangle"></i> Avant d'activer votre compte, merci de remplire les champs suivantes</h3>
             {% include 'form/formbase.html.twig' with {'form': form.registerForm} %}
-        </main>
+
 
     {% elseif user.roles == 'ROLE_USER' %}
         {{ '/public/css/form.html.css'|cssloader }}
-        <main>
+
             <figure>
                 <div class="headline">
                 <h3 class="text-subheadline">Bonjour <b>{{ user.firstname }} {{ user.lastname }}</b><br/> Votre compte n'est pas encore activée.</h3>
                 </div>
             </figure>
 
-        </main>
-    {% endif %}
 
+    {% endif %}
+    </main>
 {% endblock %}

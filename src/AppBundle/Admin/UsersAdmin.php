@@ -2,17 +2,20 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Offer;
+use AppBundle\Entity\ProAccount;
 use AppBundle\Entity\Roles;
 
+use AppBundle\Form\ProAccountForm;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 
 class UsersAdmin extends AbstractAdmin
@@ -160,9 +163,34 @@ class UsersAdmin extends AbstractAdmin
             ])
             ->end()
             ->with('Company Icon', [
-                'class'       => 'col-md-6',
+                'class'  => 'col-md-6',
             ])
             ->add('file', 'file', $fileFieldOptions)
+            ->end()
+            ->with('Company Offert', [
+                'class' => 'col-md-6',
+            ])
+            ->add('offerPro', EntityType::class, [
+                'label' => $this->trans('offertpro'),
+                'class'  => Offer::class
+            ])
+            ->add('dateStartOffer', TextType::class, [
+                'label' => $this->trans('dateStart'),
+                'attr' => [
+                    'class' => 'datepicker',
+                    'autocomplete' => 'nope',
+                ]
+            ])
+            ->add('dateEndOffer', TextType::class, [
+                'label' => $this->trans('dateStart'),
+                'attr' => [
+                    'class' => 'datepicker',
+                    'autocomplete' => 'nope',
+                ]
+            ])
+
+
+
             ->end()
         ;
     }
@@ -194,6 +222,9 @@ class UsersAdmin extends AbstractAdmin
             ])
             ->addIdentifier('parent',TextType::class, [
                 'label' => $this->trans('company'),
+            ])
+            ->addIdentifier('typePro', TextType::class, [
+                'label' => $this->trans('typePro'),
             ])
             ->add('enabled','boolean', [
                 'label'=>$this->trans('Active'),

@@ -65,10 +65,18 @@ class ExceptionListener
                 if(strcmp($user,'anon.') !=0) {
                     $result = $this->em->getRepository(ViewDevisCount::class)->ifAddTodayCount($user);
                     if(empty($result)) {
-                      ///  $this->viewDevisCountService->addDevisCount(1);
+                        $this->viewDevisCountService->addDevisCount(1);
                         $this->viewDevisCountService->addCreateDateDevisCount();
                     }
                 }
+
+                // Check if user as i First Time Logged in the web site
+                $result = $this->em->getRepository(ViewDevisCount::class)->CheckIfFirstTime($user);
+                // Logged first time
+                if(empty($result)) {
+
+                }
+
             }
     }
 }

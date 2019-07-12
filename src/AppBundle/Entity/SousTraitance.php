@@ -3,12 +3,12 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\MesDevis as Mesdevis;
 
 /**
- * @ORM\Entity
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\MesDevisRepository")
  */
-class SousTraitance extends Mesdevis
+class SousTraitance extends \AppBundle\Entity\MesDevis
 {
 
 }

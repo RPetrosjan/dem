@@ -80,6 +80,12 @@ services:
           - '@doctrine.orm.entity_manager'
         public: true
 
+    admin.offert.service:
+        class: AppBundle\service\OffertService
+        arguments:
+          - '@doctrine.orm.entity_manager'
+        public: true
+
     admin.add.devis.user:
       class: AppBundle\service\AddDevisUser
       arguments:
@@ -238,22 +244,54 @@ services:
               group: 'Web'
         public: true
 
+    admin.offert:
+        class: AppBundle\Admin\OfferAdmin
+        arguments:
+            - ~
+            - AppBundle\Entity\Offer
+            - ~
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              route: '/offert'
+              label: 'Offert'
+              group: 'Web'
+        public: true
+
+
+
     admin.mesfactures:
-            class: AppBundle\Admin\FactureAdmin
-            arguments:
-                - ~
-                - AppBundle\Entity\Facture
-                - ~
-                - '@admin.view.devis.count'
-                - '@service_container'
-            tags:
-                -
-                  name: sonata.admin
-                  manager_type: orm
-                  route: '/facture'
-                  label: 'Mes Facture'
-                  group: 'mon_compte'
-            public: true
+        class: AppBundle\Admin\FactureAdmin
+        arguments:
+            - ~
+            - AppBundle\Entity\Facture
+            - ~
+            - '@admin.view.devis.count'
+            - '@service_container'
+        tags:
+            -
+              name: sonata.admin
+              manager_type: orm
+              route: '/facture'
+              label: 'Mes Facture'
+              group: 'mon_compte'
+        public: true
+
+    admin.abonement:
+        class: AppBundle\Admin\ProAccountAdmin
+        arguments:
+            - ~
+            - AppBundle\Entity\ProAccount
+            - ~
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              route: '/abonement'
+              label: 'Abonement'
+              group: 'mon_compte'
+        public: true
+
+
 
     admin.view.devis.count:
         class: AppBundle\service\ViewDevisCountService
@@ -271,23 +309,29 @@ services:
         - '@doctrine.orm.entity_manager'
       public: true
 
-      admin.listener:
-        class: AppBundle\EventListener\ExceptionListener
-        arguments:
-          - '@doctrine.orm.entity_manager'
-          - '@security.token_storage'
-          - '@service_container'
-          - '@admin.view.devis.count'
-        tags:
-           -
-              name: kernel.event_listener
-              event: kernel.request
-              method: onKernelRequest
 
 
+    admin.listener:
+      class: AppBundle\EventListener\ExceptionListener
+      arguments:
+        - '@doctrine.orm.entity_manager'
+        - '@security.token_storage'
+        - '@service_container'
+        - '@admin.view.devis.count'
+      tags:
+         -
+            name: kernel.event_listener
+            event: kernel.request
+            method: onKernelRequest
 
-
-
+    app.form.proaccount:
+      class: AppBundle\Form\ProAccountForm
+      arguments:
+         - '@translator.default'
+      tags:
+         -
+           name: form.type
+           alias: 'Pro account'
 
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:

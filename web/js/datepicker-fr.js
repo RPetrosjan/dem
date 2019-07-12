@@ -37,3 +37,25 @@
     return datepicker.regional.fr;
 
 } ) );
+
+
+window.onload = function() {
+        if (window.jQuery) {
+            // jQuery is loaded
+            $('.datepicker').datepicker({
+                prevText: '<i class="fas fa-chevron-left"></i>',
+                nextText: '<i class="fas fa-chevron-right"></i>',
+                dateFormat: 'dd/mm/yy',
+                minDate: 0,
+                beforeShow: function() {
+                    setTimeout(function(){
+                        $('.ui-datepicker').css('z-index', 99999999999999);
+                    }, 0);
+                }
+            });
+
+            $.datepicker.setDefaults( $.datepicker.regional[ "fr" ] );
+        } else {
+            alert("jQuery is not loaded");
+        }
+    }

@@ -8,9 +8,13 @@
 
 namespace AppBundle\Entity;
 
+use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\ManyToOne;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\Traits\Image as ImageTrait;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @ORM\Entity
@@ -55,6 +59,7 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\ReadyDemandeDevis", mappedBy="idUser", cascade={"remove"})
      */
     private $id_ready_demande_devis;
+
 
     /**
      * @ORM\OneToMany(targetEntity="PrestationCustom", mappedBy="user_id", cascade={"remove"})
@@ -200,12 +205,82 @@ class User extends BaseUser
     private $switch_to_user;
 
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Offer", inversedBy="user", cascade={"persist"})
+     */
+    private $offerPro;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="date_start_offer", type="date", nullable=true)
+     */
+    private $dateStartOffer;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="date_end_offer", type="date", nullable=true)
+     */
+    private $dateEndOffer;
+
 
     public function __construct()
     {
         parent::__construct();
-        // your own logic
+        // your own logic;
     }
+
+    /**
+     * @return DateTime
+     */
+    public function getDateStartOffer()
+    {
+        if(!is_null($this->parent)) {
+            return $this->parent->getDateStartOffer();
+        }
+        else if(is_null($this->dateStartOffer)){
+            return null;
+        }
+        else {
+            return $this->dateStartOffer->format('d/m/Y');
+        }
+
+    }
+
+    /**
+     * @param DateTime $dateStartOffer
+     */
+    public function setDateStartOffer(DateTime $dateStartOffer)
+    {
+        $this->dateStartOffer = $dateStartOffer;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getDateEndOffer()
+    {
+        if(!is_null($this->parent)) {
+            return $this->parent->getDateEndOffer();
+        }
+        else if(is_null($this->dateEndOffer)){
+            return null;
+        }
+        else {
+            return $this->dateEndOffer->format('d/m/Y');
+        }
+
+    }
+
+    /**
+     * @param DateTime $dateEndOffer
+     */
+    public function setDateEndOffer(DateTime $dateEndOffer)
+    {
+        $this->dateEndOffer = $dateEndOffer;
+    }
+
 
     /**
      * @return string
@@ -653,7 +728,22 @@ class User extends BaseUser
         $this->user_send_id = $user_send_id;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getOfferPro()
+    {
+        if(!is_null($this->parent)){
+            return $this->parent->getOfferPro();
+        }
+        return $this->offerPro;
+    }
 
-
-
+    /**
+     * @param mixed $offerPro
+     */
+    public function setOfferPro($offerPro)
+    {
+        $this->offerPro = $offerPro;
+    }
 }

@@ -249,12 +249,16 @@ class MesDevisAdmin extends AbstractAdmin
     // Show Result in the Page
     protected function configureFormFields(FormMapper $formMapper) {
 
-        $distance = $this->object->getDistance();
-        if(empty($distance) && !empty($this->object->getCp1()) && !empty($this->object->getCp2())) {
-            $distanctematrixService = $this->container->get('admin.distancematrix');
-            // We get distance in m and cwill be convert to km
-            $distance = $distanctematrixService->getDistance($this->object->getCp1(), $this->object->getCp2(), $this->object->getVille1(), $this->object->getVille2())['distance'] / 1000;
-            $distance = round($distance);
+        /** @var  $distance */
+        $distance = null;
+        if(!is_null($this->object)) {
+            $distance = $this->object->getDistance();
+            if(empty($distance) && !empty($this->object->getCp1()) && !empty($this->object->getCp2())) {
+                $distanctematrixService = $this->container->get('admin.distancematrix');
+                // We get distance in m and cwill be convert to km
+                $distance = $distanctematrixService->getDistance($this->object->getCp1(), $this->object->getCp2(), $this->object->getVille1(), $this->object->getVille2())['distance'] / 1000;
+                $distance = round($distance);
+            }
         }
 
 

@@ -29,4 +29,16 @@ class ViewDevisCountRepository extends \Doctrine\ORM\EntityRepository
             ->execute()
             ;
     }
+
+    public function CheckIfFirstTime($user) {
+        return $this->createQueryBuilder('db')
+            ->where('db.user_id = :user_id')
+            ->setParameters([
+                'user_id'   => $user,
+            ])
+            ->getQuery()
+            ->execute()
+            ;
+
+    }
 }

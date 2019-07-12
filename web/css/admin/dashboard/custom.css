@@ -552,3 +552,37 @@ div.alert {
 .sonata-bc .breadcrumb {
     font-size: 14px;
 }
+
+.divabonementstitle {
+    background: #eee;
+    padding: 20px 0px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+.divabonementsprice {
+    background: #F8F8F8;
+    padding: 31px 0px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    text-transform: uppercase;
+    color: #024928;
+}
+.divabonementsdescription {
+    padding: 15px 0 15px 0;
+    text-align: center;
+    font-size: 16px;
+}
+.divabonements>.divabonementsdescription:nth-child(2n) {
+    background: #e0e0e0;
+}
+.divabonementsvalider{
+    text-align: center;
+    padding: 15px 0 15px 0;
+}
+.divabonementsvalider>button{
+    padding: 6px 89px;
+    font-size: 17px;
+}

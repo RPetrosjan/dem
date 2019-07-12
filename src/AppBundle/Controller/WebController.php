@@ -9,16 +9,21 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Admin\UsersAdmin;
 use AppBundle\Entity\DemandeDevis;
+use AppBundle\Entity\Offer;
 use AppBundle\Entity\OptimizerCss;
 use AppBundle\Entity\OptimizerJs;
 use AppBundle\Entity\User;
 use AppBundle\Form\LoginForm;
 use AppBundle\Form\RegistrationForm;
+use AppBundle\Form\RegistrationFormUser;
+use DateTime;
 use Ddeboer\Imap\Search\Flag\Unseen;
 use Ddeboer\Imap\SearchExpression;
 use Doctrine\ORM\EntityManagerInterface;
 use DOMDocument;
+use Monolog\Handler\SyslogUdp\UdpSocket;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -298,6 +303,68 @@ class WebController extends Controller
     }
 
     /**
+     * @Route("/creer", name="creation_compte")
+     */
+    public function CreationComptePage(Request $request) {
+        $registrationForm = new User();
+        $registrationForm = $this->createForm(RegistrationFormUser::class, $registrationForm, [
+            'action' => $this->generateUrl('creation_compte'),
+            'label' => false,
+            'attr' => [
+                'class' => 'registration_form'
+            ]
+        ]);
+
+        $registrationForm->handleRequest($request);
+        if($registrationForm->isSubmitted() && $registrationForm->isSubmitted()) {
+
+            $result = $this->getDoctrine()->getRepository(User::class )->findOneBy([
+                'username' => $registrationForm->getData()->getUserName(),
+            ]);
+
+            if(!empty($result)) {
+                $this->addFlash('errore', 'L\'identifiant deja utilise par une autre utilisateur');
+            }
+            else{
+
+                $entityManager = $this->getDoctrine()->getManager();
+                /** @var User $data */
+                $data = $registrationForm->getData();
+
+                // Add pro for first time a user
+                $offer = $this->em->getRepository(Offer::class)->findOneBy([
+                        'code' => 'pro',
+                ]);
+
+
+                $data->setOfferPro($offer);
+                $data->setDateStartOffer(new DateTime('now'));
+                $data->setDateEndOffer(new DateTime(date('Y-m-d', strtotime('+1 months'))));
+                $entityManager->persist($data);
+                $entityManager->flush();
+
+
+                $this->addFlash('success', 'Votre compte a ete cree avec succes');
+                return $this->redirectToRoute('homepage');
+            }
+        }
+
+
+        $form = [
+            'registerFormUser' => $registrationForm->createView(),
+        ];
+
+        $htmlRender = $this->render('Pages/homepage.html.twig', array(
+            'form' => $form,
+
+
+        ));
+        return $htmlRender;
+
+    }
+
+
+    /**
      * @Route("/", name="homepage")
      */
     public function IndexPages(Request $request){
@@ -323,6 +390,9 @@ class WebController extends Controller
                 $user_manager = $this->get('fos_user.user_manager');
                 $user = $user_manager->findUserByUsername($request->request->get('login_form')['username']);
 
+
+
+
                 if($user){
 
                     $encoder = $factory->getEncoder($user);
@@ -330,6 +400,12 @@ class WebController extends Controller
 
                     if($encoder->isPasswordValid($user->getPassword(), $request->request->get('login_form')['password'], $salt)) {
 
+                        if(!$user->isEnabled()) {
+                            return $this->render('Pages/homepage.html.twig', array(
+                                'noactive' => 'Votre compte n\'est pas encore active.',
+                                'user' => $user,
+                            ));
+                        }
                         $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
                         $this->get('security.token_storage')->setToken($token);
                         $this->get('session')->set('_security_main', serialize($token));

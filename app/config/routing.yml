@@ -23,6 +23,10 @@ sonata_admin_user:
 sonata_admin_devis_conf:
     path: /%admin%/app/devisconfig
 
+sonata_admin_societe_abonements:
+    path: /%admin%/app/abonements
+    defaults:  { _controller: AppBundle:Admin:abonementsPage }
+
 sonata_admin_rib:
     path: /%admin%/app/rib
 

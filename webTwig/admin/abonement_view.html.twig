@@ -1,0 +1,30 @@
+{% extends 'admin/standard_layout.html.twig' %}
+
+{% block sonata_admin_content %}
+    {{ '/public/css/abonements.html.css'|cssloader }}
+{% include '@SonataCore/FlashMessage/render.html.twig' %}
+
+
+    {% for abonement in abonements %}
+
+        <div class="col-sm-4 divabonements">
+            <div class="divabonementstitle">{{ abonement.typePro }}</div>
+            <div class="divabonementsprice">{{ abonement.price }} &euro;</div>
+            {% set abonementsarray = abonement.description|split('-')[1:] %}
+            {% for abo in  abonementsarray %}
+                <div class="divabonementsdescription">{{ abo|trim }}</div>
+            {% endfor %}
+
+        </div>
+
+    {% endfor %}
+
+    {% for abonement in abonements %}
+        <div class="col-sm-4 divabonements">
+            <div class="divabonementsvalider"><button data="{{ abonement.typePro }}" class="btn btn-success">Valider</button></div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
+
+

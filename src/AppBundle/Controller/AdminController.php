@@ -13,9 +13,11 @@ use AppBundle\Entity\DemandeDevis;
 use AppBundle\Entity\DevisConfig;
 use AppBundle\Entity\DevisEnvoye;
 use AppBundle\Entity\MesDevis;
+use AppBundle\Entity\Offer;
 use AppBundle\Entity\RIB;
 use AppBundle\Entity\User;
 use AppBundle\Field\CustomFiledInterface;
+use AppBundle\Form\AbonementsForm;
 use AppBundle\Form\DevisConfigForm;
 use AppBundle\Form\MaSocieteForm;
 use AppBundle\Form\RibForm;
@@ -584,6 +586,35 @@ class AdminController extends Controller
             'user' => $this->userEntity
         ));
 
+    }
+
+    /**
+     * @Security("is_granted('ROLE_SOCIETE')")
+     */
+    public function abonementsPageAction(Request $request) {
+
+
+        $abonements = $this->getDoctrine()
+            ->getRepository(Offer::class)->findAll();
+
+
+        /*
+        dump($abonements);
+
+        $arrayAbonements = [];
+        foreach ($abonements as $key=>$value) {
+            $arrayAbonements[] = [
+                'price' => $value->getPrice()
+            ];
+        }
+
+        dump($arrayAbonements);
+            exit();
+
+        */
+        return $this->render('admin/abonement_view.html.twig', array(
+            'abonements' => $abonements,
+        ));
     }
 
     /**
