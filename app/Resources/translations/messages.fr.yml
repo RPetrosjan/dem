@@ -79,3 +79,7 @@ societe.abonements: Abonements
 typepro: Type
 save: Valider
 price: Prix
+danger: Erreur
+warning: Attention
+info: Info
+success: Succès

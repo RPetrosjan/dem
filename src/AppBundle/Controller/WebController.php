@@ -9,7 +9,6 @@
 namespace AppBundle\Controller;
 
 
-use AppBundle\Admin\UsersAdmin;
 use AppBundle\Entity\DemandeDevis;
 use AppBundle\Entity\Offer;
 use AppBundle\Entity\OptimizerCss;
@@ -23,7 +22,6 @@ use Ddeboer\Imap\Search\Flag\Unseen;
 use Ddeboer\Imap\SearchExpression;
 use Doctrine\ORM\EntityManagerInterface;
 use DOMDocument;
-use Monolog\Handler\SyslogUdp\UdpSocket;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -345,6 +343,11 @@ class WebController extends Controller
                 $entityManager->flush();
 
 
+                ///admin.send.mail.devis
+                $sendDevisMailservice = $this->container->get('admin.send.mail.devis');
+
+                $reponse = $sendDevisMailservice->sendNewUserNotification('Notification nouveaux client', $data);
+
                 $this->addFlash('success', 'Votre compte a ete cree avec succes');
                 return $this->redirectToRoute('homepage');
             }
@@ -423,7 +426,8 @@ class WebController extends Controller
 
                     }
                     else{
-                        $user=null;
+                        $user = null;
+                        $this->addFlash('danger', 'Identifiant ou Mot de Passe ncorrect');
                     }
                 }
             }

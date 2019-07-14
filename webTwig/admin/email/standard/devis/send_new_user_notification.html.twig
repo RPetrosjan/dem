@@ -1,0 +1,22 @@
+{% include('admin/email/standard/devis/block/header.html.twig') %}
+
+
+{% set boderText = '
+<div style="width: 490px; background-color: #f7f3f3;padding-top: 35px; padding-left: 20px; padding-bottom: 35px; padding-right: 10px; margin-top: 5px">
+    Bonjour,
+    <div>Voici la nouvelle notification nouvelle utilisateur</div>
+    <div>Societe <b><span style="color: #c90000;">'~societe_info.companyName~'</span> &euro;</b>. </div>
+    <div>Nom <b><span style="color: #c90000;">'~societe_info.firstName~'</span> &euro;</b>. </div>
+    <div>Prenom <b><span style="color: #c90000;">'~societe_info.lastName~'</span> &euro;</b>. </div>
+    <div>Email <b><span style="color: #c90000;">'~societe_info.companyEmail~'</span> &euro;</b>. </div>
+</div>
+' %}
+
+ {% if formatEmail == 'html' %}
+     {{ boderText|raw }}
+ {% else %}
+     {{ boderText|striptags|nl2br }}
+ {% endif %}
+
+
+{% include('admin/email/standard/devis/block/footer.html.twig') %}

@@ -40,10 +40,54 @@ class SendEmailDevisClient
 
     /**
      * @param $titleMessage
+     * @param User $user
+     * @throws \Twig\Error\Error
+     */
+    public function sendNewUserNotification($titleMessage, User $user) {
+        $message_html_twig = 'admin/email/standard/devis/send_new_user_notification.html.twig';
+
+
+        $message = (new \Swift_Message($titleMessage))
+            ->setFrom([$this->container->getParameter('mailer_user') => 'Espace Demenageur'])
+            ->setTo($this->container->getParameter('mailer_user'))
+            ->setBody(
+                $this->renderView->render(
+                    $message_html_twig, [
+                        'societe_info' => $user,
+                        'formatEmail' => 'html'
+                    ]
+                ),
+                'text/html'
+            )
+            ->addPart(
+                $this->renderView->render(
+                    $message_html_twig, [
+                        'societe_info' => $user,
+                        'formatEmail' => 'text'
+                    ]
+                ),
+                'text/plain'
+            )
+        ;
+
+        if ($reponse = $this->mailer->send($message)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
+     * @param $titleMessage
      * @param $devis
      * @param User $societe
-     * @param array $devisconf
+     * @param User|null $userEntityGroup
+     * @param array|null $devisConfig
      * @param array $files
+     * @param null $message_html_twig
+     * @return bool
+     * @throws \Twig\Error\Error
      */
     public function sendDevisEmailClient($titleMessage, $devis, User $societe, User $userEntityGroup = null, array $devisConfig = null, array $files = [], $message_html_twig = null) {
 
