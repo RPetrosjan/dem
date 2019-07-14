@@ -331,12 +331,13 @@ class WebController extends Controller
                 /** @var User $data */
                 $data = $registrationForm->getData();
 
+                // Add ROLE_SOCETE to user
+                 $data->addRole('ROLE_SOCIETE');
+
                 // Add pro for first time a user
                 $offer = $this->em->getRepository(Offer::class)->findOneBy([
                         'code' => 'pro',
                 ]);
-
-
                 $data->setOfferPro($offer);
                 $data->setDateStartOffer(new DateTime('now'));
                 $data->setDateEndOffer(new DateTime(date('Y-m-d', strtotime('+1 months'))));
@@ -373,6 +374,9 @@ class WebController extends Controller
         // Get if user is Autheticated?
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
+        // success danger warning info
+        ///$this->addFlash('success', 'Votre compte a ete cree avec succes');
+
         $form = null;
         $usertwig = null;
         if(!is_object($user))
@@ -389,9 +393,6 @@ class WebController extends Controller
                 $factory = $this->get('security.encoder_factory');
                 $user_manager = $this->get('fos_user.user_manager');
                 $user = $user_manager->findUserByUsername($request->request->get('login_form')['username']);
-
-
-
 
                 if($user){
 
@@ -421,6 +422,9 @@ class WebController extends Controller
                         $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
 
                     }
+                    else{
+                        $user=null;
+                    }
                 }
             }
 
@@ -429,6 +433,7 @@ class WebController extends Controller
                 'buttonText' => '<a>Creer nouvelle compte</a>',
             ];
         }
+
 
         if(is_object($user) && !empty($user->getUserName()) && is_null($user->getFirstName())) {
             $loginForm = new User();
